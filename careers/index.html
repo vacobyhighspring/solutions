@@ -1151,11 +1151,13 @@ function save(html){var blob=new Blob([html],{type:"text/html"}),u=URL.createObj
 function snapshot(){var c=document.documentElement.cloneNode(true);c.className=c.className.replace(/\bjs\b/g,"").trim();[].slice.call(c.querySelectorAll(".on,.in,.open,.fl,.pick,.hit,.lock")).forEach(function(e){if(!e.matches(".xt[data-i='0'],.xpn[data-i='0'],.lt[data-t='0']"))e.classList.remove("on","in","open","fl","pick","hit");});var b=c.querySelector("body");if(b)b.classList.remove("lock");return "<!DOCTYPE html>\n"+c.outerHTML;}
 dl.addEventListener("click",function(){if(hosted&&window.fetch){fetch(location.href.split("#")[0],{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.text();}).then(save).catch(function(){save(snapshot());});}else save(snapshot());});
 if(!hosted)document.getElementById("shnote").textContent="This link goes live once the page is published.";})();
-/* open every link at the top: ignore section anchors on load, and keep anchors out of the address bar */
+/* incoming links: #who/#top open at the top; other section links go to that section; role links open the quick view */
 (function(){try{if("scrollRestoration" in history)history.scrollRestoration="manual";}catch(e){}
-var h=location.hash;if(h&&!/^#open-/.test(h)){try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}
- var top=function(){scrollTo(0,0);};top();addEventListener("load",function(){top();setTimeout(top,60);});}
-[].slice.call(document.querySelectorAll('a[href^="#"]')).forEach(function(a){a.addEventListener("click",function(e){var id=a.getAttribute("href");if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();t.scrollIntoView({behavior:RM?"auto":"smooth"});});});})();
+var h=location.hash;
+if(h&&!/^#open-/.test(h)){var t=null;try{t=document.querySelector(h);}catch(e){}
+ if(h==="#who"||h==="#top"||!t){try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}var top=function(){scrollTo(0,0);};top();addEventListener("load",function(){top();setTimeout(top,60);});}
+ else{var go=function(){t.scrollIntoView({behavior:"auto"});};addEventListener("load",function(){go();setTimeout(go,300);});}}
+[].slice.call(document.querySelectorAll('a[href^="#"]')).forEach(function(a){a.addEventListener("click",function(e){var id=a.getAttribute("href");if(id.length<2)return;var t=null;try{t=document.querySelector(id);}catch(x){}if(!t)return;e.preventDefault();t.scrollIntoView({behavior:RM?"auto":"smooth"});});});})();
 
 })();
 </script></body></html>
