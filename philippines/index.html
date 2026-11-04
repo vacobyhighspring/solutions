@@ -371,4 +371,8 @@ upd(g.querySelector(".on"));})();
 /* count-up stats */
 (function(){if(RM)return;var bs=[].slice.call(document.querySelectorAll(".stats b"));bs.forEach(function(b){var t=b.textContent,m=t.match(/^(\d+)(.*)$/);if(!m)return;var n=+m[1],suf=m[2],st=null;b.textContent="0"+suf;
  var io2=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;io2.disconnect();requestAnimationFrame(function f(ts){if(!st)st=ts;var p=Math.min(1,(ts-st)/1300);b.textContent=Math.round(n*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(f);});});io2.observe(b);});})();
+/* open every link at the top */
+(function(){try{if("scrollRestoration" in history)history.scrollRestoration="manual";}catch(e){}
+if(location.hash){try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}var top=function(){scrollTo(0,0);};top();addEventListener("load",function(){top();setTimeout(top,60);});}
+[].slice.call(document.querySelectorAll('a[href^="#"]')).forEach(function(a){a.addEventListener("click",function(e){var id=a.getAttribute("href");if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();nav.classList.remove("open");t.scrollIntoView({behavior:RM?"auto":"smooth"});});});})();
 })();</script></body></html>
