@@ -828,14 +828,14 @@ function yoy(a,b,c){if(!(a>0))return "";var g=(b-a)/a*100;return '<span class="y
 function renderFc(I,bonus,P){var g2=num($("fcG").value)/100,g3=num($("fcG3").value)/100,ra=num($("fcR").value)/100,gf=[1,1+g2,(1+g2)*(1+g3)],Y=[1,2,3].map(function(y){var bg=I.g0*gf[y-1],u=upYear(y);return {y:y,bg:bg,u:u,g:bg+u,b:I.b*Math.pow(1+ra,y-1)};});
  $("fcYears").innerHTML=Y.map(function(o,k){return '<div><span>Year '+o.y+' GM</span><b>'+usd(o.g)+'</b>'+(k?yoy(Y[k-1].g,o.g):'<span class="yy na">Starting year</span>')+'<small>'+(o.u?usd(o.bg)+' + '+usd(o.u)+' up-sell':'No up-sell GM')+'</small></div>';}).join("");
  var rows=P.map(function(p){var d=Y.map(function(o){var q=p;if(o.y>1){q=Object.assign({},p,{draw:{type:"none",amt:0,mo:12}});if(p.base!=null&&p.base!=="")q.base=+p.base*Math.pow(1+ra,o.y-1);}
-   return planCalc(q,o.g,o.b,o.y===1?bonus:0);}),v=d.map(function(r){return r.total;});
+   return planCalc(q,o.g,o.b,o.y===1?bonus:0);}),rc=d.map(function(r){return r.total-r.bonus;}),v=d.map(function(r){return r.total;});
    var sum=function(f){return d.reduce(function(a,r){return a+f(r);},0);};
-   return {p:p,d:d,v:v,t:v[0]+v[1]+v[2],tb:sum(function(r){return r.base;}),tc:sum(function(r){return r.comm+r.top;}),tn:sum(function(r){return r.bonus;})};}),bi=0;rows.forEach(function(r,i){if(r.t>rows[bi].t)bi=i;});
+   return {p:p,d:d,rc:rc,v:v,t:v[0]+v[1]+v[2],tb:sum(function(r){return r.base;}),tc:sum(function(r){return r.comm+r.top;}),tn:sum(function(r){return r.bonus;})};}),bi=0;rows.forEach(function(r,i){if(r.t>rows[bi].t)bi=i;});
  $("fcTot").innerHTML=rows.map(function(r,i){return '<div class="'+(i===bi?"top":"")+'" style="--pc:'+r.p.col+'"><span><i></i>'+esc(r.p.n)+'</span><b>'+usd(r.t)+'</b><small>3-year total comp</small>'+
-  '<div class="fyy"><div class="fg"><span>Year 1 to 2</span>'+yoy(r.v[0],r.v[1])+'</div><div class="fg"><span>Year 2 to 3</span>'+yoy(r.v[1],r.v[2])+'</div></div><div class="fsp"><em>Base '+usd(r.tb)+'</em><em>Commission '+usd(r.tc)+'</em><em>Bonus '+usd(r.tn)+'</em></div></div>';}).join("");
- $("fcTable").innerHTML='<div class="fr fh"><span>Total comp by year (YoY change)</span><span>Year 1</span><span>Year 2</span><span>Year 3</span><span>3-year total</span></div>'+rows.map(function(r,i){
+  '<div class="fyy"><div class="fg"><span>Base + commission, year 1 to 2</span>'+yoy(r.rc[0],r.rc[1])+'</div><div class="fg"><span>Year 2 to 3</span>'+yoy(r.rc[1],r.rc[2])+'</div></div><div class="fsp"><em>Base '+usd(r.tb)+'</em><em>Commission '+usd(r.tc)+'</em><em>Bonus '+usd(r.tn)+'</em></div></div>';}).join("");
+ $("fcTable").innerHTML='<div class="fr fh"><span>Total comp by year (YoY on base + commission)</span><span>Year 1</span><span>Year 2</span><span>Year 3</span><span>3-year total</span></div>'+rows.map(function(r,i){
   return '<div class="fr'+(i===bi?" top":"")+'"><span class="fp"><i style="background:'+r.p.col+'"></i>'+esc(r.p.n)+(i===bi?'<em>Most over 3 years</em>':'')+'</span>'+
-  r.d.map(function(x,k){return '<span><small class="ml">Year '+(k+1)+'</small><b>'+usd(x.total)+'</b>'+(k?yoy(r.v[k-1],x.total,1):'')+'<small class="fb">'+usd(x.base)+' base<br>'+usd(x.comm+x.top)+' commission'+(x.bonus?'<br>'+usd(x.bonus)+' bonus':'')+'</small></span>';}).join("")+
+  r.d.map(function(x,k){return '<span><small class="ml">Year '+(k+1)+'</small><b>'+usd(x.total)+'</b>'+(k?yoy(r.rc[k-1],r.rc[k],1):'')+'<small class="fb">'+usd(x.base)+' base<br>'+usd(x.comm+x.top)+' commission'+(x.bonus?'<br>'+usd(x.bonus)+' bonus':'')+'</small></span>';}).join("")+
   '<span class="ft"><small class="ml">3-year total comp</small><b>'+usd(r.t)+'</b></span></div>';}).join("");
  var W=innerWidth<640?400:800,H=280,P0=56,PB=28,max=0;rows.forEach(function(r){r.v.forEach(function(v){max=Math.max(max,v);});});max=Math.ceil(max/100000)*100000||100000;
  var yl=function(v){return v>=1e6?"$"+(v/1e6).toFixed(1)+"M":"$"+Math.round(v/1e3)+"K";};P0=Math.max(46,14+7*yl(max).length);
@@ -845,8 +845,8 @@ function renderFc(I,bonus,P){var g2=num($("fcG").value)/100,g3=num($("fcG3").val
   s+='<text x="'+(P0+gw*yi+gw/2)+'" y="'+(H-8)+'" text-anchor="middle" font-size="12" font-weight="700" fill="#0d2233">Year '+(yi+1)+'</text>';});
  $("fcChart").setAttribute("viewBox","0 0 "+W+" "+H);$("fcChart").innerHTML=s;
  $("fcLeg").innerHTML=rows.map(function(r){return '<span><i style="background:'+r.p.col+'"></i>'+esc(r.p.n)+'</span>';}).join("");
- var notes=["The up-sell year-end bonus is counted in year 1 only."];if(P.some(function(p){return p.custom&&p.draw&&p.draw.type!=="none";}))notes.push("Draws apply in year 1 only.");
- notes.push("YoY is the change from the year before. Year 2 often dips because the up-sell bonus lands in year 1.");notes.push("Growth and raise rates are assumptions you set, not company figures.");$("fcNote").textContent=notes.join(" ");}
+ var notes=[];if(P.some(function(p){return p.custom&&p.draw&&p.draw.type!=="none";}))notes.push("Draws apply in year 1 only.");
+ notes.push("YoY compares base + commission from one year to the next. The up-sell bonus is a one-time year-end payment in year 1, so it's shown in the totals but left out of YoY.");if(!num(base.value))notes.push("Base salary is blank in step 1, so these totals are commission and bonus only.");notes.push("Growth and raise rates are assumptions you set, not company figures.");$("fcNote").textContent=notes.join(" ");}
 [$("fcG"),$("fcG3"),$("fcR")].forEach(function(e){e.addEventListener("input",render);});
 /* --- month by month --- */
 function niceMax(v){if(!(v>0))return 1000;var raw=v/4,p=Math.pow(10,Math.floor(Math.log10(raw))),st=[1,2,2.5,5,10].map(function(m){return m*p;}).filter(function(x){return x>=raw;})[0];return st*4;}
