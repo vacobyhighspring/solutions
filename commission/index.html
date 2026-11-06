@@ -585,7 +585,7 @@ body{background:radial-gradient(1100px 520px at 88% -8%,rgba(45,191,249,.16),tra
 <div class="card fc" id="fcCard"><div class="sh"><em>3Y</em><div><h2>3-year total comp forecast</h2><p class="muted">Your total comp here over the next three years: base, commission, and bonus. Year 1 uses everything above. Years 2 and 3 grow your contract and direct hire GM by the targets you set for each year, and up-sell deals keep adding GM for as long as they flow.</p></div></div>
 <div class="fcin"><div class="fld"><label for="fcG">Year 2 GM growth target</label><div class="money"><input id="fcG" type="text" inputmode="decimal" value="10"><span class="suf">%</span></div></div>
 <div class="fld"><label for="fcG3">Year 3 GM growth target</label><div class="money"><input id="fcG3" type="text" inputmode="decimal" value="10"><span class="suf">%</span></div></div>
-<div class="fld"><label for="fcR">Base salary raise per year</label><div class="money"><input id="fcR" type="text" inputmode="decimal" value="0"><span class="suf">%</span></div></div></div>
+<div class="fld"><label for="fcO">Other bonuses per year</label><div class="money"><span>$</span><input id="fcO" type="text" inputmode="numeric" value="0"></div></div></div>
 <div class="fcy" id="fcYears"></div>
 <div class="fctt" id="fcTot"></div>
 <div class="fct" id="fcTable"></div>
@@ -862,10 +862,10 @@ base.addEventListener("input",render);addEventListener("resize",function(){clear
 /* --- 3-year forecast --- */
 function upYear(y){if(!$("upAdd").checked)return 0;return ups.map(function(d){var c=upCalc(d),M=Math.max(d.m,1),mi=Math.max(Math.min(M,12*y)-12*(y-1),0);return c.alloc/M*mi;}).reduce(function(a,v){return a+v;},0);}
 function yoy(a,b,c){if(!(a>0))return "";var g=(b-a)/a*100;return '<span class="yy '+(g>=0?"up":"dn")+(c?" c":"")+'" title="Change from the year before">'+(g>=0?"&#9650; +":"&#9660; &minus;")+Math.abs(g).toFixed(1)+'%'+(c?'':' YoY')+'</span>';}
-function renderFc(I,bonus,P){var g2=num($("fcG").value)/100,g3=num($("fcG3").value)/100,ra=num($("fcR").value)/100,gf=[1,1+g2,(1+g2)*(1+g3)],Y=[1,2,3].map(function(y){var bg=I.g0*gf[y-1],u=upYear(y);return {y:y,bg:bg,u:u,g:bg+u,b:I.b*Math.pow(1+ra,y-1)};});
+function renderFc(I,bonus,P){var g2=num($("fcG").value)/100,g3=num($("fcG3").value)/100,ra=0,ob=Math.max(num($("fcO").value),0),gf=[1,1+g2,(1+g2)*(1+g3)],Y=[1,2,3].map(function(y){var bg=I.g0*gf[y-1],u=upYear(y);return {y:y,bg:bg,u:u,g:bg+u,b:I.b*Math.pow(1+ra,y-1)};});
  $("fcYears").innerHTML=Y.map(function(o,k){return '<div><span>Year '+o.y+' GM</span><b>'+usd(o.g)+'</b>'+(k?yoy(Y[k-1].g,o.g):'<span class="yy na">Starting year</span>')+'<small>'+(o.u?usd(o.bg)+' + '+usd(o.u)+' up-sell':'No up-sell GM')+'</small></div>';}).join("");
  var rows=P.map(function(p){var d=Y.map(function(o){var q=p;if(o.y>1){q=Object.assign({},p,{draw:{type:"none",amt:0,mo:12}});if(p.base!=null&&p.base!=="")q.base=+p.base*Math.pow(1+ra,o.y-1);}
-   return planCalc(q,o.g,o.b,o.y===1?bonus:0);}),rc=d.map(function(r){return r.total-r.bonus;}),v=d.map(function(r){return r.total;});
+   var r=Object.assign({},planCalc(q,o.g,o.b,o.y===1?bonus:0));r.bonus=(r.bonus||0)+ob;r.total+=ob;return r;}),rc=d.map(function(r){return r.total-r.bonus;}),v=d.map(function(r){return r.total;});
    var sum=function(f){return d.reduce(function(a,r){return a+f(r);},0);};
    return {p:p,d:d,rc:rc,v:v,t:v[0]+v[1]+v[2],tb:sum(function(r){return r.base;}),tc:sum(function(r){return r.comm+r.top;}),tn:sum(function(r){return r.bonus;})};}),bi=0;rows.forEach(function(r,i){if(r.t>rows[bi].t)bi=i;});
  $("fcTot").innerHTML=rows.map(function(r,i){return '<div class="'+(i===bi?"top":"")+'" style="--pc:'+r.p.col+'"><span><i></i>'+esc(r.p.n)+'</span><b>'+usd(r.t)+'</b><small>3-year total comp</small>'+
@@ -883,8 +883,8 @@ function renderFc(I,bonus,P){var g2=num($("fcG").value)/100,g3=num($("fcG3").val
  $("fcChart").setAttribute("viewBox","0 0 "+W+" "+H);$("fcChart").innerHTML=s;
  $("fcLeg").innerHTML=rows.map(function(r){return '<span><i style="background:'+r.p.col+'"></i>'+esc(r.p.n)+'</span>';}).join("");
  var notes=[];if(P.some(function(p){return p.custom&&p.draw&&p.draw.type!=="none";}))notes.push("Draws apply in year 1 only.");
- notes.push("YoY compares base + commission from one year to the next. The up-sell bonus is a one-time year-end payment in year 1, so it's shown in the totals but left out of YoY.");if(!num(base.value))notes.push("Base salary is blank in step 1, so these totals are commission and bonus only.");notes.push("Growth and raise rates are assumptions you set, not company figures.");$("fcNote").textContent=notes.join(" ");}
-[$("fcG"),$("fcG3"),$("fcR")].forEach(function(e){e.addEventListener("input",render);});
+ notes.push("YoY compares base + commission from one year to the next. Bonuses (the one-time year-1 up-sell bonus and any other bonuses you add, every year) are in the totals but left out of YoY. Base salary stays the same each year.");if(!num(base.value))notes.push("Base salary is blank in step 1, so these totals are commission and bonus only.");notes.push("Growth rates and other bonuses are assumptions you set, not company figures.");$("fcNote").textContent=notes.join(" ");}
+[$("fcG"),$("fcG3"),$("fcO")].forEach(function(e){e.addEventListener("input",render);});$("fcO").addEventListener("focusout",function(){this.value=num(this.value).toLocaleString("en-US");});
 /* --- month by month --- */
 function niceMax(v){if(!(v>0))return 1000;var raw=v/4,p=Math.pow(10,Math.floor(Math.log10(raw))),st=[1,2,2.5,5,10].map(function(m){return m*p;}).filter(function(x){return x>=raw;})[0];return st*4;}
 var mvSel=null;
@@ -986,7 +986,7 @@ addEventListener("keydown",function(e){if(e.key==="Escape")op(false);});
 var hosted=/^https?:/.test(location.protocol),pageUrl=location.href.split("#")[0].split("?")[0];$("svu").value=hosted?pageUrl:"This link works once the page is published";
 function b64e(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
 function b64d(t){t=t.replace(/-/g,"+").replace(/_/g,"/");while(t.length%4)t+="=";return JSON.parse(decodeURIComponent(escape(atob(t))));}
-function scenState(){return {v:1,b:base.value,c:crow,d:dh,u:ups,ua:$("upAdd").checked,f:[$("fcG").value,$("fcG3").value,$("fcR").value],g:window.goalGet?window.goalGet():null,x:custom.map(function(p){return {k:p.k,n:p.n,col:p.col,bonus:p.bonus,custom:true,base:p.base,retro:!!p.retro,draw:p.draw,tiers:p.tiers.map(function(t){return {lo:t.lo,hi:t.hi===Infinity?null:t.hi,r:t.r};})};})};}
+function scenState(){return {v:1,b:base.value,c:crow,d:dh,u:ups,ua:$("upAdd").checked,f:[$("fcG").value,$("fcG3").value,null,$("fcO").value],g:window.goalGet?window.goalGet():null,x:custom.map(function(p){return {k:p.k,n:p.n,col:p.col,bonus:p.bonus,custom:true,base:p.base,retro:!!p.retro,draw:p.draw,tiers:p.tiers.map(function(t){return {lo:t.lo,hi:t.hi===Infinity?null:t.hi,r:t.r};})};})};}
 function scenUrl(){return pageUrl+"?s="+b64e(scenState());}window.vhScenario=scenUrl;
 $("svs").addEventListener("click",function(){var b=this;if(!hosted){flash(b,"Works once published","Copy my numbers link");return;}var u=scenUrl();function ok(){flash(b,"Copied!","Copy my numbers link");}if(navigator.clipboard)navigator.clipboard.writeText(u).then(ok,function(){prompt("Copy this link",u);});else prompt("Copy this link",u);});
 $("svp").addEventListener("click",function(){op(false);setTimeout(function(){print();},150);});
@@ -1290,7 +1290,7 @@ var SAVEKEY="vh_calc_state";
 function applyState(S,withPlans){
  if(S.b!=null)base.value=S.b;
  if(S.c){crow.length=0;S.c.forEach(function(r){crow.push(cobFix(r));});}if(S.d){dh.length=0;S.d.forEach(function(r){dh.push(r);});}if(S.u){ups.length=0;S.u.forEach(function(r){ups.push(r);});}
- if(S.ua!=null)$("upAdd").checked=!!S.ua;if(S.f){$("fcG").value=S.f[0];$("fcG3").value=S.f[1];$("fcR").value=S.f[2];}
+ if(S.ua!=null)$("upAdd").checked=!!S.ua;if(S.f){$("fcG").value=S.f[0];$("fcG3").value=S.f[1];if(S.f[3]!=null)$("fcO").value=S.f[3];}
  if(withPlans&&S.x&&S.x.length){S.x.forEach(function(p){p=fromStore(p);custom=custom.filter(function(q){return q.k!==p.k;});custom.push(p);});}
  drawCobs();drawDh();drawUps();render();if(S.g&&window.goalSet)window.goalSet(S.g);}
 function banner(t,btn,fn){var n=document.createElement("div");n.className="scn";n.innerHTML=t+' <button type="button" class="lnk" id="scnX">'+btn+'</button>';document.querySelector("main").prepend(n);$("scnX").addEventListener("click",fn);}
