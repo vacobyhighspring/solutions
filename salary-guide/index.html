@@ -11,7 +11,7 @@
 body{margin:0;font-family:Figtree,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 a{color:var(--blue)}button,input,select{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
-.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1480px;margin:0 auto;padding:0 clamp(16px,3vw,40px)}
 /* header */
 .hdr{position:sticky;top:0;z-index:50;background:rgba(7,41,66,.97);backdrop-filter:blur(8px);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
 .hdri{display:flex;align-items:center;gap:18px;height:64px}
@@ -75,7 +75,7 @@ h2{font-size:clamp(28px,3.4vw,40px);line-height:1.1;margin:8px 0 12px;color:var(
 .chips a i{font-style:normal;color:var(--mut);font-weight:600}
 @media(max-width:860px){.ag{grid-template-columns:1fr}.agbox{margin-top:0}.agil .wave{opacity:.35}}
 /* explorer */
-.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0 16px}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0 16px;position:sticky;top:64px;z-index:20;padding:10px 0;background:linear-gradient(var(--bg) 80%,rgba(243,246,249,0))}
 .tabs{display:flex;flex-wrap:wrap;gap:6px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:5px}
 .tabs button{border:0;background:transparent;border-radius:10px;padding:9px 14px;font-weight:800;font-size:14px;color:var(--mut);cursor:pointer}
 .tabs button.on{background:var(--navy);color:#fff}
@@ -85,7 +85,7 @@ h2{font-size:clamp(28px,3.4vw,40px);line-height:1.1;margin:8px 0 12px;color:var(
 .srch input{border:0;outline:0;flex:1;min-width:0;background:transparent;font-size:15px}
 .srt{height:48px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:0 12px;font-weight:700;font-size:14px}
 .tbl{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
-.th,.tr{display:grid;grid-template-columns:minmax(200px,1.5fr) 100px 100px 110px minmax(200px,1.6fr);gap:14px;align-items:center;padding:12px 20px}
+.th,.tr{display:grid;grid-template-columns:minmax(240px,1.4fr) 104px 104px 132px minmax(260px,2fr) 44px;gap:14px;align-items:center;padding:12px 20px}
 .th{background:var(--navy);color:#fff;font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .th .n{text-align:right}
 .grp{padding:14px 20px 8px;font-weight:900;color:var(--navy);font-size:15px;background:#f8fafc;border-top:1px solid var(--line);display:flex;gap:10px;align-items:baseline}
@@ -99,7 +99,7 @@ h2{font-size:clamp(28px,3.4vw,40px);line-height:1.1;margin:8px 0 12px;color:var(
 .tr .n.a{font-weight:900;color:var(--ink)}
 .bar{position:relative;height:30px}
 .bar .tk{position:absolute;top:13px;left:0;right:0;height:4px;background:#edf1f5;border-radius:4px}
-.bar .rg{position:absolute;top:9px;height:12px;border-radius:12px;background:linear-gradient(90deg,#9fd4f0,var(--blue))}
+.bar .rg{position:absolute;top:8px;height:14px;border-radius:12px;background:linear-gradient(90deg,#9fd4f0,var(--blue))}
 .bar .av{position:absolute;top:4px;width:4px;height:22px;margin-left:-2px;background:var(--orange);border-radius:3px;box-shadow:0 0 0 2px #fff}
 .ax{display:flex;justify-content:space-between;font-size:11.5px;color:#94a3b2;font-weight:700}
 .th .ax{color:#9fb6c8}
@@ -108,7 +108,7 @@ h2{font-size:clamp(28px,3.4vw,40px);line-height:1.1;margin:8px 0 12px;color:var(
 .leg i{display:inline-block;vertical-align:middle;margin-right:6px}
 .leg .l1{width:26px;height:10px;border-radius:10px;background:linear-gradient(90deg,#9fd4f0,var(--blue))}
 .leg .l2{width:4px;height:16px;background:var(--orange);border-radius:3px}
-@media(max-width:820px){.th{display:none}.tr{grid-template-columns:1fr 1fr 1fr;gap:4px 10px;padding:14px 16px}.tr .r{grid-column:1/-1}.tr .n{text-align:left;font-size:14px}.tr .n::before{content:attr(data-l);display:block;font-size:11px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}.tr .bar{grid-column:1/-1}}
+@media(max-width:820px){.th{display:none}.tr{grid-template-columns:1fr 1fr 1fr 44px;gap:4px 10px;padding:14px 16px}.tr .r{grid-column:1/-1}.tr .add{grid-column:4;grid-row:2}.tr .n{text-align:left;font-size:14px}.tr .n::before{content:attr(data-l);display:block;font-size:11px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}.tr .bar{grid-column:1/-1}}
 /* detail drawer */
 .det{position:fixed;right:20px;bottom:20px;width:min(400px,calc(100vw - 40px));background:#fff;border-radius:20px;box-shadow:0 24px 60px rgba(7,41,66,.28);border:1px solid var(--line);z-index:60;padding:22px;transform:translateY(130%);transition:transform .3s ease}
 .det.open{transform:none}
@@ -185,7 +185,48 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;z-index:80;transition:transform .3s}
 .toast.on{transform:translate(-50%,0)}
 .rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}.rv{opacity:1;transform:none}}
+/* v2: hero finder, add buttons, budget pill, glow */
+.hero{padding:64px 0 72px}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;pointer-events:none}
+.hero::before{width:520px;height:520px;right:-120px;top:-180px;background:radial-gradient(circle,#F95C15,transparent 65%);animation:drift 14s ease-in-out infinite alternate}
+.hero::after{width:460px;height:460px;left:-160px;bottom:-220px;background:radial-gradient(circle,#2DBFF9,transparent 65%);animation:drift 18s ease-in-out infinite alternate-reverse}
+@keyframes drift{to{transform:translate(-60px,40px) scale(1.1)}}
+.hero .wrap{grid-template-columns:1.15fr .85fr}
+.finder{position:relative;max-width:640px;margin:0 0 14px}
+.finder label{display:flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border-radius:16px;padding:0 8px 0 18px;height:62px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.finder label svg{color:var(--orange);flex:none}
+.finder input{flex:1;min-width:0;border:0;outline:0;font-size:17px;font-weight:600;background:transparent}
+.finder kbd{font:700 12px Figtree,sans-serif;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:3px 7px;margin-right:6px}
+.sugg{position:absolute;left:0;right:0;top:68px;background:#fff;color:var(--ink);border-radius:16px;box-shadow:0 24px 50px rgba(0,0,0,.3);overflow:hidden;z-index:30;display:none}
+.sugg.on{display:block}
+.sugg button{display:grid;grid-template-columns:1fr auto;gap:2px 12px;width:100%;text-align:left;border:0;background:#fff;padding:11px 18px;cursor:pointer;border-top:1px solid var(--line)}
+.sugg button:first-child{border-top:0}
+.sugg button:hover,.sugg button.act{background:#fff4ee}
+.sugg b{font-size:15px;color:var(--navy)}.sugg small{grid-column:1;font-size:12.5px;color:var(--mut)}
+.sugg em{grid-row:1/3;grid-column:2;align-self:center;font-style:normal;font-weight:900;color:var(--orange);font-size:16px}
+.sugg .none{padding:14px 18px;color:var(--mut);font-size:14px}
+.pop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:26px}
+.pop span{font-size:13px;color:#9fb6c8;font-weight:700;margin-right:2px}
+.pop button{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:7px 13px;font-weight:700;font-size:13.5px;cursor:pointer;transition:background .15s,border-color .15s}
+.pop button:hover{background:rgba(249,92,21,.25);border-color:var(--orange)}
+.art{max-width:520px}
+.st b{font-size:32px}
+.add{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--orange);font-size:20px;font-weight:800;line-height:1;cursor:pointer;display:grid;place-items:center;justify-self:end;transition:all .15s}
+.add:hover{background:var(--orange);border-color:var(--orange);color:#fff;transform:scale(1.08)}
+.add.in{background:#1f8a57;border-color:#1f8a57;color:#fff;font-size:15px}
+.tr{transition:background .15s,transform .15s}
+.tr:hover .bar .rg{filter:brightness(1.08)}
+.tbl{box-shadow:0 10px 30px rgba(7,41,66,.06)}
+.pill{position:fixed;left:50%;bottom:22px;transform:translate(-50%,140%);z-index:55;display:flex;align-items:center;gap:14px;background:var(--navy);color:#fff;border-radius:999px;padding:10px 10px 10px 20px;box-shadow:0 18px 40px rgba(7,41,66,.35);transition:transform .35s cubic-bezier(.2,.8,.2,1);text-decoration:none;font-weight:700;font-size:14.5px;white-space:nowrap}
+.pill.on{transform:translate(-50%,0)}
+.pill b{color:var(--orange2);font-size:16px}
+.pill i{font-style:normal;background:var(--orange);border-radius:999px;padding:8px 14px;font-weight:800}
+body.det-open .pill{transform:translate(-50%,140%)}
+.cc{transition:transform .2s,box-shadow .2s}.cc:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(7,41,66,.1)}
+.cgrid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+@media(max-width:560px){.pop{flex-wrap:nowrap;overflow-x:auto;margin-right:-16px;padding-right:16px;scrollbar-width:none}.pop::-webkit-scrollbar{display:none}.pop button,.pop span{flex:none}.finder label{height:56px}.finder kbd{display:none}.pill{font-size:13px;padding-left:16px}.pill .pl{display:none}}
+
+@media(prefers-reduced-motion:reduce){.hero::before,.hero::after{animation:none}*{transition:none!important;scroll-behavior:auto}.rv{opacity:1;transform:none}}
 @media print{.hdr,.det,.toast,.tools,.cta,.ptot .pa,.padd,#planner,.nav{display:none!important}.rv{opacity:1;transform:none}body{background:#fff}section{padding:20px 0;break-inside:avoid-page}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.tr{break-inside:avoid}}
 </style></head><body id="top">
 <header class="hdr"><div class="wrap hdri"><a class="back" href="../"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="bl">All solutions</span></a>
@@ -198,7 +239,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <h1><small>2027</small>Salary Insights<b>Guide</b></h1>
 <div class="loc">New York Metro</div>
 <p class="lede">Base salary ranges for 45 in-demand Accounting &amp; Finance, Accounting Operations, HR &amp; Administrative, and Financial Services roles. Built on Vaco&rsquo;s placement data and updated for 2027 with public market data and employer pay-raise projections.</p>
-<div class="cta"><a class="btn o" href="#data">Explore salaries</a><a class="btn w" href="#planner">Plan a hiring budget</a><button type="button" class="btn l" id="pdf">Save as PDF</button></div>
+<div class="finder"><label><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="hq" type="search" autocomplete="off" placeholder="Look up a role, like Controller" aria-label="Look up a role" aria-controls="sugg"><kbd>/</kbd></label><div class="sugg" id="sugg" role="listbox"></div></div>
+<div class="pop"><span>Popular:</span><button type="button" data-pop="Staff Accountant" data-sec="af">Staff Accountant</button><button type="button" data-pop="Corporate Controller" data-sec="af">Corporate Controller</button><button type="button" data-pop="Finance / FP&amp;A Manager" data-sec="af">Finance / FP&amp;A Manager</button><button type="button" data-pop="Chief Financial Officer" data-sec="af">Chief Financial Officer</button><button type="button" data-pop="Payroll Specialist" data-sec="ops">Payroll Specialist</button><button type="button" data-pop="HR Generalist" data-sec="hr">HR Generalist</button><button type="button" data-pop="Fund Accountant" data-sec="fs">Fund Accountant</button></div>
+<div class="cta"><a class="btn o" href="#data">Browse all 45 roles</a><a class="btn w" href="#planner">Plan a hiring budget</a><button type="button" class="btn l" id="pdf">Save as PDF</button></div>
 <div class="stats"><div class="st"><b>45</b><span>roles covered</span></div><div class="st"><b>4</b><span>practice areas</span></div><div class="st"><b>13</b><span>public sources checked, including the U.S. Dept. of Labor</span></div><div class="st"><b>4x</b><span>more likely to align strategy (high-agility firms)</span></div></div>
 </div><div class="art" aria-hidden="true"><div class="ph"></div><div class="sq s1"></div><div class="sq s2"></div><div class="sq s3"></div><div class="sq s4"></div></div></div></div>
 
@@ -212,9 +255,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <section id="data"><div class="wrap"><div class="rv"><div class="kick">2027 salary data &middot; New York</div><h2>Find a role</h2><p class="sub">Search or filter by practice area. The small tag next to each average shows the change from the 2026 guide. Select any role to see its range, the sources we checked, compare it across industries, or add it to your hiring budget.</p></div>
 <div class="tools"><div class="tabs" id="tabs" role="tablist" aria-label="Practice area"></div>
-<label class="srch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="q" type="search" placeholder="Search roles, like controller or payroll" aria-label="Search roles"></label>
+<label class="srch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="q" type="search" placeholder="Filter roles" aria-label="Search roles"></label>
 <select class="srt" id="srt" aria-label="Sort roles"><option value="guide">Sort: as in the guide</option><option value="hi">Average: highest first</option><option value="lo">Average: lowest first</option><option value="az">Role name: A to Z</option></select></div>
-<div class="tbl"><div class="th"><div>Role &middot; <span id="cnt"></span></div><div class="n">Low</div><div class="n">High</div><div class="n">Average</div><div id="thax"></div></div><div id="rows"></div></div>
+<div class="tbl"><div class="th"><div>Role &middot; <span id="cnt"></span></div><div class="n">Low</div><div class="n">High</div><div class="n">Average</div><div id="thax"></div><div></div></div><div id="rows"></div></div>
 <div class="leg"><span><i class="l1"></i>Salary range, low to high</span><span><i class="l2"></i>Average</span><span>Base annual salary only. Bonuses, profit sharing and benefits are not included.</span></div>
 </div></section>
 
@@ -246,6 +289,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <footer><div class="wrap"><span>&copy; Vaco. All rights reserved. 2027 Salary Insights Guide, New York Metro.</span><span>Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Add to budget</button><button type="button" id="dCopy">Copy range</button></div></aside>
+<a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
 <script>var __SHOWCHG=true,__DATA=[{"id": "af", "name": "Accounting & Finance", "sub": "Non-financial services companies", "roles": [["Junior Accountant", 78000, 98000, 88000, 85000, ["PayScale", "Salary.com", "ZipRecruiter"]], ["Staff Accountant", 88000, 124000, 103000, 100000, ["Built In NYC", "PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Senior Accountant", 114000, 150000, 129000, 125000, ["Boutique Recruiting", "Built In NYC", "PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Accounting Manager", 135000, 181000, 160000, 155000, ["Ladders", "PayScale", "Salary.com"]], ["Assistant Controller", 135000, 186000, 171000, 165000, ["PayScale", "Salary.com"]], ["Corporate Controller", 176000, 259000, 228000, 220000, ["Boutique Recruiting", "Built In NYC", "PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Chief Accounting Officer", 274000, 348000, 316000, 300000, ["Hyperbots CAO report", "Orbyt", "PayScale", "Salary.com"]], ["Financial / FP&A Analyst", 95000, 137000, 111000, 105000, ["Boutique Recruiting", "Built In NYC", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Senior Financial / FP&A Analyst", 114000, 160000, 145000, 140000, ["Built In NYC", "PayScale", "Salary.com"]], ["Finance / FP&A Manager", 140000, 207000, 171000, 165000, ["Boutique Recruiting", "PayScale", "Salary.com"]], ["Senior Director of Finance / FP&A", 186000, 259000, 217000, 210000, ["Built In NYC", "PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Chief Financial Officer", 259000, 414000, 362000, 350000, ["Built In NYC", "PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["SEC Reporting Analyst", 119000, 155000, 135000, 130000, ["PayScale", "Salary.com"]], ["Director of SEC Reporting", 217000, 259000, 238000, 230000, ["Salary.com"]], ["Director of Internal Audit", 186000, 238000, 207000, 200000, ["PayScale", "Salary.com"]], ["Tax Accountant", 93000, 129000, 103000, 100000, ["PayScale", "Salary.com"]], ["Senior Tax Accountant", 114000, 145000, 124000, 120000, ["PayScale", "Salary.com"]], ["Property Accountant", 98000, 135000, 119000, 115000, ["PayScale", "Salary.com"]], ["Cost Accountant", 98000, 129000, 109000, 105000, ["PayScale", "Salary.com"]]]}, {"id": "ops", "name": "Accounting Operations", "sub": "", "roles": [["Accounts Payable Analyst", 77000, 98000, 88000, 85000, ["Michael Page", "PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Accounts Receivable Analyst", 83000, 103000, 88000, 85000, ["PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Billing Specialist", 67000, 88000, 77000, 75000, ["PayScale", "U.S. Dept. of Labor (BLS)"]], ["Bookkeeper", 77000, 98000, 88000, 85000, ["4 Corner Resources", "U.S. Dept. of Labor (BLS)"]], ["Credit and Collections Manager", 108000, 134000, 119000, 115000, ["PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Purchasing Manager", 95000, 137000, 116000, 110000, ["PayScale", "U.S. Dept. of Labor (BLS)"]], ["Payroll Specialist", 72000, 108000, 88000, 85000, ["PayScale", "U.S. Dept. of Labor (BLS)"]], ["Payroll Director", 139000, 248000, 191000, 185000, ["PayScale", "Salary.com"]], ["Procurement Manager", 119000, 170000, 155000, 150000, ["Glassdoor", "PayScale", "U.S. Dept. of Labor (BLS)"]]]}, {"id": "hr", "name": "Human Resources & Administrative", "sub": "", "roles": [["HR Coordinator", 67000, 93000, 77000, 75000, ["Built In NYC", "PayScale", "U.S. Dept. of Labor (BLS)"]], ["Human Resources Specialist", 77000, 108000, 98000, 95000, ["PayScale", "U.S. Dept. of Labor (BLS)"]], ["HR Generalist", 83000, 124000, 98000, 95000, ["PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]], ["Director of Human Resources", 137000, 211000, 166000, 158000, ["PayScale", "U.S. Dept. of Labor (BLS)"]], ["Senior Benefits Specialist", 67000, 108000, 93000, 90000, ["PayScale", "U.S. Dept. of Labor (BLS)"]], ["Commercial and Training Administrator", 67000, 93000, 83000, 80000, ["PayScale", "U.S. Dept. of Labor (BLS)"]], ["Executive Assistant to CEO & Office Administrator", 98000, 134000, 119000, 115000, ["Michael Page", "PayScale", "U.S. Dept. of Labor (BLS)"]]]}, {"id": "fs", "name": "Financial Services Industry", "sub": "Specialization", "roles": [["Fund Accountant", 83000, 135000, 98000, 95000, ["PayScale", "Salary.com", "Selby Jennings"]], ["Senior Fund Accountant", 119000, 145000, 135000, 130000, ["PayScale", "Selby Jennings"]], ["Investor Relations Associate", 124000, 166000, 145000, 140000, ["PayScale", "Salary.com", "Selby Jennings"]], ["Junior Accountant", 88000, 103000, 93000, 90000, ["PayScale", "Salary.com"]], ["Staff Accountant", 98000, 129000, 119000, 115000, ["Built In NYC", "PayScale", "U.S. Dept. of Labor (BLS)"]], ["Senior Accountant", 124000, 150000, 135000, 130000, ["Built In NYC", "PayScale", "U.S. Dept. of Labor (BLS)"]], ["Assistant Controller", 145000, 202000, 171000, 165000, ["PayScale"]], ["Corporate Controller", 207000, 259000, 228000, 220000, ["Built In NYC", "Glassdoor", "PayScale"]], ["Chief Accounting Officer", 285000, 369000, 322000, 305000, ["Hyperbots CAO report", "PayScale"]], ["Chief Financial Officer", 310000, 440000, 378000, 365000, ["Built In NYC", "PayScale", "Salary.com", "U.S. Dept. of Labor (BLS)"]]]}],__URL="https://vacobyhighspring.github.io/solutions/salary-guide/",__FN="Vaco by Highspring - 2027 Salary Insights Guide - New York Metro.html";
 (function(){
@@ -265,8 +309,10 @@ $("srt").onchange=function(){SORT=this.value;draw()};
 var axis='<div class="ax"><span>$60K</span><span>$160K</span><span>$260K</span><span>$360K</span><span>$440K</span></div>';
 $("thax").innerHTML=axis;
 function chg(x){if(!__SHOWCHG)return '';var d=Math.round((x.av-x.p)/x.p*100);return '<em class="cg'+(d>0?' up':d<0?' dn':'')+'" title="Change from 2026 average">'+(d>0?'+':'')+d+'%</em>'}
+function inPlan(i){return (P||[]).some(function(p){return p.i===i})}
+function syncAdds(){[].forEach.call(document.querySelectorAll('.add[data-a]'),function(b){var on=inPlan(+b.dataset.a);b.classList.toggle('in',on);b.innerHTML=on?'&#10003;':'+'})}
 function row(x,i){var fsb=x.c.id!=="fs"&&fsNames[x.n]&&x.c.id==="af"?'<span class="fs">Also in Financial Services</span>':'';
- return '<div class="tr" tabindex="0" role="button" data-i="'+i+'" aria-label="'+x.n+', average '+f(x.av)+'"><div class="r">'+x.n+fsb+'</div><div class="n" data-l="Low">'+f(x.lo)+'</div><div class="n" data-l="High">'+f(x.hi)+'</div><div class="n a" data-l="Average">'+f(x.av)+chg(x)+'</div><div class="bar"><div class="tk"></div><div class="rg" style="left:'+pc(x.lo)+';width:calc('+pc(x.hi)+' - '+pc(x.lo)+')"></div><div class="av" style="left:'+pc(x.av)+'"></div></div></div>'}
+ return '<div class="tr" tabindex="0" role="button" data-i="'+i+'" aria-label="'+x.n+', average '+f(x.av)+'"><div class="r">'+x.n+fsb+'</div><div class="n" data-l="Low">'+f(x.lo)+'</div><div class="n" data-l="High">'+f(x.hi)+'</div><div class="n a" data-l="Average">'+f(x.av)+chg(x)+'</div><div class="bar"><div class="tk"></div><div class="rg" style="left:'+pc(x.lo)+';width:calc('+pc(x.hi)+' - '+pc(x.lo)+')"></div><div class="av" style="left:'+pc(x.av)+'"></div></div><button type="button" class="add'+(inPlan(i)?' in':'')+'" data-a="'+i+'" aria-label="Add '+x.n+' to budget" title="Add to hiring budget">'+(inPlan(i)?'&#10003;':'+')+'</button></div>'}
 function draw(){var h="",cnt=0;
  var cats=CAT==="all"?D:D.filter(function(c){return c.id===CAT});
  if(SORT==="guide"){cats.forEach(function(c){var rs=all.filter(function(x){return x.c===c&&(!Q||x.n.toLowerCase().indexOf(Q)>-1)});if(!rs.length)return;cnt+=rs.length;
@@ -285,11 +331,11 @@ function open(i){var x=all[i];CUR=x;$("dC").textContent=x.c.name;$("dN").textCon
  if(x.s.length)m+="<br><span class=\"srcs\">Checked against: "+x.s.join(", ")+"</span>";
  var tw=all.filter(function(y){return y.n===x.n&&y!==x})[0];
  if(tw){var d=x.av-tw.av;m+="<br>"+(x.c.id==="fs"?"Outside financial services":"In financial services")+", the average is <b>"+f(tw.av)+"</b> ("+(d===0?"the same":(d>0?f(d)+" lower":f(-d)+" higher"))+").";}
- $("dM").innerHTML=m;$("det").classList.add("open");
+ $("dM").innerHTML=m;$("det").classList.add("open");document.body.classList.add("det-open");
  [].forEach.call(document.querySelectorAll(".tr"),function(r){r.classList.toggle("sel",+r.dataset.i===i)})}
-$("rows").addEventListener("click",function(e){var r=e.target.closest(".tr");if(r)open(+r.dataset.i)});
-$("rows").addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var r=e.target.closest(".tr");if(r){e.preventDefault();open(+r.dataset.i)}}});
-$("dX").onclick=function(){$("det").classList.remove("open");[].forEach.call(document.querySelectorAll(".tr.sel"),function(r){r.classList.remove("sel")})};
+$("rows").addEventListener("click",function(e){var a=e.target.closest(".add");if(a){e.stopPropagation();var i=+a.dataset.a;if(inPlan(i)){P=P.filter(function(p){return p.i!==i});save();pdraw();toast("Removed from your budget")}else{add(i,1);toast(all[i].n+" added to your budget")}return}var r=e.target.closest(".tr");if(r)open(+r.dataset.i)});
+$("rows").addEventListener("keydown",function(e){if(e.target.closest(".add"))return;if(e.key==="Enter"||e.key===" "){var r=e.target.closest(".tr");if(r){e.preventDefault();open(+r.dataset.i)}}});
+$("dX").onclick=function(){$("det").classList.remove("open");document.body.classList.remove("det-open");[].forEach.call(document.querySelectorAll(".tr.sel"),function(r){r.classList.remove("sel")})};
 $("dAdd").onclick=function(){if(CUR){add(all.indexOf(CUR),1);toast("Added to your hiring budget");location.hash="#planner"}};
 $("dCopy").onclick=function(){if(!CUR)return;var t=CUR.n+" ("+CUR.c.name+"), New York Metro 2027: "+f(CUR.lo)+" to "+f(CUR.hi)+", average "+f(CUR.av)+" base salary. Source: Vaco by Highspring 2027 Salary Insights Guide.";copy(t)};
 document.addEventListener("keydown",function(e){if(e.key==="Escape")$("dX").click()});
@@ -307,8 +353,9 @@ $("pAdd").onclick=function(){add(+sel.value,+$("pN").value)};
 function pdraw(){var lo=0,hi=0,av=0,hc=0;
  $("plist").innerHTML=P.length?P.map(function(p,j){var x=all[p.i];lo+=x.lo*p.n;hi+=x.hi*p.n;av+=x.av*p.n;hc+=p.n;
   return '<div class="prow"><div><b>'+x.n+'</b><small>'+x.c.name+' · '+f(x.av)+' average</small></div><input type="number" min="1" max="99" value="'+p.n+'" data-j="'+j+'" aria-label="Number of hires"><div class="t">'+f(x.av*p.n)+'</div><button type="button" data-x="'+j+'" aria-label="Remove">×</button></div>'}).join(""):'<div class="pempty">Add the roles you plan to hire to see a total base salary budget.</div>';
- $("tA").textContent=f(av);$("tR").textContent=P.length?f(lo)+" to "+f(hi):"Low to high range";$("tH").textContent=hc;$("tP").textContent=hc?f(av/hc):"$0"}
-$("plist").addEventListener("input",function(e){var j=e.target.dataset.j;if(j!=null){P[j].n=Math.max(1,Math.min(99,+e.target.value||1));save();var x=all[P[j].i];e.target.nextElementSibling.textContent=f(x.av*P[j].n);var lo=0,hi=0,av=0,hc=0;P.forEach(function(p){var y=all[p.i];lo+=y.lo*p.n;hi+=y.hi*p.n;av+=y.av*p.n;hc+=p.n});$("tA").textContent=f(av);$("tR").textContent=f(lo)+" to "+f(hi);$("tH").textContent=hc;$("tP").textContent=f(av/hc)}});
+ $("tA").textContent=f(av);$("tR").textContent=P.length?f(lo)+" to "+f(hi):"Low to high range";$("tH").textContent=hc;$("tP").textContent=hc?f(av/hc):"$0";pill(av,hc);syncAdds()}
+function pill(av,hc){$("plA").textContent=av>=1e6?"$"+(av/1e6).toFixed(2)+"M":k(av);$("plH").textContent=hc;$("pill").classList.toggle("on",hc>0)}
+$("plist").addEventListener("input",function(e){var j=e.target.dataset.j;if(j!=null){P[j].n=Math.max(1,Math.min(99,+e.target.value||1));save();var x=all[P[j].i];e.target.nextElementSibling.textContent=f(x.av*P[j].n);var lo=0,hi=0,av=0,hc=0;P.forEach(function(p){var y=all[p.i];lo+=y.lo*p.n;hi+=y.hi*p.n;av+=y.av*p.n;hc+=p.n});$("tA").textContent=f(av);$("tR").textContent=f(lo)+" to "+f(hi);$("tH").textContent=hc;$("tP").textContent=f(av/hc);pill(av,hc)}});
 $("plist").addEventListener("change",function(e){if(e.target.dataset.j!=null)pdraw()});
 $("plist").addEventListener("click",function(e){var x=e.target.dataset.x;if(x!=null){P.splice(+x,1);save();pdraw()}});
 $("pClr").onclick=function(){P=[];save();pdraw()};
@@ -321,6 +368,23 @@ var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es
 var links=[].slice.call(document.querySelectorAll(".nav a"));
 function spy(){var y=scrollY+120,on=null;links.forEach(function(a){var s=document.querySelector(a.getAttribute("href"));if(s&&s.offsetTop<=y)on=a});links.forEach(function(a){a.classList.toggle("on",a===on)})}
 addEventListener("scroll",spy,{passive:true});spy();
+
+/* hero finder */
+var hq=$("hq"),sg=$("sugg"),SI=-1,SR=[];
+function sdraw(){var q=hq.value.trim().toLowerCase();if(!q){sg.classList.remove("on");return}
+ SR=all.map(function(x,i){return {x:x,i:i,s:x.n.toLowerCase().indexOf(q)}}).filter(function(o){return o.s>-1}).sort(function(a,b){return a.s-b.s||a.x.n.length-b.x.n.length}).slice(0,7);SI=SR.length?0:-1;
+ sg.innerHTML=SR.length?SR.map(function(o,j){return '<button type="button" role="option" data-i="'+o.i+'" class="'+(j===SI?'act':'')+'"><b>'+o.x.n+'</b><small>'+o.x.c.name+' &middot; '+k(o.x.lo)+' to '+k(o.x.hi)+'</small><em>'+k(o.x.av)+'</em></button>'}).join(""):'<div class="none">No match. Try "accountant", "payroll" or "HR".</div>';sg.classList.add("on")}
+function go(i){sg.classList.remove("on");hq.value="";CAT="all";[].forEach.call(tabs.children,function(x){x.classList.toggle("on",x.dataset.c==="all")});$("q").value="";Q="";SORT="guide";$("srt").value="guide";draw();
+ var r=document.querySelector('.tr[data-i="'+i+'"]');if(r){r.scrollIntoView({behavior:"smooth",block:"center"});}open(i)}
+hq.addEventListener("input",sdraw);hq.addEventListener("focus",sdraw);
+hq.addEventListener("keydown",function(e){if(!SR.length)return;if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();SI=(SI+(e.key==="ArrowDown"?1:SR.length-1))%SR.length;[].forEach.call(sg.children,function(b,j){b.classList.toggle("act",j===SI)})}else if(e.key==="Enter"&&SI>-1){e.preventDefault();go(SR[SI].i)}else if(e.key==="Escape"){sg.classList.remove("on")}});
+sg.addEventListener("mousedown",function(e){var b=e.target.closest("button");if(b){e.preventDefault();go(+b.dataset.i)}});
+document.addEventListener("click",function(e){if(!e.target.closest(".finder"))sg.classList.remove("on")});
+document.addEventListener("keydown",function(e){if(e.key==="/"&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();hq.focus()}});
+[].forEach.call(document.querySelectorAll("[data-pop]"),function(b){b.onclick=function(){var i=-1;all.some(function(x,j){if(x.n===b.dataset.pop&&x.c.id===b.dataset.sec){i=j;return true}});if(i>-1)go(i)}});
+/* count-up */
+[].forEach.call(document.querySelectorAll(".st b"),function(el){var m=el.textContent.match(/^(\d+)(.*)$/);if(!m||matchMedia("(prefers-reduced-motion: reduce)").matches)return;var n=+m[1],t0=null;el.textContent="0"+m[2];
+ function st(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-p,3);el.textContent=Math.round(n*e)+m[2];if(p<1)requestAnimationFrame(st)}setTimeout(function(){requestAnimationFrame(st)},250)});
 /* share + download */
 $("share").onclick=function(){var u=__URL;if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else copy(u)};
 $("dl").onclick=function(){var h="<!DOCTYPE html>\n"+document.documentElement.outerHTML;var b=new Blob([h],{type:"text/html"});var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=__FN;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);toast("Downloading the site")};
