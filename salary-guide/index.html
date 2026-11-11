@@ -1219,7 +1219,7 @@ html{scroll-padding-top:132px!important}.tools{top:120px!important}
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; Vaco. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 47 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; Vaco. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 48 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -1242,6 +1242,7 @@ function setPr(p){PR=p;CAT="all";SEG="";[].forEach.call($("prac").children,funct
 window.__goSec=function(id){var c=sec(id);if(c&&c.practice!==PR)setPr(c.practice);setCat(id)};
 $("prac").onclick=function(e){var b=e.target.closest("button");if(b&&window.setGuide)setGuide(b.dataset.p);else if(b)setPr(b.dataset.p)};drawTabs();
 function segChips(){var el=$("segs");if(CAT==="all"){el.innerHTML="";el.hidden=true;return}var c=D.filter(function(c){return c.id===CAT})[0],gs=[];all.forEach(function(x){if(x.c===c&&gs.indexOf(x.g)<0)gs.push(x.g)});
+ if(gs.length<2){SEG="";el.innerHTML="";el.hidden=true;return}
  el.hidden=false;el.innerHTML='<button data-g="" class="'+(SEG?'':'on')+'">All '+c.name.replace("Human Resources","HR")+'</button>'+gs.map(function(g){return '<button data-g="'+g+'" class="'+(SEG===g?'on':'')+'">'+g+'</button>'}).join("")}
 function setCat(c){CAT=c;SEG="";drawTabs();segChips();draw()}
 tabs.onclick=function(e){var b=e.target.closest("button");if(b)setCat(b.dataset.c)};
