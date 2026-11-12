@@ -1263,7 +1263,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 61 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 62 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -1354,7 +1354,7 @@ function smartScore(i,q){if(!q)return 1;var e=SIX[i],qn=nrm(q);if(!qn)return 1;v
  var ts=qn.split(" "),tot=0,hit=0,nh=0;ts.forEach(function(t){var s=tokScore(t,e.nw,e.cw),n=tokScore(t,e.nw,[]);(SYN[t]||[]).forEach(function(a){var z=phrScore(a,e)*1.2;if(z>s)s=z;var zn=phrScore(a,{nw:e.nw,cw:[]});if(zn>n)n=zn});if(s)hit++;if(n)nh++;tot+=s});
  if(hit===ts.length){var s2=tot/ts.length;if(s2>best)best=s2}else if(nh&&ts.length>1&&best<1){best=Math.max(best,.5+Math.min(.49,tot/ts.length/20))}
  return best}
-function smartFind(q,lim,pr){var r=[];all.forEach(function(x,i){if(x.c.id==="fs"&&pr==null)return;var s=smartScore(i,q);if(s>0)r.push({i:i,s:s,k:s+(x.c.practice===PR?.5:0)})});r.sort(function(a,b){return b.k-a.k||all[a.i].av-all[b.i].av});return lim?r.slice(0,lim):r}
+function smartFind(q,lim,pr){var r=[];all.forEach(function(x,i){if(window.LOCKG&&x.c.practice!==window.LOCKG)return;if(x.c.id==="fs"&&pr==null)return;var s=smartScore(i,q);if(s>0)r.push({i:i,s:s,k:s+(x.c.practice===PR?.5:0)})});r.sort(function(a,b){return b.k-a.k||all[a.i].av-all[b.i].av});return lim?r.slice(0,lim):r}
 var _qc=null,_qf=false;function qmin(q){if(q!==_qc){_qc=q;_qf=all.some(function(x,i){return x.c.id!=="fs"&&smartScore(i,q)>=1})}return _qf?1:.5}
 function okx(x){var i=all.indexOf(x);return (!Q||smartScore(i,Q)>=qmin(Q))&&(!SEG||x.g===SEG)}
 function draw(){var h="",cnt=0;
@@ -1476,7 +1476,7 @@ var IG=[],FAMI={};
 /* guide switch */
 var _rolesFor=function(p){return all.map(function(x,i){return {x:x,i:i}}).filter(function(o){return o.x.c.practice===p})};
 function fillRoleSel(sel,p,filt){var cur=sel.value;sel.innerHTML=D.filter(function(c){return c.practice===p}).map(function(c){var rr=_rolesFor(p).filter(function(o){return o.x.c===c&&(!filt||filt(o))});return rr.length?'<optgroup label="'+c.name+'">'+rr.map(function(o){return '<option value="'+o.i+'">'+o.x.n+'</option>'}).join("")+'</optgroup>':''}).join("");if([].some.call(sel.options,function(o){return o.value===cur}))sel.value=cur}
-window.setGuide=function(p,noHash){var __ae=document.activeElement,__an=__ae&&__ae!==document.body&&__ae.closest&&__ae.closest("section")?__ae:null,__t0=__an?__an.getBoundingClientRect().top:0;if(__an)setTimeout(function(){var d=__an.getBoundingClientRect().top-__t0;if(Math.abs(d)>2)window.scrollBy({top:d,behavior:"instant"})},0);[].forEach.call(document.querySelectorAll("[data-gpick] button"),function(b){b.classList.toggle("on",b.dataset.g===p)});
+window.setGuide=function(p,noHash){if(window.LOCKG){p=window.LOCKG;noHash=true}var __ae=document.activeElement,__an=__ae&&__ae!==document.body&&__ae.closest&&__ae.closest("section")?__ae:null,__t0=__an?__an.getBoundingClientRect().top:0;if(__an)setTimeout(function(){var d=__an.getBoundingClientRect().top-__t0;if(Math.abs(d)>2)window.scrollBy({top:d,behavior:"instant"})},0);[].forEach.call(document.querySelectorAll("[data-gpick] button"),function(b){b.classList.toggle("on",b.dataset.g===p)});
  if(PR!==p)setPr(p);
  fillRoleSel(eR,p);var def=_rolesFor(p).filter(function(o){return o.x.n===({tech:"Data Engineer",af:"Accountant",hr:"HR Generalist"})[p]})[0];if(def&&(all[+eR.value].c.practice!==p||window.__gp!==p))eR.value=def.i;window.__gp=p;if(window.eOpts){eOpts();est()}
  var iS=$("iR");if(iS&&window.__indRedraw)window.__indRedraw(p);
