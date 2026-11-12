@@ -1296,7 +1296,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 73 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 74 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -1952,7 +1952,7 @@ section.xcl .wrap>.rv:hover .xt i{border-color:#fff!important}
 <script>/* v72: group the four closed sections into the "Go deeper" panel; numbered cards; glow follows the pointer */
 (function(){var ids=["bonus","perks","overview","method"],secs=ids.map(function(i){return document.getElementById(i)}).filter(Boolean);if(secs.length<2)return;
  var g=document.createElement("div");g.className="xgrid";var inn=document.createElement("div");inn.className="xgin";g.appendChild(inn);
- var hd=document.createElement("div");hd.className="xghd";hd.innerHTML='<div class="kick">Go deeper</div><h2>Everything else you need to hire well</h2><p>Bonus and equity, perks, the 2027 outlook and how the numbers are built. Pick a topic to open it.</p>';inn.appendChild(hd);
+ var hd=document.createElement("div");hd.className="xghd";hd.innerHTML='<div class="kick">Offer insights</div><h2>Build an offer that wins</h2><p>Bonus and equity, the perks candidates look for, the 2027 hiring outlook and where our numbers come from. Pick a topic to open it.</p>';inn.appendChild(hd);
  secs[0].parentNode.insertBefore(g,secs[0]);
  secs.forEach(function(s,i){inn.appendChild(s);var rv=s.querySelector(".wrap>.rv");if(!rv)return;rv.setAttribute("data-n","0"+(i+1));
   rv.addEventListener("pointermove",function(e){var r=rv.getBoundingClientRect();rv.style.setProperty("--mx",(e.clientX-r.left)+"px");rv.style.setProperty("--my",(e.clientY-r.top)+"px")});});
@@ -2014,7 +2014,7 @@ a[aria-label="Back to top"] img{height:46px!important;width:auto!important;max-h
  /* role card additions */
  var act=document.querySelector("#det .dact"),X=$("dX");
  if(act&&X){var box=document.createElement("div");box.className="dofr";
-  box.innerHTML='<label for="dOf">Is your offer competitive?</label><div class="row"><input id="dOf" inputmode="numeric" placeholder="e.g. 125,000" autocomplete="off"><button type="button" id="dOfGo">Check my offer</button></div><span class="dofn">Opens the hiring advisor with this role filled in.</span>';
+  box.innerHTML='<label for="dOf">How does your salary compare?</label><div class="row"><input id="dOf" inputmode="numeric" placeholder="$125,000" autocomplete="off"><button type="button" id="dOfGo">Compare to market</button></div><span class="dofn">Enter the base salary you plan to pay. The hiring advisor opens with this role filled in.</span>';
   var lk=document.createElement("div");lk.className="dlk";
   lk.innerHTML='<a href="#bonus" data-go="bonus">Bonus and equity</a><a href="#perks" data-go="perks">Perks that win offers</a><a class="ct" href="https://www.vaco.com/contact-us/" target="_blank" rel="noopener">Talk to Vaco about this hire</a>';
   act.parentNode.insertBefore(box,act);act.parentNode.insertBefore(lk,act);
@@ -2029,8 +2029,8 @@ a[aria-label="Back to top"] img{height:46px!important;width:auto!important;max-h
  var dk=$("dock");if(dk){var keep={"#data":1,"#paycheck":1,"#industry":1};
   [].slice.call(dk.querySelectorAll("a")).forEach(function(a){if(!keep[a.getAttribute("href")])a.remove()});
   var mk=function(h,l,s,svg){var a=document.createElement("a");a.href=h;a.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+svg+'</svg><span class="dl">'+l+'</span><span class="ds">'+s+'</span>';dk.appendChild(a);return a};
-  var adv=dk.querySelector('a[href="#paycheck"]');if(adv){adv.querySelector(".dl").textContent="Check my offer";adv.querySelector(".ds").textContent="My offer"}
-  mk("#more","Go deeper","More",'<path d="M4 6h16M4 12h16M4 18h10"/>');
+  var adv=dk.querySelector('a[href="#paycheck"]');if(adv){adv.querySelector(".dl").textContent="Hiring advisor";adv.querySelector(".ds").textContent="Advisor"}
+  mk("#more","Offer insights","Insights",'<path d="M4 6h16M4 12h16M4 18h10"/>');
   mk("#contact","Talk to us","Contact",'<path d="M4 5h16v11H8l-4 4z"/>');
   window.addEventListener("scroll",function(){var y=innerHeight*.35,on=null;[].forEach.call(dk.querySelectorAll("a"),function(a){var t=document.querySelector(a.getAttribute("href"));if(t){var r=t.getBoundingClientRect();if(r.top<=y&&r.bottom>y)on=a}});[].forEach.call(dk.querySelectorAll("a"),function(a){a.classList.toggle("on",a===on)})},{passive:true});
  }
