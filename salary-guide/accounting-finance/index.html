@@ -1296,7 +1296,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 76 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 77 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -2103,5 +2103,88 @@ section:not(.xpop) .xpx{display:none}
  document.addEventListener("click",function(e){if(cur&&e.target.classList&&e.target.classList.contains("xgrid"))close()});
  document.addEventListener("pointerdown",function(e){if(!cur)return;var s=sec(cur);if(s&&!s.contains(e.target)&&!e.target.closest(".dock,.det,header,.hg2"))close()});
  addEventListener("beforeprint",function(){printing=true});addEventListener("afterprint",function(){printing=false});
+})();</script>
+<style>/* v77: Bonus and equity easier to digest */
+#xb-bonus .bss{gap:10px}
+#xb-bonus .bss .bsh{font-family:Jakarta,Inter,sans-serif;font-size:19px;font-weight:800;line-height:1.3;color:#fff;letter-spacing:-.01em}
+#xb-bonus .bss .bsq{font-size:13.5px;color:#b9cddc;line-height:1.45}
+.bpr{display:grid;grid-template-columns:62px minmax(0,1fr) 48px;align-items:center;gap:10px;font-size:13.5px;color:#dbe7f0}
+.bpr .bk{height:12px;border-radius:12px;background:rgba(255,255,255,.12);overflow:hidden}
+.bpr .bk i{display:block;height:100%;border-radius:12px;background:linear-gradient(90deg,#FF8A50,#F95C15)}
+.bpr.pv .bk i{background:linear-gradient(90deg,#9fd4f0,#1A8FCF)}
+.bpr b{font-family:Jakarta,Inter,sans-serif!important;font-size:16px!important;color:#fff!important;text-align:right;letter-spacing:0!important}
+.pest .bpr{grid-template-columns:96px minmax(0,1fr) 40px}
+#xb-bonus .bsi>b,#xb-bonus .pei>b{font-family:Inter,sans-serif;font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#d94c0c}
+#xb-bonus .tk{display:block;font-family:Jakarta,Inter,sans-serif;font-weight:800;font-size:16.5px;line-height:1.35;color:#072942;margin:2px 0 4px}
+#xb-bonus .bsi p,#xb-bonus .pei p{font-size:14.5px;color:#4a6072}
+#xb-bonus .bsi{padding:14px 0}
+.gl{border-bottom:1.5px dotted #1A8FCF;cursor:help;color:inherit}
+.gl:focus{outline:2px solid #1A8FCF;outline-offset:2px;border-radius:3px}
+.gltip{position:fixed;z-index:3000;max-width:300px;background:#072942;color:#fff;font-size:13.5px;line-height:1.45;padding:10px 12px;border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.3);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s}
+.gltip.on{opacity:1;transform:none}
+.gltip b{color:#FF8A50;display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.glnote{font-size:13px;color:#6b7f90;margin:0 0 14px}
+.glnote span{border-bottom:1.5px dotted #1A8FCF}
+</style>
+<script>/* v77: plain-language Bonus and equity. Same figures; clearer labels, bold takeaways, plain-English meanings, low-value detail moved to the Equity guide tab */
+(function(){var X=document.getElementById("xb-bonus");if(!X)return;
+ function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+ function bar(l,v,pv,max){return '<div class="bpr'+(pv?' pv':'')+'"><span>'+l+'</span><span class="bk"><i style="width:'+Math.round(v/(max||100)*100)+'%"></i></span><b>'+v+'%</b></div>'}
+ /* 1. headline tiles: labeled bars instead of "98% / 93%" */
+ var T=[["98% / 93%","Almost every company pays a bonus","Share paying a yearly bonus (short-term incentive)",98,93],
+        ["95% / 61%","Equity is standard at public companies","Share offering equity or a multi-year cash plan (long-term incentive)",95,61],
+        ["50% vs 25%","Public companies are twice as likely to give managers equity","Share giving managers a long-term incentive",50,25]];
+ [].forEach.call(X.querySelectorAll(".bss"),function(s){var b=s.querySelector("b"),sp=s.querySelector("span");if(!b||!sp)return;T.forEach(function(t){if(b.textContent.trim()===t[0]){b.remove();sp.remove();var w=el("div","",'<div class="bsh">'+t[1]+'</div><div class="bsq">'+t[2]+'</div>'+bar("Public",t[3])+bar("Private",t[4],1));s.insertBefore(w,s.firstChild)}})});
+ var pe=[].filter.call(X.querySelectorAll(".pest>div"),function(d){var b=d.querySelector("b");return b&&b.textContent.trim()==="23% / 7% / 3%"})[0];
+ if(pe){pe.innerHTML='<span>Share of the pool each leader gets (medians)</span>'+bar("CEO",23,0,23)+bar("CFO",7,0,23)+bar("Each other C-suite leader",3,0,23)}
+ /* 2. move low-value detail to the Equity guide tab */
+ var lg=X.querySelector(".ltx .ltg details.ltc");
+ function addLti(b,p,src){if(!lg)return;var d=el("div","lti");d.appendChild(el("b","",b));d.appendChild(el("p","",p));if(src)d.appendChild(src.cloneNode(true));lg.appendChild(d)}
+ var trs=X.querySelectorAll(".bstr"),moved=false;
+ [].forEach.call(trs,function(tr){[].forEach.call(tr.querySelectorAll(".bsi"),function(i){var b=i.querySelector("b"),p=i.querySelector("p");if(!b||!p)return;var l=b.textContent.trim(),tx=p.textContent;
+  if(l==="Executives"&&/Russell 3000/.test(tx)){addLti("Executive equity at public companies",tx,i.querySelector("small"));i.remove();return}
+  if(l==="Public companies"){var m=tx.match(/^(.*?\(74%\)\.)\s*(.+)$/);if(m){p.textContent=m[1];if(!moved){moved=true;addLti("Time-only vesting","72% of grants to salaried professionals vest on time alone, with no performance condition; for managers it is 65%.",i.querySelector("small"))}}}})});
+ /* 3. bold takeaway first */
+ var TK=[{"Annual bonus":"Plan on a bonus of about 10% to 25% of salary.","Who has a formal plan":"Public tech companies are far more likely to have a set bonus plan.","Spot bonuses":"About a third also pay one-off spot bonuses.","Public companies":"Expect stock units, often with performance shares.","Startups":"Stock options, earned over four years.","Private equity-backed":"A slice of a pool of about 10% of the company, paid at a sale."},
+  {"CFOs":"A CFO bonus is often close to a full year's salary.","Wall Street":"Wall Street bonuses set the bar for finance talent.","Accounting firms":"Bonuses at accounting firms are small.","Sign-on bonuses":"Sign-on bonuses are rare in accounting, but growing.","Public companies":"Expect stock units, often with performance shares.","Private equity-backed":"A slice of a pool of about 10% of the company, paid at a sale.","Refresh grants":"PE-backed companies now top up executive equity more often.","Private companies":"Private companies rarely give managers equity."},
+  {"Annual bonus":"Almost every for-profit employer pays a bonus.","Other cash awards":"Spot, discretionary and retention bonuses fill the gaps.","Executive targets":"Public companies set bigger executive bonus targets.","Managers":"Public companies are twice as likely to give managers equity.","Professionals":"Most equity for professionals is earned just by staying.","Nonprofits":"Nonprofits pay bonuses less often and rarely offer equity."}];
+ [].forEach.call(trs,function(tr,n){var m=TK[n]||{};[].forEach.call(tr.querySelectorAll(".bsi"),function(i){var b=i.querySelector("b"),p=i.querySelector("p");if(b&&p&&m[b.textContent.trim()])p.insertBefore(el("strong","tk",m[b.textContent.trim()]),p.firstChild)})});
+ var PK={"Size":"About a tenth of the company goes to management.","Who gets it":"Only a small group of leaders shares the pool.","What it is":"Most often profits interests, then stock options.","Time and performance":"Payouts often depend on the investor's return.","Schedule":"Usually a one-year cliff, then monthly vesting.","When it pays":"Nothing pays out until the company is sold.","CEOs":"What PE-backed CEOs earn in cash.","CFOs":"CFOs care most about base salary and equity.","Below the C-suite":"Below the C-suite, equity is small or replaced by cash.","Rollover":"Some leaders must reinvest part of their sale proceeds.","Co-investment":"Many let leaders invest their own money alongside the firm.","Refresh":"Top-up grants are becoming common."};
+ [].forEach.call(X.querySelectorAll(".pei"),function(i){var b=i.querySelector("b"),p=i.querySelector("p");if(b&&p&&PK[b.textContent.trim()])p.insertBefore(el("strong","tk",PK[b.textContent.trim()]),p.firstChild)});
+ /* 4. plain-English meanings: tap or hover a dotted term */
+ var G=[["restricted stock units?","Restricted stock units","Shares promised to the employee that become theirs over time (they vest)."],
+  ["performance shares","Performance shares","Shares paid out only if the company hits set goals, usually over three years."],
+  ["profits? interests?( units)?","Profits interests","A share of the growth in the company's value from now on, paid out when the company is sold."],
+  ["stock options","Stock options","The right to buy shares later at today's set price. Worth something only if the value goes up."],
+  ["(one-year|1-year) cliff","One-year cliff","Nothing vests in the first year. On the first anniversary a full year's worth vests at once."],
+  ["refresh grants?","Refresh grant","New equity given to someone already on staff, so their equity does not run out."],
+  ["spot (bonuses|awards)","Spot bonus","A small one-off cash award for a specific piece of work."],
+  ["short-term incentives?","Short-term incentive","A cash bonus for one year's results."],
+  ["long-term incentives?","Long-term incentive","Pay tied to results over several years, usually equity or a multi-year cash plan."],
+  ["\\(MOIC\\)|MOIC","MOIC","Multiple on invested capital: how many times their money the investor gets back at the sale."],
+  ["internal rate of return \\(IRR\\)","IRR","Internal rate of return: the investor's yearly return on the deal."],
+  ["Russell 3000","Russell 3000","A stock index of the 3,000 largest US public companies."],
+  ["S&P 500","S&P 500","A stock index of 500 large US public companies."],
+  ["burn rate","Burn rate","The share of a company's stock handed out as equity each year."],
+  ["409A price","409A price","An independent valuation of a private company's common stock, used to set the option price."],
+  ["total shareholder return","Total shareholder return","Stock price growth plus dividends."],
+  ["roll over","Roll over","Reinvest part of what you receive at a sale into the new owner's company."],
+  ["co-investment","Co-investment","Investing your own money in the company alongside the private equity firm."],
+  ["fully diluted","Fully diluted","Counting every share that could exist, including all options and the unused pool."],
+  ["vest(s|ing|ed)?","Vesting","Equity becomes yours bit by bit as you stay with the company."]];
+ var tip=el("div","gltip");tip.setAttribute("role","tooltip");document.body.appendChild(tip);
+ function show(t){tip.innerHTML="<b>"+t.getAttribute("data-t")+"</b>"+t.getAttribute("data-d");var r=t.getBoundingClientRect();tip.classList.add("on");var w=tip.offsetWidth,h=tip.offsetHeight,x=Math.min(Math.max(8,r.left+r.width/2-w/2),innerWidth-w-8),y=r.top-h-8;if(y<8)y=r.bottom+8;tip.style.left=x+"px";tip.style.top=y+"px"}
+ function hide(){tip.classList.remove("on")}
+ var scope=X.querySelectorAll(".bsi p,.pei p,.lti p,.bc li span,.bexp,.bstip li,.petip li,.pest span,.ofn,.off span,.ltt td");
+ var seen={};
+ [].forEach.call(scope,function(c){var w=document.createTreeWalker(c,NodeFilter.SHOW_TEXT,null),nodes=[],n;while(n=w.nextNode())if(!n.parentNode.closest(".gl,.tk,a"))nodes.push(n);
+  nodes.forEach(function(nd){var txt=nd.nodeValue,done=false;G.some(function(g){var key=g[1]+"|"+(c.closest(".bstr,.pex,.ltx,.bgrid,.ofx")||c).className+[].indexOf.call(document.querySelectorAll(".bstr,.pex,.ltx,.bgrid,.ofx"),c.closest(".bstr,.pex,.ltx,.bgrid,.ofx"));if(seen[key])return false;var re=new RegExp("\\b("+g[0]+")","i"),m=txt.match(re);if(!m)return false;seen[key]=1;var i=m.index,s=el("span","gl",null);s.textContent=m[0];s.tabIndex=0;s.setAttribute("data-t",g[1]);s.setAttribute("data-d",g[2]);s.setAttribute("aria-label",m[0]+": "+g[2]);var after=nd.splitText(i);after.nodeValue=after.nodeValue.slice(m[0].length);nd.parentNode.insertBefore(s,after);done=true;return true})})});
+ document.addEventListener("mouseover",function(e){var t=e.target.closest&&e.target.closest(".gl");if(t)show(t)});
+ document.addEventListener("mouseout",function(e){if(e.target.closest&&e.target.closest(".gl"))hide()});
+ document.addEventListener("focusin",function(e){if(e.target.classList&&e.target.classList.contains("gl"))show(e.target)});
+ document.addEventListener("focusout",function(e){if(e.target.classList&&e.target.classList.contains("gl"))hide()});
+ document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".gl");if(t){e.stopPropagation();show(t);clearTimeout(window.__glT);window.__glT=setTimeout(hide,4000)}else hide()},true);
+ var w2=X.querySelector(".wrap .wrap")||null;var btb=X.querySelector(".btb");if(btb){var nt=el("p","glnote",'Tap or hover any <span>dotted term</span> for a plain-English meaning.');btb.parentNode.insertBefore(nt,btb.nextSibling)}
+ var sc=X.closest(".wrap");if(sc)sc.addEventListener("scroll",hide,{passive:true});addEventListener("scroll",hide,{passive:true});
 })();</script>
 </body></html>
