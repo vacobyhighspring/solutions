@@ -1296,7 +1296,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 74 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 75 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -1873,7 +1873,7 @@ $("pdf").onclick=function(){print()};
 })();
 
 
-(function(){var X=['bonus','perks','overview','method'];function xo(id,open){var b=document.getElementById('xb-'+id),t=document.querySelector('.xt[data-x="'+id+'"]');if(!b||!t)return;var o=open===undefined?b.hidden:open;b.hidden=!o;t.setAttribute('aria-expanded',o?'true':'false');if(o){b.querySelectorAll('.rv').forEach(function(e){e.classList.add('in','on','vis')});try{window.dispatchEvent(new Event('resize'))}catch(e){}}}window.xOpen=xo;document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.xt');if(t){xo(t.getAttribute('data-x'));return}var a=e.target.closest&&e.target.closest('a[href^="#"]');if(a){var h=a.getAttribute('href').slice(1);if(X.indexOf(h)>-1)xo(h,true)}},true);function fromHash(){var h=(location.hash||'').slice(1);if(X.indexOf(h)>-1)xo(h,true)}fromHash();addEventListener('hashchange',fromHash);addEventListener('beforeprint',function(){X.forEach(function(i){xo(i,true)})});})();
+(function(){var X=['bonus','perks','overview','method'];function xo(id,open){var b=document.getElementById('xb-'+id),t=document.querySelector('.xt[data-x="'+id+'"]');if(!b||!t)return;var o=open===undefined?b.hidden:open;b.hidden=!o;t.setAttribute('aria-expanded',o?'true':'false');if(o){b.querySelectorAll('.rv').forEach(function(e){e.classList.add('in','on','vis')});try{window.dispatchEvent(new Event('resize'))}catch(e){}}}window.xOpen=xo;document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.xt');if(t){xo(t.getAttribute('data-x'));return}},true);function fromHash(){}fromHash();addEventListener('hashchange',fromHash);addEventListener('beforeprint',function(){X.forEach(function(i){xo(i,true)})});})();
 addEventListener("hashchange",function(){var h=(location.hash||"").toLowerCase();if(/^#(tech|technology|accounting|finance|af|hr|hr-operations|operations|ops|procurement)$/.test(h)&&window.setGuide)setGuide(/hr|ops|operations|procure/.test(h)?"hr":/acc|fin|af/.test(h)?"af":"tech",true)});
 setTimeout(function(){var h=(location.hash||"").toLowerCase();if(window.setGuide)setGuide(/hr|ops|people|procure/.test(h)?"hr":/acc|fin|af/.test(h)?"af":"tech",!/acc|fin|af|hr|ops|people|procure|tech/.test(h))},0);
 document.querySelectorAll("[data-go]").forEach(function(a){a.addEventListener("click",function(){if(window.__goSec)window.__goSec(a.dataset.go)})});</script>
@@ -2020,7 +2020,7 @@ a[aria-label="Back to top"] img{height:46px!important;width:auto!important;max-h
   act.parentNode.insertBefore(box,act);act.parentNode.insertBefore(lk,act);
   function run(){var v=($("dOf").value||"").replace(/[^0-9]/g,"");if(v&&+v<1000)v=String(+v*1000);var so=$("sO");if(so)so.value=v?(+v).toLocaleString("en-US"):"";var a=$("dAdd");if(a)a.click();$("dOf").value=""}
   $("dOfGo").onclick=run;$("dOf").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();run()}});
-  lk.addEventListener("click",function(e){var a=e.target.closest("[data-go]");if(!a)return;e.preventDefault();X.click();var id=a.getAttribute("data-go");if(window.xOpen)window.xOpen(id,true);setTimeout(function(){var s=$(id);if(s)s.scrollIntoView({behavior:"smooth",block:"start"})},60)});
+  lk.addEventListener("click",function(e){var a=e.target.closest("[data-go]");if(!a)return;e.preventDefault();X.click();var id=a.getAttribute("data-go");setTimeout(function(){var s=$(id);if(s)s.scrollIntoView({behavior:"smooth",block:"start"})},60)});
  }
 
  /* contact anchor + shorter bottom menu */
@@ -2035,4 +2035,30 @@ a[aria-label="Back to top"] img{height:46px!important;width:auto!important;max-h
   window.addEventListener("scroll",function(){var y=innerHeight*.35,on=null;[].forEach.call(dk.querySelectorAll("a"),function(a){var t=document.querySelector(a.getAttribute("href"));if(t){var r=t.getBoundingClientRect();if(r.top<=y&&r.bottom>y)on=a}});[].forEach.call(dk.querySelectorAll("a"),function(a){a.classList.toggle("on",a===on)})},{passive:true});
  }
 })();</script>
+<style>/* v75: leader pay cards easier to read */
+#xb-bonus .bcards{grid-template-columns:repeat(auto-fill,minmax(min(560px,100%),1fr))!important;gap:20px}
+#xb-bonus .bc{border-radius:22px;box-shadow:0 6px 22px rgba(7,41,66,.07)}
+#xb-bonus .bc h3{padding:18px 24px;font-size:20px}
+#xb-bonus .bc .bexp{order:0;margin:0;padding:16px 24px 18px;background:#fff4ec;border-bottom:1px solid #ffe0cc;font-size:16px;line-height:1.55;color:#072942}
+#xb-bonus .bc .bexp b{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#d94c0c;margin-bottom:6px;font-family:Inter,sans-serif}
+#xb-bonus .bcc{display:block!important}
+#xb-bonus .bcc section{padding:18px 24px 6px}
+#xb-bonus .bcc section+section{border-top:1px solid #e6edf3}
+#xb-bonus .bc h4{font-size:13px;letter-spacing:.06em;color:#072942;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+#xb-bonus .bc h4::before{content:"";width:8px;height:8px;border-radius:50%;background:#F95C15}
+#xb-bonus .bc ul{gap:0}
+#xb-bonus .bc li{display:grid;grid-template-columns:132px minmax(0,1fr);gap:14px;align-items:start;padding:11px 0;border-top:1px dashed #e3eaf0;font-size:15.5px;line-height:1.55}
+#xb-bonus .bc li:first-child{border-top:0}
+#xb-bonus .bc li .ct{justify-self:start;margin:2px 0 0;padding:4px 10px;border-radius:999px;font-size:11px;letter-spacing:.03em;background:#eef3f7;color:#304456;white-space:nowrap}
+#xb-bonus .bc li .ct::before{display:none}
+#xb-bonus .bc li .ct.public{background:#e3f2fb;color:#11618f}
+#xb-bonus .bc li .ct.pe-backed{background:#ffeadf;color:#b83d07}
+#xb-bonus .bc li .ct.venture-backed{background:#eeeafd;color:#5a3fc0}
+#xb-bonus .bc li .ct.private{background:#eef0f2;color:#3d4c59}
+#xb-bonus .bc li .ct.all{background:#e8eef4;color:#072942}
+#xb-bonus .bc li a{grid-column:2}
+@media(max-width:700px){#xb-bonus .bc li{grid-template-columns:1fr;gap:6px}#xb-bonus .bc li a{grid-column:1}#xb-bonus .bc h3{font-size:18px;padding:16px 18px}#xb-bonus .bc .bexp,#xb-bonus .bcc section{padding-left:18px;padding-right:18px}}
+</style>
+<script>/* v75: put "What to expect" right under each leader's title */
+(function(){var B=document.getElementById("xb-bonus");if(!B)return;function fix(){[].forEach.call(B.querySelectorAll("article.bc"),function(a){var h=a.querySelector("h3"),e=a.querySelector(".bexp");if(h&&e&&h.nextElementSibling!==e)a.insertBefore(e,h.nextElementSibling)})}fix();new MutationObserver(function(){fix()}).observe(B,{childList:true,subtree:true})})();</script>
 </body></html>
