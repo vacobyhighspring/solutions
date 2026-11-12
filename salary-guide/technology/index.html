@@ -1296,7 +1296,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 75 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 76 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -2061,4 +2061,47 @@ a[aria-label="Back to top"] img{height:46px!important;width:auto!important;max-h
 </style>
 <script>/* v75: put "What to expect" right under each leader's title */
 (function(){var B=document.getElementById("xb-bonus");if(!B)return;function fix(){[].forEach.call(B.querySelectorAll("article.bc"),function(a){var h=a.querySelector("h3"),e=a.querySelector(".bexp");if(h&&e&&h.nextElementSibling!==e)a.insertBefore(e,h.nextElementSibling)})}fix();new MutationObserver(function(){fix()}).observe(B,{childList:true,subtree:true})})();</script>
+<style>/* v76: Offer insights open as a pop-up over the page; the four cards stay in place */
+body.xm{overflow:hidden}
+body.xm .xgrid{z-index:2000;isolation:auto}
+body.xm .xgrid::after{content:"";position:fixed;inset:0;background:rgba(4,22,36,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:5;animation:xmf .25s ease}
+body.xm .dock{z-index:10}
+.xgrid>.xgin>section.xpop{position:fixed!important;z-index:10;top:4vh;bottom:4vh;left:max(16px,calc(50% - 720px));right:max(16px,calc(50% - 720px));display:flex;flex-direction:column;padding:0!important;margin:0;border-radius:26px;overflow:hidden;background:#fff!important;box-shadow:0 40px 120px rgba(0,0,0,.5);animation:xmp .32s cubic-bezier(.2,.8,.2,1)}
+.xpop>.wrap{flex:1;width:auto!important;margin:0!important;overflow-y:auto;overscroll-behavior:contain;padding:40px 40px 48px!important;max-width:none!important}
+.xpop .xt{display:none!important}
+.xpx{position:absolute;top:16px;right:16px;z-index:3;width:46px;height:46px;border-radius:50%;border:0;background:#072942;color:#fff;font-size:26px;line-height:1;cursor:pointer;box-shadow:0 8px 20px rgba(7,41,66,.3);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s}
+.xpx:hover{background:#F95C15;transform:rotate(90deg)}
+.xpx:focus-visible{outline:3px solid #FF8A50;outline-offset:2px}
+section:not(.xpop) .xpx{display:none}
+.xph{display:none}
+.xgin>.xph{display:block;border-radius:22px;border:1px dashed rgba(255,255,255,.18)}
+@keyframes xmf{from{opacity:0}}
+@keyframes xmp{from{opacity:0;transform:translateY(24px) scale(.98)}}
+@media(max-width:700px){
+ .xgrid>.xgin>section.xpop{top:max(10px,env(safe-area-inset-top));bottom:0;left:0;right:0;border-radius:22px 22px 0 0}
+ .xpop>.wrap{padding:26px 18px 90px!important}
+ .xpx{top:12px;right:12px;width:42px;height:42px}
+}
+@media(prefers-reduced-motion:reduce){.xgrid>.xgin>section.xpop,body.xm .xgrid::after{animation:none}}
+@media print{body.xm{overflow:visible}.xgrid>.xgin>section.xpop{position:static!important;box-shadow:none}.xpop>.wrap{overflow:visible}.xpx,body.xm .xgrid::after,.xph{display:none!important}}
+</style>
+<script>/* v76: one section open at a time, shown as a pop-up; closing returns to the four cards */
+(function(){var ids=["bonus","perks","overview","method"],cur=null,ph=null,printing=false;
+ function sec(id){return document.getElementById(id)}
+ function close(){if(cur&&window.xOpen)window.xOpen(cur,false)}
+ ids.forEach(function(id){var s=sec(id),b=document.getElementById("xb-"+id);if(!s||!b)return;
+  var x=document.createElement("button");x.type="button";x.className="xpx";x.setAttribute("aria-label","Close");x.innerHTML="&times;";x.onclick=close;s.insertBefore(x,s.firstChild);
+  new MutationObserver(function(){if(printing)return;if(!b.hidden){if(cur&&cur!==id&&window.xOpen){var o=cur;cur=null;window.xOpen(o,false)}open(id)}else if(cur===id)shut(id)}).observe(b,{attributes:true,attributeFilter:["hidden"]});});
+ function open(id){var s=sec(id);if(cur===id)return;cur=id;
+  ph=document.createElement("div");ph.className="xph";ph.style.height=s.offsetHeight+"px";s.parentNode.insertBefore(ph,s);
+  s.classList.add("xpop");s.setAttribute("role","dialog");s.setAttribute("aria-modal","true");document.body.classList.add("xm");
+  var w=s.querySelector(".wrap");if(w)w.scrollTop=0;setTimeout(function(){var x=s.querySelector(".xpx");if(x)x.focus({preventScroll:true})},50);
+  try{window.dispatchEvent(new Event("resize"))}catch(e){}}
+ function shut(id){var s=sec(id);s.classList.remove("xpop");s.removeAttribute("role");s.removeAttribute("aria-modal");if(ph){ph.remove();ph=null}cur=null;document.body.classList.remove("xm");
+  var c=s.querySelector(".wrap>.rv");if(c){var r=c.getBoundingClientRect();if(r.top<0||r.bottom>innerHeight)c.scrollIntoView({block:"center"})}}
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"&&cur)close()});
+ document.addEventListener("click",function(e){if(cur&&e.target.classList&&e.target.classList.contains("xgrid"))close()});
+ document.addEventListener("pointerdown",function(e){if(!cur)return;var s=sec(cur);if(s&&!s.contains(e.target)&&!e.target.closest(".dock,.det,header,.hg2"))close()});
+ addEventListener("beforeprint",function(){printing=true});addEventListener("afterprint",function(){printing=false});
+})();</script>
 </body></html>
