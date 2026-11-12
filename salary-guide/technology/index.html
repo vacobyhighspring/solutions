@@ -1296,7 +1296,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 77 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 78 &middot; updated November 10, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -2131,9 +2131,9 @@ section:not(.xpop) .xpx{display:none}
  function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
  function bar(l,v,pv,max){return '<div class="bpr'+(pv?' pv':'')+'"><span>'+l+'</span><span class="bk"><i style="width:'+Math.round(v/(max||100)*100)+'%"></i></span><b>'+v+'%</b></div>'}
  /* 1. headline tiles: labeled bars instead of "98% / 93%" */
- var T=[["98% / 93%","Almost every company pays a bonus","Share paying a yearly bonus (short-term incentive)",98,93],
-        ["95% / 61%","Equity is standard at public companies","Share offering equity or a multi-year cash plan (long-term incentive)",95,61],
-        ["50% vs 25%","Public companies are twice as likely to give managers equity","Share giving managers a long-term incentive",50,25]];
+ var T=[["98% / 93%","Almost every company has a bonus plan","Share of companies with a yearly bonus plan (short-term incentive) for at least some employees. Not every role is eligible.",98,93],
+        ["95% / 61%","Equity plans are standard at public companies","Share of companies with an equity or multi-year cash plan (long-term incentive) for at least some employees",95,61],
+        ["50% vs 25%","Public companies are twice as likely to give managers equity","Share of companies that give managers a long-term incentive",50,25]];
  [].forEach.call(X.querySelectorAll(".bss"),function(s){var b=s.querySelector("b"),sp=s.querySelector("span");if(!b||!sp)return;T.forEach(function(t){if(b.textContent.trim()===t[0]){b.remove();sp.remove();var w=el("div","",'<div class="bsh">'+t[1]+'</div><div class="bsq">'+t[2]+'</div>'+bar("Public",t[3])+bar("Private",t[4],1));s.insertBefore(w,s.firstChild)}})});
  var pe=[].filter.call(X.querySelectorAll(".pest>div"),function(d){var b=d.querySelector("b");return b&&b.textContent.trim()==="23% / 7% / 3%"})[0];
  if(pe){pe.innerHTML='<span>Share of the pool each leader gets (medians)</span>'+bar("CEO",23,0,23)+bar("CFO",7,0,23)+bar("Each other C-suite leader",3,0,23)}
@@ -2147,7 +2147,7 @@ section:not(.xpop) .xpx{display:none}
  /* 3. bold takeaway first */
  var TK=[{"Annual bonus":"Plan on a bonus of about 10% to 25% of salary.","Who has a formal plan":"Public tech companies are far more likely to have a set bonus plan.","Spot bonuses":"About a third also pay one-off spot bonuses.","Public companies":"Expect stock units, often with performance shares.","Startups":"Stock options, earned over four years.","Private equity-backed":"A slice of a pool of about 10% of the company, paid at a sale."},
   {"CFOs":"A CFO bonus is often close to a full year's salary.","Wall Street":"Wall Street bonuses set the bar for finance talent.","Accounting firms":"Bonuses at accounting firms are small.","Sign-on bonuses":"Sign-on bonuses are rare in accounting, but growing.","Public companies":"Expect stock units, often with performance shares.","Private equity-backed":"A slice of a pool of about 10% of the company, paid at a sale.","Refresh grants":"PE-backed companies now top up executive equity more often.","Private companies":"Private companies rarely give managers equity."},
-  {"Annual bonus":"Almost every for-profit employer pays a bonus.","Other cash awards":"Spot, discretionary and retention bonuses fill the gaps.","Executive targets":"Public companies set bigger executive bonus targets.","Managers":"Public companies are twice as likely to give managers equity.","Professionals":"Most equity for professionals is earned just by staying.","Nonprofits":"Nonprofits pay bonuses less often and rarely offer equity."}];
+  {"Annual bonus":"Almost every for-profit employer has a bonus plan.","Other cash awards":"Spot, discretionary and retention bonuses fill the gaps.","Executive targets":"Public companies set bigger executive bonus targets.","Managers":"Public companies are twice as likely to give managers equity.","Professionals":"Most equity for professionals is earned just by staying.","Nonprofits":"Nonprofits pay bonuses less often and rarely offer equity."}];
  [].forEach.call(trs,function(tr,n){var m=TK[n]||{};[].forEach.call(tr.querySelectorAll(".bsi"),function(i){var b=i.querySelector("b"),p=i.querySelector("p");if(b&&p&&m[b.textContent.trim()])p.insertBefore(el("strong","tk",m[b.textContent.trim()]),p.firstChild)})});
  var PK={"Size":"About a tenth of the company goes to management.","Who gets it":"Only a small group of leaders shares the pool.","What it is":"Most often profits interests, then stock options.","Time and performance":"Payouts often depend on the investor's return.","Schedule":"Usually a one-year cliff, then monthly vesting.","When it pays":"Nothing pays out until the company is sold.","CEOs":"What PE-backed CEOs earn in cash.","CFOs":"CFOs care most about base salary and equity.","Below the C-suite":"Below the C-suite, equity is small or replaced by cash.","Rollover":"Some leaders must reinvest part of their sale proceeds.","Co-investment":"Many let leaders invest their own money alongside the firm.","Refresh":"Top-up grants are becoming common."};
  [].forEach.call(X.querySelectorAll(".pei"),function(i){var b=i.querySelector("b"),p=i.querySelector("p");if(b&&p&&PK[b.textContent.trim()])p.insertBefore(el("strong","tk",PK[b.textContent.trim()]),p.firstChild)});
@@ -2186,5 +2186,37 @@ section:not(.xpop) .xpx{display:none}
  document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".gl");if(t){e.stopPropagation();show(t);clearTimeout(window.__glT);window.__glT=setTimeout(hide,4000)}else hide()},true);
  var w2=X.querySelector(".wrap .wrap")||null;var btb=X.querySelector(".btb");if(btb){var nt=el("p","glnote",'Tap or hover any <span>dotted term</span> for a plain-English meaning.');btb.parentNode.insertBefore(nt,btb.nextSibling)}
  var sc=X.closest(".wrap");if(sc)sc.addEventListener("scroll",hide,{passive:true});addEventListener("scroll",hide,{passive:true});
+})();</script>
+<style>/* v78 */#xb-bonus .secnext,#xb-perks .secnext,#xb-overview .secnext,#xb-method .secnext,.xgin .secnext{display:none!important}</style>
+<script>/* v78: wording pass, plainer and shorter copy across the guide (no figures changed) */
+(function(){function q(s){return document.querySelectorAll(s)}
+ function txt(sel,starts,nw){[].forEach.call(q(sel),function(e){var t=(e.textContent||"").replace(/\s+/g," ").trim();if(t.indexOf(starts)===0)e.textContent=nw})}
+ function h2(oldT,map){[].forEach.call(q("h2[data-tt]"),function(h){if(h.getAttribute("data-tt")===oldT){for(var k in map)h.setAttribute(k,map[k]);var cur=h.textContent.trim();var g={"data-tt":0,"data-ta":0,"data-th":0};h.textContent=map["data-tt"];if(document.body.dataset&&0){}}})}
+ /* headings that follow the chosen guide */
+ var H=[["Need more technology salary or hiring market information?",{"data-tt":"Want help pricing a technology role?","data-ta":"Want help pricing an accounting or finance role?","data-th":"Want help pricing an HR or operations role?"}],
+        ["How technology pay changes by industry",{"data-tt":"How technology pay changes by industry and location","data-ta":"How accounting and finance pay changes by industry and location","data-th":"How HR and operations pay changes by industry and location"}]];
+ H.forEach(function(x){[].forEach.call(q("h2[data-tt]"),function(h){if(h.getAttribute("data-tt")===x[0]){var was={"data-tt":h.getAttribute("data-tt"),"data-ta":h.getAttribute("data-ta"),"data-th":h.getAttribute("data-th")},now=h.textContent.trim();for(var k in x[1])h.setAttribute(k,x[1][k]);for(var k2 in was)if(was[k2]===now)h.textContent=x[1][k2]}})});
+ /* short copy */
+ txt("p.etip","Offers near the middle","An offer near the middle of the market draws the most qualified candidates.");
+ txt("#data p.sub","Typical base salary and range","Typical base salary and pay range for every role, combining all our sources.");
+ txt("#data p.thint","Select any role","Select a role to see pay by state and industry, total pay with bonus, our recommended offer and how your salary compares.");
+ txt("#paycheck p.advw","What it is:","A quick check for any role in this guide. It compares your offer with what the tri-state market pays and tells you what to adjust.");
+ txt("#paycheck p.advn","Candidates can use it too","Candidates can use it too. Choose “I am a candidate” to see if an offer is fair.");
+ [].forEach.call(q("#paycheck li"),function(l){var b=l.querySelector("b");if(b&&/^What can offset a gap\?/.test(b.textContent)){b.textContent="How can you close a gap?";var n=b.nextSibling;if(n&&n.nodeType===3)n.nodeValue=n.nodeValue.replace("if you are below the market","if you are below market")}});
+ txt("#industry .kick","Industry breakdown","Pay by industry and location");
+ txt("#industry p.sub","From job postings","Based on job postings from the last six months. Each bar compares what an industry or location pays with the tri-state market for the same roles.");
+ txt("#bonus .pex h3","How PE pay is structured","How private equity-backed companies pay");
+ txt("#bonus .pec h4","Your own money in","Investing your own money");
+ [].forEach.call(q("#bonus .ltx summary h4, #bonus .ltx summary"),function(s){[].forEach.call(s.childNodes,function(n){if(n.nodeType===3){n.nodeValue=n.nodeValue.replace("Structure: vehicles, vesting and refresh","How equity is granted and earned").replace("Benchmarks: stakes and spend","Typical grant sizes")}})});
+ txt("#perks p.sub","How common each perk is","How common each perk is, and which ones set you apart. Tap a card for details.");
+ txt("#overview p.sub","The key numbers","The numbers that matter for 2027 hiring. Tap a card for what it means.");
+ txt("#method p.sub","Current 2026 data only","Where every number comes from and how we set it. 2026 data only, no projections.");
+ txt("#contact .ct p:not(.sub)","Reach out to your local Vaco","Talk to your local Vaco team for role-specific data, who is available to hire now, and help building an offer that wins.");
+})();</script>
+<script>/* v78: "Download this guide as a PDF" downloads a real PDF of the current guide */
+(function(){var b=document.getElementById("pdf");if(!b)return;var F={tech:"Tri-State-Salary-Guide-2027-Technology-and-Digital.pdf",af:"Tri-State-Salary-Guide-2027-Accounting-and-Finance.pdf",hr:"Tri-State-Salary-Guide-2027-HR-and-Operations.pdf"},BASE="https://vacobyhighspring.github.io/solutions/salary-guide/pdf/";
+ function cur(){if(window.LOCKG)return window.LOCKG;var on=[].filter.call(document.querySelectorAll("header button.on, .hg2 button.on"),function(x){return x.offsetParent})[0],t=on?on.textContent:"";return /Accounting/.test(t)?"af":/HR/.test(t)?"hr":"tech"}
+ b.textContent="Download this guide as a PDF";
+ b.onclick=function(e){e.preventDefault();e.stopPropagation();var f=F[cur()],u=(location.protocol==="https:"&&location.host==="vacobyhighspring.github.io")?"/solutions/salary-guide/pdf/"+f:BASE+f;var a=document.createElement("a");a.href=u;a.download=f;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)};
 })();</script>
 </body></html>
