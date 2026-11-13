@@ -1296,7 +1296,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 80 &middot; updated November 12, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 81 &middot; updated November 12, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -1428,7 +1428,7 @@ function open(i){var x=all[i];CUR=x;$("dC").textContent=x.c.name+" · "+GN[x.c.p
   if(LTX)h+='<div class="dteq"><div class="dteh"><em class="tg eq">'+LTX.t+'</em></div><div class="dtec" style="grid-template-columns:repeat('+LTX.c.length+',minmax(0,1fr))">'+LTX.c.map(function(q){return '<div><b>'+q[0]+'</b><span>'+q[1]+'</span></div>'}).join('')+'</div><p>'+LTX.n+'</p></div>';
   m+='<div class="dsec dtc"><h4>Total compensation</h4>'+h+'</div>'}
  var st=[["New York",x.av,1]].concat(["New Jersey","Connecticut"].map(function(r){var o=M.reg&&M.reg[r],rr=RGR[r];return [r,o?o.mid:rr?Math.round(x.av*rr[1]/1000)*1000:null,!!o]})).filter(function(q){return q[1]});
- var sth='<div class="dstb"><h5>Typical base salary by state</h5><div class="dstg">'+st.map(function(q,i){var d=Math.round((1-q[1]/x.av)*100);return '<div class="dsti'+(i?'':' ny')+'"><span>'+q[0]+'</span><b>'+k(q[1])+'</b><small>'+(i?(d>0?d+'% below New York':'Same as New York'):'Highest-paying state')+'</small>'+(q[2]?'':'<em>Estimate</em>')+'</div>'}).join("")+'</div>'+(st.some(function(q){return !q[2]})?'<p class="dstn">Estimate: based on the usual pay gap to New York for similar roles.</p>':'')+'</div>';
+ var sth='<div class="dstb"><h5>Typical base salary by state</h5><div class="dstg">'+st.map(function(q,i){var d=Math.round((1-q[1]/x.av)*100);return '<div class="dsti'+(i?'':' ny')+'"><span>'+q[0]+'</span><b>'+k(q[1])+'</b><small>'+(i?(d>0?d+'% below New York':'Same as New York'):'Highest-paying state')+'</small>'+'</div>'}).join("")+'</div></div>';
  if(m.indexOf('%%ST%%')>-1)m=m.replace('%%ST%%',sth);else m+='<div class="dsec"><h4>By state</h4>'+sth+'</div>';
 
  var own=Object.keys(M.ind||{}).sort(function(a,b){return M.ind[b].mid-M.ind[a].mid});
@@ -2251,4 +2251,69 @@ section:not(.xpop) .xpx{display:none}
 .dwn{display:block;font-size:11.5px;line-height:1.35;opacity:.85;margin-top:3px;max-width:200px}
 @media(max-width:420px){.dstg{gap:6px}.dsti{padding:9px 8px}.dsti b{font-size:17px}.dsti em{position:static;display:inline-block;margin-top:4px}}
 </style>
+<style>/* v81: copy or share a clean image of the role */
+.ctoast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(10px);z-index:4000;background:#072942;color:#fff;font:700 14px/1.3 Inter,sans-serif;padding:12px 18px;border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.3);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;max-width:90vw;text-align:center}
+.ctoast.on{opacity:1;transform:translateX(-50%)}
+</style>
+<script>/* v81: "Copy image" makes a clean branded picture of the role (pay, recommended offer, levels, total pay, states). Phones open the share sheet; computers copy it to the clipboard; otherwise it downloads. */
+(function(){var old=document.getElementById("dCopy");if(!old)return;var btn=old.cloneNode(true);old.parentNode.replaceChild(btn,old);btn.textContent="Copy image";
+ var toast=document.createElement("div");toast.className="ctoast";document.body.appendChild(toast);
+ function say(t){toast.textContent=t;toast.classList.add("on");clearTimeout(say.t);say.t=setTimeout(function(){toast.classList.remove("on")},2600)}
+ function T(e){return e?(e.textContent||"").replace(/\s+/g," ").trim():""}
+ function read(){var d=document.getElementById("det"),o={};o.area=T(d.querySelector("#dC"));o.role=T(d.querySelector("#dN"));
+  var h=d.querySelector(".dhero");o.typ=T(h&&h.querySelector("b"));o.range=T(h&&h.querySelector("span"));
+  o.win=T(d.querySelector(".dwin b"));o.winn=T(d.querySelector(".dwin .dwn"));
+  o.lv=[].map.call(d.querySelectorAll(".dlv>div"),function(x){return [T(x.querySelector("span")),T(x.querySelector("b")),T(x.querySelector("small"))]});
+  var tp=d.querySelector(".dsr.dst b");o.total=T(tp);var bs=d.querySelectorAll(".dsr small");o.bonus=bs.length>1?T(bs[1]):"";
+  o.st=[].map.call(d.querySelectorAll(".dsti"),function(x){return [T(x.querySelector("span")),T(x.querySelector("b")),T(x.querySelector("small"))]});
+  var ind=document.querySelector("#tInd");o.ind=ind&&ind.value&&!/all/i.test(ind.options[ind.selectedIndex].text)?ind.options[ind.selectedIndex].text:"";
+  return o}
+ function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+ function fit(c,t,max,font,min){var s=parseInt(font.match(/(\d+)px/)[1]);while(s>min){c.font=font.replace(/\d+px/,s+"px");if(c.measureText(t).width<=max)break;s-=2}return s}
+ function draw(o,logo){var W=1200,S=2,P=56,cv=document.createElement("canvas");var H=1300;cv.width=W*S;cv.height=H*S;var c=cv.getContext("2d");c.scale(S,S);
+  var NAVY="#072942",OR="#F95C15",MUT="#5b7083",J='"Jakarta","Plus Jakarta Sans",Inter,Arial,sans-serif',I='Inter,Arial,sans-serif';
+  c.fillStyle="#f3f6f9";c.fillRect(0,0,W,H);
+  /* header band */
+  var g=c.createLinearGradient(0,0,W,0);g.addColorStop(0,"#072942");g.addColorStop(1,"#0b3a5c");c.fillStyle=g;c.fillRect(0,0,W,132);
+  c.fillStyle=OR;c.fillRect(0,132,W,5);
+  if(logo){var lh=62,lw=logo.width*lh/logo.height;c.drawImage(logo,P,35,lw,lh)}
+  c.textAlign="right";c.fillStyle="#FF8A50";c.font="800 15px "+I;c.fillText("TRI-STATE SALARY GUIDE 2027",W-P,62);
+  c.fillStyle="#cfe0ec";c.font="600 17px "+I;c.fillText("New York · New Jersey · Connecticut",W-P,92);c.textAlign="left";
+  /* role */
+  var y=190;c.fillStyle="#d94c0c";c.font="800 15px "+I;c.fillText((o.area+(o.ind?" · "+o.ind:"")).toUpperCase(),P,y);
+  y+=50;c.fillStyle=NAVY;var fs=fit(c,o.role,W-2*P,"800 44px "+J,26);c.font="800 "+fs+"px "+J;c.fillText(o.role,P,y);
+  /* typical + recommended */
+  y+=36;var bw=(W-2*P-24)/2;
+  c.fillStyle="#fff";rr(c,P,y,bw,150,18);c.fill();c.strokeStyle="#dde7f0";c.lineWidth=1.5;c.stroke();
+  c.fillStyle=MUT;c.font="700 15px "+I;c.fillText("Typical base salary, New York",P+26,y+40);
+  c.fillStyle=NAVY;c.font="800 54px "+J;c.fillText(o.typ,P+26,y+100);c.fillStyle=MUT;c.font="600 16px "+I;c.fillText(o.range,P+26,y+130);
+  var x2=P+bw+24;var gg=c.createLinearGradient(x2,y,x2+bw,y+150);gg.addColorStop(0,"#fff1e8");gg.addColorStop(1,"#ffe2d0");c.fillStyle=gg;rr(c,x2,y,bw,150,18);c.fill();c.strokeStyle="#ffc7a8";c.stroke();
+  c.fillStyle="#b83d07";c.font="800 14px "+I;c.fillText("VACO RECOMMENDED OFFER",x2+26,y+40);
+  c.fillStyle=NAVY;var f2=fit(c,o.win,bw-52,"800 44px "+J,26);c.font="800 "+f2+"px "+J;c.fillText(o.win,x2+26,y+94);
+  c.fillStyle="#7a4a2f";c.font="600 15px "+I;c.fillText(o.winn,x2+26,y+128);
+  /* levels */
+  y+=176;var n=o.lv.length||3,tw=(W-2*P-(n-1)*16)/n;o.lv.forEach(function(l,i){var x=P+i*(tw+16),on=i===1;c.fillStyle=on?NAVY:"#fff";rr(c,x,y,tw,112,16);c.fill();if(!on){c.strokeStyle="#dde7f0";c.stroke()}
+   c.fillStyle=on?"#FF8A50":MUT;c.font="800 13px "+I;c.fillText(l[0].toUpperCase(),x+22,y+34);c.fillStyle=on?"#fff":NAVY;c.font="800 34px "+J;c.fillText(l[1],x+22,y+76);c.fillStyle=on?"#b9cddc":MUT;c.font="600 14px "+I;c.fillText(l[2],x+22,y+100)});
+  y+=136;
+  if(o.total){c.fillStyle=NAVY;rr(c,P,y,W-2*P,64,16);c.fill();c.fillStyle="#fff";c.font="700 19px "+I;c.fillText("Typical total pay with bonus",P+24,y+40);c.textAlign="right";c.font="800 30px "+J;c.fillText(o.total,W-P-24,y+43);c.fillStyle="#b9cddc";c.font="600 15px "+I;c.fillText(o.bonus?"Bonus "+o.bonus:"",W-P-24-c.measureText(o.total).width-160,y+40);c.textAlign="left";y+=88}
+  /* states */
+  if(o.st.length){c.fillStyle="#d94c0c";c.font="800 14px "+I;c.fillText("TYPICAL BASE SALARY BY STATE",P,y+6);y+=20;var sw=(W-2*P-32)/3;o.st.forEach(function(s,i){var x=P+i*(sw+16),ny=i===0;c.fillStyle=ny?"#0b3a5c":"#fff";rr(c,x,y,sw,96,16);c.fill();if(!ny){c.strokeStyle="#dde7f0";c.stroke()}
+   c.fillStyle=ny?"#cfe0ec":MUT;c.font="700 15px "+I;c.fillText(s[0],x+20,y+30);c.fillStyle=ny?"#fff":NAVY;c.font="800 30px "+J;c.fillText(s[1],x+20,y+66);c.fillStyle=ny?"#b9cddc":MUT;c.font="600 13px "+I;c.fillText(s[2],x+20,y+86)});y+=118}
+  /* trim to content, then footer */
+  H=Math.round(y+86);var cv2=document.createElement("canvas");cv2.width=W*S;cv2.height=H*S;var c2=cv2.getContext("2d");c2.drawImage(cv,0,0);cv=cv2;c=c2;c.setTransform(S,0,0,S,0,0);
+  c.fillStyle="#dde7f0";c.fillRect(P,H-62,W-2*P,1);c.fillStyle=MUT;c.font="600 14px "+I;c.fillText("Base salary, 2027 plan. Source: Vaco by Highspring Tri-State Salary Guide 2027",P,H-30);
+  c.textAlign="right";c.fillStyle=NAVY;c.font="700 14px "+I;c.fillText("vacobyhighspring.github.io/solutions/salary-guide",W-P,H-30);c.textAlign="left";
+  return cv}
+ function blob(cv){return new Promise(function(r){cv.toBlob(r,"image/png")})}
+ btn.onclick=function(){var o=read();if(!o.role)return;var li=document.querySelector('a[aria-label="Back to top"] img');var img=new Image();
+  var go=function(logo){var cv=draw(o,logo),name=o.role.replace(/[^A-Za-z0-9]+/g,"-").replace(/^-|-$/g,"")+"-salary-2027.png";
+   blob(cv).then(function(b){var file;try{file=new File([b],name,{type:"image/png"})}catch(e){}
+    var touch=matchMedia("(pointer:coarse)").matches;
+    if(touch&&file&&navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:o.role+" salary, 2027"}).catch(function(){});return}
+    if(navigator.clipboard&&window.ClipboardItem){navigator.clipboard.write([new ClipboardItem({"image/png":b})]).then(function(){say("Image copied. Paste it into an email, text or Teams message.")},function(){dl(b,name)});return}
+    dl(b,name)})};
+  function dl(b,name){var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},800);say("Image saved to your downloads.")}
+  if(li&&li.src){img.onload=function(){go(img)};img.onerror=function(){go(null)};img.src=li.src}else go(null)};
+ window.__drawRoleImage=function(){return draw(read(),document.querySelector('a[aria-label="Back to top"] img'))};
+})();</script>
 </body></html>
