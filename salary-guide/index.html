@@ -1296,7 +1296,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 82 &middot; updated November 12, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 83 &middot; updated November 12, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -1503,7 +1503,8 @@ var IG=[],FAMI={};
   __INDX.forEach(function(r){var g=r[0];if(I[g])return;var v=VI(x,g);if(v&&v.t&&v.av)rows.push([g,v.av,0])});
   rows.sort(function(a,b){return b[1]-a[1]});var mx=rows.length?rows[0][1]:1,ne=rows.filter(function(r){return !r[2]}).length;
   $("iBase").innerHTML=x.n+' &middot; typical across all sources <b>'+f(x.av)+'</b>';
-  $("iBars").innerHTML=rows.map(function(r,j){return '<div class="ib'+(j===0?' top':'')+'"><span>'+r[0]+'</span><div class="bk"><i style="width:'+(r[1]/mx*100)+'%"></i></div><b>'+k(r[1])+'</b></div>'}).join("")+''}
+  var md=Math.max.apply(null,rows.map(function(r){return Math.abs(r[1]/x.av-1)}))||.1;
+  $("iBars").innerHTML='<div class="lx ibx"><div class="lxk"><span></span><span class="ax"><span>&larr; Pays less</span><em>Typical for this role</em><span>Pays more &rarr;</span></span><span></span></div>'+rows.map(function(r){var d=Math.round((r[1]/x.av-1)*100),w=Math.abs(r[1]/x.av-1)/md*48,c=d>0?"up":d<0?"dn":"eq";return '<div class="lxr"><span class="nm">'+r[0]+'</span><div class="lt">'+(d?'<i class="'+c+'" style="width:'+w+'%"></i>':'')+'</div><span class="vl"><b class="'+c+'">'+k(r[1])+'</b><small>'+(d>0?d+'% above typical':d<0?(-d)+'% below typical':'Same as typical')+'</small></span></div>'}).join("")+'</div>'}
  sel.onchange=dr;window.__indRedraw=function(p){var rr=ro.filter(function(o){return o.x.c.practice===p});sel.innerHTML=D.filter(function(c){return c.practice===p}).map(function(c){var q=rr.filter(function(o){return o.x.c===c});return q.length?'<optgroup label="'+c.name+'">'+q.map(function(o){return '<option value="'+o.i+'">'+o.x.n+'</option>'}).join("")+'</optgroup>':''}).join("");if(rr.length){sel.value=rr[0].i;dr()}};
  var sa=ro.filter(function(o){return o.x.n==="Accountant"})[0]||ro[0];if(sa){sel.value=sa.i;dr()}
  var bt=$("btabs");bt.onclick=function(e){var b=e.target.closest("button");if(!b)return;[].forEach.call(bt.children,function(x){x.classList.toggle("on",x===b)});[].forEach.call(document.querySelectorAll(".bgrid"),function(g){g.hidden=g.dataset.g!==b.dataset.b})};
@@ -2316,4 +2317,5 @@ section:not(.xpop) .xpx{display:none}
   if(li&&li.src){img.onload=function(){go(img)};img.onerror=function(){go(null)};img.src=li.src}else go(null)};
  window.__drawRoleImage=function(){return draw(read(),document.querySelector('a[aria-label="Back to top"] img'))};
 })();</script>
+<style>/* v83: role-by-industry chart matches the industry chart: centered on the role's typical pay */#iBars .lxr .vl b{font-size:16px}#iBars .lxr{padding:8px 0}#iBars .lxk{margin-top:4px}</style>
 </body></html>
