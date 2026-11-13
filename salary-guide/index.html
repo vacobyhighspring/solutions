@@ -1296,7 +1296,7 @@ section#bonus,section#perks,section#overview,section#method{padding-top:56px;pad
 </div>
 <p class="sub" style="font-size:14px;margin-top:22px;max-width:none">Vaco is the talent solutions division of Highspring, a leading global professional services organization. With expertise in accounting and finance, information technology and digital, as well as human resources and operations, Vaco focuses on contract staffing and direct hire solutions. Vaco&rsquo;s parent company, Highspring, helps clients with two additional integrated service offerings: consulting and managed services. With more than 10,000 employees across more than 45 offices worldwide, Highspring gives partners the agility to thrive, address challenges, and seize opportunities in a rapidly changing world.</p></div></section>
 
-<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 87 &middot; updated November 12, 2026 &middot; Vaco by Highspring</span></div></footer>
+<footer><div class="wrap"><span>&copy; 2026 Highspring LLC. All rights reserved. Tri-State Salary Guide 2027: New York, New Jersey, Connecticut.</span><span>Version 88 &middot; updated November 12, 2026 &middot; Vaco by Highspring</span></div></footer>
 <aside class="det" id="det" aria-live="polite"><button type="button" class="x" id="dX" aria-label="Close">&times;</button><small id="dC"></small><h3 id="dN"></h3><div class="tri" id="dT"></div><p class="more" id="dM"></p><div class="dact"><button type="button" class="o" id="dAdd">Build a hiring plan</button><button type="button" id="dCopy">Copy range</button></div></aside>
 <a class="pill" id="pill" href="#planner"><span class="pl">Your hiring budget</span><span><b id="plA">$0</b> &middot; <span id="plH">0</span> hires</span><i>View</i></a>
 <div class="toast" id="toast" role="status"></div>
@@ -1420,6 +1420,7 @@ function open(i){var x=all[i];CUR=x;$("dC").textContent=x.c.name+" · "+GN[x.c.p
   LTX=/Executive/.test(x.l)?{t:'Equity at PE-backed companies',c:[['~10%','management pool'],['~2.3%','CEO first grant'],['0.45%','other C-suite']],n:'Paid at the sale. Public companies use performance shares.'}
    :LD?{t:'Long-term incentives',c:[['1 in 2','public companies'],['1 in 4','private companies'],['<0.01%','PE grants below C-suite']],n:'Share of companies that give managers and directors stock or long-term incentives.'}
    :(TECHIC?{t:'Stock',c:[['$23K–$216K','a year, senior level at public companies'],['~1.75%','first hire at a startup']],n:'Restricted stock units vest over 3 to 4 years; startups grant options.'}:null);
+ LTX=null;
  if(tc||LTX){var tf=tc?1+tc.x/100:1,tr=function(n){return Math.round(n*tf/1000)*1000},bn=function(n){return Math.round(n*(tf-1)/1000)*1000},h='';
   if(tc){var B0=Math.round(v.av/1000)*1000,T0=tr(v.av),BN=T0-B0;
    h+='<div class="dts"><div class="dsr"><span>Base salary<small>typical</small></span><b>'+k(B0)+'</b></div><div class="dsr"><span>+ Yearly bonus<small>about '+Math.round(tc.x)+'% of base'+'</small></span><b>'+k(BN)+'</b></div><div class="dsr dst"><span>Typical total pay</span><b>'+k(T0)+'</b></div></div>%%ST%%';
@@ -1435,7 +1436,7 @@ function open(i){var x=all[i];CUR=x;$("dC").textContent=x.c.name+" · "+GN[x.c.p
  var own=Object.keys(M.ind||{}).sort(function(a,b){return M.ind[b].mid-M.ind[a].mid});
  var AR=__AINDX[x.c.id]||{};var oth=__INDX.map(function(r){return r[0]}).filter(function(g){return own.indexOf(g)<0}).map(function(g){return [g,Math.round(x.av*(AR[g]?AR[g][0]:INDR[g][1])/1000)*1000,!!AR[g]]}).sort(function(a,b){return b[1]-a[1]});
  var imx=Math.max.apply(0,own.map(function(g){return M.ind[g].mid}).concat(oth.map(function(q){return q[1]}),[x.av]))*1.02;
- if(own.length)m+='<div class="dsec"><h4>By industry</h4><p class="dsub">From job postings for this role</p>'+own.map(function(g){return '<div class="drow'+(g===TIND?' on':'')+'"><span>'+g+'</span>'+mbar(M.ind[g].mid,imx)+'<em>'+k(M.ind[g].mid)+'</em></div>'}).join("")+'</div>';
+
  if(M.yrs)m+='<div class="dsec"><h4>Experience employers ask for</h4><div class="drow"><span>Typical requirement</span><em>'+M.yrs.p25+(M.yrs.p75>M.yrs.p25?' to '+M.yrs.p75:'')+' years</em></div></div>';
  var MS=M.src||[],VIn=MS.some(function(z){return z.src==="Vaco internal data"}),ss=MS.filter(function(z){return z.src!=="Vaco internal data"}),smx=Math.max.apply(0,ss.map(function(z){return z.hi||z.mid||0}))*1.02;
 
