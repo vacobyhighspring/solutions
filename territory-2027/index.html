@@ -362,6 +362,7 @@ footer{max-width:1440px;margin:0 auto;padding:6px 24px 30px;color:#6f8aa3;font-s
 .rnote{font-size:11.5px;color:var(--mut);margin:6px 0 0}
 .rpin{cursor:pointer}.rpin path{fill:#B79CFF;stroke:#fff}.rpin text{font:800 calc(11px * var(--z,1) * var(--f,1)) Inter,sans-serif;fill:#E3D8FF;paint-order:stroke;stroke:rgba(4,26,44,.92);stroke-width:calc(3.2px * var(--z,1))}
 @media (max-width:640px){.rsm{padding:0}.rsw{border-radius:0;max-height:100vh;min-height:100vh;padding:18px 14px}.rfc{grid-template-columns:1fr}}
+.rsa.rsi{margin-top:16px}.rsa .lk.im{background:linear-gradient(90deg,#F95C15,#FF8A50);color:#fff}
 </style>
 </head>
 <body>
@@ -834,6 +835,7 @@ if(D.acc){(function(){
  function brief(){var o=RS.o,J=o.data,R=analyze(J),nb=nearList(o.la,o.lo,6),g=R.go;
   function src(u){return okUrl(u)?'<a href="'+esc(u)+'" target="_blank" rel="noopener">Source &#8599;</a>':''}
   var h='<small class="rk">Prospect research brief &middot; researched '+esc(o.when||iso(TODAY))+'</small><h2>'+esc(J.company||o.name)+'</h2><p class="rl">'+esc([J.hq||o.loc,J.ownership,(J.pe&&J.pe.fund)?'PE: '+J.pe.fund+(J.pe.deal_date?' ('+J.pe.deal_date+')':''):''].filter(Boolean).join(' · '))+'</p>'+(J.summary?'<p class="rsum">'+esc(J.summary)+'</p>':'');
+  h+='<div class="rsa" style="margin-top:12px"><button class="lk im" data-rsim="copy">&#10697; Copy as image</button><button class="lk" data-rsim="save">Save image</button></div>';
   if(g)h+='<div class="rgo"><small>Go-to trigger &middot; newest relevant</small><b>'+esc(g.headline)+'</b><p>'+esc(fmtD(g.d))+' &middot; '+esc(g.category||'')+(g.driver?' &middot; '+esc(g.driver):'')+'</p>'+(g.detail?'<p class="rdt">'+esc(g.detail)+'</p>':'')+'<div class="rsc"><span>Recency '+g.rw.toFixed(2)+' &times; Confidence '+esc(g.cf)+' '+g.cw.toFixed(2)+' = <b>'+g.sc.toFixed(2)+'</b></span>'+src(g.source)+'</div></div>';
   else h+='<div class="rgo none"><small>Go-to trigger</small><b>No dated trigger in the last 24 months</b><p>'+(J.no_signal?'Copilot found no signal. Score this one low.':'Nothing passed the dated-trigger rule. See leads below.')+'</p></div>';
   if((J.demand_drivers||[]).length)h+='<h4>Demand drivers</h4><div class="rdd">'+J.demand_drivers.map(function(d,i){return '<div><b>'+(i+1)+'. '+esc(d.driver)+'</b><span>'+esc(d.why||'')+'</span></div>'}).join('')+'</div>';
@@ -843,7 +845,7 @@ if(D.acc){(function(){
   if(R.T.length)h+='<h4>All triggers <span>(newest first, last 24 months)</span></h4><div class="rtl">'+R.T.map(function(t){return '<div class="'+(t===g?'g':'')+(t.old?' o':'')+'"><em>'+t.sc.toFixed(2)+'</em><span><b>'+esc(t.headline)+'</b><small>'+esc(fmtD(t.d))+' &middot; '+esc(t.category||'')+' &middot; '+esc(t.cf)+(t.old?' &middot; older than 24 months, history only':'')+' '+src(t.source)+'</small></span></div>'}).join('')+'</div>';
   if(R.L.length)h+='<h4>Leads <span>(not triggers: no exact date or no working link)</span></h4><ul class="rld">'+R.L.map(function(l){return '<li>'+esc(l.headline)+(l.why?' <small>('+esc(l.why)+')</small>':'')+' '+src(l.source)+'</li>'}).join('')+'</ul>';
   if(nb.length)h+='<h4>Clients we already have nearby</h4><div class="pnr">'+nb.map(function(x){var b=x.a;return '<button data-acc="'+b.i+'" style="--c:'+RC[b.rel]+'"><i></i><span><b>'+esc(b.n)+'</b><small>'+x.d.toFixed(1)+' mi &middot; '+esc(b.city||'')+' &middot; '+esc(b.rep)+'</small></span></button>'}).join('')+'</div>';
-  h+='<div class="rsa"><button class="lk" data-rscb="1">Copy brief</button>'+(o.saved?'':'<button class="lk" data-rssv="1">Save to my map</button>')+'<button class="lk" data-rsre="1">Paste a new answer</button>'+(o.saved?'<button class="lk dl" data-rsdl="1">Remove</button>':'')+'</div><p class="rnote">Score = recency &times; confidence. Recency: 6 months or newer 1.00, 7 to 12 months 0.85, 13 to 24 months 0.60, older 0.30. Saved research stays in this browser only.</p>';
+  h+='<div class="rsa rsi"><button class="lk im" data-rsim="copy">&#10697; Copy as image</button><button class="lk" data-rsim="save">Save image</button>'+(navigator.canShare?'<button class="lk" data-rsim="share">Share</button>':'')+'</div><div class="rsa"><button class="lk" data-rscb="1">Copy brief as text</button>'+(o.saved?'':'<button class="lk" data-rssv="1">Save to my map</button>')+'<button class="lk" data-rsre="1">Paste a new answer</button>'+(o.saved?'<button class="lk dl" data-rsdl="1">Remove</button>':'')+'</div><p class="rnote">Score = recency &times; confidence. Recency: 6 months or newer 1.00, 7 to 12 months 0.85, 13 to 24 months 0.60, older 0.30. Saved research stays in this browser only.</p>';
   document.getElementById('rsb').innerHTML=h;document.querySelector('.rsw').scrollTop=0}
  function txtBrief(){var o=RS.o,J=o.data,R=analyze(J),g=R.go,out=[(J.company||o.name)+' ('+(J.hq||o.loc||'')+')'];
   if(J.summary)out.push(J.summary);out.push('');out.push('Go-to trigger: '+(g?fmtD(g.d)+', '+g.headline+' ('+g.category+', score '+g.sc.toFixed(2)+') '+(g.source||''):'none in the last 24 months'));
@@ -878,6 +880,65 @@ if(D.acc){(function(){
  document.getElementById('rsl').addEventListener('change',function(e){if(e.target.id!=='rsim')return;var f=e.target.files[0];if(!f)return;f.text().then(function(s){try{var N=JSON.parse(s);if(!Array.isArray(N))throw 0;var L=rsLoad(),ids={};L.forEach(function(x){ids[x.id]=1});N.forEach(function(x){if(x&&x.id&&!ids[x.id])L.push(x)});rsSave(L);savedList();drawR()}catch(err){document.getElementById('rsl').insertAdjacentHTML('beforeend','<p class="rse">That file is not a research backup.</p>')}})});
  document.getElementById('rsl').addEventListener('click',function(e){if(e.target.closest('[data-rsex]')){e.stopPropagation();var b=new Blob([JSON.stringify(rsLoad(),null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='researched-prospects-'+iso(TODAY)+'.json';a.click();return}if(e.target.closest('label'))e.stopPropagation();var b=e.target.closest('[data-rsop]');if(!b)return;e.stopPropagation();var r=rsLoad().filter(function(x){return x.id===b.dataset.rsop})[0];if(r)openR(r)});
  savedList();drawR();
+
+ /* ---------- research brief as one image (PNG) to copy, save or share ---------- */
+ function briefCanvas(){var o=RS.o,J=o.data,R=analyze(J),g=R.go,nb=nearList(o.la,o.lo,5),S=2,Wd=1080,P0=56,CW2=Wd-P0*2;
+  var FS='"Plus Jakarta Sans",Inter,"Segoe UI",system-ui,sans-serif',FB='Inter,"Segoe UI",system-ui,sans-serif';
+  var c=document.createElement('canvas'),x=c.getContext('2d');
+  function f(w,s,fam){x.font=w+' '+s+'px '+(fam||FB)}
+  function lines(t,w){var out=[],ws=String(t||'').split(/\s+/),l='';ws.forEach(function(wd){var tt=l?l+' '+wd:wd;if(x.measureText(tt).width>w&&l){out.push(l);l=wd}else l=tt});if(l)out.push(l);return out}
+  var ops=[],y=0;
+  function txt(t,X,w,font,col,lh,max){f.apply(null,font);var L=lines(t,w);if(max&&L.length>max){L=L.slice(0,max);L[max-1]+='…'}var y0=y;L.forEach(function(l,i){ops.push(['t',l,X,y0+lh*(i+1)-lh*.28,font,col])});y+=L.length*lh;return L.length}
+  function box(X,Y,w,h,fill,stroke,r){ops.push(['b',X,Y,w,h,fill,stroke,r||18])}
+  function head(t){y+=26;ops.push(['t',t.toUpperCase(),P0,y+14,['800',15],'#8ea6bd',2]);y+=26}
+  /* layout pass (measure) */
+  f('800',15);y=48;var logo=document.querySelector('.top img');y+=78;
+  ops.push(['t','PROSPECT RESEARCH BRIEF  ·  RESEARCHED '+(o.when||iso(TODAY)),P0,y,['800',15],'#B79CFF',2]);y+=14;
+  txt(J.company||o.name,P0,CW2,['800',46,FS],'#ffffff',56,2);
+  txt([J.hq||o.loc,J.ownership,(J.pe&&J.pe.fund)?'PE: '+J.pe.fund+(J.pe.deal_date?' ('+J.pe.deal_date+')':''):''].filter(Boolean).join('  ·  '),P0,CW2,['500',20],'#a9bdd0',30);
+  if(J.summary){y+=8;txt(J.summary,P0,CW2,['400',20],'#dce8f3',30,4)}
+  y+=22;var gy=y,inner=CW2-48;y+=24;
+  if(g){ops.push(['t','GO-TO TRIGGER  ·  NEWEST RELEVANT',P0+24,y+14,['800',14],'#FFB38A',1.5]);y+=24;txt(g.headline,P0+24,inner,['800',28,FS],'#ffffff',36,3);
+   txt(fmtD(g.d)+'  ·  '+(g.category||'')+(g.driver?'  ·  '+g.driver:''),P0+24,inner,['500',18],'#dce8f3',26,2);
+   if(g.detail)txt(g.detail,P0+24,inner,['400',17],'#b9cadb',25,3);
+   y+=8;txt('Recency '+g.rw.toFixed(2)+' × Confidence '+g.cf+' '+g.cw.toFixed(2)+' = '+g.sc.toFixed(2),P0+24,inner,['700',18],'#ffffff',26);
+   if(g.source)txt(g.source,P0+24,inner,['400',15],'#8fd8ff',22,1)}
+  else{ops.push(['t','GO-TO TRIGGER',P0+24,y+14,['800',14],'#FFB38A',1.5]);y+=24;txt('No dated trigger in the last 24 months',P0+24,inner,['800',26,FS],'#fff',34);txt(J.no_signal?'Copilot found no signal. Score this one low.':'Nothing passed the dated-trigger rule.',P0+24,inner,['400',18],'#dce8f3',26)}
+  y+=22;ops.unshift(['b',P0,gy,CW2,y-gy,g?'rgba(249,92,21,.18)':'rgba(255,255,255,.05)',g?'rgba(249,92,21,.6)':'rgba(255,255,255,.12)',22]);
+  if(J.first_call||J.next_step){y+=18;var half=(CW2-16)/2,fy=y,h1=0,h2=0;
+   [['FIRST CALL',J.first_call,P0],['NEXT STEP',J.next_step,P0+half+16]].forEach(function(p,i){if(!p[1])return;y=fy+20;ops.push(['t',p[0],p[2]+20,y+12,['800',14],'#8fd8ff',1.5]);y+=24;txt(p[1],p[2]+20,half-40,['400',18],'#e6eef6',26,6);var hh=y-fy+18;if(i)h2=hh;else h1=hh});
+   var hh=Math.max(h1,h2);[P0,P0+half+16].forEach(function(X,i){if(i?J.next_step:J.first_call)ops.unshift(['b',X,fy,half,hh,'rgba(45,191,249,.08)','rgba(45,191,249,.35)',18])});y=fy+hh}
+  if((J.demand_drivers||[]).length){head('Demand drivers');J.demand_drivers.slice(0,4).forEach(function(d,i){txt((i+1)+'. '+d.driver,P0,CW2,['700',19],'#ffffff',27,2);if(d.why)txt(d.why,P0+22,CW2-22,['400',17],'#a9bdd0',24,2);y+=6})}
+  if(R.C.length){head('Coming up');R.C.slice(0,5).forEach(function(cu){var dd=Math.round((cu.d-TODAY)/864e5);var y0=y;ops.push(['t',dd+'',P0,y+28,['800',30,FS],'#FFC83D']);ops.push(['t','days',P0,y+48,['700',13],'#8ea6bd']);txt(cu.event,P0+90,CW2-90,['600',19],'#ffffff',27,2);txt(fmtD(cu.d),P0+90,CW2-90,['400',16],'#8ea6bd',22);y=Math.max(y,y0+56)+6})}
+  if(R.B.length){head('Buyers');R.B.slice(0,5).forEach(function(b){var y0=y;ops.push(['c',P0+16,y+18,16,'#1A8FCF']);ops.push(['tc',String(b.rank||''),P0+16,y+24,['800',16],'#fff']);
+   var nm=b.name||'Name not found';f('700',19);var nw=x.measureText(nm).width;txt(nm,P0+46,CW2-46,['700',19],'#ffffff',27);if(LANES[b.lane])ops.push(['t',b.lane+' · '+LANES[b.lane],P0+46+nw+14,y-8,['800',14],'#FFC83D',1]);txt([b.title,b.role].filter(Boolean).join('  ·  '),P0+46,CW2-46,['400',16],'#a9bdd0',23,2);if(b.trigger)txt('Owns: '+b.trigger,P0+46,CW2-46,['400',15],'#8ea6bd',22,2);if(b.flag)txt(b.flag,P0+46,CW2-46,['600',15],'#ffb3b3',22);y=Math.max(y,y0+40)+8})}
+  if(R.T.length>1){head('Other triggers (last 24 months)');R.T.filter(function(t){return t!==g}).slice(0,5).forEach(function(t){var y0=y;ops.push(['b',P0,y+2,62,30,t.old?'rgba(255,255,255,.05)':'rgba(255,255,255,.1)',null,8]);ops.push(['tc',t.sc.toFixed(2),P0+31,y+23,['800',15],'#fff']);txt(t.headline,P0+80,CW2-80,['600',18],t.old?'#8ea6bd':'#ffffff',26,2);txt(fmtD(t.d)+'  ·  '+(t.category||'')+'  ·  '+t.cf,P0+80,CW2-80,['400',15],'#8ea6bd',22);y=Math.max(y,y0+36)+8})}
+  if(nb.length){head('Clients we already have nearby');nb.forEach(function(n){ops.push(['c',P0+7,y+15,7,RC[n.a.rel]]);txt(n.a.n+'  ·  '+n.d.toFixed(1)+' mi  ·  '+(n.a.city||'')+'  ·  '+n.a.rep,P0+24,CW2-24,['500',17],'#dce8f3',26,1);y+=2})}
+  y+=34;ops.push(['l',P0,y,Wd-P0,y]);y+=34;ops.push(['t','Vaco by Highspring  ·  Northeast  ·  Internal, do not share outside the team',P0,y,['600',15],'#8ea6bd']);
+  ops.push(['t','Score = recency × confidence',Wd-P0,y,['500',15],'#5d7a95',0,'right']);y+=40;
+  /* draw pass */
+  c.width=Wd*S;c.height=y*S;x.scale(S,S);
+  var gr=x.createLinearGradient(0,0,Wd,y);gr.addColorStop(0,'#072942');gr.addColorStop(1,'#041a2c');x.fillStyle=gr;x.fillRect(0,0,Wd,y);
+  var gl=x.createRadialGradient(Wd*.9,0,10,Wd*.9,0,500);gl.addColorStop(0,'rgba(249,92,21,.18)');gl.addColorStop(1,'rgba(249,92,21,0)');x.fillStyle=gl;x.fillRect(0,0,Wd,y);
+  x.fillStyle='#F95C15';x.fillRect(0,0,Wd,6);
+  if(logo&&logo.complete&&logo.naturalWidth){var lh2=44,lw=logo.naturalWidth/logo.naturalHeight*lh2;try{x.drawImage(logo,P0,40,lw,lh2)}catch(e){}}
+  function rr(X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath()}
+  ops.forEach(function(op){var k=op[0];
+   if(k==='b'){rr(op[1],op[2],op[3],op[4],op[7]);x.fillStyle=op[5];x.fill();if(op[6]){x.strokeStyle=op[6];x.lineWidth=1.5;x.stroke()}}
+   else if(k==='c'){x.beginPath();x.arc(op[1],op[2],op[3],0,6.283);x.fillStyle=op[4];x.fill()}
+   else if(k==='l'){x.strokeStyle='rgba(255,255,255,.12)';x.lineWidth=1;x.beginPath();x.moveTo(op[1],op[2]);x.lineTo(op[3],op[4]);x.stroke()}
+   else{f.apply(null,op[4]);x.fillStyle=op[5];x.textAlign=k==='tc'?'center':(op[7]||'left');if('letterSpacing' in x)x.letterSpacing=(op[6]||0)+'px';x.fillText(op[1],op[2],op[3]);if('letterSpacing' in x)x.letterSpacing='0px'}});
+  x.textAlign='left';return c}
+ function imgName(){var J=RS.o.data||{};return ((J.company||RS.o.name||'Prospect')+' - research brief - '+(RS.o.when||iso(TODAY))).replace(/[\\/:*?"<>|]+/g,'')+'.png'}
+ function toBlob(c){return new Promise(function(res){var u=c.toDataURL('image/png'),b=atob(u.split(',')[1]),n=b.length,a=new Uint8Array(n);for(var i=0;i<n;i++)a[i]=b.charCodeAt(i);res(new Blob([a],{type:'image/png'}))})}
+ ov.addEventListener('click',function(e){var b=e.target.closest('[data-rsim]');if(!b)return;e.stopPropagation();var mode=b.dataset.rsim,c=briefCanvas(),lab=b.textContent;
+  function say(t){b.textContent=t;setTimeout(function(){b.textContent=lab},1800)}
+  toBlob(c).then(function(bl){
+   if(mode==='copy'){if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){navigator.clipboard.write([new ClipboardItem({'image/png':bl})]).then(function(){say('Image copied')},function(){dl(bl);say('Downloaded instead')})}else{dl(bl);say('Downloaded instead')}}
+   else if(mode==='share'&&navigator.canShare){var fl=new File([bl],imgName(),{type:'image/png'});if(navigator.canShare({files:[fl]}))navigator.share({files:[fl],title:imgName()}).catch(function(){});else dl(bl)}
+   else dl(bl)})
+  function dl(bl){var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=imgName();document.body.appendChild(a);a.click();a.remove()}},true);
+ window.__briefCanvas=briefCanvas;
 
  /* from an account card: find clients near it */
  window.__nearFrom=function(i){var a=A[i];if(a.la==null)return;document.getElementById('pn').value=a.n;P.la=a.la;P.lo=a.lo;P.label=a.n;pc.value=[a.city,a.st].filter(Boolean).join(', ');
