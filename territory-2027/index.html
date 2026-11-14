@@ -363,6 +363,10 @@ footer{max-width:1440px;margin:0 auto;padding:6px 24px 30px;color:#6f8aa3;font-s
 .rpin{cursor:pointer}.rpin path{fill:#B79CFF;stroke:#fff}.rpin text{font:800 calc(11px * var(--z,1) * var(--f,1)) Inter,sans-serif;fill:#E3D8FF;paint-order:stroke;stroke:rgba(4,26,44,.92);stroke-width:calc(3.2px * var(--z,1))}
 @media (max-width:640px){.rsm{padding:0}.rsw{border-radius:0;max-height:100vh;min-height:100vh;padding:18px 14px}.rfc{grid-template-columns:1fr}}
 .rsa.rsi{margin-top:16px}.rsa .lk.im{background:linear-gradient(90deg,#F95C15,#FF8A50);color:#fff}
+.cfocus .acc:not(.incty):not(.hl){opacity:.12}.cfocus .acc.incty{opacity:1}
+.cnt3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.cnt3 div{background:rgba(255,255,255,.04);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:12px;padding:8px 10px}.cnt3 b{display:block;font:800 22px "Plus Jakarta Sans",sans-serif}.cnt3 small{color:var(--mut);font-size:11.5px;font-weight:600}
+.csec h4{display:flex;align-items:center;gap:8px;color:#fff!important}.csec h4 i{width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}.csec h4 span{color:var(--mut)}
+.ar2 em.mine{background:rgba(249,92,21,.2);color:#FFB38A;border-radius:6px;padding:2px 6px}
 </style>
 </head>
 <body>
@@ -498,7 +502,7 @@ function sel(id,keep){
  det.classList.add('on');if(innerWidth<=1020&&!touring)det.scrollIntoView({behavior:'smooth',block:'nearest'})}
 function selCounty(cid){
  var C=CT[cid];if(cur.m!==C.m)sel(C.m,true);cur.c=cid;cur.h=null;mark();go(fit(C.bb,.25,W*.16));
- [].forEach.call(det.querySelectorAll('[data-cty]'),function(b){b.classList.toggle('on',b.dataset.cty===cid)})}
+ [].forEach.call(det.querySelectorAll('[data-cty]'),function(b){b.classList.toggle('on',b.dataset.cty===cid)});if(window.__accCounty)window.__accCounty(cid)}
 function selHub(i){
  var h=HB[i];if(cur.m!==h.m)sel(h.m,true);cur.h=i;cur.c=null;mark();go([h.x-W*.11,h.y-H*.11,W*.22,H*.22]);
  tipOff();var m=MK[h.m],near=HB.filter(function(x){return x!==h&&x.m===h.m&&x.c===h.c});
@@ -513,7 +517,7 @@ document.addEventListener('click',function(e){
  var cb=t.closest('[data-cty]');if(cb){stopTour();selCounty(cb.dataset.cty);return}
  if(!t.closest('#map'))return;stopTour();hideHint();
  var h=t.closest('.hub');if(h){selHub(+h.dataset.h);return}
- var c=t.getAttribute('data-c');if(c){if(cur.m===CT[c].m)selCounty(c);else sel(CT[c].m);return}
+ var c=t.getAttribute('data-c');if(c){if(D.acc||cur.m===CT[c].m)selCounty(c);else sel(CT[c].m);return}
  if(cur.m)sel(null)});
 document.addEventListener('resize',function(){place(z())});document.addEventListener('keydown',function(e){if(e.key==='Escape'){stopTour();sel(null);sugOff()}});
 /* ---------- search ---------- */
@@ -609,6 +613,22 @@ if(D.acc){(function(){
    '<div class="lks">'+(a.la!=null?'<button class="lk near" data-near="'+a.i+'">&#9673; Find clients near this account</button>':'')+link(a.sf,'Open in Salesforce')+link(a.prof,'Account profile')+'</div>';
   det.classList.add('on');if(innerWidth<=1020)det.scrollIntoView({behavior:'smooth',block:'nearest'})};
  document.addEventListener('click',function(e){var b=e.target.closest('[data-back-acc]');if(b){e.stopPropagation();det.classList.remove('on');A.forEach(function(x){if(x.g)x.g.classList.remove('hl')});setTab('a')}},true);
+ /* county panel: the companies in a county, split by client or prospect */
+ window.__accCounty=function(cid){var C=CT[cid],m=MK[C.m],L=A.filter(function(a){return a.cf===cid}),me=window.__getMe?window.__getMe():'';
+  A.forEach(function(a){if(a.g)a.g.classList.toggle('incty',a.cf===cid)});svg.classList.add('cfocus');
+  var ord=function(a,b){return (b.t50?1:0)-(a.t50?1:0)||PRS.indexOf(a.pr)-PRS.indexOf(b.pr)||a.n.localeCompare(b.n)};
+  var cs=D.counties.filter(function(c){return c.m===C.m});
+  pt.textContent='County';list.style.display='none';av.style.display='none';det.style.setProperty('--c',m.color);
+  det.innerHTML='<div class="crumb"><button data-sel="">All markets</button>&#8250;<button data-sel="'+m.id+'">'+m.name+'</button></div>'+
+   '<div class="dh"><small>'+m.name+'</small><h3>'+esc(C.n)+'</h3><p>'+(L.length?L.length+' compan'+(L.length>1?'ies':'y')+' on our list':'None of our accounts are in this county yet.')+(me?' &middot; '+L.filter(function(a){return a.rep===me}).length+' yours':'')+'</p></div>'+
+   '<div class="cnt3">'+RELS.map(function(s){var n=L.filter(function(a){return a.rel===s}).length;return '<div style="--c:'+RC[s]+'"><b>'+n+'</b><small>'+(s==='Current or former client'?'Clients':s==='Prospect with MSA signed'?'MSA signed':'Other prospects')+'</small></div>'}).join('')+'</div>'+
+   RELS.map(function(s){var G=L.filter(function(a){return a.rel===s}).sort(ord);if(!G.length)return '';
+    return '<div class="csec" style="--c:'+RC[s]+'"><h4><i></i>'+(s==='Current or former client'?'Current or former clients':s==='Prospect with MSA signed'?'Prospects with MSA signed':'Other prospects')+' <span>'+G.length+'</span></h4>'+
+    G.map(function(a){return '<button class="ar2'+(a.t50?' top':'')+'" data-acc="'+a.i+'" style="--c:'+RC[a.rel]+'"><i'+(a.t50?' class="t"':'')+'></i><span><b>'+(a.t50?'&#9733; ':'')+esc(a.n)+'</b><small>'+esc([a.city,a.rep,a.ind].filter(Boolean).join(' · '))+'</small></span>'+(me&&a.rep===me?'<em class="mine">Yours</em>':'<em>'+esc(a.pr==='B Account List'?'B list':a.pr==='Not set'?'':a.pr)+'</em>')+'</button>'}).join('')+'</div>'}).join('')+
+   '<h4>Other counties in '+m.name+'</h4><div class="chips">'+cs.filter(function(c){return c.id!==cid}).map(function(c){return '<button data-cty="'+c.id+'">'+esc(c.n)+' &middot; '+A.filter(function(a){return a.cf===c.id}).length+'</button>'}).join('')+'</div>'+
+   '<button class="back" data-sel="'+m.id+'">&#8249; Back to '+m.name+'</button>';
+  det.classList.add('on');if(innerWidth<=1020&&!touring)det.scrollIntoView({behavior:'smooth',block:'nearest'})};
+ var _am=window.__accMark;window.__accMark=function(mm){_am(mm);if(!cur.c){svg.classList.remove('cfocus');A.forEach(function(a){if(a.g)a.g.classList.remove('incty')})}};
  /* market section */
  window.__accMarket=function(id){var L=A.filter(function(a){return a.m===id}),by=cnt(L.map(function(a){return a.s})),byr=cnt(L.map(function(a){return a.rel})),rp=cnt(L.map(function(a){return a.rep}));
   var top=L.slice().sort(function(a,b){return PRS.indexOf(a.pr)-PRS.indexOf(b.pr)||(b.t50?1:0)-(a.t50?1:0)||a.n.localeCompare(b.n)}).slice(0,10);
