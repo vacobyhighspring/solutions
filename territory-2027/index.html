@@ -397,6 +397,9 @@ footer{max-width:1440px;margin:0 auto;padding:6px 24px 30px;color:#6f8aa3;font-s
 .apop .pnr button .pvx{font-style:normal;margin-left:auto;color:var(--mut);align-self:center;transition:transform .15s}.apop .pnr button.on .pvx{transform:rotate(180deg)}.apop .pnr button.on{background:rgba(255,255,255,.07)}
 .apop .pa .lk.im{background:linear-gradient(90deg,#F95C15,#FF8A50);color:#fff}
 .apop .pa .lk,.qvc .qa .lk{font:700 12.5px Inter,sans-serif;padding:7px 12px;border:0;cursor:pointer}
+.only .acc:not(.incty){display:none}
+.repl{background:none;border:0;padding:0;font:inherit;color:#8fd8ff;cursor:pointer;text-decoration:underline;text-decoration-color:rgba(143,216,255,.4);text-underline-offset:2px}.repl:hover{color:#fff}
+.chips button[disabled]{opacity:.55;cursor:default}
 </style>
 </head>
 <body>
@@ -619,7 +622,7 @@ if(D.acc){(function(){
   var H=[['t50','&#9733; Top 50 targets'],['in','In the 2027 markets'],['out','Outside the 2027 markets'],['none','Off the map: other states, abroad or no location']].map(function(g){var xs=grp[g[0]].sort(ord);if(!xs.length)return '';
    return '<h5>'+g[1]+' <small>'+xs.length+'</small></h5>'+xs.map(function(a){return '<button class="ar2'+(a.t50?' top':'')+'" data-acc="'+a.i+'" style="--c:'+col(a)+'"><i'+(a.t50?' class="t"':'')+'></i><span><b>'+esc(a.n)+'</b><small>'+esc(a.rel)+' &middot; '+esc(a.rep)+' &middot; '+esc([a.city,a.st].filter(Boolean).join(', ')||a.why)+'</small></span><em>'+(a.t50?'<span class="tb">&#9733; Top 50</span>':esc(a.pr==='B Account List'?'B list':a.pr))+'</em></button>'}).join('')}).join('');
   document.getElementById('alist').innerHTML=H||'<p class="none">No accounts match these filters.</p>'}
- function refresh(){A.forEach(function(a){a.ok=pass(a);var vis=a.ok;if(!vis&&ME&&F.rep===ME){F.rep='';vis=pass(a);F.rep=ME}if(a.el){a.g.style.display=vis?'':'none';a.g.classList.toggle('oth',!a.ok&&vis);if(a.t50){a.el.setAttribute('fill','#FFC83D');a.h.setAttribute('stroke',col(a))}else a.el.setAttribute('fill',col(a))}});renderList();
+ function refresh(){A.forEach(function(a){a.ok=pass(a);var vis=a.ok;if(a.el){a.g.style.display=vis?'':'none';a.g.classList.toggle('oth',!a.ok&&vis);if(a.t50){a.el.setAttribute('fill','#FFC83D');a.h.setAttribute('stroke',col(a))}else a.el.setAttribute('fill',col(a))}});renderList();
   [].forEach.call(document.querySelectorAll('#fs button'),function(b){b.classList.toggle('on',!!F.s[b.dataset.st])});[].forEach.call(document.querySelectorAll('#frl button'),function(b){b.classList.toggle('on',!!F.rl[b.dataset.rl])})}
  function setTab(t){tab=t;[].forEach.call(tabs.children,function(b){b.classList.toggle('on',b.dataset.tab===t)});if(det.classList.contains('on'))return;list.style.display=t==='m'?'':'none';av.style.display=t==='a'?'':'none';pt.textContent=t==='m'?'Markets':t==='s'?'Stack meetings':'Accounts'}
  window.__accTab=function(){if(!det.classList.contains('on'))setTab(tab);else{list.style.display='none';av.style.display='none'}};
@@ -641,7 +644,7 @@ if(D.acc){(function(){
   var rows=[['Street address',[a.street,[a.city,a.st].filter(Boolean).join(', '),a.zip].filter(Boolean).length&&a.street?a.street+', '+[a.city,a.st].filter(Boolean).join(', ')+(a.zip?' '+a.zip:'')+(a.asrc?' (from '+a.asrc+')':''):''],['Location',([a.city,a.st].filter(Boolean).join(', ')||'Not in the list')+(a.found?' (found by web research; not in the list)':'')],['Local office',a.local?a.local:(a.checked?'No New York, New Jersey or Connecticut office found':(a.nolocal?'Out of state; no tri-state office on file':''))],['Headquarters (in the list)',a.hq],['County',a.cty],['2027 market',m?m.name:(a.x!=null?'Outside the 2027 markets':a.why)],['Territory in the list',a.terr],['Client or prospect',a.rel],['Current rep (as of '+D.asof+')',a.rep],['Secondary rep',a.rep2],['KARE status',a.s],['Account priority',a.pr],['Top 50 list',a.t50],['Industry',a.ind],['Segment',a.seg],['Company revenue',a.rev],['Revenue size',a.bd],['Contract signed',a.signed],['Current or former customer',a.cust],['Last follow-up',a.fu]].filter(function(r){return r[1]});
   det.innerHTML='<div class="crumb"><button data-back-acc="1">&#8249; Accounts</button>'+(m?'&#8250;<button data-sel="'+m.id+'">'+m.name+'</button>':'')+'</div>'+
    '<div class="dh acch" style="--c:'+RC[a.rel]+'">'+(a.t50?'<span class="tbig">&#9733; Top 50 target</span>':'')+'<small>'+esc(a.rel)+' &middot; '+esc(a.s)+'</small><h3>'+esc(a.n)+'</h3><p>'+esc([a.ind,a.rep].filter(Boolean).join(' · '))+'</p></div>'+
-   '<div class="kv">'+rows.map(function(r){return '<div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div>'}).join('')+'</div>'+
+   '<div class="kv">'+rows.map(function(r){var rp=/rep/i.test(r[0])&&r[1]&&r[1]!=='Unassigned';return '<div><small>'+r[0]+'</small><b>'+(rp?'<button class="repl" data-rep="'+esc(r[1])+'">'+esc(r[1])+'</button>':esc(r[1]))+'</b></div>'}).join('')+'</div>'+
    (a.notes?'<h4>Notes</h4><p class="nt">'+esc(a.notes.replace(/&#58;/g,':'))+'</p>':'')+
    '<div class="lks">'+(a.la!=null?'<button class="lk near" data-near="'+a.i+'">&#9673; Find clients near this account</button>':'')+link(a.sf,'Open in Salesforce')+link(a.prof,'Account profile')+'</div>';
   det.classList.add('on');if(innerWidth<=1020&&window.__accSrc!=='map')det.scrollIntoView({behavior:'smooth',block:'nearest'})};
@@ -666,9 +669,9 @@ if(D.acc){(function(){
   return '<div class="cnt3">'+RELS.map(function(s){return '<div style="--c:'+RC[s]+'"><b>'+n(s)+'</b><small>'+(s==='Current or former client'?'Clients':s==='Prospect with MSA signed'?'MSA signed':'Other prospects')+'</small></div>'}).join('')+'</div>'+
    '<input id="cq" class="cq" type="search" placeholder="Search '+esc(place)+' by company, town, rep or industry" autocomplete="off">'+
    '<div class="cflt" id="cflt"><button data-cf="">All <b>'+L.length+'</b></button><button data-cf="c" style="--c:#FF7A33"><i></i>Clients <b>'+n('Current or former client')+'</b></button><button data-cf="s" style="--c:#2DBFF9"><i></i>MSA signed <b>'+n('Prospect with MSA signed')+'</b></button><button data-cf="o" style="--c:#EEF4FA"><i></i>Other <b>'+n('Other prospect')+'</b></button><button data-cf="t" style="--c:#FFC83D"><i>&#9733;</i>Top 50 <b>'+L.filter(function(a){return a.t50}).length+'</b></button>'+(me?'<button data-cf="me" style="--c:#F95C15"><i></i>Mine <b>'+L.filter(function(a){return a.rep===me}).length+'</b></button>':'')+'</div><small class="ccount" id="ccount"></small><div id="csecs"></div>'}
- function gSet(L,labels){GS={};L.forEach(function(a){GS[a.i]=1});GL=labels;CF={f:'',q:''};svg.classList.add('cfocus')}
+ function gSet(L,labels){svg.classList.remove('only');GS={};L.forEach(function(a){GS[a.i]=1});GL=labels;CF={f:'',q:''};svg.classList.add('cfocus')}
  function gFit(L,minW){var P2=L.filter(function(a){return a.x!=null});if(P2.length>1){var xs=P2.map(function(a){return a.x}),ys=P2.map(function(a){return a.y}),x0=Math.min.apply(0,xs),y0=Math.min.apply(0,ys);go(fit([x0,y0,Math.max.apply(0,xs)-x0,Math.max.apply(0,ys)-y0],.14,minW))}else if(P2.length===1)go([P2[0].x-W*.05,P2[0].y-H*.05,W*.1,H*.1])}
- function gClear(){GS=null;GL=false;svg.classList.remove('cfocus');A.forEach(function(a){if(a.g)a.g.classList.remove('incty')});cPlace()}
+ function gClear(){GS=null;GL=false;svg.classList.remove('cfocus');svg.classList.remove('only');A.forEach(function(a){if(a.g)a.g.classList.remove('incty')});cPlace()}
  /* county */
  window.__accCounty=function(cid){var C=CT[cid],m=MK[C.m],L=A.filter(function(a){return a.cf===cid}),me=window.__getMe?window.__getMe():'';
   gSet(L,true);gFit(L,W*.06);var cs=D.counties.filter(function(c){return c.m===C.m});
@@ -689,6 +692,18 @@ if(D.acc){(function(){
   det.classList.add('on');if(L.length)cList();if(innerWidth<=1020&&!touring)det.scrollIntoView({behavior:'smooth',block:'nearest'})};
  det.addEventListener('click',function(e){var b=e.target.closest('[data-cf]');if(!b)return;e.stopPropagation();CF.f=CF.f===b.dataset.cf?'':b.dataset.cf;cList()});
  det.addEventListener('input',function(e){if(e.target.id==='cq'){CF.q=e.target.value.trim().toLowerCase();cList()}});
+ /* rep view: only that rep's accounts on the map and in the list */
+ window.__accRep=function(rep,mid){var L=A.filter(function(a){return a.rep===rep&&(!mid||a.m===mid)}),inm=L.filter(function(a){return a.m});
+  if(window.__hidePop)window.__hidePop();stopTour();cur={m:null,c:null,h:null};mark();
+  gSet(L,false);svg.classList.add('only');gFit(inm.length?inm:L,W*.12);
+  var bym={};L.forEach(function(a){var k=a.m||'_';bym[k]=(bym[k]||0)+1});
+  pt.textContent='Rep';list.style.display='none';av.style.display='none';det.style.setProperty('--c',RP[rep]||'#2DBFF9');
+  det.innerHTML='<div class="crumb"><button data-sel="">All markets</button>'+(mid?'&#8250;<button data-sel="'+mid+'">'+MK[mid].name+'</button>':'')+'</div>'+
+   '<div class="dh" style="--c:'+(RP[rep]||'#2DBFF9')+'"><small>Current rep (as of '+D.asof+')</small><h3>'+esc(rep)+'</h3><p>'+L.length+' account'+(L.length===1?'':'s')+(mid?' in '+MK[mid].name:'')+'. Only '+esc(rep.split(' ')[0])+'&rsquo;s accounts are on the map.</p></div>'+
+   (mid?'<button class="back" data-rep="'+esc(rep)+'">See all of '+esc(rep.split(' ')[0])+'&rsquo;s accounts, every market &#8250;</button>':'<div class="chips">'+D.markets.filter(function(m){return bym[m.id]}).map(function(m){return '<button data-rep="'+esc(rep)+'" data-mid="'+m.id+'">'+m.short+' &middot; '+bym[m.id]+'</button>'}).join('')+(bym._?'<button disabled>Outside the markets &middot; '+bym._+'</button>':'')+'</div>')+
+   gBlock(L,rep.split(' ')[0]+'\u2019s accounts')+
+   '<button class="back" data-sel="">&#8249; All markets</button>';
+  det.classList.add('on');cList();if(innerWidth<=1020)det.scrollIntoView({behavior:'smooth',block:'nearest'})};
  window.__gBlock=gBlock;window.__gSet=gSet;window.__gList=cList;window.__gClear=gClear;
  var _am=window.__accMark;window.__accMark=function(mm){_am(mm);if(!cur.c&&cur.h==null)gClear()};
  /* market section */
@@ -696,7 +711,7 @@ if(D.acc){(function(){
   gSet(L,false);setTimeout(cList,0);
   return '<h4>Accounts in this market <span style="text-transform:none;letter-spacing:0;font-weight:600">('+L.length+')</span></h4>'+gBlock(L,MK[id].name)+
   '<h4>By current rep <small style="text-transform:none;letter-spacing:0;font-weight:600">(as of '+D.asof+')</small></h4><div class="chips">'+Object.keys(rp).sort(function(a,b){return rp[b]-rp[a]}).map(function(r){return '<button data-mrep="'+esc(r)+'" data-mid="'+id+'" style="--c:'+RP[r]+'">'+esc(r)+' &middot; '+rp[r]+'</button>'}).join('')+'</div>'};
- document.addEventListener('click',function(e){var b=e.target.closest('[data-allacc],[data-mrep]');if(!b)return;e.stopPropagation();
+ document.addEventListener('click',function(e){var rb=e.target.closest('[data-rep],[data-mrep]');if(rb&&window.__accRep){e.stopPropagation();e.preventDefault();window.__accRep(rb.dataset.rep||rb.dataset.mrep,rb.dataset.mid||'');return}var b=e.target.closest('[data-allacc]');if(!b)return;e.stopPropagation();
   F={rep:b.dataset.mrep||'',s:{},rl:{},pr:'',ind:'',w:'',t50:false,cust:false,m:b.dataset.allacc||b.dataset.mid};document.getElementById('frep').value=F.rep;det.classList.remove('on');refresh();setTab('a')},true);
  /* tooltip + search hooks */
  window.__accTip=function(i){var a=A[i];return (a.t50?'<span class="tb" style="margin-bottom:4px;display:inline-block">&#9733; Top 50 target</span>':'')+'<b>'+esc(a.n)+'</b><em style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.rel)+'</em><span>'+esc(a.s)+' &middot; '+esc(a.pr)+'<br>Current rep: '+esc(a.rep)+'<br>'+esc([a.city,a.st].filter(Boolean).join(', '))+(a.ind?'<br>'+esc(a.ind):'')+'</span>'};
@@ -717,7 +732,7 @@ if(D.acc){(function(){
  var _rf=refresh;refresh=function(){_rf();renderTray()};
  var meBox=document.createElement('div');meBox.className='me';meBox.innerHTML='<label for="mesel">My accounts</label><select id="mesel">'+opt('','Everyone (all reps)','')+REPS.filter(function(r){return r!=='Unassigned'}).map(function(r){return opt(r,r,'')}).join('')+'</select><small id="mesm"></small>';document.querySelector('.hero>div:first-child').appendChild(meBox);
  function setMe(r){ME=r;try{localStorage.setItem('ne27-me',r)}catch(e){}document.getElementById('mesel').value=r;F.rep=r;document.getElementById('frep').value=r;stats(r);refresh();
-  document.getElementById('mesm').textContent=r?'Your accounts are bright; everyone else\u2019s are faint. Saved on this device.':'';var s=document.getElementById('srep');if(s){s.value=r;s.dispatchEvent(new Event('change',{bubbles:true}))}
+  document.getElementById('mesm').textContent=r?'Only your accounts are on the map. Saved on this device.':'';var s=document.getElementById('srep');if(s){s.value=r;s.dispatchEvent(new Event('change',{bubbles:true}))}
   if(r){var P=A.filter(function(x){return x.rep===r&&x.m&&x.x!=null});if(P.length){var xs=P.map(function(x){return x.x}),ys=P.map(function(x){return x.y}),x0=Math.min.apply(0,xs),y0=Math.min.apply(0,ys);go(fit([x0,y0,Math.max.apply(0,xs)-x0,Math.max.apply(0,ys)-y0],.12,W*.25))}}else go(V0)}
  meBox.addEventListener('change',function(e){if(e.target.id==='mesel')setMe(e.target.value)});
  window.__setMe=setMe;window.__getMe=function(){return ME};
@@ -842,13 +857,14 @@ if(D.acc){(function(){
   pop.innerHTML='<button class="x" data-popx="1" aria-label="Close">&times;</button>'+
    (a.t50?'<span class="tb">&#9733; Top 50 target</span>':'')+'<small class="pk" style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.rel)+'</small><h3>'+esc(a.n)+'</h3>'+
    '<p class="pl">'+esc(a.street?a.street+', ':'')+esc([a.city,a.st].filter(Boolean).join(', '))+(a.zip?' '+esc(a.zip):'')+(a.asrc?' <span class="src">('+esc(a.asrc)+')</span>':'')+'</p>'+
-   '<div class="pkv">'+kv.map(function(r){return '<div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div>'}).join('')+'</div>'+
+   '<div class="pkv">'+kv.map(function(r){var rp=/rep/i.test(r[0])&&r[1]&&r[1]!=='Unassigned';return '<div><small>'+r[0]+'</small><b>'+(rp?'<button class="repl" data-rep="'+esc(r[1])+'">'+esc(r[1])+'</button>':esc(r[1]))+'</b></div>'}).join('')+'</div>'+
    '<h4>Notes</h4>'+(nt?'<p class="pn">'+esc(nt)+'</p>':'<p class="pn none">No notes on this account.</p>')+
    '<div class="pa"><a class="lk" href="'+dirs(a)+'" target="_blank" rel="noopener">Directions &#8599;</a>'+(a.sf?'<a class="lk" href="'+esc(a.sf)+'" target="_blank" rel="noopener">Salesforce &#8599;</a>':'')+(a.prof?'<a class="lk" href="'+esc(a.prof)+'" target="_blank" rel="noopener">Account profile &#8599;</a>':'')+(innerWidth<=1020?'<button class="lk" data-popfull="1">Full card &#8595;</button>':'')+'</div>'+
    '<h4>Open prospects close by <span>(unassigned'+(ME2?' or yours':'')+', within '+R+' miles)</span></h4>'+(pr.length?'<div class="pnr">'+pr.map(function(x){return nrow(a,x)}).join('')+'</div>':'<p class="pn none">No unassigned'+(ME2?' or your':'')+' prospects within '+R+' miles.</p>')+
    '<h4>Clients close by <span>(within '+R+' miles)</span></h4>'+(cl.length?'<div class="pnr">'+cl.map(function(x){return nrow(a,x)}).join('')+'</div>':'<p class="pn none">No clients within '+R+' miles.</p>');
   pop.classList.add('on');pop.scrollTop=0;popPos();setTimeout(popPos,800)}
  function hidePop(){PO=null;pop.classList.remove('on')}
+ window.__hidePop=function(){hidePop()};
  var _sa=window.__selAcc;window.__selAcc=function(i){_sa(i);if(innerWidth>1020||window.__accSrc==='map')showPop(i);else hidePop();window.__accSrc=''};
  var _ap2=window.__accPlace,dct=null;window.__accPlace=function(zz){_ap2(zz);popPos();clearTimeout(dct);dct=setTimeout(declutter,90)};
  /* hide labels that would overlap: major hubs first, then Top 50, then other hubs */
@@ -1036,7 +1052,7 @@ if(D.acc){(function(){
   var rows=[[a.rep,'Rep'],[[a.ind,money(a.rv)].filter(Boolean).join(' · '),'Industry'],[[a.s,a.pr==='Not set'?'':a.pr].filter(Boolean).join(' · '),'KARE status'],[a.cty,'County'],[a.fu,'Last follow-up']].filter(function(r){return r[0]});
   return '<div class="qv">'+(a.t50?'<span class="tb">&#9733; Top 50 target</span>':'')+'<b>'+esc(a.n)+'</b><em style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.rel)+'</em>'+
    '<p class="ql">'+esc([a.street,[a.city,a.st].filter(Boolean).join(', ')].filter(Boolean).join(', '))+'</p>'+
-   '<dl>'+rows.map(function(r){return '<dt>'+r[1]+'</dt><dd>'+esc(r[0])+'</dd>'}).join('')+'</dl>'+
+   '<dl>'+rows.map(function(r){return '<dt>'+r[1]+'</dt><dd>'+(r[1]==='Rep'&&r[0]!=='Unassigned'?'<button class="repl" data-rep="'+esc(r[0])+'">'+esc(r[0])+'</button>':esc(r[0]))+'</dd>'}).join('')+'</dl>'+
    (nt?'<p class="qn">'+esc(nt.length>160?nt.slice(0,157)+'…':nt)+'</p>':'')+
    '<p class="qf">'+(nb?nb+' client'+(nb>1?'s':'')+' within 5 miles &middot; ':'')+'Click for details</p></div>'};
  /* interactive quick view: stays open while you move onto it, with buttons */
