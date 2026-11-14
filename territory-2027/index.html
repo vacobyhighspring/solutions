@@ -211,7 +211,7 @@ main{max-width:1440px;margin:0 auto;padding:6px 24px 30px;display:grid;grid-temp
 .lk{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--navy);text-decoration:none;font:700 13px Inter,sans-serif;padding:9px 14px;border-radius:999px}
 .lk+.lk{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}
 .bars{display:flex;flex-direction:column;gap:6px}
-.bars div{display:grid;grid-template-columns:80px 1fr 34px;align-items:center;gap:8px;font-size:12.5px}
+.bars div{display:grid;grid-template-columns:150px 1fr 34px;align-items:center;gap:8px;font-size:12.5px}
 .bars span{color:#cfe0ee}.bars b{text-align:right}
 .bars i{display:block;height:8px;border-radius:6px;background:var(--c);min-width:4px}
 .chips button[data-mrep]{border-color:var(--c)}
@@ -298,7 +298,7 @@ document.getElementById('list').innerHTML=D.markets.map(function(m){var hs=hubsO
 var V0=[0,0,W,H],vb=V0.slice(),anim=null,cityAll=false,showNet=true;
 function z(){return vb[2]/W}
 function clampV(v){var w=Math.max(W/14,Math.min(W*1.15,v[2])),h=w*H/W,x=Math.max(-w*.25,Math.min(W-w*.75,v[0])),y=Math.max(-h*.25,Math.min(H-h*.75,v[1]));return [x,y,w,h]}
-function apply(){svg.setAttribute('viewBox',vb.map(function(v){return v.toFixed(2)}).join(' '));var zz=z();svg.style.setProperty('--z',zz.toFixed(4));place(zz);vis()}
+function apply(){svg.setAttribute('viewBox',vb.map(function(v){return v.toFixed(2)}).join(' '));var zz=z();gLi.style.opacity=zz<.3?Math.max(.08,(zz-.1)/.2*.9).toFixed(2):'';svg.style.setProperty('--z',zz.toFixed(4));place(zz);vis()}
 function go(t,d){t=clampV(t);cancelAnimationFrame(anim);if(RM||d===0){vb=t;apply();return}var s=vb.slice(),t0=performance.now();d=d||750;(function st(n){var p=Math.min(1,(n-t0)/d),e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;vb=s.map(function(v,i){return v+(t[i]-v)*e});apply();if(p<1)anim=requestAnimationFrame(st)})(t0)}
 function fit(bb,pad,minW){var ar=W/H,p=Math.max(bb[2],bb[3])*(pad||.2),w=bb[2]+p*2,h=bb[3]+p*2;if(w/h>ar)h=w/ar;else w=h*ar;w=Math.max(w,minW||W*.3);h=w/ar;return [bb[0]+bb[2]/2-w/2,bb[1]+bb[3]/2-h/2,w,h]}
 var FF=1;function place(zz){FF=parseFloat(getComputedStyle(svg).getPropertyValue('--f'))||1;HB.forEach(function(h){var l=h.s==='l',k=(h.t===1?8:6.5)*FF;h.tx.setAttribute('x',(h.x+(l?-k:k)*zz).toFixed(2));h.tx.setAttribute('y',(h.y+(4*FF+h.dy)*zz).toFixed(2));h.tx.setAttribute('text-anchor',l?'end':'start');h.d.setAttribute('r',((h.t===1?4.2:3)*zz).toFixed(2));if(h.r)h.r.setAttribute('r',(4.2*zz).toFixed(2))});if(window.__accPlace)window.__accPlace(zz)}
@@ -394,20 +394,20 @@ function stopTour(){if(!touring)return;touring=false;clearTimeout(tt);tb.classLi
 tb.onclick=function(e){e.stopPropagation();if(touring){stopTour();return}touring=true;ti=0;tb.classList.add('on');tb.innerHTML='&#10073;&#10073; Stop tour';hideHint();stage.scrollIntoView({behavior:'smooth',block:'nearest'});step()};
 /* ---------- internal: accounts layer ---------- */
 if(D.acc){(function(){
- var A=D.acc,AC=D.accColors,colorBy='s',tab='m';
+ var A=D.acc,AC=D.accColors,colorBy='rel',tab='m',RELS=['Current or former client','Prospect with MSA signed','Other prospect'],RC={'Current or former client':'#43E197','Prospect with MSA signed':'#2DBFF9','Other prospect':'#EEF4FA'};
  var RP={'Elizabeth Jaskiewicz':'#FF8A50','Dan Barbo':'#43E197','Meggie Azydzik':'#C77DFF','Matt Barbour':'#2DBFF9','Kush Vallabh':'#FFD166','Damian Smith':'#EF476F','Jeremy Darron':'#FFFFFF','Unassigned':'#6f8aa3'};
  var REPS=[];A.forEach(function(a){if(REPS.indexOf(a.rep)<0)REPS.push(a.rep)});REPS.sort(function(a,b){return (a==='Unassigned')-(b==='Unassigned')||a.localeCompare(b)});
  REPS.forEach(function(r,i){if(!RP[r])RP[r]=['#9AD1FF','#FFB3C7','#B8F2C9','#FFE29A'][i%4]});
  var IND=[];A.forEach(function(a){if(a.ind&&IND.indexOf(a.ind)<0)IND.push(a.ind)});IND.sort();
  var PRS=['Top 20','Qualified Lead','B Account List','Prospect','Not set'],STS=['Attain','Expand','Keep','Recapture','Remove'];
- var F={rep:'',s:{},pr:'',ind:'',w:'',t50:false,cust:false,q:''};
+ var F={rep:'',s:{},rl:{},pr:'',ind:'',w:'',t50:false,cust:false,q:''};
  var PR={'Top 20':4.4,'Qualified Lead':3.8,'B Account List':3.3,'Prospect':2.9,'Not set':2.9};
  svg.classList.add('int');
  var gA=el('g',{class:'accs'});gH.parentNode.insertBefore(gA,gH);
  A.forEach(function(a,i){a.i=i;if(a.x==null)return;var g=el('g',{class:'acc','data-a':i},gA);if(a.t50)a.h=el('circle',{class:'halo',cx:a.x,cy:a.y,r:6},g);a.el=el('circle',{class:'ad',cx:a.x,cy:a.y,r:3},g);a.g=g});
- function col(a){return colorBy==='s'?(AC[a.s]||'#ccc'):RP[a.rep]}
+ function col(a){return colorBy==='rel'?RC[a.rel]:colorBy==='s'?(AC[a.s]||'#ccc'):RP[a.rep]}
  function where(a){return a.m?'in':a.x!=null?'out':'none'}
- function pass(a){if(F.rep&&a.rep!==F.rep)return false;var ks=Object.keys(F.s).filter(function(k){return F.s[k]});if(ks.length&&ks.indexOf(a.s)<0)return false;
+ function pass(a){if(F.rep&&a.rep!==F.rep)return false;var ks=Object.keys(F.s).filter(function(k){return F.s[k]});if(ks.length&&ks.indexOf(a.s)<0)return false;var kr=Object.keys(F.rl).filter(function(k){return F.rl[k]});if(kr.length&&kr.indexOf(a.rel)<0)return false;
   if(F.pr&&a.pr!==F.pr)return false;if(F.ind&&a.ind!==F.ind)return false;if(F.w&&where(a)!==F.w)return false;if(F.t50&&!a.t50)return false;if(F.cust&&a.cust!=='Yes')return false;
   if(F.m&&a.m!==F.m)return false;return true}
  window.__accPlace=function(zz){A.forEach(function(a){if(!a.el)return;var r=PR[a.pr]||3;a.el.setAttribute('r',(r*zz).toFixed(2));a.el.setAttribute('stroke-width',(1.1*zz).toFixed(2));if(a.h){a.h.setAttribute('r',((r+2.6)*zz).toFixed(2));a.h.setAttribute('stroke-width',(1.4*zz).toFixed(2))}})};
@@ -418,13 +418,13 @@ if(D.acc){(function(){
  var av=document.createElement('div');av.id='accv';av.style.display='none';list.parentNode.insertBefore(av,det);
  function opt(v,l,cur){return '<option value="'+esc(v)+'"'+(v===cur?' selected':'')+'>'+esc(l)+'</option>'}
  av.innerHTML='<div class="flt">'+
-  '<div class="seg" id="cby"><span>Color dots by</span><button data-cb="s" class="on">Status</button><button data-cb="r">Rep</button></div>'+
-  '<div class="sts" id="fs">'+STS.map(function(s){return '<button data-st="'+s+'" style="--c:'+AC[s]+'"><i></i>'+s+'</button>'}).join('')+'</div>'+
+  '<div class="seg" id="cby"><span>Color dots by</span><button data-cb="rel" class="on">Client or prospect</button><button data-cb="s">Status</button><button data-cb="r">Rep</button></div>'+'<div class="sts rls" id="frl">'+RELS.map(function(s){return '<button data-rl="'+s+'" style="--c:'+RC[s]+'"><i></i>'+s+' <small>'+A.filter(function(a){return a.rel===s}).length+'</small></button>'}).join('')+'</div>'+
+  '<div class="sts" id="fs" style="display:none">'+STS.map(function(s){return '<button data-st="'+s+'" style="--c:'+AC[s]+'"><i></i>'+s+'</button>'}).join('')+'</div>'+
   '<div class="sel2"><select id="frep" aria-label="Rep owner">'+opt('','All reps','')+REPS.map(function(r){return opt(r,r,'')}).join('')+'</select>'+
   '<select id="fpr" aria-label="Account priority">'+opt('','All priorities','')+PRS.map(function(r){return opt(r,r,'')}).join('')+'</select></div>'+
   '<div class="sel2"><select id="find" aria-label="Industry">'+opt('','All industries','')+IND.map(function(r){return opt(r,r,'')}).join('')+'</select>'+
   '<select id="fw" aria-label="Where">'+opt('','All locations','')+opt('in','In the 2027 markets','')+opt('out','Outside the 2027 markets','')+opt('none','Not on the map','')+'</select></div>'+
-  '<div class="tg2"><label><input type="checkbox" id="ft50"> Top 50 targets only</label><label><input type="checkbox" id="fcu"> Current or former customers</label></div>'+
+  '<div class="tg2"><label><input type="checkbox" id="ft50"> Top 50 targets only</label></div>'+
   '<div class="fm" id="fm"></div>'+
   '<div class="acnt" id="acnt"></div><button class="clr" id="fclr">Clear filters</button></div><div class="alist" id="alist"></div>';
  function cnt(arr){var o={};arr.forEach(function(a){o[a]=(o[a]||0)+1});return o}
@@ -435,18 +435,18 @@ if(D.acc){(function(){
   var grp={in:[],out:[],none:[]};L.forEach(function(a){grp[where(a)].push(a)});
   var ord=function(a,b){return PRS.indexOf(a.pr)-PRS.indexOf(b.pr)||a.n.localeCompare(b.n)};
   var H=[['in','In the 2027 markets'],['out','Outside the 2027 markets'],['none','Not on the map']].map(function(g){var xs=grp[g[0]].sort(ord);if(!xs.length)return '';
-   return '<h5>'+g[1]+' <small>'+xs.length+'</small></h5>'+xs.map(function(a){return '<button class="ar2" data-acc="'+a.i+'" style="--c:'+col(a)+'"><i'+(a.t50?' class="t"':'')+'></i><span><b>'+esc(a.n)+'</b><small>'+esc([a.city,a.st].filter(Boolean).join(', ')||a.why)+' &middot; '+esc(a.rep)+'</small></span><em>'+esc(a.pr==='B Account List'?'B list':a.pr)+'</em></button>'}).join('')}).join('');
+   return '<h5>'+g[1]+' <small>'+xs.length+'</small></h5>'+xs.map(function(a){return '<button class="ar2" data-acc="'+a.i+'" style="--c:'+col(a)+'"><i'+(a.t50?' class="t"':'')+'></i><span><b>'+esc(a.n)+'</b><small>'+esc(a.rel)+' &middot; '+esc(a.rep)+' &middot; '+esc([a.city,a.st].filter(Boolean).join(', ')||a.why)+'</small></span><em>'+esc(a.pr==='B Account List'?'B list':a.pr)+'</em></button>'}).join('')}).join('');
   document.getElementById('alist').innerHTML=H||'<p class="none">No accounts match these filters.</p>'}
  function refresh(){A.forEach(function(a){a.ok=pass(a);if(a.el){a.g.style.display=a.ok?'':'none';a.el.setAttribute('fill',col(a))}});renderList();
-  [].forEach.call(document.querySelectorAll('#fs button'),function(b){b.classList.toggle('on',!!F.s[b.dataset.st])})}
+  [].forEach.call(document.querySelectorAll('#fs button'),function(b){b.classList.toggle('on',!!F.s[b.dataset.st])});[].forEach.call(document.querySelectorAll('#frl button'),function(b){b.classList.toggle('on',!!F.rl[b.dataset.rl])})}
  function setTab(t){tab=t;[].forEach.call(tabs.children,function(b){b.classList.toggle('on',b.dataset.tab===t)});if(det.classList.contains('on'))return;list.style.display=t==='m'?'':'none';av.style.display=t==='a'?'':'none';pt.textContent=t==='m'?'Markets':'Accounts'}
  window.__accTab=function(){if(!det.classList.contains('on'))setTab(tab);else{list.style.display='none';av.style.display='none'}};
  tabs.addEventListener('click',function(e){var b=e.target.closest('[data-tab]');if(!b)return;e.stopPropagation();if(det.classList.contains('on')){det.classList.remove('on');sel(null)}setTab(b.dataset.tab)});
- av.addEventListener('change',function(e){var t=e.target;if(t.id==='frep')F.rep=t.value;if(t.id==='fpr')F.pr=t.value;if(t.id==='find')F.ind=t.value;if(t.id==='fw')F.w=t.value;if(t.id==='ft50')F.t50=t.checked;if(t.id==='fcu')F.cust=t.checked;refresh()});
- av.addEventListener('click',function(e){var b=e.target.closest('[data-st]');if(b){e.stopPropagation();F.s[b.dataset.st]=!F.s[b.dataset.st];refresh();return}
-  b=e.target.closest('[data-cb]');if(b){e.stopPropagation();colorBy=b.dataset.cb==='r'?'r':'s';[].forEach.call(document.querySelectorAll('#cby button'),function(x){x.classList.toggle('on',x===b)});document.getElementById('fs').style.display=colorBy==='s'?'':'none';legendRep();refresh();return}
+ av.addEventListener('change',function(e){var t=e.target;if(t.id==='frep')F.rep=t.value;if(t.id==='fpr')F.pr=t.value;if(t.id==='find')F.ind=t.value;if(t.id==='fw')F.w=t.value;if(t.id==='ft50')F.t50=t.checked;refresh()});
+ av.addEventListener('click',function(e){var b=e.target.closest('[data-rl]');if(b){e.stopPropagation();F.rl[b.dataset.rl]=!F.rl[b.dataset.rl];refresh();return}b=e.target.closest('[data-st]');if(b){e.stopPropagation();F.s[b.dataset.st]=!F.s[b.dataset.st];refresh();return}
+  b=e.target.closest('[data-cb]');if(b){e.stopPropagation();colorBy=b.dataset.cb;[].forEach.call(document.querySelectorAll('#cby button'),function(x){x.classList.toggle('on',x===b)});document.getElementById('fs').style.display=colorBy==='s'?'':'none';document.getElementById('frl').style.display=colorBy==='rel'?'':'none';legendRep();refresh();return}
   b=e.target.closest('[data-fm]');if(b){e.stopPropagation();F.m='';refresh();return}
-  if(e.target.id==='fclr'){e.stopPropagation();F={rep:'',s:{},pr:'',ind:'',w:'',t50:false,cust:false,m:''};['frep','fpr','find','fw'].forEach(function(id){document.getElementById(id).value=''});document.getElementById('ft50').checked=false;document.getElementById('fcu').checked=false;refresh()}});
+  if(e.target.id==='fclr'){e.stopPropagation();F={rep:'',s:{},rl:{},pr:'',ind:'',w:'',t50:false,cust:false,m:''};['frep','fpr','find','fw'].forEach(function(id){document.getElementById(id).value=''});document.getElementById('ft50').checked=false;refresh()}});
  function legendRep(){var l=document.getElementById('replg');if(!l){l=document.createElement('div');l.id='replg';l.className='replg';document.querySelector('.flt').insertBefore(l,document.getElementById('fs'))}
   l.style.display=colorBy==='r'?'':'none';l.innerHTML=REPS.map(function(r){var n=A.filter(function(a){return a.rep===r}).length;return '<button data-rp="'+esc(r)+'" style="--c:'+RP[r]+'"><i></i>'+esc(r)+' <small>'+n+'</small></button>'}).join('')}
  av.addEventListener('click',function(e){var b=e.target.closest('[data-rp]');if(!b)return;e.stopPropagation();F.rep=F.rep===b.dataset.rp?'':b.dataset.rp;document.getElementById('frep').value=F.rep;refresh()});
@@ -455,31 +455,31 @@ if(D.acc){(function(){
  window.__selAcc=function(i){var a=A[i];stopTour();tipOff();
   A.forEach(function(x){if(x.g)x.g.classList.toggle('hl',x===a)});
   if(a.x!=null)go([a.x-W*.09,a.y-H*.09,W*.18,H*.18]);
-  var m=a.m?MK[a.m]:null;det.style.setProperty('--c',AC[a.s]||'#ccc');list.style.display='none';av.style.display='none';pt.textContent='Account';
-  var rows=[['Location',([a.city,a.st].filter(Boolean).join(', ')||'Not in the list')+(a.found?' (found by web research; not in the list)':'')],['2027 market',m?m.name:(a.x!=null?'Outside the 2027 markets':a.why)],['Territory in the list',a.terr],['Rep owner',a.rep],['Secondary owner',a.rep2],['KARE status',a.s],['Account priority',a.pr],['Top 50',a.t50],['Industry',a.ind],['Segment',a.seg],['Company revenue',a.rev],['Contract signed',a.signed],['Current or former customer',a.cust],['Last follow-up',a.fu]].filter(function(r){return r[1]});
+  var m=a.m?MK[a.m]:null;det.style.setProperty('--c',RC[a.rel]);list.style.display='none';av.style.display='none';pt.textContent='Account';
+  var rows=[['Location',([a.city,a.st].filter(Boolean).join(', ')||'Not in the list')+(a.found?' (found by web research; not in the list)':'')],['2027 market',m?m.name:(a.x!=null?'Outside the 2027 markets':a.why)],['Territory in the list',a.terr],['Client or prospect',a.rel],['Current rep (as of '+D.asof+')',a.rep],['Secondary rep',a.rep2],['KARE status',a.s],['Account priority',a.pr],['Top 50',a.t50],['Industry',a.ind],['Segment',a.seg],['Company revenue',a.rev],['Contract signed',a.signed],['Current or former customer',a.cust],['Last follow-up',a.fu]].filter(function(r){return r[1]});
   det.innerHTML='<div class="crumb"><button data-back-acc="1">&#8249; Accounts</button>'+(m?'&#8250;<button data-sel="'+m.id+'">'+m.name+'</button>':'')+'</div>'+
-   '<div class="dh acch"><small>'+esc(a.s)+(a.t50?' &middot; '+esc(a.t50):'')+'</small><h3>'+esc(a.n)+'</h3><p>'+esc([a.ind,a.rep].filter(Boolean).join(' · '))+'</p></div>'+
+   '<div class="dh acch" style="--c:'+RC[a.rel]+'"><small>'+esc(a.rel)+' &middot; '+esc(a.s)+(a.t50?' &middot; '+esc(a.t50):'')+'</small><h3>'+esc(a.n)+'</h3><p>'+esc([a.ind,a.rep].filter(Boolean).join(' · '))+'</p></div>'+
    '<div class="kv">'+rows.map(function(r){return '<div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div>'}).join('')+'</div>'+
    (a.notes?'<h4>Notes</h4><p class="nt">'+esc(a.notes.replace(/&#58;/g,':'))+'</p>':'')+
    '<div class="lks">'+link(a.sf,'Open in Salesforce')+link(a.prof,'Account profile')+'</div>';
   det.classList.add('on');if(innerWidth<=1020)det.scrollIntoView({behavior:'smooth',block:'nearest'})};
  document.addEventListener('click',function(e){var b=e.target.closest('[data-back-acc]');if(b){e.stopPropagation();det.classList.remove('on');A.forEach(function(x){if(x.g)x.g.classList.remove('hl')});setTab('a')}},true);
  /* market section */
- window.__accMarket=function(id){var L=A.filter(function(a){return a.m===id}),by=cnt(L.map(function(a){return a.s})),rp=cnt(L.map(function(a){return a.rep}));
+ window.__accMarket=function(id){var L=A.filter(function(a){return a.m===id}),by=cnt(L.map(function(a){return a.s})),byr=cnt(L.map(function(a){return a.rel})),rp=cnt(L.map(function(a){return a.rep}));
   var top=L.slice().sort(function(a,b){return PRS.indexOf(a.pr)-PRS.indexOf(b.pr)||(b.t50?1:0)-(a.t50?1:0)||a.n.localeCompare(b.n)}).slice(0,10);
   return '<h4>Accounts in this market</h4><div class="dst"><div><b>'+L.length+'</b><small>Accounts</small></div><div><b>'+L.filter(function(a){return a.t50}).length+'</b><small>Top 50 targets</small></div></div>'+
-  '<div class="bars">'+STS.filter(function(s){return by[s]}).map(function(s){return '<div style="--c:'+AC[s]+'"><span>'+s+'</span><i style="width:'+(by[s]/L.length*100).toFixed(1)+'%"></i><b>'+by[s]+'</b></div>'}).join('')+'</div>'+
-  '<h4>By rep</h4><div class="chips">'+Object.keys(rp).sort(function(a,b){return rp[b]-rp[a]}).map(function(r){return '<button data-mrep="'+esc(r)+'" data-mid="'+id+'" style="--c:'+RP[r]+'">'+esc(r)+' &middot; '+rp[r]+'</button>'}).join('')+'</div>'+
-  '<h4>Top accounts</h4><div class="cl">'+top.map(function(a){return '<button data-acc="'+a.i+'" style="--c:'+(AC[a.s]||'#ccc')+'"><i></i>'+esc(a.n)+'<small>'+esc(a.pr==='B Account List'?'B list':a.pr)+'</small></button>'}).join('')+'</div>'+
+  '<div class="bars">'+RELS.filter(function(s){return byr[s]}).map(function(s){return '<div style="--c:'+RC[s]+'"><span>'+s+'</span><i style="width:'+(byr[s]/L.length*100).toFixed(1)+'%"></i><b>'+byr[s]+'</b></div>'}).join('')+'</div><h4>By KARE status</h4><div class="bars">'+STS.filter(function(s){return by[s]}).map(function(s){return '<div style="--c:'+AC[s]+'"><span>'+s+'</span><i style="width:'+(by[s]/L.length*100).toFixed(1)+'%"></i><b>'+by[s]+'</b></div>'}).join('')+'</div>'+
+  '<h4>By current rep <small style="text-transform:none;letter-spacing:0;font-weight:600">(as of '+D.asof+')</small></h4><div class="chips">'+Object.keys(rp).sort(function(a,b){return rp[b]-rp[a]}).map(function(r){return '<button data-mrep="'+esc(r)+'" data-mid="'+id+'" style="--c:'+RP[r]+'">'+esc(r)+' &middot; '+rp[r]+'</button>'}).join('')+'</div>'+
+  '<h4>Top accounts</h4><div class="cl">'+top.map(function(a){return '<button data-acc="'+a.i+'" style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.n)+'<small>'+esc(a.rel==='Current or former client'?'Client':a.rel==='Prospect with MSA signed'?'MSA signed':'Prospect')+'</small></button>'}).join('')+'</div>'+
   '<button class="back" data-allacc="'+id+'">See all '+L.length+' accounts in '+MK[id].name+' &#8250;</button>'};
  document.addEventListener('click',function(e){var b=e.target.closest('[data-allacc],[data-mrep]');if(!b)return;e.stopPropagation();
-  F={rep:b.dataset.mrep||'',s:{},pr:'',ind:'',w:'',t50:false,cust:false,m:b.dataset.allacc||b.dataset.mid};document.getElementById('frep').value=F.rep;det.classList.remove('on');refresh();setTab('a')},true);
+  F={rep:b.dataset.mrep||'',s:{},rl:{},pr:'',ind:'',w:'',t50:false,cust:false,m:b.dataset.allacc||b.dataset.mid};document.getElementById('frep').value=F.rep;det.classList.remove('on');refresh();setTab('a')},true);
  /* tooltip + search hooks */
- window.__accTip=function(i){var a=A[i];return '<b>'+esc(a.n)+'</b><em style="--c:'+(AC[a.s]||'#ccc')+'"><i></i>'+esc(a.s)+' &middot; '+esc(a.pr)+'</em><span>'+esc([a.city,a.st].filter(Boolean).join(', '))+' &middot; '+esc(a.rep)+(a.ind?'<br>'+esc(a.ind):'')+'</span>'};
- window.__accSearch=function(v,r){A.forEach(function(a){var nn=norm(a.n);if(nn.indexOf(v)>-1)r.push({k:'a',id:a.i,n:a.n,s:a.rep,c:AC[a.s]||'#ccc',st:nn.indexOf(v)===0})})};
+ window.__accTip=function(i){var a=A[i];return '<b>'+esc(a.n)+'</b><em style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.rel)+'</em><span>'+esc(a.s)+' &middot; '+esc(a.pr)+'<br>Current rep: '+esc(a.rep)+'<br>'+esc([a.city,a.st].filter(Boolean).join(', '))+(a.ind?'<br>'+esc(a.ind):'')+'</span>'};
+ window.__accSearch=function(v,r){A.forEach(function(a){var nn=norm(a.n);if(nn.indexOf(v)>-1)r.push({k:'a',id:a.i,n:a.n,s:a.rel,c:RC[a.rel],st:nn.indexOf(v)===0})})};
  /* stats */
  var cu=A.filter(function(a){return a.cust==='Yes'}).length;
- document.getElementById('stats').innerHTML=[[A.length,'Accounts'],[A.filter(function(a){return a.m}).length,'In the 2027 markets'],[A.filter(function(a){return a.t50}).length,'Top 50 targets'],[cu,'Current or former customers']].map(function(s){return '<div class="stat"><b>'+s[0]+'</b><small>'+s[1]+'</small></div>'}).join('');
+ document.getElementById('stats').innerHTML=[[A.length,'Accounts'],[A.filter(function(a){return a.m}).length,'In the 2027 markets'],[cu,'Current or former clients'],[A.filter(function(a){return a.rel==='Prospect with MSA signed'}).length,'Prospects with MSA signed'],[A.filter(function(a){return a.rel==='Other prospect'}).length,'Other prospects']].map(function(s){return '<div class="stat"><b>'+s[0]+'</b><small>'+s[1]+'</small></div>'}).join('');
  document.querySelector('.hero p').textContent='Internal edition: every Northeast Tech account on the 2027 territory. Filter by rep, status and priority, select a market for its accounts, or select any account for its details.';
  document.querySelector('.eye').innerHTML='Vaco by Highspring &middot; Northeast &middot; <span style="color:#FFC24B">Internal, do not share outside the team</span>';
  refresh();legendRep();
