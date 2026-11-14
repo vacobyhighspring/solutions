@@ -531,7 +531,7 @@ function sel(id,keep){
  '<h4>'+(id==='nyc'?'Boroughs':'Counties')+'</h4><div class="chips">'+cs.map(function(c){return '<button data-cty="'+c.id+'">'+esc(c.n)+'</button>'}).join('')+'</div>'+
  '<h4>Major cities and hubs</h4><div class="cl">'+hs.map(function(h){return '<button class="t'+h.t+'" data-hub="'+HB.indexOf(h)+'"><i></i>'+esc(h.n)+'<small>'+esc(h.c)+'</small></button>'}).join('')+'</div>'+
  '<button class="back" data-sel="">&#8249; All markets</button>';
- if(window.__accMarket)det.querySelector('.back').insertAdjacentHTML('beforebegin',window.__accMarket(id));
+ if(window.__accMarket)det.querySelector('.dst').insertAdjacentHTML('afterend',window.__accMarket(id));
  det.classList.add('on');if(innerWidth<=1020&&!touring)det.scrollIntoView({behavior:'smooth',block:'nearest'})}
 function selCounty(cid){
  var C=CT[cid];if(cur.m!==C.m)sel(C.m,true);cur.c=cid;cur.h=null;mark();go(fit(C.bb,.25,W*.16));
@@ -541,7 +541,7 @@ function selHub(i){
  tipOff();var m=MK[h.m],near=HB.filter(function(x){return x!==h&&x.m===h.m&&x.c===h.c});
  pt.textContent='City';det.innerHTML='<div class="crumb"><button data-sel="">All markets</button>&#8250;<button data-sel="'+m.id+'">'+m.name+'</button></div><div class="dh"><small>'+esc(h.c)+'</small><h3>'+esc(h.n)+'</h3><p>'+(h.t===1?'Major business hub':'Business hub')+' in our '+m.name+' market.</p></div>'+
  (near.length?'<h4>Also in '+esc(h.c)+'</h4><div class="cl">'+near.map(function(x){return '<button class="t'+x.t+'" data-hub="'+HB.indexOf(x)+'"><i></i>'+esc(x.n)+'</button>'}).join('')+'</div>':'')+
- '<button class="back" data-sel="'+m.id+'">&#8249; Back to '+m.name+'</button>'}
+ '<button class="back" data-sel="'+m.id+'">&#8249; Back to '+m.name+'</button>';if(window.__accHub)window.__accHub(i)}
 document.addEventListener('click',function(e){
  var t=e.target;if(t.closest('#map')&&moved)return;
  var aa=t.closest('[data-acc],.acc');if(aa&&window.__selAcc){stopTour();window.__accSrc=aa.closest('#map,#apop')?'map':'panel';window.__selAcc(+(aa.dataset.acc!=null?aa.dataset.acc:aa.dataset.a));return}
@@ -647,42 +647,55 @@ if(D.acc){(function(){
   det.classList.add('on');if(innerWidth<=1020&&window.__accSrc!=='map')det.scrollIntoView({behavior:'smooth',block:'nearest'})};
  document.addEventListener('click',function(e){var b=e.target.closest('[data-back-acc]');if(b){e.stopPropagation();det.classList.remove('on');A.forEach(function(x){if(x.g)x.g.classList.remove('hl')});setTab('a')}},true);
  /* county panel: the companies in a county, split by client or prospect */
- var gCL=el('g',{class:'clabs'});svg.appendChild(gCL);var CF={f:'',q:''},CID=null;
+ var gCL=el('g',{class:'clabs'});svg.appendChild(gCL);var CF={f:'',q:''},GS=null,GL=false;
  function cLab(a){if(!a.cl){a.cl=el('text',{class:'cl'},gCL);a.cl.textContent=a.n}return a.cl}
- function cPlace(){var zz=z(),FF=parseFloat(getComputedStyle(svg).getPropertyValue('--f'))||1;A.forEach(function(a){if(!a.cl)return;var on=CID&&a.cf===CID&&!a.t50&&a.g&&a.g.classList.contains('incty')&&a.g.style.display!=='none';a.cl.style.display=on?'':'none';if(on){a.cl.setAttribute('x',(a.x+5.5*zz*FF).toFixed(2));a.cl.setAttribute('y',(a.y+3.6*zz*FF).toFixed(2))}})}
+ function cPlace(){var zz=z(),FF=parseFloat(getComputedStyle(svg).getPropertyValue('--f'))||1;A.forEach(function(a){if(!a.cl)return;var on=GL&&GS&&GS[a.i]&&!a.t50&&a.g&&a.g.classList.contains('incty')&&a.g.style.display!=='none';a.cl.style.display=on?'':'none';if(on){a.cl.setAttribute('x',(a.x+5.5*zz*FF).toFixed(2));a.cl.setAttribute('y',(a.y+3.6*zz*FF).toFixed(2))}})}
  var _apc=window.__accPlace;window.__accPlace=function(zz){_apc(zz);cPlace()};
  function cPass(a){var me=window.__getMe?window.__getMe():'';if(CF.f==='c'&&a.rel!=='Current or former client')return false;if(CF.f==='s'&&a.rel!=='Prospect with MSA signed')return false;if(CF.f==='o'&&a.rel!=='Other prospect')return false;if(CF.f==='t'&&!a.t50)return false;if(CF.f==='me'&&a.rep!==me)return false;if(CF.q&&(a.n+' '+a.city+' '+a.rep+' '+a.ind).toLowerCase().indexOf(CF.q)<0)return false;return true}
- function cList(){var C=CT[CID],m=MK[C.m],L=A.filter(function(a){return a.cf===CID}),V=L.filter(cPass),me=window.__getMe?window.__getMe():'';
-  A.forEach(function(a){if(a.g){var on=a.cf===CID&&cPass(a);a.g.classList.toggle('incty',on);if(on)cLab(a)}});cPlace();if(window.__declutter)window.__declutter();
+ function cList(){if(!GS||!document.getElementById('csecs'))return;var L=A.filter(function(a){return GS[a.i]}),V=L.filter(cPass),me=window.__getMe?window.__getMe():'';
+  A.forEach(function(a){if(a.g){var on=!!GS[a.i]&&cPass(a);a.g.classList.toggle('incty',on);if(on&&GL)cLab(a)}});cPlace();if(window.__declutter)window.__declutter();
   var ord=function(a,b){return (b.t50?1:0)-(a.t50?1:0)||PRS.indexOf(a.pr)-PRS.indexOf(b.pr)||a.n.localeCompare(b.n)};
   document.getElementById('csecs').innerHTML=(V.length?'':'<p class="none">No companies match.</p>')+RELS.map(function(s){var G=V.filter(function(a){return a.rel===s}).sort(ord);if(!G.length)return '';
     return '<div class="csec" style="--c:'+RC[s]+'"><h4><i></i>'+(s==='Current or former client'?'Current or former clients':s==='Prospect with MSA signed'?'Prospects with MSA signed':'Other prospects')+' <span>'+G.length+'</span></h4>'+
     G.map(function(a){return '<button class="ar2'+(a.t50?' top':'')+'" data-acc="'+a.i+'" style="--c:'+RC[a.rel]+'"><i'+(a.t50?' class="t"':'')+'></i><span><b>'+(a.t50?'&#9733; ':'')+esc(a.n)+'</b><small>'+esc([a.city,a.rep,a.ind].filter(Boolean).join(' · '))+'</small></span>'+(me&&a.rep===me?'<em class="mine">Yours</em>':'<em>'+esc(a.pr==='B Account List'?'B list':a.pr==='Not set'?'':a.pr)+'</em>')+'</button>'}).join('')+'</div>'}).join('');
   document.getElementById('ccount').textContent=V.length===L.length?'':'Showing '+V.length+' of '+L.length;
   [].forEach.call(document.querySelectorAll('#cflt button'),function(b){b.classList.toggle('on',b.dataset.cf===CF.f)})}
- window.__accCounty=function(cid){var C=CT[cid],m=MK[C.m],L=A.filter(function(a){return a.cf===cid}),me=window.__getMe?window.__getMe():'';CID=cid;CF={f:'',q:''};
-  svg.classList.add('cfocus');
-  var P2=L.filter(function(a){return a.x!=null});if(P2.length>1){var xs=P2.map(function(a){return a.x}),ys=P2.map(function(a){return a.y}),x0=Math.min.apply(0,xs),y0=Math.min.apply(0,ys);go(fit([x0,y0,Math.max.apply(0,xs)-x0,Math.max.apply(0,ys)-y0],.14,W*.06))}
-  var cs=D.counties.filter(function(c){return c.m===C.m}),n=function(s){return L.filter(function(a){return a.rel===s}).length};
+ /* the grouped account list: clients, then MSA signed, then other prospects, with search and filters */
+ function gBlock(L,place){var me=window.__getMe?window.__getMe():'',n=function(s){return L.filter(function(a){return a.rel===s}).length};
+  if(!L.length)return '<p class="none">None of our accounts are here yet.</p>';
+  return '<div class="cnt3">'+RELS.map(function(s){return '<div style="--c:'+RC[s]+'"><b>'+n(s)+'</b><small>'+(s==='Current or former client'?'Clients':s==='Prospect with MSA signed'?'MSA signed':'Other prospects')+'</small></div>'}).join('')+'</div>'+
+   '<input id="cq" class="cq" type="search" placeholder="Search '+esc(place)+' by company, town, rep or industry" autocomplete="off">'+
+   '<div class="cflt" id="cflt"><button data-cf="">All <b>'+L.length+'</b></button><button data-cf="c" style="--c:#FF7A33"><i></i>Clients <b>'+n('Current or former client')+'</b></button><button data-cf="s" style="--c:#2DBFF9"><i></i>MSA signed <b>'+n('Prospect with MSA signed')+'</b></button><button data-cf="o" style="--c:#EEF4FA"><i></i>Other <b>'+n('Other prospect')+'</b></button><button data-cf="t" style="--c:#FFC83D"><i>&#9733;</i>Top 50 <b>'+L.filter(function(a){return a.t50}).length+'</b></button>'+(me?'<button data-cf="me" style="--c:#F95C15"><i></i>Mine <b>'+L.filter(function(a){return a.rep===me}).length+'</b></button>':'')+'</div><small class="ccount" id="ccount"></small><div id="csecs"></div>'}
+ function gSet(L,labels){GS={};L.forEach(function(a){GS[a.i]=1});GL=labels;CF={f:'',q:''};svg.classList.add('cfocus')}
+ function gFit(L,minW){var P2=L.filter(function(a){return a.x!=null});if(P2.length>1){var xs=P2.map(function(a){return a.x}),ys=P2.map(function(a){return a.y}),x0=Math.min.apply(0,xs),y0=Math.min.apply(0,ys);go(fit([x0,y0,Math.max.apply(0,xs)-x0,Math.max.apply(0,ys)-y0],.14,minW))}else if(P2.length===1)go([P2[0].x-W*.05,P2[0].y-H*.05,W*.1,H*.1])}
+ function gClear(){GS=null;GL=false;svg.classList.remove('cfocus');A.forEach(function(a){if(a.g)a.g.classList.remove('incty')});cPlace()}
+ /* county */
+ window.__accCounty=function(cid){var C=CT[cid],m=MK[C.m],L=A.filter(function(a){return a.cf===cid}),me=window.__getMe?window.__getMe():'';
+  gSet(L,true);gFit(L,W*.06);var cs=D.counties.filter(function(c){return c.m===C.m});
   pt.textContent='County';list.style.display='none';av.style.display='none';det.style.setProperty('--c',m.color);
   det.innerHTML='<div class="crumb"><button data-sel="">All markets</button>&#8250;<button data-sel="'+m.id+'">'+m.name+'</button></div>'+
-   '<div class="dh"><small>'+m.name+'</small><h3>'+esc(C.n)+'</h3><p>'+(L.length?L.length+' compan'+(L.length>1?'ies':'y')+' on our list, labeled on the map':'None of our accounts are in this county yet.')+(me?' &middot; '+L.filter(function(a){return a.rep===me}).length+' yours':'')+'</p></div>'+
-   (L.length?'<input id="cq" class="cq" type="search" placeholder="Search '+esc(C.n)+' by company, town, rep or industry" autocomplete="off">'+
-   '<div class="cflt" id="cflt"><button data-cf="">All <b>'+L.length+'</b></button><button data-cf="c" style="--c:#FF7A33"><i></i>Clients <b>'+n('Current or former client')+'</b></button><button data-cf="s" style="--c:#2DBFF9"><i></i>MSA signed <b>'+n('Prospect with MSA signed')+'</b></button><button data-cf="o" style="--c:#EEF4FA"><i></i>Other <b>'+n('Other prospect')+'</b></button><button data-cf="t" style="--c:#FFC83D"><i>&#9733;</i>Top 50 <b>'+L.filter(function(a){return a.t50}).length+'</b></button>'+(me?'<button data-cf="me" style="--c:#F95C15"><i></i>Mine <b>'+L.filter(function(a){return a.rep===me}).length+'</b></button>':'')+'</div><small class="ccount" id="ccount"></small><div id="csecs"></div>':'')+
-   '<h4>Other counties in '+m.name+'</h4><div class="chips">'+cs.filter(function(c){return c.id!==cid}).map(function(c){return '<button data-cty="'+c.id+'">'+esc(c.n)+' &middot; '+A.filter(function(a){return a.cf===c.id}).length+'</button>'}).join('')+'</div>'+
+   '<div class="dh"><small>'+m.name+'</small><h3>'+esc(C.n)+'</h3><p>'+(L.length?L.length+' compan'+(L.length>1?'ies':'y')+' on our list, labeled on the map':'None of our accounts are in this county yet.')+(me?' &middot; '+L.filter(function(a){return a.rep===me}).length+' yours':'')+'</p></div>'+gBlock(L,C.n)+
+   (cs.length>1?'<h4>Other '+(m.id==='nyc'?'boroughs':'counties')+' in '+m.name+'</h4><div class="chips">'+cs.filter(function(c){return c.id!==cid}).map(function(c){return '<button data-cty="'+c.id+'">'+esc(c.n)+' &middot; '+A.filter(function(a){return a.cf===c.id}).length+'</button>'}).join('')+'</div>':'')+
+   '<button class="back" data-sel="'+m.id+'">&#8249; Back to '+m.name+'</button>';
+  det.classList.add('on');if(L.length)cList();if(innerWidth<=1020&&!touring)det.scrollIntoView({behavior:'smooth',block:'nearest'})};
+ /* city: accounts within 3 miles of the city */
+ function hll(h){return [D.win[3]-h.y/H*(D.win[3]-D.win[2]),D.win[0]+h.x/W*(D.win[1]-D.win[0])]}
+ function dmi(a1,o1,a2,o2){var r=Math.PI/180,dl=(a2-a1)*r,dn=(o2-o1)*r,h=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a1*r)*Math.cos(a2*r)*Math.sin(dn/2)*Math.sin(dn/2);return 3958.8*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))}
+ window.__accHub=function(i){var h=HB[i],m=MK[h.m],p=hll(h),R=3,L=A.filter(function(a){return a.la!=null&&dmi(p[0],p[1],a.la,a.lo)<=R});if(L.length<3){R=6;L=A.filter(function(a){return a.la!=null&&dmi(p[0],p[1],a.la,a.lo)<=R})}
+  gSet(L,true);gFit(L.concat([{x:h.x,y:h.y}]),W*.05);
+  pt.textContent='City';det.style.setProperty('--c',m.color);
+  det.innerHTML='<div class="crumb"><button data-sel="">All markets</button>&#8250;<button data-sel="'+m.id+'">'+m.name+'</button></div><div class="dh"><small>'+esc(h.c)+'</small><h3>'+esc(h.n)+'</h3><p>'+(L.length?L.length+' compan'+(L.length>1?'ies':'y')+' within '+R+' miles, labeled on the map':'None of our accounts within '+R+' miles.')+'</p></div>'+gBlock(L,h.n)+
    '<button class="back" data-sel="'+m.id+'">&#8249; Back to '+m.name+'</button>';
   det.classList.add('on');if(L.length)cList();if(innerWidth<=1020&&!touring)det.scrollIntoView({behavior:'smooth',block:'nearest'})};
  det.addEventListener('click',function(e){var b=e.target.closest('[data-cf]');if(!b)return;e.stopPropagation();CF.f=CF.f===b.dataset.cf?'':b.dataset.cf;cList()});
  det.addEventListener('input',function(e){if(e.target.id==='cq'){CF.q=e.target.value.trim().toLowerCase();cList()}});
- var _am=window.__accMark;window.__accMark=function(mm){_am(mm);if(!cur.c){CID=null;svg.classList.remove('cfocus');A.forEach(function(a){if(a.g)a.g.classList.remove('incty')});cPlace()}};
+ window.__gBlock=gBlock;window.__gSet=gSet;window.__gList=cList;window.__gClear=gClear;
+ var _am=window.__accMark;window.__accMark=function(mm){_am(mm);if(!cur.c&&cur.h==null)gClear()};
  /* market section */
- window.__accMarket=function(id){var L=A.filter(function(a){return a.m===id}),by=cnt(L.map(function(a){return a.s})),byr=cnt(L.map(function(a){return a.rel})),rp=cnt(L.map(function(a){return a.rep}));
-  var top=L.slice().sort(function(a,b){return PRS.indexOf(a.pr)-PRS.indexOf(b.pr)||(b.t50?1:0)-(a.t50?1:0)||a.n.localeCompare(b.n)}).slice(0,10);
-  return '<h4>Accounts in this market</h4><div class="dst"><div><b>'+L.length+'</b><small>Accounts</small></div><div><b>'+L.filter(function(a){return a.t50}).length+'</b><small>Top 50 targets</small></div></div>'+
-  '<div class="bars">'+RELS.filter(function(s){return byr[s]}).map(function(s){return '<div style="--c:'+RC[s]+'"><span>'+s+'</span><i style="width:'+(byr[s]/L.length*100).toFixed(1)+'%"></i><b>'+byr[s]+'</b></div>'}).join('')+'</div><h4>By KARE status</h4><div class="bars">'+STS.filter(function(s){return by[s]}).map(function(s){return '<div style="--c:'+AC[s]+'"><span>'+s+'</span><i style="width:'+(by[s]/L.length*100).toFixed(1)+'%"></i><b>'+by[s]+'</b></div>'}).join('')+'</div>'+
-  '<h4>By current rep <small style="text-transform:none;letter-spacing:0;font-weight:600">(as of '+D.asof+')</small></h4><div class="chips">'+Object.keys(rp).sort(function(a,b){return rp[b]-rp[a]}).map(function(r){return '<button data-mrep="'+esc(r)+'" data-mid="'+id+'" style="--c:'+RP[r]+'">'+esc(r)+' &middot; '+rp[r]+'</button>'}).join('')+'</div>'+
-  '<h4>Top accounts</h4><div class="cl">'+top.map(function(a){return '<button data-acc="'+a.i+'" style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.n)+'<small>'+esc(a.rel==='Current or former client'?'Client':a.rel==='Prospect with MSA signed'?'MSA signed':'Prospect')+'</small></button>'}).join('')+'</div>'+
-  '<button class="back" data-allacc="'+id+'">See all '+L.length+' accounts in '+MK[id].name+' &#8250;</button>'};
+ window.__accMarket=function(id){var L=A.filter(function(a){return a.m===id}),rp=cnt(L.map(function(a){return a.rep}));
+  gSet(L,false);setTimeout(cList,0);
+  return '<h4>Accounts in this market <span style="text-transform:none;letter-spacing:0;font-weight:600">('+L.length+')</span></h4>'+gBlock(L,MK[id].name)+
+  '<h4>By current rep <small style="text-transform:none;letter-spacing:0;font-weight:600">(as of '+D.asof+')</small></h4><div class="chips">'+Object.keys(rp).sort(function(a,b){return rp[b]-rp[a]}).map(function(r){return '<button data-mrep="'+esc(r)+'" data-mid="'+id+'" style="--c:'+RP[r]+'">'+esc(r)+' &middot; '+rp[r]+'</button>'}).join('')+'</div>'};
  document.addEventListener('click',function(e){var b=e.target.closest('[data-allacc],[data-mrep]');if(!b)return;e.stopPropagation();
   F={rep:b.dataset.mrep||'',s:{},rl:{},pr:'',ind:'',w:'',t50:false,cust:false,m:b.dataset.allacc||b.dataset.mid};document.getElementById('frep').value=F.rep;det.classList.remove('on');refresh();setTab('a')},true);
  /* tooltip + search hooks */
