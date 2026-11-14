@@ -270,6 +270,26 @@ main{max-width:1440px;margin:0 auto;padding:6px 24px 30px;display:grid;grid-temp
 .prad{fill:rgba(249,92,21,.08);stroke:#F95C15;stroke-dasharray:6 5;pointer-events:none}
 .pmark circle{fill:#fff;stroke:#F95C15}.pmark .pr{fill:none;stroke:#F95C15;transform-box:fill-box;transform-origin:center;animation:t50p 1.6s ease-out infinite}
 .pmark text{font:800 calc(13px * var(--z,1) * var(--f,1)) Inter,sans-serif;fill:#fff;paint-order:stroke;stroke:#041a2c;stroke-width:calc(3.5px * var(--z,1))}
+.slines line{stroke:#43E197;stroke-opacity:.75;stroke-width:calc(1.4px * var(--z,1));stroke-dasharray:calc(4px * var(--z,1)) calc(4px * var(--z,1));pointer-events:none}
+#sv .pr2 em.cnt{font-style:normal;margin-left:auto;align-self:center;min-width:28px;text-align:center;font:800 14px Inter,sans-serif;color:#041a2c;background:#43E197;border-radius:999px;padding:3px 8px}
+#sv .pr2 em.cnt.z{background:rgba(255,255,255,.1);color:#8ea6bd}
+#sv .pr2 small.sn{color:#9ff0c6}
+#sv .sg.op{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:4px}
+#sv .sub{padding:4px 6px 8px 22px}#sv .sub h4{margin:6px 0 2px}
+#sv .pr2 span{flex:1;align-items:flex-start;text-align:left}#sv .pr2 small{text-align:left;margin-left:0}#sv .pr2{align-items:flex-start}#sv .pr2>i{margin-top:6px}
+.apop{position:absolute;z-index:5;width:320px;max-height:calc(100% - 24px);overflow:auto;background:rgba(5,24,41,.97);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:16px 16px 14px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:none;backdrop-filter:blur(10px)}
+.apop.on{display:block;animation:popin .18s ease}@keyframes popin{from{opacity:0;transform:translateY(6px)}}
+.apop .x{position:absolute;top:8px;right:10px;background:none;border:0;color:#a9bdd0;font-size:24px;line-height:1;cursor:pointer}
+.apop .pk{display:inline-flex;align-items:center;gap:6px;font:800 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}.apop .pk i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.apop h3{margin:4px 26px 4px 0;font-size:19px;line-height:1.2;color:#fff}
+.apop .pl{margin:0;font-size:12.5px;color:#a9bdd0;line-height:1.45}
+.apop h4{margin:12px 0 5px;font:800 11px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}.apop h4 span{text-transform:none;letter-spacing:0;font-weight:600}
+.apop .pn{margin:0;font-size:13.5px;line-height:1.5;color:#e6eef6;background:rgba(255,255,255,.05);border-radius:10px;padding:9px 11px;white-space:pre-wrap;max-height:180px;overflow:auto}.apop .pn.none{color:var(--mut)}
+.apop .pnr{display:flex;flex-direction:column}
+.apop .pnr button{display:flex;gap:9px;align-items:flex-start;background:none;border:0;border-radius:9px;padding:6px 5px;color:#fff;text-align:left;cursor:pointer;font:inherit}.apop .pnr button:hover{background:rgba(255,255,255,.07)}
+.apop .pnr i{width:9px;height:9px;border-radius:50%;background:var(--c);margin-top:5px;flex:none}.apop .pnr span{display:flex;flex-direction:column;min-width:0}.apop .pnr b{font:600 13.5px Inter,sans-serif}.apop .pnr small{color:var(--mut);font-size:12px}
+.apop .pa{display:flex;gap:8px;margin-top:12px}.apop .pa .lk{border:0;cursor:pointer}
+.apop.sheet{left:8px!important;right:8px;bottom:8px;top:auto!important;width:auto;max-height:62%}
 .ppin{pointer-events:none}
 .prox .acc.far{opacity:.12}.prox .acc.near{opacity:1}.prox .lights{opacity:.12}
 .lk.near{background:linear-gradient(90deg,#F95C15,#FF8A50);color:#fff;border:0;cursor:pointer;font:700 13px Inter,sans-serif}
@@ -498,7 +518,7 @@ if(D.acc){(function(){
   document.getElementById('alist').innerHTML=H||'<p class="none">No accounts match these filters.</p>'}
  function refresh(){A.forEach(function(a){a.ok=pass(a);if(a.el){a.g.style.display=a.ok?'':'none';if(a.t50){a.el.setAttribute('fill','#F95C15');a.h.setAttribute('stroke',col(a))}else a.el.setAttribute('fill',col(a))}});renderList();
   [].forEach.call(document.querySelectorAll('#fs button'),function(b){b.classList.toggle('on',!!F.s[b.dataset.st])});[].forEach.call(document.querySelectorAll('#frl button'),function(b){b.classList.toggle('on',!!F.rl[b.dataset.rl])})}
- function setTab(t){tab=t;[].forEach.call(tabs.children,function(b){b.classList.toggle('on',b.dataset.tab===t)});if(det.classList.contains('on'))return;list.style.display=t==='m'?'':'none';av.style.display=t==='a'?'':'none';pt.textContent=t==='m'?'Markets':'Accounts'}
+ function setTab(t){tab=t;[].forEach.call(tabs.children,function(b){b.classList.toggle('on',b.dataset.tab===t)});if(det.classList.contains('on'))return;list.style.display=t==='m'?'':'none';av.style.display=t==='a'?'':'none';pt.textContent=t==='m'?'Markets':t==='s'?'Stack meetings':'Accounts'}
  window.__accTab=function(){if(!det.classList.contains('on'))setTab(tab);else{list.style.display='none';av.style.display='none'}};
  tabs.addEventListener('click',function(e){var b=e.target.closest('[data-tab]');if(!b||b.dataset.tab==='p')return;e.stopPropagation();var pvv=document.getElementById('pv');if(pvv)pvv.style.display='none';if(det.classList.contains('on')){det.classList.remove('on');sel(null)}setTab(b.dataset.tab)});
  av.addEventListener('change',function(e){var t=e.target;if(t.id==='frep')F.rep=t.value;if(t.id==='fpr')F.pr=t.value;if(t.id==='find')F.ind=t.value;if(t.id==='fw')F.w=t.value;if(t.id==='ft50')F.t50=t.checked;refresh()});
@@ -514,8 +534,8 @@ if(D.acc){(function(){
  window.__selAcc=function(i){var a=A[i];stopTour();tipOff();
   A.forEach(function(x){if(x.g)x.g.classList.toggle('hl',x===a)});
   if(a.x!=null)go([a.x-W*.09,a.y-H*.09,W*.18,H*.18]);
-  var m=a.m?MK[a.m]:null;det.style.setProperty('--c',RC[a.rel]);list.style.display='none';av.style.display='none';pt.textContent='Account';
-  var rows=[['Location',([a.city,a.st].filter(Boolean).join(', ')||'Not in the list')+(a.found?' (found by web research; not in the list)':'')],['Local office',a.local?a.local:(a.checked?'No New York, New Jersey or Connecticut office found':(a.nolocal?'Out of state; no tri-state office on file':''))],['Headquarters (in the list)',a.hq],['County',a.cty],['2027 market',m?m.name:(a.x!=null?'Outside the 2027 markets':a.why)],['Territory in the list',a.terr],['Client or prospect',a.rel],['Current rep (as of '+D.asof+')',a.rep],['Secondary rep',a.rep2],['KARE status',a.s],['Account priority',a.pr],['Top 50 list',a.t50],['Industry',a.ind],['Segment',a.seg],['Company revenue',a.rev],['Revenue size',a.bd],['Contract signed',a.signed],['Current or former customer',a.cust],['Last follow-up',a.fu]].filter(function(r){return r[1]});
+  var m=a.m?MK[a.m]:null;det.style.setProperty('--c',RC[a.rel]);list.style.display='none';av.style.display='none';var _sv=document.getElementById('sv'),_pv=document.getElementById('pv');if(_sv)_sv.style.display='none';if(_pv)_pv.style.display='none';pt.textContent='Account';
+  var rows=[['Street address',[a.street,[a.city,a.st].filter(Boolean).join(', '),a.zip].filter(Boolean).length&&a.street?a.street+', '+[a.city,a.st].filter(Boolean).join(', ')+(a.zip?' '+a.zip:'')+(a.asrc?' (from ZoomInfo)':''):''],['Location',([a.city,a.st].filter(Boolean).join(', ')||'Not in the list')+(a.found?' (found by web research; not in the list)':'')],['Local office',a.local?a.local:(a.checked?'No New York, New Jersey or Connecticut office found':(a.nolocal?'Out of state; no tri-state office on file':''))],['Headquarters (in the list)',a.hq],['County',a.cty],['2027 market',m?m.name:(a.x!=null?'Outside the 2027 markets':a.why)],['Territory in the list',a.terr],['Client or prospect',a.rel],['Current rep (as of '+D.asof+')',a.rep],['Secondary rep',a.rep2],['KARE status',a.s],['Account priority',a.pr],['Top 50 list',a.t50],['Industry',a.ind],['Segment',a.seg],['Company revenue',a.rev],['Revenue size',a.bd],['Contract signed',a.signed],['Current or former customer',a.cust],['Last follow-up',a.fu]].filter(function(r){return r[1]});
   det.innerHTML='<div class="crumb"><button data-back-acc="1">&#8249; Accounts</button>'+(m?'&#8250;<button data-sel="'+m.id+'">'+m.name+'</button>':'')+'</div>'+
    '<div class="dh acch" style="--c:'+RC[a.rel]+'">'+(a.t50?'<span class="tbig">&#9733; Top 50 target</span>':'')+'<small>'+esc(a.rel)+' &middot; '+esc(a.s)+'</small><h3>'+esc(a.n)+'</h3><p>'+esc([a.ind,a.rep].filter(Boolean).join(' · '))+'</p></div>'+
    '<div class="kv">'+rows.map(function(r){return '<div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div>'}).join('')+'</div>'+
@@ -613,10 +633,72 @@ if(D.acc){(function(){
  pv.addEventListener('click',function(e){if(e.target.closest('select,input,label'))e.stopPropagation()});
  /* tabs */
  tabs.addEventListener('click',function(e){var b=e.target.closest('[data-tab]');if(!b)return;var on=b.dataset.tab==='p';pv.style.display=on?'':'none';if(on){document.getElementById('list').style.display='none';document.getElementById('accv').style.display='none';document.getElementById('ptitle').textContent='Prospect lookup';[].forEach.call(tabs.children,function(x){x.classList.toggle('on',x===b)})}else{svg.classList.remove('prox');A.forEach(function(a){if(a.g)a.g.classList.remove('near','far')})}if(on&&P.la!=null)run(false)},true);
+ /* ---------- stack meetings: a rep's prospects with clients nearby ---------- */
+ tabs.style.gridTemplateColumns='1fr 1fr';tabs.insertAdjacentHTML('beforeend','<button data-tab="s">Stack meetings</button>');
+ var sv=document.createElement('div');sv.id='sv';sv.style.display='none';det.parentNode.insertBefore(sv,det);
+ var REPS=[];A.forEach(function(a){if(REPS.indexOf(a.rep)<0)REPS.push(a.rep)});REPS.sort(function(a,b){return (a==='Unassigned')-(b==='Unassigned')||a.localeCompare(b)});
+ var CL=A.filter(function(a){return a.la!=null&&a.rel==='Current or former client'});
+ sv.innerHTML='<p class="pvi">Pick a rep to see their prospects and the clients close by, so you can stack meetings in the same trip.</p>'+
+  '<div class="pf"><div class="sel2"><label>Rep<select id="srep">'+o('','All reps')+REPS.map(function(r){return o(r,r)}).join('')+'</select></label>'+
+  '<label>Prospects<select id="styp">'+o('','All prospects')+o('Other prospect','Other prospects')+o('Prospect with MSA signed','Prospects with MSA signed')+'</select></label></div>'+
+  '<label><span>Clients within <b id="srv">5</b> miles</span><input type="range" id="srr" min="1" max="30" step="1" value="5"></label>'+
+  '<div class="tg2"><label><input type="checkbox" id="st50"> Top 50 targets only</label><label><input type="checkbox" id="smkt" checked> In the 2027 markets only</label></div></div>'+
+  '<div id="sres"></div>';
+ var S={r:5,open:null},gS=el('g',{class:'slines'},svg);gS.parentNode.insertBefore(gS,gS.parentNode.querySelector('.accs'));
+ function near(p){return CL.map(function(c){return {a:c,d:mi(p.la,p.lo,c.la,c.lo)}}).filter(function(x){return x.d<=S.r&&x.a!==p}).sort(function(x,y){return x.d-y.d})}
+ function sRows(){var rep=document.getElementById('srep').value,ty=document.getElementById('styp').value,t5=document.getElementById('st50').checked,mk=document.getElementById('smkt').checked;
+  return A.filter(function(a){return a.la!=null&&a.rel!=='Current or former client'&&(!rep||a.rep===rep)&&(!ty||a.rel===ty)&&(!t5||a.t50)&&(!mk||a.m)}).map(function(a){return {a:a,n:near(a)}}).sort(function(x,y){return y.n.length-x.n.length||(y.a.t50?1:0)-(x.a.t50?1:0)||x.a.n.localeCompare(y.a.n)})}
+ function sMap(rows){gS.innerHTML='';var ids={};
+  var show=S.open!=null?rows.filter(function(x){return x.a.i===S.open}):rows;
+  show.forEach(function(x){ids[x.a.i]=1;x.n.forEach(function(c){ids[c.a.i]=1;if(S.open!=null&&x.a.g&&c.a.g)el('line',{x1:x.a.x,y1:x.a.y,x2:c.a.x,y2:c.a.y},gS)})});
+  svg.classList.add('prox');A.forEach(function(a){if(a.g){a.g.classList.toggle('near',!!ids[a.i]);a.g.classList.toggle('far',!ids[a.i])}});
+  var pts=[];show.forEach(function(x){if(x.a.x!=null)pts.push(x.a);if(S.open!=null)x.n.forEach(function(c){if(c.a.x!=null)pts.push(c.a)})});
+  if(pts.length){var x0=Math.min.apply(0,pts.map(function(p){return p.x})),x1=Math.max.apply(0,pts.map(function(p){return p.x})),y0=Math.min.apply(0,pts.map(function(p){return p.y})),y1=Math.max.apply(0,pts.map(function(p){return p.y}));go(fit([x0,y0,x1-x0,y1-y0],.18,W*(S.open!=null?.12:.25)))}}
+ function sRun(){var rows=sRows(),res=document.getElementById('sres'),w=rows.filter(function(x){return x.n.length}).length,rep=document.getElementById('srep').value;
+  if(S.open!=null&&!rows.some(function(x){return x.a.i===S.open}))S.open=null;
+  res.innerHTML='<div class="psum"><div><b>'+rows.length+'</b><small>'+(rep?esc(rep.split(' ')[0])+'&rsquo;s prospects':'Prospects')+' on the map</small></div><div><b>'+w+'</b><small>With a client within '+S.r+' miles</small></div></div>'+
+   (S.open!=null?'<button class="back" data-sopen="">&#8249; All prospects</button>':'')+
+   (rows.length?'<div class="cl">'+rows.filter(function(x){return S.open==null||x.a.i===S.open}).slice(0,150).map(function(x){var a=x.a,op=S.open===a.i;
+    return '<div class="sg'+(op?' op':'')+'"><button class="pr2" data-sopen="'+a.i+'" style="--c:'+RC[a.rel]+'"><i></i><span><b>'+(a.t50?'&#9733; ':'')+esc(a.n)+'</b><small>'+esc([a.city,a.st].filter(Boolean).join(', '))+' &middot; '+esc(a.rel==='Prospect with MSA signed'?'MSA signed':'Prospect')+(rep?'':' &middot; '+esc(a.rep))+'</small>'+
+    (x.n.length?'<small class="sn">'+x.n.length+' client'+(x.n.length>1?'s':'')+' nearby: '+esc(x.n.slice(0,3).map(function(c){return c.a.n}).join(', '))+(x.n.length>3?' +'+(x.n.length-3):'')+'</small>':'<small>No clients within '+S.r+' miles</small>')+'</span><em class="cnt'+(x.n.length?'':' z')+'">'+x.n.length+'</em></button>'+
+    (op?'<div class="sub"><h4>Clients to stack with this meeting</h4>'+(x.n.length?x.n.map(function(c){var b=c.a;return '<button class="pr2" data-acc="'+b.i+'" style="--c:'+RC[b.rel]+'"><i></i><span><b>'+esc(b.n)+'</b><small>'+c.d.toFixed(1)+' mi away &middot; '+esc([b.city,b.st].filter(Boolean).join(', '))+'</small><small>Current rep: '+esc(b.rep)+(b.ind?' &middot; '+esc(b.ind):'')+'</small></span></button>'}).join(''):'<p class="none">None within '+S.r+' miles. Try a wider radius.</p>')+
+     '<button class="back" data-acc="'+a.i+'">Open '+esc(a.n)+'&rsquo;s account card &#8250;</button></div>':'')+'</div>'}).join('')+'</div>':'<p class="none">No prospects match.</p>');
+  sMap(rows)}
+ sv.addEventListener('click',function(e){var b=e.target.closest('[data-sopen]');if(b){e.stopPropagation();S.open=b.dataset.sopen===''?null:(S.open===+b.dataset.sopen?null:+b.dataset.sopen);sRun();sv.scrollIntoView({block:'nearest'});return}if(e.target.closest('select,input,label'))e.stopPropagation()});
+ sv.addEventListener('input',function(e){if(e.target.id==='srr'){S.r=+e.target.value;document.getElementById('srv').textContent=S.r;sRun()}});
+ sv.addEventListener('change',function(e){if(e.target.id!=='srr'){S.open=null;sRun()}});
+ tabs.addEventListener('click',function(e){var b=e.target.closest('[data-tab]');if(!b)return;var on=b.dataset.tab==='s';sv.style.display=on?'':'none';if(!on){gS.innerHTML=''}
+  if(on){pv.style.display='none';setTimeout(function(){document.getElementById('list').style.display='none';document.getElementById('accv').style.display='none';document.getElementById('ptitle').textContent='Stack meetings';[].forEach.call(tabs.children,function(x){x.classList.toggle('on',x===b)});sRun()},0)}},true);
+ window.__stackRep=function(r){document.getElementById('srep').value=r};
+ /* ---------- pop-up on the map: notes + clients close by ---------- */
+ var stg=document.getElementById('stage'),pop=document.createElement('div');pop.className='apop';pop.id='apop';stg.appendChild(pop);var PO=null;
+ function dirs(a){var q=[a.street,a.city,a.st,a.zip].filter(Boolean).join(', ');return 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(a.street?q:a.n+', '+q)}
+ function closeBy(a,n,r){if(a.la==null)return [];return CL.filter(function(c){return c!==a}).map(function(c){return {a:c,d:mi(a.la,a.lo,c.la,c.lo)}}).filter(function(x){return x.d<=r}).sort(function(x,y){return x.d-y.d}).slice(0,n)}
+ function popPos(){if(PO==null)return;var a=A[PO];if(a.x==null||innerWidth<=640){pop.classList.add('sheet');pop.style.left='';pop.style.top='';return}pop.classList.remove('sheet');
+  var r=svg.getBoundingClientRect(),s=stg.getBoundingClientRect(),sx=(a.x-vb[0])/vb[2]*r.width+r.left-s.left,sy=(a.y-vb[1])/vb[3]*r.height+r.top-s.top,w=pop.offsetWidth,h=pop.offsetHeight;
+  var x=sx+18;if(x+w>s.width-12)x=sx-w-18;x=Math.max(12,x);var y=Math.max(12,Math.min(s.height-h-12,sy-h/2));pop.style.left=x+'px';pop.style.top=y+'px'}
+ function showPop(i){var a=A[i];PO=i;var near=closeBy(a,8,10),R=10;if(near.length<3){near=closeBy(a,6,25);R=25}
+  var nt=(a.notes||'').replace(/&#58;/g,':');
+  pop.innerHTML='<button class="x" data-popx="1" aria-label="Close">&times;</button>'+
+   '<small class="pk" style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.rel)+(a.t50?' &middot; &#9733; Top 50':'')+'</small><h3>'+esc(a.n)+'</h3>'+
+   '<p class="pl">'+esc(a.street?a.street+', ':'')+esc([a.city,a.st].filter(Boolean).join(', '))+(a.zip?' '+esc(a.zip):'')+'<br>Current rep: '+esc(a.rep)+(a.ind?' &middot; '+esc(a.ind):'')+'</p>'+
+   '<h4>Notes</h4>'+(nt?'<p class="pn">'+esc(nt)+'</p>':'<p class="pn none">No notes on this account.</p>')+
+   '<h4>Clients close by <span>(within '+R+' miles)</span></h4>'+(near.length?'<div class="pnr">'+near.map(function(x){var b=x.a;return '<button data-acc="'+b.i+'" style="--c:'+RC[b.rel]+'"><i></i><span><b>'+esc(b.n)+'</b><small>'+(x.d<.1?'Same '+(b.zip&&b.zip===a.zip?'zip code':'town'):x.d.toFixed(1)+' mi')+' &middot; '+esc(b.city||'')+' &middot; '+esc(b.rep)+'</small></span></button>'}).join('')+'</div>':'<p class="pn none">No clients within 25 miles.</p>')+
+   '<div class="pa"><a class="lk" href="'+dirs(a)+'" target="_blank" rel="noopener">Directions &#8599;</a><button class="lk" data-popfull="1">Full details</button></div>';
+  pop.classList.add('on');pop.scrollTop=0;popPos();setTimeout(popPos,800)}
+ function hidePop(){PO=null;pop.classList.remove('on')}
+ var _sa=window.__selAcc;window.__selAcc=function(i){_sa(i);showPop(i)};
+ var _ap2=window.__accPlace;window.__accPlace=function(zz){_ap2(zz);popPos()};
+ pop.addEventListener('pointerdown',function(e){e.stopPropagation()});pop.addEventListener('wheel',function(e){e.stopPropagation()},{passive:true});
+ pop.addEventListener('click',function(e){if(e.target.closest('[data-popx]')){e.stopPropagation();hidePop();return}
+  if(e.target.closest('[data-popfull]')){e.stopPropagation();var d=document.getElementById('det');d.scrollIntoView({behavior:'smooth',block:'start'});if(innerWidth<=640)hidePop();return}});
+ document.addEventListener('click',function(e){if(PO==null)return;var t=e.target;if(t.closest('#apop,[data-acc],.acc'))return;if(t.closest('#map')||t.closest('[data-tab],[data-sel],[data-back-acc]'))hidePop()});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')hidePop()});
+ addEventListener('resize',popPos);
  /* from an account card: find clients near it */
  window.__nearFrom=function(i){var a=A[i];if(a.la==null)return;document.getElementById('pn').value=a.n;P.la=a.la;P.lo=a.lo;P.label=a.n;pc.value=[a.city,a.st].filter(Boolean).join(', ');
   document.getElementById('pi').value=IND.indexOf(a.ind)>-1?a.ind:'';document.getElementById('pr2').value=a.bd||'';
-  det.classList.remove('on');pv.style.display='';document.getElementById('list').style.display='none';document.getElementById('accv').style.display='none';document.getElementById('ptitle').textContent='Prospect lookup';[].forEach.call(tabs.children,function(x){x.classList.toggle('on',x.dataset.tab==='p')});run(true)};
+  det.classList.remove('on');sv.style.display='none';gS.innerHTML='';pv.style.display='';document.getElementById('list').style.display='none';document.getElementById('accv').style.display='none';document.getElementById('ptitle').textContent='Prospect lookup';[].forEach.call(tabs.children,function(x){x.classList.toggle('on',x.dataset.tab==='p')});run(true)};
  document.addEventListener('click',function(e){var b=e.target.closest('[data-near]');if(b){e.stopPropagation();window.__nearFrom(+b.dataset.near)}},true);
 })()}
 
