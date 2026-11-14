@@ -384,6 +384,19 @@ footer{max-width:1440px;margin:0 auto;padding:6px 24px 30px;color:#6f8aa3;font-s
 .cflt button.on{border-color:var(--c,#fff);background:rgba(255,255,255,.14)}.cflt button.on b{color:#fff}
 .ccount{color:var(--mut);font-size:12px;min-height:14px}
 .int .mk .cty{fill-opacity:1!important}
+.qvc{position:absolute;z-index:6;width:310px;background:rgba(5,24,41,.97);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:14px 14px 12px;box-shadow:0 20px 50px rgba(0,0,0,.55);display:none;backdrop-filter:blur(10px)}
+.qvc.on{display:block;animation:popin .14s ease}
+.qvc .qv em{font-style:normal;display:inline-flex;align-items:center;gap:6px;color:var(--mut);font-size:12px;font-weight:600;margin-top:3px}.qvc .qv em i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.qvc .qa{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.qvc .qa .lk{border:0;cursor:pointer;padding:7px 11px;font-size:12.5px}
+.qvc .qa .lk.im{background:linear-gradient(90deg,#F95C15,#FF8A50);color:#fff}
+@media (hover:none){.qvc{display:none!important}}
+.apop .tb{margin-bottom:6px}.apop .src{color:#6f8aa3;font-size:11px}
+.pkv{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:10px}.pkv div{background:rgba(255,255,255,.05);border-radius:9px;padding:6px 8px;min-width:0}.pkv small{display:block;color:var(--mut);font-size:10.5px;font-weight:700}.pkv b{display:block;font-size:12.5px;font-weight:600;color:#fff;overflow-wrap:anywhere}
+.apop .pa{margin-top:10px;flex-wrap:wrap}
+.pvb{display:none;margin:2px 0 8px 18px;padding:8px 10px;border-left:2px solid var(--line);background:rgba(255,255,255,.03);border-radius:0 10px 10px 0}.pvb.on{display:block;animation:popin .14s ease}
+.apop .pnr button .pvx{font-style:normal;margin-left:auto;color:var(--mut);align-self:center;transition:transform .15s}.apop .pnr button.on .pvx{transform:rotate(180deg)}.apop .pnr button.on{background:rgba(255,255,255,.07)}
+.apop .pa .lk.im{background:linear-gradient(90deg,#F95C15,#FF8A50);color:#fff}
+.apop .pa .lk,.qvc .qa .lk{font:700 12.5px Inter,sans-serif;padding:7px 12px;border:0;cursor:pointer}
 </style>
 </head>
 <body>
@@ -479,7 +492,7 @@ svg.addEventListener('pointermove',function(e){
  if(!drag)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(!moved&&Math.hypot(dx,dy)<5)return;
  if(!moved){svg.setPointerCapture(e.pointerId);svg.classList.add('drag');tipOff();stopTour();hideHint()}moved=true;cancelAnimationFrame(anim);var r=svg.getBoundingClientRect();vb=clampV([drag.v[0]-dx/r.width*vb[2],drag.v[1]-dy/r.height*vb[3],vb[2],vb[3]]);apply()});
 function up(e){delete pts[e.pointerId];svg.classList.remove('drag');if(!Object.keys(pts).length)drag=null}
-svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);svg.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')tipOff()});
+svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);svg.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){tipOff();if(window.__qvLeave)window.__qvLeave()}});
 document.getElementById('zin').onclick=function(){stopTour();var c=[vb[0]+vb[2]/2,vb[1]+vb[3]/2];go([c[0]-vb[2]*.3,c[1]-vb[3]*.3,vb[2]*.6,vb[3]*.6],350)};
 document.getElementById('zout').onclick=function(){stopTour();var c=[vb[0]+vb[2]/2,vb[1]+vb[3]/2];go([c[0]-vb[2]*.8,c[1]-vb[3]*.8,vb[2]*1.6,vb[3]*1.6],350)};
 document.getElementById('zre').onclick=function(){stopTour();sel(null)};
@@ -492,9 +505,10 @@ var tip=document.getElementById('tip'),stage=document.getElementById('stage');
 function tipOff(){tip.classList.remove('on')}
 function hover(e){
  if(e.pointerType==='touch')return;var t=e.target,h=t.closest&&t.closest('.hub'),c=t.getAttribute&&t.getAttribute('data-c'),html='';
- var ac=t.closest&&t.closest('.acc');tip.classList.toggle('wide',!!ac);
- if(ac&&window.__accTip){html=window.__accTip(+ac.dataset.a)}
- else if(h){var o=HB[+h.dataset.h],m=MK[o.m];html='<b>'+esc(o.n)+'</b><em style="--c:'+m.color+'"><i></i>'+esc(o.c)+' &middot; '+m.short+'</em>'}
+ var ac=t.closest&&t.closest('.acc');
+ if(ac&&window.__qvShow){tipOff();window.__qvShow(+ac.dataset.a);return}
+ if(window.__qvLeave)window.__qvLeave();
+ if(h){var o=HB[+h.dataset.h],m=MK[o.m];html='<b>'+esc(o.n)+'</b><em style="--c:'+m.color+'"><i></i>'+esc(o.c)+' &middot; '+m.short+'</em>'}
  else if(c){var C=CT[c],m2=MK[C.m],hs=HB.filter(function(x){return x.c===C.n&&x.m===C.m});html='<b>'+esc(C.n)+'</b><em style="--c:'+m2.color+'"><i></i>'+m2.name+'</em>'+(hs.length?'<span>'+hs.slice(0,5).map(function(x){return esc(x.n)}).join(' &middot; ')+(hs.length>5?' +'+(hs.length-5):'')+'</span>':'')}
  if(!html){tipOff();return}
  tip.innerHTML=html;var r=stage.getBoundingClientRect(),x=e.clientX-r.left+16,y=e.clientY-r.top+16;if(x+tip.offsetWidth>r.width-8)x=e.clientX-r.left-tip.offsetWidth-14;if(y+tip.offsetHeight>r.height-8)y=e.clientY-r.top-tip.offsetHeight-14;tip.style.left=x+'px';tip.style.top=y+'px';tip.classList.add('on')}
@@ -764,14 +778,14 @@ if(D.acc){(function(){
  var sv=document.createElement('div');sv.id='sv';sv.style.display='none';det.parentNode.insertBefore(sv,det);
  var REPS=[];A.forEach(function(a){if(REPS.indexOf(a.rep)<0)REPS.push(a.rep)});REPS.sort(function(a,b){return (a==='Unassigned')-(b==='Unassigned')||a.localeCompare(b)});
  var CL=A.filter(function(a){return a.la!=null&&a.rel==='Current or former client'});
- sv.innerHTML='<p class="pvi">Pick a rep to see their prospects and the clients close by, so you can stack meetings in the same trip.</p>'+
+ sv.innerHTML='<p class="pvi">Pick a rep to see their prospects and the accounts close by that are unassigned or already theirs, so they can stack meetings in the same trip without stepping on another rep\u2019s accounts.</p>'+
   '<div class="pf"><div class="sel2"><label>Rep<select id="srep">'+o('','All reps')+REPS.map(function(r){return o(r,r)}).join('')+'</select></label>'+
   '<label>Prospects<select id="styp">'+o('','All prospects')+o('Other prospect','Other prospects')+o('Prospect with MSA signed','Prospects with MSA signed')+'</select></label></div>'+
-  '<label><span>Clients within <b id="srv">5</b> miles</span><input type="range" id="srr" min="1" max="30" step="1" value="5"></label>'+
+  '<label><span>Stack-able accounts within <b id="srv">5</b> miles</span><input type="range" id="srr" min="1" max="30" step="1" value="5"></label>'+
   '<div class="tg2"><label><input type="checkbox" id="st50"> Top 50 targets only</label><label><input type="checkbox" id="smkt" checked> In the 2027 markets only</label></div></div>'+
   '<div id="sres"></div>';
  var S={r:5,open:null},gS=el('g',{class:'slines'},svg);gS.parentNode.insertBefore(gS,gS.parentNode.querySelector('.accs'));
- function near(p){return CL.map(function(c){return {a:c,d:mi(p.la,p.lo,c.la,c.lo)}}).filter(function(x){return x.d<=S.r&&x.a!==p}).sort(function(x,y){return x.d-y.d})}
+ function near(p){var rp=document.getElementById('srep').value;return A.filter(function(c){return c!==p&&c.la!=null&&(c.rep==='Unassigned'||(rp&&c.rep===rp))}).map(function(c){return {a:c,d:mi(p.la,p.lo,c.la,c.lo)}}).filter(function(x){return x.d<=S.r}).sort(function(x,y){return x.d-y.d})}
  function sRows(){var rep=document.getElementById('srep').value,ty=document.getElementById('styp').value,t5=document.getElementById('st50').checked,mk=document.getElementById('smkt').checked;
   return A.filter(function(a){return a.la!=null&&a.rel!=='Current or former client'&&(!rep||a.rep===rep)&&(!ty||a.rel===ty)&&(!t5||a.t50)&&(!mk||a.m)}).map(function(a){return {a:a,n:near(a)}}).sort(function(x,y){return y.n.length-x.n.length||(y.a.t50?1:0)-(x.a.t50?1:0)||x.a.n.localeCompare(y.a.n)})}
  function sMap(rows){gS.innerHTML='';var ids={};
@@ -782,12 +796,12 @@ if(D.acc){(function(){
   if(pts.length){var x0=Math.min.apply(0,pts.map(function(p){return p.x})),x1=Math.max.apply(0,pts.map(function(p){return p.x})),y0=Math.min.apply(0,pts.map(function(p){return p.y})),y1=Math.max.apply(0,pts.map(function(p){return p.y}));go(fit([x0,y0,x1-x0,y1-y0],.18,W*(S.open!=null?.12:.25)))}}
  function sRun(){var rows=sRows(),res=document.getElementById('sres'),w=rows.filter(function(x){return x.n.length}).length,rep=document.getElementById('srep').value;
   if(S.open!=null&&!rows.some(function(x){return x.a.i===S.open}))S.open=null;
-  res.innerHTML='<div class="psum"><div><b>'+rows.length+'</b><small>'+(rep?esc(rep.split(' ')[0])+'&rsquo;s prospects':'Prospects')+' on the map</small></div><div><b>'+w+'</b><small>With a client within '+S.r+' miles</small></div></div>'+
+  res.innerHTML='<div class="psum"><div><b>'+rows.length+'</b><small>'+(rep?esc(rep.split(' ')[0])+'&rsquo;s prospects':'Prospects')+' on the map</small></div><div><b>'+w+'</b><small>With an account to stack within '+S.r+' miles</small></div></div>'+
    (S.open!=null?'<button class="back" data-sopen="">&#8249; All prospects</button>':'')+
    (rows.length?'<div class="cl">'+rows.filter(function(x){return S.open==null||x.a.i===S.open}).slice(0,150).map(function(x){var a=x.a,op=S.open===a.i;
     return '<div class="sg'+(op?' op':'')+'"><button class="pr2" data-sopen="'+a.i+'" style="--c:'+RC[a.rel]+'"><i></i><span><b>'+(a.t50?'&#9733; ':'')+esc(a.n)+'</b><small>'+esc([a.city,a.st].filter(Boolean).join(', '))+' &middot; '+esc(a.rel==='Prospect with MSA signed'?'MSA signed':'Prospect')+(rep?'':' &middot; '+esc(a.rep))+'</small>'+
-    (x.n.length?'<small class="sn">'+x.n.length+' client'+(x.n.length>1?'s':'')+' nearby: '+esc(x.n.slice(0,3).map(function(c){return c.a.n}).join(', '))+(x.n.length>3?' +'+(x.n.length-3):'')+'</small>':'<small>No clients within '+S.r+' miles</small>')+'</span><em class="cnt'+(x.n.length?'':' z')+'">'+x.n.length+'</em></button>'+
-    (op?'<div class="sub"><h4>Clients to stack with this meeting</h4>'+(x.n.length?x.n.map(function(c){var b=c.a;return '<button class="pr2" data-acc="'+b.i+'" style="--c:'+RC[b.rel]+'"><i></i><span><b>'+esc(b.n)+'</b><small>'+c.d.toFixed(1)+' mi away &middot; '+esc([b.city,b.st].filter(Boolean).join(', '))+'</small><small>Current rep: '+esc(b.rep)+(b.ind?' &middot; '+esc(b.ind):'')+'</small></span></button>'}).join(''):'<p class="none">None within '+S.r+' miles. Try a wider radius.</p>')+
+    (x.n.length?'<small class="sn">'+x.n.length+' account'+(x.n.length>1?'s':'')+' to stack: '+esc(x.n.slice(0,3).map(function(c){return c.a.n}).join(', '))+(x.n.length>3?' +'+(x.n.length-3):'')+'</small>':'<small>Nothing to stack within '+S.r+' miles</small>')+'</span><em class="cnt'+(x.n.length?'':' z')+'">'+x.n.length+'</em></button>'+
+    (op?'<div class="sub"><h4>Unassigned or their own accounts nearby</h4>'+(x.n.length?x.n.map(function(c){var b=c.a;return '<button class="pr2" data-acc="'+b.i+'" style="--c:'+RC[b.rel]+'"><i></i><span><b>'+esc(b.n)+'</b><small>'+c.d.toFixed(1)+' mi away &middot; '+esc([b.city,b.st].filter(Boolean).join(', '))+'</small><small>Current rep: '+esc(b.rep)+(b.ind?' &middot; '+esc(b.ind):'')+'</small></span></button>'}).join(''):'<p class="none">None within '+S.r+' miles. Try a wider radius.</p>')+
      '<button class="back" data-acc="'+a.i+'">Open '+esc(a.n)+'&rsquo;s account card &#8250;</button></div>':'')+'</div>'}).join('')+'</div>':'<p class="none">No prospects match.</p>');
   sMap(rows)}
  sv.addEventListener('click',function(e){var b=e.target.closest('[data-sopen]');if(b){e.stopPropagation();S.open=b.dataset.sopen===''?null:(S.open===+b.dataset.sopen?null:+b.dataset.sopen);sRun();sv.scrollIntoView({block:'nearest'});return}if(e.target.closest('select,input,label'))e.stopPropagation()});
@@ -803,14 +817,23 @@ if(D.acc){(function(){
  function popPos(){if(PO==null)return;var a=A[PO];if(a.x==null||innerWidth<=1020){pop.classList.add('sheet');pop.style.left='';pop.style.top='';return}pop.classList.remove('sheet');
   var r=svg.getBoundingClientRect(),s=stg.getBoundingClientRect(),sx=(a.x-vb[0])/vb[2]*r.width+r.left-s.left,sy=(a.y-vb[1])/vb[3]*r.height+r.top-s.top,w=pop.offsetWidth,h=pop.offsetHeight;
   var x=sx+18;if(x+w>s.width-12)x=sx-w-18;x=Math.max(12,x);var y=Math.max(12,Math.min(s.height-h-12,sy-h/2));pop.style.left=x+'px';pop.style.top=y+'px'}
- function showPop(i){var a=A[i];PO=i;var near=closeBy(a,8,10),R=10;if(near.length<3){near=closeBy(a,6,25);R=25}
+ function nearAny(a,pred,n,r){if(a.la==null)return [];return A.filter(function(c){return c!==a&&c.la!=null&&pred(c)}).map(function(c){return {a:c,d:mi(a.la,a.lo,c.la,c.lo)}}).filter(function(x){return x.d<=r}).sort(function(x,y){return x.d-y.d}).slice(0,n)}
+ function nrow(a,x){var b=x.a;return '<button data-pv="'+b.i+'" style="--c:'+RC[b.rel]+'"><i></i><span><b>'+(b.t50?'&#9733; ':'')+esc(b.n)+'</b><small>'+(x.d<.1?'Same '+(b.zip&&b.zip===a.zip?'zip code':'town'):x.d.toFixed(1)+' mi')+' &middot; '+esc(b.city||'')+' &middot; '+esc(b.rep==='Unassigned'?'Unassigned':b.rep)+'</small></span><em class="pvx">&#9662;</em></button><div class="pvb" id="pvb'+b.i+'"></div>'}
+ function pvHtml(b){var nt=(b.notes||'').replace(/&#58;/g,':');var kv=[['Rep',b.rep],['KARE status',b.s],['Priority',b.pr==='Not set'?'':b.pr],['Industry',b.ind],['Revenue',b.rev],['Last follow-up',b.fu]].filter(function(r){return r[1]});
+  return (b.street?'<p class="pl">'+esc(b.street)+', '+esc([b.city,b.st].filter(Boolean).join(', '))+'</p>':'')+'<div class="pkv">'+kv.map(function(r){return '<div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div>'}).join('')+'</div>'+(nt?'<p class="pn">'+esc(nt.length>220?nt.slice(0,217)+'…':nt)+'</p>':'')+'<div class="pa"><button class="lk im" data-acc="'+b.i+'">Open this account</button><a class="lk" href="'+dirs(b)+'" target="_blank" rel="noopener">Directions &#8599;</a></div>'}
+ function showPop(i){var a=A[i];PO=i;var ME2=window.__getMe?window.__getMe():'',own=function(c){return c.rep==='Unassigned'||(ME2&&c.rep===ME2)};
+  var R=10,cl=nearAny(a,function(c){return c.rel==='Current or former client'},6,R),pr=nearAny(a,function(c){return c.rel!=='Current or former client'&&own(c)},6,R);
+  if(cl.length+pr.length<3){R=25;cl=nearAny(a,function(c){return c.rel==='Current or former client'},6,R);pr=nearAny(a,function(c){return c.rel!=='Current or former client'&&own(c)},6,R)}
   var nt=(a.notes||'').replace(/&#58;/g,':');
+  var kv=[['Current rep',a.rep],['KARE status',a.s],['Account priority',a.pr==='Not set'?'':a.pr],['Industry',a.ind],['Company revenue',a.rev],['County',a.cty],['Last follow-up',a.fu],['Contract signed',a.signed],['Secondary rep',a.rep2],['2027 market',a.m?MK[a.m].name:'']].filter(function(r){return r[1]});
   pop.innerHTML='<button class="x" data-popx="1" aria-label="Close">&times;</button>'+
-   '<small class="pk" style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.rel)+(a.t50?' &middot; &#9733; Top 50':'')+'</small><h3>'+esc(a.n)+'</h3>'+
-   '<p class="pl">'+esc(a.street?a.street+', ':'')+esc([a.city,a.st].filter(Boolean).join(', '))+(a.zip?' '+esc(a.zip):'')+'<br>Current rep: '+esc(a.rep)+(a.ind?' &middot; '+esc(a.ind):'')+'</p>'+
+   (a.t50?'<span class="tb">&#9733; Top 50 target</span>':'')+'<small class="pk" style="--c:'+RC[a.rel]+'"><i></i>'+esc(a.rel)+'</small><h3>'+esc(a.n)+'</h3>'+
+   '<p class="pl">'+esc(a.street?a.street+', ':'')+esc([a.city,a.st].filter(Boolean).join(', '))+(a.zip?' '+esc(a.zip):'')+(a.asrc?' <span class="src">('+esc(a.asrc)+')</span>':'')+'</p>'+
+   '<div class="pkv">'+kv.map(function(r){return '<div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div>'}).join('')+'</div>'+
    '<h4>Notes</h4>'+(nt?'<p class="pn">'+esc(nt)+'</p>':'<p class="pn none">No notes on this account.</p>')+
-   '<h4>Clients close by <span>(within '+R+' miles)</span></h4>'+(near.length?'<div class="pnr">'+near.map(function(x){var b=x.a;return '<button data-acc="'+b.i+'" style="--c:'+RC[b.rel]+'"><i></i><span><b>'+esc(b.n)+'</b><small>'+(x.d<.1?'Same '+(b.zip&&b.zip===a.zip?'zip code':'town'):x.d.toFixed(1)+' mi')+' &middot; '+esc(b.city||'')+' &middot; '+esc(b.rep)+'</small></span></button>'}).join('')+'</div>':'<p class="pn none">No clients within 25 miles.</p>')+
-   '<div class="pa"><a class="lk" href="'+dirs(a)+'" target="_blank" rel="noopener">Directions &#8599;</a>'+(innerWidth<=1020?'<button class="lk" data-popfull="1">Full details &#8595;</button>':(a.sf?'<a class="lk" href="'+esc(a.sf)+'" target="_blank" rel="noopener">Salesforce &#8599;</a>':''))+'</div>';
+   '<div class="pa"><a class="lk" href="'+dirs(a)+'" target="_blank" rel="noopener">Directions &#8599;</a>'+(a.sf?'<a class="lk" href="'+esc(a.sf)+'" target="_blank" rel="noopener">Salesforce &#8599;</a>':'')+(a.prof?'<a class="lk" href="'+esc(a.prof)+'" target="_blank" rel="noopener">Account profile &#8599;</a>':'')+(innerWidth<=1020?'<button class="lk" data-popfull="1">Full card &#8595;</button>':'')+'</div>'+
+   '<h4>Open prospects close by <span>(unassigned'+(ME2?' or yours':'')+', within '+R+' miles)</span></h4>'+(pr.length?'<div class="pnr">'+pr.map(function(x){return nrow(a,x)}).join('')+'</div>':'<p class="pn none">No unassigned'+(ME2?' or your':'')+' prospects within '+R+' miles.</p>')+
+   '<h4>Clients close by <span>(within '+R+' miles)</span></h4>'+(cl.length?'<div class="pnr">'+cl.map(function(x){return nrow(a,x)}).join('')+'</div>':'<p class="pn none">No clients within '+R+' miles.</p>');
   pop.classList.add('on');pop.scrollTop=0;popPos();setTimeout(popPos,800)}
  function hidePop(){PO=null;pop.classList.remove('on')}
  var _sa=window.__selAcc;window.__selAcc=function(i){_sa(i);if(innerWidth>1020||window.__accSrc==='map')showPop(i);else hidePop();window.__accSrc=''};
@@ -826,7 +849,8 @@ if(D.acc){(function(){
    var hit=keep.some(function(k){return b.x<k.x+k.width+pad&&b.x+b.width+pad>k.x&&b.y<k.y+k.height&&b.y+b.height>k.y});
    if(hit)o.e.style.visibility='hidden';else keep.push(b)})}
  pop.addEventListener('pointerdown',function(e){e.stopPropagation()});pop.addEventListener('wheel',function(e){e.stopPropagation()},{passive:true});
- pop.addEventListener('click',function(e){if(e.target.closest('[data-popx]')){e.stopPropagation();hidePop();return}
+ pop.addEventListener('click',function(e){var pv=e.target.closest('[data-pv]');if(pv){e.stopPropagation();var j=+pv.dataset.pv,box=document.getElementById('pvb'+j),open=box.classList.contains('on');[].forEach.call(pop.querySelectorAll('.pvb.on'),function(x){x.classList.remove('on');x.innerHTML=''});[].forEach.call(pop.querySelectorAll('[data-pv].on'),function(x){x.classList.remove('on')});A.forEach(function(x){if(x.g)x.g.classList.remove('hov')});if(!open){box.innerHTML=pvHtml(A[j]);box.classList.add('on');pv.classList.add('on');if(A[j].g)A[j].g.classList.add('hov')}return}
+  if(e.target.closest('[data-popx]')){e.stopPropagation();hidePop();return}
   if(e.target.closest('[data-popfull]')){e.stopPropagation();hidePop();var d=document.getElementById('det');d.scrollIntoView({behavior:'smooth',block:'start'});return}});
  document.addEventListener('click',function(e){if(PO==null)return;var t=e.target;if(t.closest('#apop,[data-acc],.acc'))return;if(t.closest('#map')||t.closest('[data-tab],[data-sel],[data-back-acc]'))hidePop()});
  document.addEventListener('keydown',function(e){if(e.key==='Escape')hidePop()});
@@ -1002,6 +1026,21 @@ if(D.acc){(function(){
    '<dl>'+rows.map(function(r){return '<dt>'+r[1]+'</dt><dd>'+esc(r[0])+'</dd>'}).join('')+'</dl>'+
    (nt?'<p class="qn">'+esc(nt.length>160?nt.slice(0,157)+'…':nt)+'</p>':'')+
    '<p class="qf">'+(nb?nb+' client'+(nb>1?'s':'')+' within 5 miles &middot; ':'')+'Click for details</p></div>'};
+ /* interactive quick view: stays open while you move onto it, with buttons */
+ var qv=document.createElement('div');qv.className='qvc';qv.id='qvc';stg.appendChild(qv);var QI=null,qT=null;
+ function qvPos(){if(QI==null)return;var a=A[QI];if(a.x==null)return;var r=svg.getBoundingClientRect(),s=stg.getBoundingClientRect(),sx=(a.x-vb[0])/vb[2]*r.width+r.left-s.left,sy=(a.y-vb[1])/vb[3]*r.height+r.top-s.top,w=qv.offsetWidth,h=qv.offsetHeight;
+  var x=sx+14;if(x+w>s.width-10)x=sx-w-14;x=Math.max(10,x);var y=Math.max(10,Math.min(s.height-h-10,sy-36));qv.style.left=x+'px';qv.style.top=y+'px'}
+ window.__qvShow=function(i){clearTimeout(qT);if(PO===i)return;if(QI===i&&qv.classList.contains('on'))return;QI=i;var a=A[i];
+  qv.innerHTML=window.__accTip(i).replace('<p class="qf">','<p class="qf" style="display:none">')+
+   '<div class="qa"><button class="lk im" data-qvd="'+i+'">Open details</button>'+(a.la!=null?'<button class="lk" data-near="'+i+'">Clients nearby</button>':'')+'<a class="lk" href="'+dirs(a)+'" target="_blank" rel="noopener">Directions &#8599;</a>'+(a.sf?'<a class="lk" href="'+esc(a.sf)+'" target="_blank" rel="noopener">Salesforce &#8599;</a>':'')+'</div>';
+  qv.classList.add('on');qvPos()};
+ function qvHide(){clearTimeout(qT);QI=null;qv.classList.remove('on')}
+ window.__qvLeave=function(){clearTimeout(qT);qT=setTimeout(function(){if(!qv.matches(':hover'))qvHide()},350)};
+ qv.addEventListener('mouseenter',function(){clearTimeout(qT)});qv.addEventListener('mouseleave',function(){window.__qvLeave()});
+ qv.addEventListener('pointerdown',function(e){e.stopPropagation()});qv.addEventListener('wheel',function(e){e.stopPropagation()},{passive:true});
+ qv.addEventListener('click',function(e){var b=e.target.closest('[data-qvd]');if(b){e.stopPropagation();var i=+b.dataset.qvd;qvHide();window.__accSrc='map';window.__selAcc(i);return}if(e.target.closest('[data-near]'))qvHide()});
+ var _ap4=window.__accPlace;window.__accPlace=function(zz){_ap4(zz);if(QI!=null){if(svg.classList.contains('drag'))qvHide();else qvPos()}};
+ var _sa2=window.__selAcc;window.__selAcc=function(i){qvHide();_sa2(i)};
  /* hovering a row in the side panel lights up its dot on the map */
  var hovA=null;document.addEventListener('mouseover',function(e){var r=e.target.closest&&e.target.closest('#panel [data-acc],#apop [data-acc]');var a=r?A[+r.dataset.acc]:null;if(a===hovA)return;if(hovA&&hovA.g)hovA.g.classList.remove('hov');hovA=a;if(a&&a.g)a.g.classList.add('hov')});
  /* from an account card: find clients near it */
