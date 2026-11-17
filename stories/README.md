@@ -1,10 +1,19 @@
-# Case Studies & Client Success Stories
+# Client Success Stories & Case Studies
 
 Live page: https://vacobyhighspring.github.io/solutions/stories/
 
-## Sharing one story
-- **Link:** open a story and tap **Copy link**. Links look like `.../stories/#case-29`.
-- **Standalone file:** tap **Download HTML**. You get a single file showing only that story, which you can email or upload anywhere.
+## How to share (team instructions)
+This library is for our team. **Don't post or send the full library link** (vacobyhighspring.github.io/solutions/stories/). Share one story at a time:
+
+1. Open the library and find the story (search, or filter by Service, Area of Expertise, Industry, Type, Ownership or Location).
+2. Open the story.
+3. Choose one:
+   - **Copy link**: sends a page that shows only that story, with no way to browse the rest. The link reads like the title, e.g. `.../stories/?story=modernizing-a-decades-old-legacy-system-with-ai`.
+   - **Download PDF**: a one-page vertical PDF (Vaco or Highspring design) to attach to an email or proposal. Its QR code opens the same single-story page.
+   - **Download HTML**: a single-story web page file, if a PDF won't work.
+4. Before sharing a **Client Success Story** outside the firm, check that the client's contract doesn't restrict publicity or references. When in doubt, get a quick written okay from the client.
+
+The pages are hidden from search engines (noindex), so only people with a link can find them.
 
 ## What it is
 One searchable library of every technology and digital story: our Northeast team's case studies and client success stories, plus all technology case studies and client success stories from vaco.com and highspring.com (94 total as of Nov 2026). Filter by Service (Consulting, Managed Services, Staff Augmentation, Executive Search, Direct Hire), Area of Expertise, Industry, Source and Location.
