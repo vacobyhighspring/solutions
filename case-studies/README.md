@@ -7,11 +7,9 @@ Live page: https://vacobyhighspring.github.io/solutions/case-studies/
 - **Standalone file:** tap **Download HTML**. You get a single file showing only that case study, which you can email or upload anywhere.
 
 ## What it is
-One searchable library of all our technology case studies (Northeast library, Vaco.com and Highspring.com), shared through one link. No custom sets or collections.
+One searchable library of every technology and digital case study: our Northeast team's case studies, plus all technology case studies from vaco.com and highspring.com (94 total as of Nov 2026). Filter by Service (Consulting, Managed Services, Staff Augmentation, Executive Search, Direct Hire), Area of Expertise, Industry, Source and Location.
 
-## What's in it
-- 27 case studies from the original Northeast library.
-- Technology case studies pulled from vaco.com and highspring.com, each with a "Source" line linking to the original page.
+Case studies from the websites keep a link to the original page, and every case study can be downloaded as its own HTML page.
 
 ## Adding a case study
 Send Claude the details (a PDF, a slide, a link or plain notes). It needs: title, client description (no client name unless it's already public), industry, services, challenge, solution, impact, and any numbers. Claude adds it to the `CASES` list in `index.html`, tests it and publishes it.
