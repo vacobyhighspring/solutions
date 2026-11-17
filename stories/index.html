@@ -507,6 +507,10 @@ body{background:#f6f8fb}
 .sitefoot .fbtn.alt{background:transparent;border:1.5px solid rgba(255,255,255,.4)}
 .sitefoot .top{background:transparent;cursor:pointer;padding:8px 14px;border-radius:999px}
 @media (max-width:640px){.sitefoot .fbtn{width:100%;justify-content:center}.sitefoot .flinks{width:100%}.sitefoot .fcta{width:100%}}
+
+.gdiv{grid-column:1/-1;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:6px 0 2px;border-bottom:2px solid var(--line);margin-top:8px}
+.gdiv span{font-size:20px;font-weight:800;color:var(--navy)}
+.gdiv small{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
 </style>
 </head>
 <body>
@@ -740,10 +744,13 @@ function renderGrid(){
   let list=CASES.filter(c=>matches(c));
   const sv=S.sort||(S.q.trim()?'best':'new');
   const dk=c=>dateOf(c)||'0000';
+  const grp=c=>c.kind==='Case Study'?1:0;
   if(sv==='best'){ const sc=new Map(list.map(c=>[c.id,score(c)])); list.sort((a,b)=>sc.get(b.id)-sc.get(a.id)||dk(b).localeCompare(dk(a))); }
-  else if(sv==='new') list.sort((a,b)=>dk(b).localeCompare(dk(a))||a.id-b.id);
-  else list.sort((a,b)=>{ const x=dateOf(a),y=dateOf(b); if(!x&&!y) return a.id-b.id; if(!x) return 1; if(!y) return -1; return x.localeCompare(y)||a.id-b.id; });
-  $('#grid').innerHTML = list.length? list.map((c,i)=>caseCard(c,i)).join('') : `<div class="empty"><b>No stories match those filters.</b><br><button class="linkbtn" data-clear>Clear filters</button></div>`;
+  else if(sv==='new') list.sort((a,b)=>grp(a)-grp(b)||dk(b).localeCompare(dk(a))||a.id-b.id);
+  else list.sort((a,b)=>{ if(grp(a)!==grp(b)) return grp(a)-grp(b); const x=dateOf(a),y=dateOf(b); if(!x&&!y) return a.id-b.id; if(!x) return 1; if(!y) return -1; return x.localeCompare(y)||a.id-b.id; });
+  const ncs=list.filter(c=>c.kind!=='Case Study').length, split=sv!=='best'&&ncs&&ncs<list.length;
+  const divh=(t,sub)=>`<div class="gdiv"><span>${t}</span><small>${sub}</small></div>`;
+  $('#grid').innerHTML = list.length? list.map((c,i)=>(split&&i===0?divh('Client success stories','Our Northeast team'):'')+(split&&i===ncs?divh('Case studies','Published on vaco.com and highspring.com'):'')+caseCard(c,i)).join('') : `<div class="empty"><b>No stories match those filters.</b><br><button class="linkbtn" data-clear>Clear filters</button></div>`;
   $('#rcount').textContent = S.q.trim()? `${list.length} ${list.length===1?'story':'stories'} for “${S.q.trim()}”` : `Showing ${list.length} of ${CASES.length}`;
   reveal();
   const act=FILTERS.flatMap(([k])=>[...S.f[k]]);
