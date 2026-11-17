@@ -367,6 +367,39 @@ body{background:#f6f8fb}
 .fade{animation:fadeup .45s ease both}
 @keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.fade{animation:none}.card:hover{transform:none}}
+
+/* ===== motion (matches the salary guide / technology sites) ===== */
+.hero,.case-hero{isolation:isolate}
+.aur{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.aur i{position:absolute;border-radius:50%;filter:blur(60px);mix-blend-mode:screen;opacity:.55;animation:aur 14s ease-in-out infinite alternate}
+.aur i:nth-child(1){width:46vw;height:46vw;max-width:560px;max-height:560px;right:-12%;top:-30%;background:radial-gradient(circle,#2DBFF9,transparent 65%)}
+.aur i:nth-child(2){width:38vw;height:38vw;max-width:460px;max-height:460px;left:-10%;bottom:-35%;background:radial-gradient(circle,#F95C15,transparent 65%);animation-duration:17s;animation-delay:-4s}
+.aur i:nth-child(3){width:30vw;height:30vw;max-width:380px;max-height:380px;left:40%;top:-25%;background:radial-gradient(circle,#1A8FCF,transparent 65%);animation-duration:20s;animation-delay:-8s}
+.case-hero.k-s .aur i:nth-child(1){background:radial-gradient(circle,#F95C15,transparent 65%)}
+.case-hero.k-s .aur i:nth-child(3){background:radial-gradient(circle,#FF8A50,transparent 65%)}
+.hero .wrap{position:relative;z-index:1}
+@keyframes aur{0%{transform:translate(0,0) scale(1)}33%{transform:translate(18%,-12%) scale(1.2)}66%{transform:translate(-14%,14%) scale(.9)}100%{transform:translate(8%,6%) scale(1.1)}}
+.hero .eyebrow,.hero h1,.hero .lede,.hero .kbadge,.hero .client-line,.hero .meta,.hero-stats>div,.mq{opacity:0;transform:translateY(18px);animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards}
+.hero .kbadge{animation-delay:.02s}.hero .eyebrow{animation-delay:.06s}.hero h1{animation-delay:.14s}.hero .lede,.hero .client-line{animation-delay:.24s}.hero .meta{animation-delay:.34s}
+.hero-stats>div:nth-child(1){animation-delay:.32s}.hero-stats>div:nth-child(2){animation-delay:.4s}.hero-stats>div:nth-child(3){animation-delay:.48s}.hero-stats>div:nth-child(4){animation-delay:.56s}.mq{animation-delay:.62s}
+@keyframes rise{to{opacity:1;transform:none}}
+.mq{margin-top:28px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.mqr{display:flex;gap:10px;width:max-content;animation:mq 60s linear infinite}
+.mqr span{font-size:12.5px;font-weight:700;color:#cfe3f2;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);white-space:nowrap}
+@keyframes mq{to{transform:translateX(-50%)}}
+.rv{opacity:0;transform:translateY(22px) scale(.985);transition:opacity .6s cubic-bezier(.2,.8,.2,1) var(--d,0ms),transform .6s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+.card.rv.in:hover{transform:translateY(-6px);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+.card:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0),rgba(45,191,249,.14),transparent 45%);z-index:0}
+.card.k-s:before{background:radial-gradient(380px circle at var(--mx,50%) var(--my,0),rgba(255,138,80,.22),transparent 45%)}
+.card:hover:before{opacity:1}
+.card .in{position:relative;z-index:1}
+.btn{position:relative;overflow:hidden}
+.btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-100%);animation:shine 2.8s ease-in-out 1s infinite;pointer-events:none}
+@keyframes shine{60%,100%{transform:translateX(100%)}}
+.chip{transition:transform .15s,background .15s,border-color .15s}.chip:active{transform:scale(.96)}
+@media (prefers-reduced-motion:reduce){.aur i,.mqr,.btn:after{animation:none}.hero .eyebrow,.hero h1,.hero .lede,.hero .kbadge,.hero .client-line,.hero .meta,.hero-stats>div,.mq{animation:none;opacity:1;transform:none}.rv{opacity:1;transform:none;transition:none}}
+.hero-stats>div b{font-size:40px!important}
 </style>
 </head>
 <body>
@@ -448,10 +481,10 @@ function matches(c, skip){
   }
   return true;
 }
-function caseCard(c){
+function caseCard(c,i=0){
   const s=c.stats.find(x=>isNum(x.value));
   const ks=c.kind!=='Case Study';
-  return `<article class="card fade ${ks?'k-s':'k-c'}" style="--svc:${SVC_COLOR[c.serviceGroup[0]]||'var(--sky)'}">
+  return `<article class="card rv ${ks?'k-s':'k-c'}" style="--d:${(i%6)*70}ms;--svc:${SVC_COLOR[c.serviceGroup[0]]||'var(--sky)'}">
     <div class="strip"></div><div class="in">
     <div class="kbadge">${ks?'★ Client Success Story':'Case Study'}${ks?'':`<em>${esc((c.source||'').replace(/^https?:\/\/(www\.)?/,'').split('/')[0])}</em>`}</div>
     <div class="top"><span>${esc(c.industryGroup)}</span><span>${c.state==='Not specified'?'':esc(c.state)}</span></div>
@@ -467,7 +500,7 @@ function renderLibrary(){
   document.title='Technology Case Studies & Client Success Stories · Vaco by Highspring';
   const n=CASES.length, inds=new Set(CASES.map(c=>c.industryGroup)).size, exps=new Set(CASES.flatMap(c=>c.tags)).size;
   $('#app').innerHTML = `
-  <section class="hero"><div class="wrap">${RINGS}
+  <section class="hero"><div class="aur" aria-hidden="true"><i></i><i></i><i></i></div><div class="wrap">${RINGS}
     <div class="eyebrow">Technology & Digital · Vaco by Highspring</div>
     <h1>Proven results.<br>Real outcomes.<br><span class="hl">One engagement at a time.</span></h1>
     <p class="lede">Every technology and digital case study from vaco.com and highspring.com, plus our Northeast team's client success stories, in one place. Search or filter by service, expertise, industry, type or location. Open any story to copy its link or download it.</p>
@@ -476,7 +509,9 @@ function renderLibrary(){
       <div><b data-count="${inds}">${inds}</b><span>Industries</span></div>
       <div><b data-count="${exps}">${exps}</b><span>Areas of expertise</span></div>
       <div><b data-count="${new Set(CASES.flatMap(c=>c.serviceGroup)).size}">${new Set(CASES.flatMap(c=>c.serviceGroup)).size}</b><span>Service lines</span></div>
-    </div></div></section>
+    </div>
+    <div class="mq" aria-hidden="true"><div class="mqr">${(()=>{const t=[...new Set(CASES.flatMap(c=>c.tags))].concat([...new Set(CASES.flatMap(c=>c.serviceGroup))]);const h=t.map(x=>`<span>${esc(x)}</span>`).join('');return h+h;})()}</div></div>
+    </div></section>
   <div class="filterbar"><div class="wrap" id="filters"></div></div>
   <section class="section tint"><div class="wrap">
     <div class="sec-head"><div><div class="eyebrow">Proven results</div><h2 id="rtitle">All stories</h2></div><div class="results" id="rcount"></div></div>
@@ -504,8 +539,9 @@ function renderFilters(){
 function refreshChips(){ const pos=$('#q').selectionStart; renderFilters(); const q=$('#q'); q.focus(); try{q.setSelectionRange(pos,pos)}catch(e){} }
 function renderGrid(){
   const list=CASES.filter(c=>matches(c));
-  $('#grid').innerHTML = list.length? list.map(caseCard).join('') : `<div class="empty"><b>No stories match those filters.</b><br><button class="linkbtn" data-clear>Clear filters</button></div>`;
+  $('#grid').innerHTML = list.length? list.map((c,i)=>caseCard(c,i)).join('') : `<div class="empty"><b>No stories match those filters.</b><br><button class="linkbtn" data-clear>Clear filters</button></div>`;
   $('#rcount').textContent = `Showing ${list.length} of ${CASES.length}`;
+  reveal();
   const act=FILTERS.flatMap(([k])=>[...S.f[k]]);
   $('#rtitle').textContent = act.length? act.join(' + ') : 'All stories';
 }
@@ -558,7 +594,7 @@ function renderCase(id){
   const on=S.sel.includes(id);
   $('#app').innerHTML = `
   ${CFG.lock?'':`<div class="crumbs"><div class="wrap"><a href="#library">← All stories</a><div class="pn"><span class="results">Story ${i+1} of ${ORDER.length}</span><button data-go="${prev.id}" aria-label="Previous story">‹</button><button data-go="${next.id}" aria-label="Next story">›</button></div></div></div>`}
-  <section class="hero case-hero ${c.kind!=='Case Study'?'k-s':'k-c'}"><div class="wrap">${RINGS}
+  <section class="hero case-hero ${c.kind!=='Case Study'?'k-s':'k-c'}"><div class="aur" aria-hidden="true"><i></i><i></i><i></i></div><div class="wrap">${RINGS}
     <div class="kbadge big">${c.kind!=='Case Study'?'★ Client Success Story':'Case Study'}${c.kind==='Case Study'&&c.source?`<em>${esc(c.source.replace(/^https?:\/\/(www\.)?/,'').split('/')[0])}</em>`:''}</div><div class="eyebrow">${esc(c.industryGroup)}</div>
     <h1>${esc(c.title)}</h1>
     <div class="client-line"><span>${esc(c.client)}</span>${c.placement?`<span class="placement">Placement · ${esc(c.placement)}</span>`:''}</div>
@@ -576,7 +612,7 @@ function renderCase(id){
   </div></section>
   ${CFG.lock?'':`<section class="section tint"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">More like this</div><h2>Related engagements</h2></div><a class="linkbtn" href="#library" data-filter="expertise|${esc(c.primary)}">All ${esc(c.primary)} →</a></div>
     <div class="grid">${related.map(caseCard).join('')}</div></div></section>`}`;
-  countUp(document.querySelectorAll('.stat b'));
+  countUp(document.querySelectorAll('.stat b')); document.querySelectorAll('.stack .blk,.stat,.quote,.srcline,.case-actions').forEach((e,i)=>{e.classList.add('rv');e.style.setProperty('--d',(i%4)*80+'ms')}); reveal();
 }
 
 /* ---------- collections ---------- */
@@ -695,6 +731,17 @@ function route(){
   window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',route);
+/* ---------- motion: scroll reveal + card spotlight ---------- */
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let _rio=null;
+function reveal(){
+  const els=document.querySelectorAll('.rv:not(.in)');
+  if(RM||!('IntersectionObserver' in window)){ els.forEach(e=>e.classList.add('in')); return; }
+  if(!_rio) _rio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); _rio.unobserve(e.target);} }),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(e=>_rio.observe(e));
+}
+document.addEventListener('pointermove',e=>{ const c=e.target.closest&&e.target.closest('.card'); if(!c) return; const r=c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px'); },{passive:true});
+
 async function dlCase(id,btn){
   const c=BYID[id]; if(!c) return;
   let html='';
