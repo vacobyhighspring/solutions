@@ -6,6 +6,9 @@ Live page: https://vacobyhighspring.github.io/solutions/case-studies/
 - **Link:** open a case study and tap **Copy link**. Links look like `.../case-studies/#case-29`.
 - **Standalone file:** tap **Download HTML**. You get a single file showing only that case study, which you can email or upload anywhere.
 
+## What it is
+One searchable library of all our technology case studies (Northeast library, Vaco.com and Highspring.com), shared through one link. No custom sets or collections.
+
 ## What's in it
 - 27 case studies from the original Northeast library.
 - Technology case studies pulled from vaco.com and highspring.com, each with a "Source" line linking to the original page.
