@@ -575,21 +575,35 @@ function renderNav(view){
 
 /* ---------- library ---------- */
 /* ---------- team view: client names (encrypted; passcode unlocks on this device only) ---------- */
-const NAMES_BLOB={"s": "woK9nEb/V/BJB86+oqbisQ==", "i": "BSekQfLe/8FaDLFB", "d": "mEoawlvwsjLG3imfMhtO1CHu4++XHU7v1Bh7juWpYcsdR5jcevPxftMCwNiCiK01tGWd5egQ6FeLvjwADbX5VtPDa7O2U1ONQwr0jc0T7vaDUPuDwNjb4632M6mDMlwNrmnbOTPAKqJhqpIBU5fYlqTmVAe03rQiwkVU2B+u/kWNyEolau409HIwzbFolucUPCHD6sIY5N+YQcFHJqE//tCx7Vk9RPEE+sE18zCOZM3s741KOCoixLCgsCyZw8ZFx47V7B64/64wgQkJvB8Q1hM4fMleGATlyJypNfj+Pp5yrE2JeLVtM7ggiaCLq8+4LT20DXkJ2xzIKpakw2bbUxC853/6YE4HXMrh23HjtpyY6UkVQQ2qfM237NiUs4vVJrxQILD2Di3sBVkU/GhkIkL0TzhZ//nPx3mKPKjyLxFlQ23FJQRnEEofZBxl2FX2j2JLVEZx1L6Es6QQcSJarOhFAuVcfoZawp2jd/VawWzBgc13sQO0YV0SqjHLRelG8zPKZUV44TS31WqS/+41orX3EuwK+Jrt8S6YtzcZzThzDsZxVFoJ0SE7sAX5nxVtcQmhvJVzSOrFqmdsuELNjAba11nOahTqFQbeYUhu/yxGVhGUycs7azSwA9ggYcVdi+8RDXZMvVQxdpJ8GE1e7Id7Kw0+i9Tea+bNgq2a2oH0RjgLrh3HOG7I8Ytsr/ha8YzQbFmqBO8gXuYLGGKLs8/L4tDvw2AFmcflUSuC78PUCnjI7Gm1gwdF5ng4wszoAp40wkVLLg0upwgcoojeOvq8f0UGpFB0HwwsVPXlhEpDRk7L1MfxGd4yMLQhFwa4bIjW5fyWyqsNDG9365kp9G1FMwOH9N9Py0t+NCti6Pvbva7XYbPj2bZxx76d1GljTV8SdAe4ecCfOAStADt+AV1TUEzomN+/zAsKC7cpa3+FvRK8S1ywwu7WJXLbAeO6mUmpM9TsM4fgmAXwzJSVxKXD/uDO9YFUrIu0LZ/OKW9suX8AAd81IaiGOlRbyGKhD9aevZpHWXo73AXEnn9wgiQAk6j/eYCOnbX90WzLPSfu1Q5Un4u+GEMGvFHr2QlMOPlyycYqe89/SqNRKYyjjMCeb4RmMWaDMjuQGVL7Y4rdRVhU+I9IwUaGsCAG40FPrnx6IAi6ZEITs4ZZ00796Oo42GQXNR25C/m7R0UuptT0yVztAQmBNEhU3ZtUo7xgqDQ25polvBvLB8eVBojFvTcrm46AWnwnW6I9ks61R0XMm0CrKfb0IW904lstgqTWjcvif3XDOwww8iimmlxIzFRSXDaNAD87oR2q6UzkPS0Pmv9FZy7D7e6b6G4msnUaOmwD0MGqU8b6HQC5fC20lDYiwdMMjTtGY/LXBBKifVeTfJdd9tbO0fh8VQgxkFWzqR3m9S9cr1UNJEly+Sexmf5LhjJTdbIp5ACiTWdM87endQYRGIKI7nIWOZ2UVddBEojgNXq8wVYwI9vZJcHWLidYpmnatfeQ/WtjL2JWDTohTPD6SeLuq1W+dQncYYpv4UjJQUj7OUNDmvQ7dDTD1RrBm7cVhWCVvV3bnAhPx2C5JGovqLZiXfEalQJQtff4hsCLP+BYAHYklpkF+78vXhMeRSHH3Lm8GgiHw8mhjjHlmMtM2lB0nzO56uqy6/RWNjwqqz5RMX9SLTg60ZtR6uw24X6+PPHPqVAtiePyI/1LE9PRBC4aMqRqZRbA5zl4+aEPeCl4x1NXEkRa0g==", "n": 250000};
+const NAMES_BLOB={"s": "l4Amggpue/69O19g58T7Rw==", "d": "/Fv58k9oMyJhRJqlG2nAQQJPybsKT/FsxaMSmwYnH8Ku2q6FTT0ybcjwiZcjzjdUk66ow64DKvVBlaK3CrzDTGdPPG+FEPEqTpRA8Uj+BXaDZaizS1sNNZPBzohi9rB3bec3EQRo1jsdWaizKC4wQtot2WDvAol4tDXLczpGG5iy8jQp4LbVigUfcKvu+TVSRN3aGeS6bx3RNnVaI83Tvu3hGvW3U4dHMLZJ5wvyffHLlWKw+Lj5+nV/nAImyO82e+gKP/BA9iNEA2PDMND6GXUGB7ZCWbeMDlKAtCNPy7PQfqxo4uo3mV61eJNPkXAVxZOE7hpjDVz22R0j57g5OI6dRYvbTQ7YaVYFGHf7nMbyyK/y8jLc8E2aB1X1KqZsG0sj2gFV0mR+9gFqN61eBeBfykvLuCPdDbLhReypYsfCrkKx4yZCSX7+J+4RdI+/ZpgKkIOpShwm3eo3mK0m8qHEj+PJsTSAyjGehPs6gUhrNRHJATo6jqjL5ns0izLE498aWnM1/N5uhSTFa3bYUrvn36M8u1XZdKe3jK8e76kZLpDd2LsmWr0P+m+KhUUYvJmAvYWbFpoE/HWKuuVtDIKCG59y39SGXtTlaiRvTLqPOaiQfFoeJcumssYFDiSYUkBCwfcRhLUUIEqe7n53ayoYwDohWynl1OuxaEwlDaZDsSXroVR1apad/4l0r8z4zrzJQibcRJBSg1+WUBXKv5agyY8SB++MKuGQ/xSXkczkXwBdKDlvwZGtbnDAcdvAybPVGKvr4xDC1P9U47tah7YMAKnGg108BU1VaGkVXduglQexTuOWI4fipev+BkLvDQc9aLtoqgrYEeG7yDeSWnJJAucEbu/UOXeCGBtq37PuUoOKQasJ2wyi1So/ruLrR9n0tbqs4fEpmdPxmNWgD5M1ss+VDMAXDfpWcMMmyqqzHvLCxT9W9xV6CaFfuP1plAABFaxeCG2P4rUdUPOMZCJi8Lv6Ma9ECIYtTytc+gCqtA9JOS9PnI5MMyKFR8Bbts+zU39S5e6Ntc9rMHb4+S84EgOz2uhXh+TSqR9bk+OODVFAFeMK2YvCWTLwaujX/gHYGuIxYj4+0z6X7eEvG9nQ9aIIayqmSG0r2W6ZAPPEF5FqEhYu1B30OKjB/J2OA/ceyt43jEs0k/9C9/f1Nf1ckFp6FkZZ0f+iw1kSaT6oFPjQtU//uJZ9SMYkzLgn3Wg65D6xeo0zxRBisRSzp97xvOpyE7mnFBbrPc6Mw2t8p4mxJsYKWUg89MHDDLuPOqT6BZvNF1KUMvpV5XW79tSy1aQjGjFh9UX7PHcNbW1fO8WY2+oLXoGfxaOdVsWyPYRv4Isy+RRJhyot2NvYHbV3p+REpXe48DFElAOqvxYtoxWJK9D7l6cGKSg8IcMeByh9IYRPvhESle6tjoXU3+4H34/7oU3YgcN0rM68r4ooBr4FjV0LwIFS4AvDqURmCezUjc//oa6+QHVMFb8ObvGJUqVZonOawsxzA25/DolDdffOCV4fa00lLnda3dhcxPI6A7yjS7UBMaxASerXyue44Gnkv9G21jtcP7AyDx5S1q9YinVF5YXNf6SiWkRNH3222Nc07ZNbweExZMdOmjb28jgIfb7eg6WJ4aeWUKt4hn7xOwUfDvKvrkj3HrkhlbuseoFJoieCSeVeBOZwk4BpR7RcKQY67zZQoOZ4O8BitjvzV9tuG7pJneYSC68OIg1EQ93526vzgjUMIHQhmdk92m+UIad8D1yjkmSaBXwpYtul80YJX6KDAj9aKdXva/jQ8Bpv+Cxi5plNMYqAVhpYTFei", "n": 20000, "v": "d5cc970d76cf6f71"};
 let NAMES=null;
 const NM=c=>(!CFG.lock&&NAMES&&c.kind!=='Case Study')?NAMES[c.id]:null;
-async function unlockNames(pw,quiet){
-  try{ const b=x=>Uint8Array.from(atob(x),ch=>ch.charCodeAt(0));
-    const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
-    const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b(NAMES_BLOB.s),iterations:NAMES_BLOB.n,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
-    const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b(NAMES_BLOB.i)},key,b(NAMES_BLOB.d));
-    NAMES=JSON.parse(new TextDecoder().decode(pt)); try{localStorage.setItem('ne-pass',pw)}catch(e){} return true;
-  }catch(e){ if(!quiet) toast('<b>Wrong passcode</b><span>Ask Jeremy for the team passcode.</span>',3000); return false; }
+/* compact SHA-256 (no browser crypto needed, works in every phone browser) */
+function sha256(bytes){ const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  const l=bytes.length, n=((l+9+63)>>6)<<6, m=new Uint8Array(n); m.set(bytes); m[l]=0x80; const bl=l*8; m[n-4]=bl>>>24; m[n-3]=bl>>>16&255; m[n-2]=bl>>>8&255; m[n-1]=bl&255;
+  const w=new Uint32Array(64), r=(x,k)=>(x>>>k)|(x<<(32-k));
+  for(let o=0;o<n;o+=64){ for(let i=0;i<16;i++) w[i]=(m[o+4*i]<<24)|(m[o+4*i+1]<<16)|(m[o+4*i+2]<<8)|m[o+4*i+3];
+    for(let i=16;i<64;i++){ const s0=r(w[i-15],7)^r(w[i-15],18)^(w[i-15]>>>3), s1=r(w[i-2],17)^r(w[i-2],19)^(w[i-2]>>>10); w[i]=(w[i-16]+s0+w[i-7]+s1)|0; }
+    let [a,b,c,d,e,f,g,h]=H;
+    for(let i=0;i<64;i++){ const t1=(h+(r(e,6)^r(e,11)^r(e,25))+((e&f)^(~e&g))+K[i]+w[i])|0, t2=((r(a,2)^r(a,13)^r(a,22))+((a&b)^(a&c)^(b&c)))|0; h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0; }
+    H[0]=(H[0]+a)|0;H[1]=(H[1]+b)|0;H[2]=(H[2]+c)|0;H[3]=(H[3]+d)|0;H[4]=(H[4]+e)|0;H[5]=(H[5]+f)|0;H[6]=(H[6]+g)|0;H[7]=(H[7]+h)|0; }
+  const out=new Uint8Array(32); H.forEach((v,i)=>{out[4*i]=v>>>24;out[4*i+1]=v>>>16&255;out[4*i+2]=v>>>8&255;out[4*i+3]=v&255;}); return out; }
+const cat=(...a)=>{ const o=new Uint8Array(a.reduce((x,y)=>x+y.length,0)); let p=0; a.forEach(y=>{o.set(y,p);p+=y.length;}); return o; };
+function unlockNames(pw,quiet){
+  try{ const b64=x=>Uint8Array.from(atob(x),ch=>ch.charCodeAt(0)), enc=t=>new TextEncoder().encode(t);
+    let k=sha256(cat(b64(NAMES_BLOB.s),enc(String(pw).trim().toLowerCase()))); for(let i=1;i<NAMES_BLOB.n;i++) k=sha256(k);
+    const v=[...sha256(cat(k,enc('check')))].map(x=>x.toString(16).padStart(2,'0')).join('').slice(0,16);
+    if(v!==NAMES_BLOB.v){ if(!quiet) toast('<b>That passcode didn\'t work</b><span>Check the spelling and try again.</span>',3000); return false; }
+    const d=b64(NAMES_BLOB.d), out=new Uint8Array(d.length);
+    for(let i=0;i<d.length;i+=32){ const ks=sha256(cat(k,new Uint8Array([(i/32)>>>24,(i/32)>>>16&255,(i/32)>>>8&255,(i/32)&255]))); for(let j=0;j<32&&i+j<d.length;j++) out[i+j]=d[i+j]^ks[j]; }
+    NAMES=JSON.parse(new TextDecoder().decode(out)); try{localStorage.setItem('ne-pass',String(pw).trim())}catch(e){} return true;
+  }catch(e){ if(!quiet) toast('<b>Couldn\'t open team view</b><span>'+esc(e.message||e)+'</span>',5000); return false; }
 }
 function teamBar(){ return NAMES?`<div class="teamv on"><span>🔓 <b>Team view:</b> client names are showing on cards. They never appear on shared links or PDFs.</span><button class="linkbtn" data-tv-off>Hide names</button></div>`
-  :`<div class="teamv"><span>🔒 <b>Team view:</b> enter the team passcode to see client names on the cards.</span><form data-tv-form><input type="password" autocomplete="off" placeholder="Passcode" aria-label="Team passcode"><button class="btn sm" type="submit">Show names</button></form></div>`; }
+  :`<div class="teamv"><span>🔒 <b>Team view:</b> enter the team passcode to see client names on the cards.</span><form data-tv-form><input type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Passcode" aria-label="Team passcode"><button class="btn sm" type="submit">Show names</button></form></div>`; }
 function wireTeam(){ const box=$('#teamv'); if(!box) return; box.innerHTML=teamBar();
-  const f=box.querySelector('[data-tv-form]'); if(f) f.onsubmit=async e=>{ e.preventDefault(); const v=f.querySelector('input').value.trim(); if(v&&await unlockNames(v)){ wireTeam(); renderGrid(); toast('<b>✓ Client names on</b><span>Only on cards, only on this device.</span>',2600);} };
+  const f=box.querySelector('[data-tv-form]'); if(f) f.onsubmit=async e=>{ e.preventDefault(); const v=f.querySelector('input').value.trim(); if(v&&unlockNames(v)){ wireTeam(); renderGrid(); toast('<b>✓ Client names on</b><span>Only on cards, only on this device.</span>',2600);} };
   const o=box.querySelector('[data-tv-off]'); if(o) o.onclick=()=>{ NAMES=null; try{localStorage.removeItem('ne-pass')}catch(e){} wireTeam(); renderGrid(); };
 }
 const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -679,7 +693,7 @@ function renderLibrary(){
   $('.hero-stats b:last-child');
   const lastB=document.querySelector('.hero-stats>div:last-child b'); lastB.style.fontSize='22px'; lastB.style.lineHeight='1.15';
   renderFilters(); renderGrid(); countUp(document.querySelectorAll('.hero-stats b[data-count]')); wireTeam();
-  if(!NAMES&&!CFG.lock){ let pw=null; try{pw=localStorage.getItem('ne-pass')}catch(e){} if(pw) unlockNames(pw,true).then(ok=>{ if(ok){ wireTeam(); renderGrid(); } }); }
+  if(!NAMES&&!CFG.lock){ let pw=null; try{pw=localStorage.getItem('ne-pass')}catch(e){} if(pw&&unlockNames(pw,true)){ wireTeam(); renderGrid(); } }
 }
 function renderFilters(){
   const [k,label,field]=FILTERS.find(f=>f[0]===S.ftab);
