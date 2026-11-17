@@ -491,6 +491,13 @@ body{background:#f6f8fb}
 .card .client .realname{display:block;color:var(--navy);font-weight:800;font-size:15px}
 .card .client .anon{display:block;font-size:12px;color:var(--muted);margin-top:2px}
 .k-s .client .realname{color:#fff}
+
+.card .cl-block{margin-top:12px;padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(249,92,21,.16),rgba(249,92,21,.05));border:1px solid rgba(249,92,21,.45)}
+.card .cl-block b{display:block;font-size:20px;line-height:1.15;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+.card .cl-block span{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:13.5px;font-weight:700;color:var(--orange)}
+.card .cl-block svg{width:14px;height:14px;fill:currentColor;flex:0 0 auto}
+.k-s .cl-block{background:linear-gradient(135deg,rgba(249,92,21,.28),rgba(249,92,21,.08));border-color:rgba(249,92,21,.6)}
+.k-s .cl-block b{color:#fff}.k-s .cl-block span{color:#FF9A66}
 </style>
 </head>
 <body>
@@ -657,10 +664,11 @@ function caseCard(c,i=0){
   return `<article class="card rv ${ks?'k-s':'k-c'}" style="--d:${(i%6)*70}ms;--svc:${SVC_COLOR[c.serviceGroup[0]]||'var(--sky)'}">
     <div class="strip"></div><div class="in">
     <div class="kbadge">${isNew(c)?'<span class="newb">New</span>':''}${ks?'★ Client Success Story':'Case Study'}${ks?'':`<em>${esc((c.source||'').replace(/^https?:\/\/(www\.)?/,'').split('/')[0])}</em>`}</div>
-    <div class="top"><span>${esc(c.industryGroup)}</span><span>${NM(c)?esc(NM(c).l):(c.state==='Not specified'?'':esc(c.state))}</span></div>
+    <div class="top"><span>${esc(c.industryGroup)}</span><span>${NM(c)?'':(c.state==='Not specified'?'':esc(c.state))}</span></div>
+    ${NM(c)?`<div class="cl-block" title="Team view only. Not shown on shared links or PDFs."><b>${S.q.trim()?hl(NM(c).c):esc(NM(c).c)}</b><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(NM(c).l)}</span></div>`:''}
     ${s?`<div class="big">${esc(s.value)}</div><div class="big-l">${esc(s.label)}</div>`:`<div class="big txt">${esc(c.primary)}</div><div class="big-l">${esc(c.headline)}</div>`}
     <h3>${S.q.trim()?hl(c.title):esc(c.title)}</h3>
-    <div class="client">${NM(c)?`<b class="realname" title="Team view only. Not shown on shared links or PDFs.">${S.q.trim()?hl(NM(c).c):esc(NM(c).c)}</b><span class="anon">${esc(c.client)}</span>`:esc(c.client)}</div>
+    <div class="client">${esc(c.client)}</div>
     ${S.q.trim()&&snippet(c)?`<p class="snip">${snippet(c)}</p>`:''}
     <div>${c.serviceGroup.map(v=>`<span class="svc-tag">${esc(v)}</span>`).join('')}</div>
     <div class="foot"><span class="dt">${dateLabel(c)}</span><span class="go">View story</span>
