@@ -314,7 +314,7 @@ h1,h2,h3,h4{color:var(--ink);font-weight:800;letter-spacing:-.015em;line-height:
 @media (max-width:560px){ .tab{padding:7px 9px;font-size:10px} .stats{grid-template-columns:1fr} .brand img{height:30px} }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.stat{opacity:1;transform:none}}
 .srcline{font-size:13px;color:#5d7088;margin:18px 0 0}.srcline a{color:inherit}
-.card .big.txt{font-size:22px;line-height:1.15}.stat.txt b{font-size:20px;line-height:1.2}.svc-tag.src{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.card .big.txt{font-size:22px;line-height:1.15}.stat.txt b{font-size:clamp(24px,2.6vw,34px);line-height:1.1}.svc-tag.src{background:transparent;border:1px solid var(--line);color:var(--muted)}
 .sitefoot .wrap{flex-wrap:wrap}.sitefoot .disc{flex-basis:100%;font-size:12px;color:#8fa6ba;margin:0 0 10px}
 
 /* ===== modern refresh ===== */
@@ -411,7 +411,7 @@ body{background:#f6f8fb}
 .rings .ring{cursor:pointer;outline:none}
 .rings .r{fill:none;stroke:var(--rc);stroke-width:3;stroke-linecap:round;stroke-dasharray:600;stroke-dashoffset:600;animation:draw 1.8s ease forwards;animation-delay:calc(var(--i)*.25s);transition:stroke-width .25s}
 .rings .glow{fill:var(--rc);fill-opacity:0;transition:fill-opacity .3s}
-.rings text{font:900 12.5px Figtree,system-ui,sans-serif;letter-spacing:1.4px;fill:#fff;opacity:0;animation:rise .6s ease forwards;animation-delay:calc(1.2s + var(--i)*.15s);pointer-events:none}
+.rings text{font:800 15px Figtree,system-ui,sans-serif;letter-spacing:1.6px;fill:#fff;opacity:0;animation:rise .6s ease forwards;animation-delay:calc(1.2s + var(--i)*.15s);pointer-events:none}
 .rings text.cnt{font-weight:700;font-size:11px;letter-spacing:.5px;fill:#c9e9fb}
 .rings .ring:hover .glow,.rings .ring:focus-visible .glow,.rings .ring.on .glow{fill-opacity:.14}
 .rings .ring:hover .r,.rings .ring:focus-visible .r,.rings .ring.on .r{stroke-width:5}
@@ -508,14 +508,13 @@ function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show')
 
 const RINGDEF=[['consulting','CONSULTING','',230,150,'#3BA9E6',['Consulting']],['talent','TALENT','SOLUTIONS',170,250,'#F95C15',['Staff Augmentation','Direct Hire','Executive Search']],['managed','MANAGED','SERVICES',290,250,'#ffffff',['Managed Services']]];
 function ringsSVG(active){
-  const n=k=>CASES.filter(c=>c.serviceGroup.some(v=>RINGDEF.find(r=>r[0]===k)[6].includes(v))).length;
   const act=active||[];
-  return `<svg class="rings ${act.length?'has-on':''}" viewBox="0 0 420 420" role="group" aria-label="Service lines">${RINGDEF.map(([k,a,b,x,y,col],i)=>{
-    const on=act.includes(k), tx=k==='consulting'?x:k==='talent'?x-34:x+34, ty=k==='consulting'?y-40:y+30;
-    return `<g class="ring ${on?'on':''}" data-ring="${k}" tabindex="0" role="button" aria-label="${a} ${b}: ${n(k)} stories" style="--rc:${col};--i:${i}">
+  const LBL={consulting:[230,98,['CONSULTING']],talent:[138,268,['TALENT','SOLUTIONS']],managed:[322,268,['MANAGED','SERVICES']]};
+  return `<svg class="rings ${act.length?'has-on':''}" viewBox="62 42 336 326" role="group" aria-label="Service lines: Consulting, Talent Solutions, Managed Services">${RINGDEF.map(([k,a,b,x,y,col],i)=>{
+    const on=act.includes(k), [tx,ty,lines]=LBL[k];
+    return `<g class="ring ${on?'on':''}" data-ring="${k}" tabindex="0" role="button" aria-label="Show ${lines.join(' ').toLowerCase()} stories" style="--rc:${col};--i:${i}">
       <circle class="glow" cx="${x}" cy="${y}" r="95"/><circle class="r" cx="${x}" cy="${y}" r="95"/>
-      <text x="${tx}" y="${ty}" text-anchor="middle">${a}</text>${b?`<text x="${tx}" y="${ty+16}" text-anchor="middle">${b}</text>`:''}
-      <text class="cnt" x="${tx}" y="${ty+(b?36:20)}" text-anchor="middle">${n(k)} stories</text></g>`;}).join('')}
+      ${lines.map((t,n)=>`<text x="${tx}" y="${ty+n*19-(lines.length-1)*9.5}" text-anchor="middle" dominant-baseline="middle">${t}</text>`).join('')}</g>`;}).join('')}
     <circle class="core" cx="230" cy="216" r="5"/></svg>`;
 }
 const RINGS='';
@@ -627,7 +626,7 @@ function countUp(nodes){
 const STEPS=[['challenge','The challenge','What was at stake'],['solution','Our solution','What we delivered'],['impact','Our impact','What changed']];
 function statBlock(c){
   if(!c.stats.length) return `<div class="stats" style="--n:1"><div class="stat txt"><b>${esc(c.primary)}</b><p>${esc(c.headline)}</p></div></div>`;
-  return `<div class="stats" style="--n:${Math.min(c.stats.length,4)}">${c.stats.map(s=>isNum(s.value)?`<div class="stat"><b data-count="${esc(s.value)}">${esc(s.value)}</b><p>${esc(s.label)}</p></div>`:`<div class="stat txt"><b>✓ ${esc(s.value)}</b><p>${esc(s.label)}</p></div>`).join('')}</div>`;
+  return `<div class="stats" style="--n:${Math.min(c.stats.length,4)}">${c.stats.map(s=>isNum(s.value)?`<div class="stat"><b data-count="${esc(s.value)}">${esc(s.value)}</b><p>${esc(s.label)}</p></div>`:`<div class="stat txt"><b>${esc(s.value)}</b><p>${esc(s.label)}</p></div>`).join('')}</div>`;
 }
 function stackStory(c){
   return `<div class="acc">${STEPS.map(([k,t,sub],i)=>`<section class="ac open"><button class="ach" data-ac aria-expanded="true"><em>${i+1}</em><span><b>${t}</b><small>${sub}</small></span><i class="chev" aria-hidden="true"></i></button><div class="acb"><div class="acin">${paras(c[k])}</div></div></section>`).join('')}</div>`;
@@ -673,7 +672,7 @@ function renderCase(id){
   </div></section>
   ${CFG.lock?'':`<section class="section tint"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">More like this</div><h2>Related engagements</h2></div><a class="linkbtn" href="#library" data-filter="expertise|${esc(c.primary)}">All ${esc(c.primary)} →</a></div>
     <div class="grid">${related.map(caseCard).join('')}</div></div></section>`}`;
-  countUp(document.querySelectorAll('.stat b')); document.querySelectorAll('.acc .ac,.stat,.quote,.srcline,.case-actions').forEach((e,i)=>{e.classList.add('rv');e.style.setProperty('--d',(i%4)*80+'ms')}); reveal();
+  countUp(document.querySelectorAll('.stat b[data-count]')); document.querySelectorAll('.acc .ac,.stat,.quote,.srcline,.case-actions').forEach((e,i)=>{e.classList.add('rv');e.style.setProperty('--d',(i%4)*80+'ms')}); reveal();
 }
 
 /* ---------- collections ---------- */
