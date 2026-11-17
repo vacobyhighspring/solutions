@@ -280,7 +280,7 @@ h1,h2,h3,h4{color:var(--ink);font-weight:800;letter-spacing:-.015em;line-height:
 
 /* footer */
 .sitefoot{background:var(--navy);color:#c9d6e2}
-.sitefoot .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:16px;font-size:13px;flex-wrap:wrap}
+.sitefoot .wrap{display:block;padding-top:30px;padding-bottom:26px;font-size:13px}
 .sitefoot b{color:#fff;letter-spacing:.14em;font-size:12px;margin-right:10px}
 .sitefoot .r{display:flex;align-items:center;gap:14px}
 .sitefoot .r a.site{color:var(--orange);font-weight:700}
@@ -315,7 +315,7 @@ h1,h2,h3,h4{color:var(--ink);font-weight:800;letter-spacing:-.015em;line-height:
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.stat{opacity:1;transform:none}}
 .srcline{font-size:13px;color:#5d7088;margin:18px 0 0}.srcline a{color:inherit}
 .card .big.txt{font-size:22px;line-height:1.15}.stat.txt b{font-size:clamp(24px,2.6vw,34px);line-height:1.1}.svc-tag.src{background:transparent;border:1px solid var(--line);color:var(--muted)}
-.sitefoot .wrap{flex-wrap:wrap}.sitefoot .disc{flex-basis:100%;font-size:12px;color:#8fa6ba;margin:0 0 10px}
+.sitefoot .disc{font-size:12px;line-height:1.6;color:#8fa6ba;margin:20px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);max-width:980px}
 
 /* ===== modern refresh ===== */
 :root{--r:16px;--glass:rgba(255,255,255,.08)}
@@ -498,6 +498,15 @@ body{background:#f6f8fb}
 .card .cl-block svg{width:14px;height:14px;fill:currentColor;flex:0 0 auto}
 .k-s .cl-block{background:linear-gradient(135deg,rgba(249,92,21,.28),rgba(249,92,21,.08));border-color:rgba(249,92,21,.6)}
 .k-s .cl-block b{color:#fff}.k-s .cl-block span{color:#FF9A66}
+
+.sitefoot .fmain{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sitefoot .fcta small{display:block;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#7fd0ff;margin-bottom:10px}
+.sitefoot .flinks{display:flex;gap:10px;flex-wrap:wrap}
+.sitefoot .fbtn{display:inline-flex;align-items:center;gap:6px;background:var(--orange);color:#fff;font-weight:800;font-size:14px;padding:11px 18px;border-radius:999px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.sitefoot .fbtn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(249,92,21,.7)}
+.sitefoot .fbtn.alt{background:transparent;border:1.5px solid rgba(255,255,255,.4)}
+.sitefoot .top{background:transparent;cursor:pointer;padding:8px 14px;border-radius:999px}
+@media (max-width:640px){.sitefoot .fbtn{width:100%;justify-content:center}.sitefoot .flinks{width:100%}.sitefoot .fcta{width:100%}}
 </style>
 </head>
 <body>
@@ -507,9 +516,9 @@ body{background:#f6f8fb}
 </div></header>
 <div class="iuo" id="iuo" role="note"><div class="wrap"><b>Internal use only</b><span>Send individual case studies and client success stories only. Open one and use <em>Copy link</em> or <em>Download PDF</em>.</span></div></div>
 <main id="app"></main>
-<footer class="sitefoot"><div class="wrap"><p class="disc">Client success stories are representative summaries of our work. Client names are withheld, and they are not client references. Case studies link to their original published source on vaco.com or highspring.com.</p>
-  <div><b>LOCAL TO YOU</b>MA · CT · NY · NJ · PA</div>
-  <div class="r"><a class="site" href="https://www.vaco.com" target="_blank" rel="noopener">vaco.com</a><span class="sep">|</span><a class="site" href="https://www.highspring.com" target="_blank" rel="noopener">highspring.com</a><button class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button><a class="talk" href="https://www.vaco.com" target="_blank" rel="noopener">Talk to us →</a></div>
+<footer class="sitefoot"><div class="wrap">
+  <div class="fmain"><div class="fcta"><small>See more case studies</small><div class="flinks" id="flinks"></div></div><button class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button></div>
+  <p class="disc"></p>
 </div></footer>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" aria-hidden="true"></aside>
@@ -926,6 +935,10 @@ function route(){
   S._view=view; renderNav(view); renderTray(view);
   { const ib=$('#iuo'); if(ib) ib.style.display=CFG.lock?'none':''; }
   { const dc=document.querySelector('.sitefoot .disc'); if(dc){ const cid=view==='case'?+(CFG.lock||location.hash).split('-').pop():null, cc=cid&&BYID[cid];
+    const VC='https://www.vaco.com/resources/case-studies/', HC='https://www.highspring.com/resources/case-studies/';
+    const btn=(u,t,alt)=>`<a class="fbtn${alt?' alt':''}" href="${u}" target="_blank" rel="noopener">${t} →</a>`;
+    const fl=$('#flinks'); if(fl){ if(!cc) fl.innerHTML=btn(VC,'Vaco case studies')+btn(HC,'Highspring case studies',1);
+      else { const hs=cc.kind==='Case Study'&&['Consulting','Managed Services'].includes(cc.serviceGroup[0]); fl.innerHTML=hs?btn(HC,'View Highspring case studies'):btn(VC,'View Vaco case studies'); } }
     dc.textContent = !cc ? 'Client success stories are representative summaries of our work, provided for informational purposes only. Client names and identifying details are withheld or generalized to protect confidentiality; they are not client endorsements or references. Case studies are summarized from their original published source on vaco.com or highspring.com. Results are specific to each engagement and do not guarantee future outcomes. © 2026 Highspring LLC. All rights reserved.'
       : cc.kind==='Case Study' ? 'Case study. Provided for informational purposes only. Results are specific to that engagement and do not guarantee future outcomes. © 2026 Highspring LLC. All rights reserved.'
       : 'Client success story. This is a representative summary of our work, provided for informational purposes only. Client names and identifying details are withheld or generalized to protect confidentiality. It is not a client endorsement or reference, and the client should not be contacted on its basis. Results are specific to this engagement and do not guarantee future outcomes. © 2026 Highspring LLC. All rights reserved.'; } }
