@@ -314,6 +314,59 @@ h1,h2,h3,h4{color:var(--ink);font-weight:800;letter-spacing:-.015em;line-height:
 .srcline{font-size:13px;color:#5d7088;margin:18px 0 0}.srcline a{color:inherit}
 .card .big.txt{font-size:22px;line-height:1.15}.stat.txt b{font-size:20px;line-height:1.2}.svc-tag.src{background:transparent;border:1px solid var(--line);color:var(--muted)}
 .sitefoot .wrap{flex-wrap:wrap}.sitefoot .disc{flex-basis:100%;font-size:12px;color:#8fa6ba;margin:0 0 10px}
+
+/* ===== modern refresh ===== */
+:root{--r:16px;--glass:rgba(255,255,255,.08)}
+body{background:#f6f8fb}
+.topbar{background:rgba(255,255,255,.82);backdrop-filter:saturate(1.6) blur(14px)}
+.hero{background:radial-gradient(900px 420px at 85% -10%,rgba(45,191,249,.28),transparent 60%),radial-gradient(700px 380px at -10% 110%,rgba(249,92,21,.22),transparent 60%),linear-gradient(160deg,#061f33 0%,#072942 55%,#0b3556 100%)}
+.hero:after{height:4px;background:linear-gradient(90deg,var(--cyan),var(--sky) 45%,var(--orange) 75%,#FF8A50)}
+.hero h1{letter-spacing:-.03em}
+.hero h1 .hl{background:linear-gradient(90deg,var(--cyan),#7fd8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-stats>div{background:var(--glass);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;backdrop-filter:blur(6px)}
+.filterbar{background:rgba(255,255,255,.9);backdrop-filter:blur(10px)}
+.ftab{border-radius:999px;padding:7px 14px}
+.ftab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.search input,.search{border-radius:999px!important}
+.section.tint{background:linear-gradient(180deg,#eef3f8,#f6f8fb 240px)}
+.grid{gap:20px}
+.card{border-radius:var(--r);border:1px solid rgba(7,41,66,.07);box-shadow:0 1px 2px rgba(7,41,66,.04),0 12px 32px -18px rgba(7,41,66,.35)}
+.card:hover{transform:translateY(-5px);box-shadow:0 2px 6px rgba(7,41,66,.06),0 26px 50px -20px rgba(7,41,66,.45)}
+.card .strip{height:3px}
+.card .in{padding:20px 22px 18px}
+.svc-tag{border-radius:999px;padding:4px 10px}
+.kbadge{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px;margin-bottom:12px;background:#e8f5fd;color:var(--blue)}
+.kbadge em{font-style:normal;font-weight:700;letter-spacing:.02em;text-transform:none;color:var(--muted);border-left:1px solid #c5e3f4;padding-left:8px}
+/* client success story cards: dark, orange */
+.card.k-s{background:radial-gradient(420px 220px at 110% -10%,rgba(249,92,21,.35),transparent 60%),linear-gradient(165deg,#0b3556,#072942 60%,#061f33);border-color:rgba(255,255,255,.06);color:#c9d6e2}
+.card.k-s .strip{background:linear-gradient(90deg,var(--orange),#FF8A50)}
+.card.k-s .kbadge{background:rgba(249,92,21,.16);color:#FF8A50;box-shadow:inset 0 0 0 1px rgba(249,92,21,.35)}
+.card.k-s .top{color:#8fb3cf}
+.card.k-s .big{background:linear-gradient(90deg,#FF8A50,var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card.k-s .big.txt{background:linear-gradient(90deg,#fff,#c9e9fb);-webkit-background-clip:text;background-clip:text}
+.card.k-s .big-l,.card.k-s .client{color:#a9bed1}
+.card.k-s h3{color:#fff}
+.card.k-s .svc-tag{background:rgba(255,255,255,.08);color:#e3edf5}
+.card.k-s .foot{border-top-color:rgba(255,255,255,.12)}
+.card.k-s .go{color:#FF8A50}
+.card.k-c .big{background:linear-gradient(90deg,var(--navy),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* detail heroes */
+.kbadge.big{font-size:11.5px;padding:7px 13px;margin-bottom:16px}
+.case-hero.k-s{background:radial-gradient(800px 420px at 90% -20%,rgba(249,92,21,.38),transparent 60%),radial-gradient(600px 360px at -10% 120%,rgba(255,138,80,.18),transparent 60%),linear-gradient(160deg,#061f33,#072942 60%,#0b3556)}
+.case-hero.k-s .kbadge{background:rgba(249,92,21,.18);color:#FF8A50;box-shadow:inset 0 0 0 1px rgba(249,92,21,.45)}
+.case-hero.k-s:after{background:linear-gradient(90deg,var(--orange),#FF8A50)}
+.case-hero.k-c{background:radial-gradient(800px 420px at 90% -20%,rgba(45,191,249,.40),transparent 60%),linear-gradient(160deg,#072942,#0b3d63 55%,#11558a)}
+.case-hero.k-c .kbadge{background:rgba(45,191,249,.16);color:#9fe0ff;box-shadow:inset 0 0 0 1px rgba(45,191,249,.4)}
+.case-hero.k-c .kbadge em{color:#c9e9fb;border-left-color:rgba(255,255,255,.25)}
+.case-hero.k-c:after{background:linear-gradient(90deg,var(--cyan),var(--sky))}
+.stat{border-radius:14px!important}
+.case-hero.k-s~.statband .stat{border-top:3px solid var(--orange)}
+.case-hero.k-c~.statband .stat{border-top:3px solid var(--sky)}
+.case-hero.k-s~.statband .stat b{background:linear-gradient(90deg,#FF8A50,var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{border-radius:999px!important}
+.fade{animation:fadeup .45s ease both}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none}.card:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -393,13 +446,15 @@ function matches(c, skip){
 }
 function caseCard(c){
   const s=c.stats.find(x=>isNum(x.value));
-  return `<article class="card fade" style="--svc:${SVC_COLOR[c.serviceGroup[0]]||'var(--sky)'}">
+  const ks=c.kind!=='Case Study';
+  return `<article class="card fade ${ks?'k-s':'k-c'}" style="--svc:${SVC_COLOR[c.serviceGroup[0]]||'var(--sky)'}">
     <div class="strip"></div><div class="in">
-    <div class="top"><span>#${pad(c.id)} · ${esc(c.industryGroup)}</span><span>${esc(c.state)}</span></div>
+    <div class="kbadge">${ks?'★ Client Success Story':'Case Study'}${ks?'':`<em>${esc((c.source||'').replace(/^https?:\/\/(www\.)?/,'').split('/')[0])}</em>`}</div>
+    <div class="top"><span>${esc(c.industryGroup)}</span><span>${c.state==='Not specified'?'':esc(c.state)}</span></div>
     ${s?`<div class="big">${esc(s.value)}</div><div class="big-l">${esc(s.label)}</div>`:`<div class="big txt">${esc(c.primary)}</div><div class="big-l">${esc(c.headline)}</div>`}
     <h3>${esc(c.title)}</h3>
     <div class="client">${esc(c.client)}</div>
-    <div>${c.serviceGroup.map(v=>`<span class="svc-tag">${esc(v)}</span>`).join('')}<span class="svc-tag src">${esc(c.kind)}</span></div>
+    <div>${c.serviceGroup.map(v=>`<span class="svc-tag">${esc(v)}</span>`).join('')}</div>
     <div class="foot"><span class="go">View story</span>
       </div>
     </div><a class="cover" href="#case-${c.id}" aria-label="View story: ${esc(c.title)}"></a></article>`;
@@ -496,9 +551,9 @@ function renderCase(id){
   const related=CASES.filter(x=>x.id!==id).map(x=>({x,s:(x.primary===c.primary?3:0)+x.tags.filter(t=>c.tags.includes(t)&&t!=='Technology Leadership').length+(x.industryGroup===c.industryGroup?1:0)})).sort((a,b)=>b.s-a.s).slice(0,3).map(o=>o.x);
   const on=S.sel.includes(id);
   $('#app').innerHTML = `
-  ${CFG.lock?'':`<div class="crumbs"><div class="wrap"><a href="#library">← All stories</a><div class="pn"><span class="results">Case ${i+1} of ${ORDER.length}</span><button data-go="${prev.id}" aria-label="Previous story">‹</button><button data-go="${next.id}" aria-label="Next story">›</button></div></div></div>`}
-  <section class="hero case-hero"><div class="wrap">${RINGS}
-    <div class="eyebrow">${esc(c.kind)} · ${esc(c.industryGroup)}</div>
+  ${CFG.lock?'':`<div class="crumbs"><div class="wrap"><a href="#library">← All stories</a><div class="pn"><span class="results">Story ${i+1} of ${ORDER.length}</span><button data-go="${prev.id}" aria-label="Previous story">‹</button><button data-go="${next.id}" aria-label="Next story">›</button></div></div></div>`}
+  <section class="hero case-hero ${c.kind!=='Case Study'?'k-s':'k-c'}"><div class="wrap">${RINGS}
+    <div class="kbadge big">${c.kind!=='Case Study'?'★ Client Success Story':'Case Study'}${c.kind==='Case Study'&&c.source?`<em>${esc(c.source.replace(/^https?:\/\/(www\.)?/,'').split('/')[0])}</em>`:''}</div><div class="eyebrow">${esc(c.industryGroup)}</div>
     <h1>${esc(c.title)}</h1>
     <div class="client-line"><span>${esc(c.client)}</span>${c.placement?`<span class="placement">Placement · ${esc(c.placement)}</span>`:''}</div>
     ${metaBlock(c)}
