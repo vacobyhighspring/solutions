@@ -27,5 +27,6 @@ Send Claude the details (a PDF, a slide, a link or plain notes). It needs: title
 A scheduled task checks the vaco.com and highspring.com story libraries each month. Any new technology story is added and published.
 
 ## Naming
-- **Case Study**: published on vaco.com or highspring.com; links to the original.
+- **Case Study**: published on vaco.com or highspring.com; links to the original. Cards show the month it was published (`published`).
+- New client success stories get an `added` month (e.g. `2026-11`), shown on the card as "Added Nov 2026". Anything from the last 45 days gets a **New** badge, and the library sorts newest first by default.
 - **Client Success Story**: our Northeast team's engagements. Client names withheld; not client references. A disclaimer appears in the footer of every page and download.
