@@ -724,7 +724,7 @@ function stepStory(c){
   </div>`;
 }
 function metaBlock(c, clickable=true){
-  const items=[['Service',c.serviceGroup.join(' · '),'service',c.serviceGroup[0]],['Area of expertise',c.tags.join(' · '),'expertise',c.primary],['Industry',c.industryGroup,'industry',c.industryGroup],['Location',c.state,'state',c.state]];
+  const items=[['Service',c.serviceGroup.join(' · '),'service',c.serviceGroup[0]],['Area of expertise',c.tags.join(' · '),'expertise',c.primary],['Industry',c.industryGroup,'industry',c.industryGroup],['Location',c.state,'state',c.state]].filter(x=>!(x[2]==='state'&&CFG.lock&&c.kind!=='Case Study'));
   return `<div class="meta">${items.map(([l,v,k,fv])=>clickable&&!CFG.lock?`<button data-filter="${k}|${esc(fv)}" title="See all ${esc(fv)} stories"><small>${l}</small><span>${esc(v)}</span></button>`:`<button tabindex="-1" style="cursor:default"><small>${l}</small><span>${esc(v)}</span></button>`).join('')}</div>`;
 }
 
@@ -874,7 +874,7 @@ function route(){
   { const ib=$('#iuo'); if(ib) ib.style.display=CFG.lock?'none':''; }
   { const dc=document.querySelector('.sitefoot .disc'); if(dc){ const cid=view==='case'?+(CFG.lock||location.hash).split('-').pop():null, cc=cid&&BYID[cid];
     dc.textContent = !cc ? 'Client success stories are representative summaries of our work, provided for informational purposes only. Client names and identifying details are withheld or generalized to protect confidentiality; they are not client endorsements or references. Case studies are summarized from their original published source on vaco.com or highspring.com. Results are specific to each engagement and do not guarantee future outcomes. © 2026 Highspring LLC. All rights reserved.'
-      : cc.kind==='Case Study' ? 'Case study. Summarized from the case study published on '+(cc.source||'').replace(/^https?:\/\/(www\.)?/,'').split('/')[0]+', provided for informational purposes only. Results are specific to that engagement and do not guarantee future outcomes. © 2026 Highspring LLC. All rights reserved.'
+      : cc.kind==='Case Study' ? 'Case study. Provided for informational purposes only. Results are specific to that engagement and do not guarantee future outcomes. © 2026 Highspring LLC. All rights reserved.'
       : 'Client success story. This is a representative summary of our work, provided for informational purposes only. Client names and identifying details are withheld or generalized to protect confidentiality. It is not a client endorsement or reference, and the client should not be contacted on its basis. Results are specific to this engagement and do not guarantee future outcomes. © 2026 Highspring LLC. All rights reserved.'; } }
   window.scrollTo(0,0);
 }
