@@ -78,7 +78,7 @@ h2 small{margin-left:auto;font-family:var(--body);font-weight:500;font-size:12px
 
 /* hero result */
 .hero{background:var(--band);color:#fff;border-radius:16px;padding:18px;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;right:-70px;top:-70px;width:180px;height:180px;border-radius:50%;border:26px solid var(--orange);opacity:.18}
+.hero::after{content:"";position:absolute;right:-70px;top:-70px;width:180px;height:180px;border-radius:50%;border:26px solid #2DBFF9;opacity:.12}
 .hero > *{position:relative}
 .k{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .hero .k{color:#fff;opacity:.7}
@@ -88,7 +88,8 @@ h2 small{margin-left:auto;font-family:var(--body);font-weight:500;font-size:12px
 .badge i{width:6px;height:6px;border-radius:50%;background:currentColor}
 .badge.good{background:rgba(76,195,138,.16);color:#7fe0b0}
 .badge.mid{background:rgba(255,255,255,.1);color:#dce7f1}
-.badge.low{background:rgba(242,107,33,.2);color:#ffa877}
+.badge.low{background:rgba(249,92,21,.22);color:#ff8a3d}
+.badge.wow{background:rgba(45,191,249,.18);color:#8fdcfb}
 .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.12);border-radius:12px;overflow:hidden;margin-top:14px}
 .mini > div{background:var(--band-2);padding:9px 11px}
 .mini .mk{font-size:10.5px;opacity:.7}
@@ -363,12 +364,13 @@ td.cutc{font-weight:800;color:var(--orange)}
     tween('v2',mu,pct); tween('v3',gmh,v=>money(v));
     tween('v4',gmh*HPW,v=>money(v,0)); tween('v5',gmh*HPW*WPM,v=>money(v,0)); tween('v6',cost,v=>money(v));
 
-    const b=$('badge'), t=b.querySelector('span');
+    const b=$('badge'), t=b.querySelector('span'); let gr;
     if(!ok(pay)||pay<=0||!ok(gm)){ b.className='badge mid'; t.textContent='Enter a pay rate to start'; }
     else if(gm<0){ b.className='badge low'; t.textContent='Below cost'; }
-    else if(gm<.20){ b.className='badge low'; t.textContent='Low margin · under 20%'; }
-    else if(gm<.30){ b.className='badge mid'; t.textContent='Solid margin · 20–30%'; }
-    else { b.className='badge good'; t.textContent='Strong margin · 30%+'; }
+    else if((gr=Math.round(gm*10000)/10000)<.25){ b.className='badge mid'; t.textContent='Under 25% · OK when the pay rate is higher'; }
+    else if(gr<.30){ b.className='badge mid'; t.textContent='Decent · 25–30%'; }
+    else if(gr<=.35){ b.className='badge good'; t.textContent='Where we want to be · 30–35%'; }
+    else { b.className='badge wow'; t.textContent='Whoa, 35%+ · double-check the rates, but great job'; }
 
     const valid=ok(bill)&&bill>0&&ok(pay)&&pay>0&&gmh>=0, w=x=>valid?(x/bill*100)+'%':'0';
     $('bP').style.width=w(pay); $('bB').style.width=w(cost-pay); $('bM').style.width=w(gmh);
