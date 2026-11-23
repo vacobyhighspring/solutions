@@ -467,7 +467,7 @@ details.more .fields{margin-top:12px}
 .stg .bmx{grid-column:2;grid-row:2;margin:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px 6px;align-self:center}
 .stg .bmx:empty{display:none}
 @media (max-width:760px){.stg .sb{grid-template-columns:1fr}.stg .bmx{grid-column:1;grid-row:3;margin-top:8px}}
-.stg.one .lr label{visibility:hidden;width:0;overflow:hidden}
+.stg.one .lr label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .stg.one .lr{justify-content:flex-start}
 .bbh{display:flex;justify-content:space-between;gap:6px;font-size:11.5px;color:var(--muted);margin-bottom:6px}
 .bbh b{color:var(--ink)}
@@ -547,7 +547,9 @@ footer a{color:var(--blue)}
     <div class="lane" data-for="rec full"><div class="lh"><span class="lt2">Recruiting cycle</span><span class="lsw" role="group" aria-label="Enter totals or weekly averages"><button type="button" data-inm="tot">Totals</button><button type="button" data-inm="avg">Weekly averages</button></span></div>
 <div class="stg one" data-stage="vints"><div class="sn"><b></b></div><div class="sb"><div class="st">Vaco interviews<span class="spl" id="pl_vints"></span></div><div class="bmx" id="bm_vints"></div><div class="fields"><div class="fld"><div class="lr"><label for="vints">Vaco interviews</label><button type="button" class="optt" data-opt="vints" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="vints" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div><div class="ann" id="ann_vints"></div></div></div></div></div>
 <div class="cn" id="cn_vints"></div>
-<div class="stg one" data-stage="subs"><div class="sn"><b></b></div><div class="sb"><div class="st">Submittals<span class="spl" id="pl_subs"></span></div><div class="bmx" id="bm_subs"></div><div class="fields"><div class="fld"><div class="lr"><label for="subs">Submittals</label><button type="button" class="optt" data-opt="subs" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="subs" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div><div class="ann" id="ann_subs"></div></div></div></div></div>
+<div class="stg one" data-stage="jom"><div class="sn"><b></b></div><div class="sb"><div class="st">Submittals to JO manager<span class="spl" id="pl_jom"></span></div><div class="bmx" id="bm_jom"></div><div class="fields"><div class="fld"><div class="lr"><label for="jom">Submittals to JO manager</label><button type="button" class="optt" data-opt="jom" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="jom" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div><div class="ann" id="ann_jom"></div></div></div></div></div>
+<div class="cn" id="cn_jom"></div>
+<div class="stg one" data-stage="subs"><div class="sn"><b></b></div><div class="sb"><div class="st">Client submittals<span class="spl" id="pl_subs"></span></div><div class="bmx" id="bm_subs"></div><div class="fields"><div class="fld"><div class="lr"><label for="subs">Client submittals</label><button type="button" class="optt" data-opt="subs" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="subs" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div><div class="ann" id="ann_subs"></div></div></div></div></div>
 <div class="cn" id="cn_subs"></div>
     </div>
     <div class="lane lj"><div class="lh"><span class="lt2">Both meet here</span><span class="lsw" role="group" aria-label="Enter totals or weekly averages"><button type="button" data-inm="tot">Totals</button><button type="button" data-inm="avg">Weekly averages</button></span></div>
@@ -637,10 +639,10 @@ footer a{color:var(--blue)}
 (function(){
 var $=function(id){return document.getElementById(id);};
 var YEAR=2027,KEY="vbh-goal-2027";
-var FIELDS=["sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
-var EX={sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",subs:"",cints:"",util:"90"};
-var AVGK=["pros","von","vvi","jobsc","jobsp","vints","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
-var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints"];
+var FIELDS=["sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints","util"];
+var EX={sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",jom:"",subs:"",cints:"",util:"90"};
+var AVGK=["pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
+var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints"];
 var BMODE="quick",role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
 var Y0=new Date(YEAR,0,1),Y1=new Date(YEAR,11,31);
 function util(){return Math.min(Math.max(num($("util").value),0),100)/100;}
@@ -675,7 +677,7 @@ var BM={rates:{"pros>visits":[.003,.01,.03],"visits>jobs":[.25,.40,.55],"jobs>ci
 var TEN=3;
 function cmixT(T){return T.starts>0?T.stc/T.starts:.55;}
 function bmBase(key,T){var b=BM.rates[key];if(!b)return null;if(b.c){var w=cmixT(T);return [0,1,2].map(function(i){return w*b.c[i]+(1-w)*b.p[i];});}return b;}
-function bmRate(key,T){var x=key.split(">"),up=x[0],dn=x[1],br=BR_A.indexOf(up)>-1&&BR_A.indexOf(dn)>-1?BR_A:BR_B,a=br.indexOf(up),b=br.indexOf(dn);if(a<0||b<0||a<=b)return null;var out=[1,1,1];for(var i=a;i>b;i--){var r=bmBase(br[i]+">"+br[i-1],T);if(!r)return null;out=out.map(function(v,j){return v*r[j];});}return out;}
+function bmRate(key,T){if(key==="vints>jom"||key==="jom>subs")return null;if(key==="vints>subs")return BM.rates["vints>subs"];var x=key.split(">"),up=x[0],dn=x[1],br=BR_A.indexOf(up)>-1&&BR_A.indexOf(dn)>-1?BR_A:BR_B,a=br.indexOf(up),b=br.indexOf(dn);if(a<0||b<0||a<=b)return null;var out=[1,1,1];for(var i=a;i>b;i--){var r=bmBase(br[i]+">"+br[i-1],T);if(!r)return null;out=out.map(function(v,j){return v*r[j];});}return out;}
 function bmAct(k){var t=BM.act[role]&&BM.act[role][k];if(!t)return null;var f=k==="starts"?(TEN===0?.25:TEN===1?.5:TEN===2?.75:1):BM.ramp[TEN];return t.map(function(v){return v*f;});}
 function bmStat(v,b){var t=.995;return !(v>0)?"":v<b[0]*t?"below":v<b[1]*t?"close":v<b[2]*t?"on":"top";}
 var STL={below:"Focus area",close:"Room to grow",on:"On target",top:"Strength"};
@@ -686,12 +688,13 @@ var ST={pros:{l:"Prospecting attempts",p:["pros"],r:"sales full",one:"prospectin
  visits:{l:"Client visits",p:["von","vvi"],r:"sales full",one:"client visit",many:"client visits"},
  jobs:{l:"Jobs written",p:["jobsc","jobsp"],r:"sales full",one:"job written",many:"jobs written"},
  vints:{l:"Vaco interviews",p:["vints"],r:"rec full",one:"Vaco interview",many:"Vaco interviews"},
- subs:{l:"Submittals",p:["subs"],r:"rec full",one:"submittal",many:"submittals"},
+ jom:{l:"Submittals to JO manager",p:["jom"],r:"rec full",one:"submittal to a JO manager",many:"submittals to JO managers"},
+ subs:{l:"Client submittals",p:["subs"],r:"rec full",one:"client submittal",many:"client submittals"},
  cints:{l:"Client interviews",p:["cints"],r:"sales rec full",one:"client interview",many:"client interviews"},
  starts:{l:"Starts",p:["stc","stp"],r:"sales rec full",one:"start",many:"starts"}};
-var PART={pros:"Prospecting attempts",von:"Client visits, in person",vvi:"Client visits, virtual",jobsc:"Contract jobs written",jobsp:"Perm jobs written",vints:"Vaco interviews",subs:"Submittals",cints:"Client interviews"};
-var BR_A=["starts","cints","jobs","visits","pros"],BR_B=["starts","cints","subs","vints"];
-var MAX1={"pros>visits":1,"vints>subs":1,"subs>cints":1,"cints>starts":1,"jobs>starts":1,"subs>starts":1,"vints>cints":1};
+var PART={pros:"Prospecting attempts",von:"Client visits, in person",vvi:"Client visits, virtual",jobsc:"Contract jobs written",jobsp:"Perm jobs written",vints:"Vaco interviews",jom:"Submittals to JO manager",subs:"Client submittals",cints:"Client interviews"};
+var BR_A=["starts","cints","jobs","visits","pros"],BR_B=["starts","cints","subs","jom","vints"];
+var MAX1={"vints>jom":1,"jom>subs":1,"jom>cints":1,"jom>starts":1,"pros>visits":1,"vints>subs":1,"subs>cints":1,"cints>starts":1,"jobs>starts":1,"subs>starts":1,"vints>cints":1};
 function isSt(k){return k==="stc"||k==="stp";}
 function sv(T,k){return ST[k].p.reduce(function(a,f){return a+(OPT[f]?0:T[f]);},0);}
 function active(T,k){return k==="starts"||(mine(ST[k].r)&&!ST[k].p.every(function(f){return OPT[f];})&&sv(T,k)>0);}
@@ -749,14 +752,14 @@ function drawCn(T){[].forEach.call(document.querySelectorAll(".cn"),function(el)
   var bm=bmRate(pr.key,T);if(bm)el.innerHTML+=pr.up==="pros"?'<span class="bmt">new-account visits run about 1 per 100 attempts; most visits come from existing accounts</span>':'<span class="bmt">'+pill(bmStat(pr.cur,bm))+'target '+fmtBm(pr.key,bm[1])+'</span>';});
  var e=eff(T),c=$("cn_startsgm");if(c)c.innerHTML=(e.gpsc||e.gpsp)?'<b>'+usd(e.gpsc||0)+'</b>GM per contract start &nbsp; <b>'+usd(e.gpsp||0)+'</b>GM per perm start':'';
  laneTitle();var n=0,lastBr=null;
- ["pros","visits","jobs","vints","subs","cints","starts"].forEach(function(k){var el=$("bm_"+k);if(!el)return;var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k);
+ ["pros","visits","jobs","vints","jom","subs","cints","starts"].forEach(function(k){var el=$("bm_"+k);if(!el)return;var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k);
   if(!b){el.innerHTML="";return;}var mx=Math.max(b[2]*1.2,v*1.06),x=function(q){return Math.min(q/mx*100,100).toFixed(1);},u=isS?'/mo':'/wk',st=bmStat(v,b);
   var pl=$("pl_"+k);if(pl)pl.innerHTML=v>0?pill(st):'';
   el.innerHTML='<div class="bbh"><span>'+(v>0?'You <b>'+one(v)+'</b>'+u:'Benchmark')+'</span><span>Target <b>'+one(b[1])+'</b>'+u+'</span></div>'+
    '<div class="bbar"><i class="z1" style="width:'+x(b[0])+'%"></i><i class="z2" style="left:'+x(b[0])+'%;width:'+(x(b[1])-x(b[0]))+'%"></i><i class="z3" style="left:'+x(b[1])+'%;width:'+(x(b[2])-x(b[1]))+'%"></i><i class="z4" style="left:'+x(b[2])+'%;right:0"></i><s style="left:'+x(b[1])+'%"></s>'+(v>0?'<em class="'+st+'" style="left:'+x(v)+'%"></em>':'')+'</div>'+
    '<div class="bbl"><span>Min '+one(b[0])+'</span><span>High '+one(b[2])+'</span></div>';});
  if($("bm_gm"))$("bm_gm").innerHTML='<div class="bbh"><span>Reference, <i>before</i> splits</span></div><div class="gref">Reference per producer, <i>before</i> splits: $200K &middot; <b>$300K</b> &middot; $400K a year</div>';[].forEach.call(document.querySelectorAll(".stg"),function(el){var k=el.dataset.stage,lane=el.closest(".lane");if(lane.hidden)return;var on=k==="starts"||k==="gm"||active(T,k);el.classList.toggle("off",!on);});
- var num={};(role==="rec"?["vints","subs","cints","starts","gm"]:role==="sales"?["pros","visits","jobs","cints","starts","gm"]:["pros","visits","jobs","cints","starts","gm"]).forEach(function(k,i){num[k]=i+1;});if(role==="full"){num.vints=1;num.subs=2;}
+ var num={};(role==="rec"?["vints","jom","subs","cints","starts","gm"]:role==="sales"?["pros","visits","jobs","cints","starts","gm"]:["pros","visits","jobs","cints","starts","gm"]).forEach(function(k,i){num[k]=i+1;});if(role==="full"){num.vints=1;num.jom=2;num.subs=3;}
  [].forEach.call(document.querySelectorAll(".stg"),function(el){el.querySelector(".sn b").textContent=el.dataset.stage==="gm"?"$":(num[el.dataset.stage]||"");});}
 function laneTitle(){var h=document.querySelector(".lj .lh .lt2");if(h)h.textContent=role==="full"?"Both cycles meet here":"Results";}
 function nextStage(up){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),i=br.indexOf(up);return br[i-1];}
@@ -768,6 +771,9 @@ function recsFor(k,x0){var x={now:x0.now||"",tg:x0.tg||"",v:x0.v||0,b:x0.b||[0,0
  "visits>jobs":{t:["Bring a short hiring agenda to every visit: open roles, upcoming projects, budget timing, and who else on the team is hiring.","Close each visit with a next step on a specific role &mdash; &ldquo;Which of these can we start on this week?&rdquo;","Spend more of your visits in accounts that already know you; expansion work converts 3&ndash;5x better than new logos."],a:"You&#8217;re writing "+x.now+" jobs per visit today; benchmark is "+x.tg+". A small lift here multiplies through everything after it."},
  "jobs>cints":{t:["Qualify each new job up front: rate or salary, urgency, interview steps, and who makes the decision.","Ask for a 48-hour head start or exclusivity on your best roles, and aim for first submittals within 3&ndash;5 business days.","Put your time into the jobs with the clearest path to an interview."],a:"Jobs that sit without movement quietly lower this rate. A quick weekly review of your open jobs keeps it healthy."},
  "vints>subs":{t:["Know the must-haves for your top 3 open jobs before each Vaco interview.","Pre-close strong candidates on rate, start date and other interviews so they&#8217;re ready to submit.","Keep sourcing focused on your hottest jobs so more of your interviews have a fit."],a:"You submit "+x.now+" of the people you interview; benchmark is "+x.tg+". Better-targeted sourcing usually moves this fastest."},
+ "vints>jom":{t:["Screen against the JO manager&#8217;s must-haves before you pitch a candidate internally.","Send each internal submittal with a short summary: fit, rate, availability and interview status."],a:"This is your first quality check &mdash; strong internal submittals move faster to the client."},
+ "jom>subs":{t:["Agree on what a submittable candidate looks like with each JO manager up front.","Ask for feedback within 24 hours on every internal submittal so good candidates don&#8217;t sit."],a:"Candidates who stall between you and the JO manager often take other offers &mdash; speed matters here."},
+ "act_jom":{t:["Set a daily goal for internal submittals on your top jobs.","Pair with each JO manager weekly on their hottest roles."],a:"You&#8217;re at "+n(x.v)+" submittals to JO managers a week."},
  "subs>cints":{t:["Call the hiring manager on each submittal and give three clear reasons the candidate fits.","Lead with two or three strong candidates per job rather than a long list.","Follow up within 24 hours to lock in an interview time."],a:"Emailed-only submittals get fewer interviews. A quick call is one of the easiest wins in the cycle."},
  "cints>starts":{t:["Prep each candidate before the interview and debrief both sides within 24 hours.","Talk through rate or salary, start date and any other offers early, before the final round.","Get the hiring manager&#8217;s decision timeline up front so you can keep momentum."],a:"Today "+x.now+" of your client interviews become starts; benchmark is "+x.tg+". This is the last step before GM, so every point here counts."},
  "vints>cints":{t:["Present each submittal by phone with three reasons the person fits.","Keep sourcing pointed at your top open jobs."],a:"Small gains in screening and presenting add up fast at this step."},
@@ -786,13 +792,15 @@ function gamePlan(T,e,NEWC,NEWP,NEW,BK,G,B){
  var P=pairs(T),fwdBr=role==="rec"?BR_B:BR_A,fc=chainOf(T,fwdBr),gAct=B.sY*B.e.gps,leaks=[],strong=[];
  P.forEach(function(pr){if(pr.up==="pros")return;var bm=bmRate(pr.key,T);if(!bm||!(pr.cur>0))return;var st=bmStat(pr.cur,bm),inFwd=fc.indexOf(pr.up)>-1&&fc.indexOf(pr.dn)>-1,val=gAct*(bm[1]/pr.cur-1),x={key:pr.key,l:ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),lt:ST[pr.up].l+" -> "+ST[pr.dn].l.toLowerCase(),cur:pr.cur,bm:bm,st:st,val:val,inFwd:inFwd,now:fmtBm(pr.key,pr.cur),tg:fmtBm(pr.key,bm[1])};
   if(pr.cur<bm[1]*.995)leaks.push(x);else strong.push(x);});
+ if(active(T,"jom")&&active(T,"vints")&&active(T,"subs")){var bmv=BM.rates["vints>subs"],cv=div(sv(T,"subs"),sv(T,"vints")),fwdR=fc.indexOf("vints")>-1,xx={key:"vints>subs",l:"Vaco interviews &rarr; client submittals <span style=\"font-weight:500;color:var(--muted)\">(through JO manager)</span>",lt:"Vaco interviews -> client submittals (through JO manager)",cur:cv,bm:bmv,st:bmStat(cv,bmv),val:gAct*(bmv[1]/cv-1),inFwd:fwdR,now:fmtBm("vints>subs",cv),tg:fmtBm("vints>subs",bmv[1]),synth:true};
+  if(cv>0){if(cv<bmv[1]*.995)leaks.push(xx);else strong.push(xx);}}
  leaks.sort(function(a,b){return (b.inFwd-a.inFwd)||(b.val-a.val);});
  /* scenario: leaks fixed to target */
- var keep=OV,OVb={};Object.keys(OV).forEach(function(k){OVb[k]=OV[k];});leaks.forEach(function(l){if(!(OVb[l.key]>l.bm[1]))OVb[l.key]=l.bm[1];});
+ var keep=OV,OVb={};Object.keys(OV).forEach(function(k){OVb[k]=OV[k];});leaks.forEach(function(l){if(l.synth){var f=Math.sqrt(l.bm[1]/l.cur);["vints>jom","jom>subs"].forEach(function(k){var x=k.split(">"),c=div(sv(T,x[1]),sv(T,x[0]));if(c>0)OVb[k]=Math.min(c*f,1);});return;}if(!(OVb[l.key]>l.bm[1]))OVb[l.key]=l.bm[1];});
  OV=OVb;var eB=eff(T),NB=need(T,NEWC,NEWP,eB),sYB=fwdStartsYr(T),gB=sYB*eB.gps+BK;OV=keep;
  var top=topStage(T),tB=NB[top]/52,tNow=sv(T,top),ab=bmAct(top),gapB=G-gB,moreB=sYB*eB.gps>0?(NEW/(sYB*eB.gps)-1)*100:0;
  /* activity vs benchmark rows */
- var acts=["pros","visits","jobs","vints","subs","cints","starts"].filter(function(k){return k==="starts"||active(T,k);}).map(function(k){var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k),nd=isS?(NB.starts||0)/12:NB[k]/52;return b?{k:k,l:ST[k].l,u:isS?"a month":"a week",v:v,b:b,st:bmStat(v,b),need:nd}:null;}).filter(Boolean);
+ var acts=["pros","visits","jobs","vints","jom","subs","cints","starts"].filter(function(k){return k==="starts"||active(T,k);}).map(function(k){var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k),nd=isS?(NB.starts||0)/12:NB[k]/52;return b?{k:k,l:ST[k].l,u:isS?"a month":"a week",v:v,b:b,st:bmStat(v,b),need:nd}:null;}).filter(Boolean);
  return {leaks:leaks,strong:strong,OVb:OVb,gB:gB,gapB:gapB,moreB:moreB,top:top,topL:ST[top].many,tB:tB,tNow:tNow,ab:ab,acts:acts,gAct:gAct,gNow:B.g,gap:B.gap};}
 function drawGP(GP){var who={sales:"producer (sales)",rec:"recruiter",full:"full desk"}[role];
  var h='<div class="gp2"><h3>Your game plan</h3><p class="gsub">Compared with the 2027 benchmarks for a '+who+(TEN<3?', ramping up ('+["0&ndash;90","91&ndash;180","181&ndash;365"][TEN]+' days in seat)':'')+'.</p>';
@@ -840,7 +848,7 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
  /* ---------- two ways ---------- */
  h+='<h3 style="margin-top:16px">'+(B.gap>1?'How to close your '+k$(B.gap)+' gap':'You&#8217;re on track')+'</h3>';
  h+='<div class="way a"><div class="wh"><i>1</i>'+(B.gap>1?'Do more':'Activity you can spare')+'</div><div class="big">'+(B.gap>1?'+'+Math.max(B.more,0).toFixed(0)+'% <small>more activity at every step</small>':(Math.abs(B.more)<0.5?'Right on target':Math.abs(B.more).toFixed(0)+'% <small>less activity</small>'))+'</div>'+
-  '<p>At today&#8217;s conversion rates, here&#8217;s every activity per week:</p><div class="dmg">'+["pros","visits","jobs","vints","subs","cints"].filter(function(k){return active(T,k)&&B.N[k]!=null&&!isNaN(B.N[k]);}).map(function(k){var nw=sv(T,k),nd=B.N[k]/52;return '<div class="dm'+(k===top?' hot':'')+'"><span>'+ST[k].l+'</span><b>'+one(nd)+'</b><small>a week &middot; now '+one(nw)+(nd>nw?' &middot; <em>+'+one(nd-nw)+'</em>':'')+'</small></div>';}).join("")+
+  '<p>At today&#8217;s conversion rates, here&#8217;s every activity per week:</p><div class="dmg">'+["pros","visits","jobs","vints","jom","subs","cints"].filter(function(k){return active(T,k)&&B.N[k]!=null&&!isNaN(B.N[k]);}).map(function(k){var nw=sv(T,k),nd=B.N[k]/52;return '<div class="dm'+(k===top?' hot':'')+'"><span>'+ST[k].l+'</span><b>'+one(nd)+'</b><small>a week &middot; now '+one(nw)+(nd>nw?' &middot; <em>+'+one(nd-nw)+'</em>':'')+'</small></div>';}).join("")+
   '<div class="dm"><span>Contract + perm starts</span><b>'+one((B.N.stc||0)/12)+' + '+one((B.N.stp||0)/12)+'</b><small>a month &middot; now '+one(T.stc*52/12)+' + '+one(T.stp*52/12)+'</small></div></div></div>';
  var P=pairs(T),r0=ratios(T),levs=P.map(function(pr){var need=pr.cur*B.k,pct=isPct(pr.key),poss=!pct||need<=1;return {key:pr.key,l:ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),cur:pr.cur,now:cvTxt(T,pr,pr.cur).big,need:poss?cvTxt(T,pr,need).big:"over 100%",poss:poss,pct:pct,pr:pr};});
  var hr=bookHr();
@@ -880,7 +888,7 @@ function calcTen(){var v=$("sdate").value,el=$("tenTxt");if(!v){TEN=3;el.innerHT
  TEN=d<=90?0:d<=180?1:d<=365?2:3;var pct=[50,75,90,100][TEN];
  el.innerHTML='<b>'+d.toLocaleString("en-US")+' days</b> in your seat &middot; '+(TEN<3?'activity benchmarks set at <b>'+pct+'%</b> while you ramp':'fully ramped benchmarks');}
 function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("gmtot").textContent=Math.round(_gt).toLocaleString("en-US");$("gmtotU").textContent=inm==="tot"?"total":"/week";
- (function(){var W=inm==="tot"?totW():1;["pros","von","vvi","jobsc","jobsp","vints","subs","cints","stc","stp","gmc","gmp","gmtot"].forEach(function(k){var el=$("ann_"+k);if(!el)return;var raw=k==="gmtot"?_gt:num($(k).value),money=k==="gmc"||k==="gmp"||k==="gmtot",st=k==="stc"||k==="stp";
+ (function(){var W=inm==="tot"?totW():1;["pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints","stc","stp","gmc","gmp","gmtot"].forEach(function(k){var el=$("ann_"+k);if(!el)return;var raw=k==="gmtot"?_gt:num($(k).value),money=k==="gmc"||k==="gmp"||k==="gmtot",st=k==="stc"||k==="stp";
   if(!(raw>0)){el.innerHTML="";return;}var wk=inm==="tot"?raw/W:(st?raw*12/52:raw),yr=wk*52,f=function(v){return money?usd(v):(v>=100?Math.round(v).toLocaleString("en-US"):one(v));};
   el.innerHTML=inm==="tot"?(st?f(wk*52/12)+' a month':f(wk)+' a week')+' &middot; <b>'+f(yr)+' a year</b>':'= <b>'+f(yr)+' a year</b>';});})();
  [].forEach.call(document.querySelectorAll("[data-for]"),function(el){el.hidden=!mine(el.dataset.for);});
@@ -897,7 +905,7 @@ function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("g
   (T.gm>0?'':'<!--')+'<div class="mix"><div class="bar"><i style="width:'+(cs*100).toFixed(1)+'%"></i></div><div class="lg2"><span><i class="dc"></i>Contract <b>'+k$(T.gmc*52)+'</b> '+Math.round(cs*100)+'%</span><span><i class="dp"></i>Perm <b>'+k$(T.gmp*52)+'</b> '+Math.round((1-cs)*100)+'%</span></div>'+
   (T.gm>0?'':'-->')+'<div class="gps">'+(bookHr()>0?'<span>Contract GM per hour <b>$'+bookHr().toFixed(2)+'/hr</b></span>':'')+'<span>GM per contract start <b>'+(r.gpsc?usd(r.gpsc):"&ndash;")+'</b></span><span>GM per perm start <b>'+(r.gpsp?usd(r.gpsp):"&ndash;")+'</b></span></div></div></div>'+
   '<div class="rrg">'+grp("Results",[row("Contract starts",one(T.stc*52/12),"/ mo",one(T.stc*52)),row("Perm starts",one(T.stp*52/12),"/ mo",one(T.stp*52))])+
-  grp("Sales cycle",act(["pros","von","vvi","jobsc","jobsp"]))+grp("Recruiting cycle",act(["vints","subs"]))+grp("Both cycles",act(["cints"]))+'</div>';
+  grp("Sales cycle",act(["pros","von","vvi","jobsc","jobsp"]))+grp("Recruiting cycle",act(["vints","jom","subs"]))+grp("Both cycles",act(["cints"]))+'</div>';
  $("calc").innerHTML="";}
  var CONV=drawConv(T);
  var MET=[["Contract GM",T.gmc,"$"],["Perm GM",T.gmp,"$"],["Total GM",T.gm,"$"],["Contract starts",T.stc,"m"],["Perm starts",T.stp,"m"]].map(function(x){return {l:x[0],wk:x[2]==="$"?usd(x[1]):one(x[1]*52/12),wkU:x[2]==="$"?"a week":"a month",yr:x[2]==="$"?usd(x[1]*52):one(x[1]*52),nf:false};}).concat(
@@ -922,7 +930,7 @@ function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("g
  var _ov=OV;OV={};var e0=eff(T),sY0=fwdStartsYr(T),g0=sY0*e0.gps+BK,N0=need(T,NEWC,NEWP,e0);OV=_ov;
  var WAYS=drawWays(T,e,N,NEW,BK,G,gap,more,sY,{NEWC:NEWC,NEWP:NEWP,e:e0,sY:sY0,g:g0,N:N0,gap:G-g0,more:sY0*e0.gps>0?(NEW/(sY0*e0.gps)-1)*100:0,k:sY0*e0.gps>0?NEW/(sY0*e0.gps):0});
 
- var top=topStage(T),order=["pros","visits","jobs","vints","subs","cints"],LST=[];
+ var top=topStage(T),order=["pros","visits","jobs","vints","jom","subs","cints"],LST=[];
  order.forEach(function(k){if(!active(T,k)||N[k]==null)return;var parts=ST[k].p.filter(function(f){return !OPT[f];}),tot=sv(T,k),sub="";
   if(parts.length>1&&tot>0&&!isNaN(N[k])){var nd=N[k]/52;sub=parts.map(function(f){return one(nd*T[f]/tot)+" "+(f==="von"?"in person":f==="vvi"?"virtual":f==="jobsc"?"contract":"perm");}).join(" + ");}
   else if(parts.length===1&&ST[k].p.length>1)sub={von:"In person only",vvi:"Virtual only",jobsc:"Contract only",jobsp:"Perm only"}[parts[0]];
@@ -996,7 +1004,7 @@ function drawFC(F){var h='<div class="fye"><span>'+F.y+' year-end forecast</span
  h+='<p class="fsum">'+(gap>1?'Stay at today&#8217;s run rate and you finish '+YEAR+' around <b>'+usd(F.rr27)+'</b>, <b>'+usd(gap)+' short</b>. Your weekly plan above closes that gap.':'Today&#8217;s run rate alone gets you to about <b>'+usd(F.rr27)+'</b> &mdash; ahead of your goal.')+' "Goal" spreads your new GM evenly across the year and adds what your consultants bill in each quarter.</p>';
  $("fc").innerHTML=h;}
 var EXMODE=false,SAVED=null;
-var EXSTATE={ver:5,role:"full",mode:"grow",inm:"tot",per:"ytd",d1:"",d2:"",edited:true,ov:{},opt:{},bmode:"list",book:[{t:"Jordan Smith",g:"42",s:"50",e:"2027-06-30"},{t:"Priya Patel",g:"35",s:"50",e:""},{t:"Marcus Lee",g:"28",s:"25",e:"2027-03-31"}],v:{who:"Example Producer",goal:"",grow:"20",gmc:"356,700",gmp:"138,400",stc:"10",stp:"6",pros:"2,100",von:"70",vvi:"117",jobsc:"47",jobsp:"33",vints:"280",subs:"168",cints:"85",util:"90",bqwk:"",bqend:""}};
+var EXSTATE={ver:5,role:"full",mode:"grow",inm:"tot",per:"ytd",d1:"",d2:"",edited:true,ov:{},opt:{},bmode:"list",book:[{t:"Jordan Smith",g:"42",s:"50",e:"2027-06-30"},{t:"Priya Patel",g:"35",s:"50",e:""},{t:"Marcus Lee",g:"28",s:"25",e:"2027-03-31"}],v:{who:"Example Producer",goal:"",grow:"20",gmc:"356,700",gmp:"138,400",stc:"10",stp:"6",pros:"2,100",von:"70",vvi:"117",jobsc:"47",jobsp:"33",vints:"280",jom:"196",subs:"168",cints:"85",util:"90",bqwk:"",bqend:""}};
 function save(){if(EXMODE)return;try{localStorage.setItem(KEY,JSON.stringify(state()));}catch(e){}}
 function state(){var s={ver:5,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,opt:OPT,book:BOOK,bmode:BMODE,ten:TEN,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
 function apply(s){if(!s||s.ver!==5)return false;OPT=s.opt||{};BMODE=s.bmode||"quick";TEN=s.ten!=null?s.ten:3;role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
