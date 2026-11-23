@@ -336,7 +336,9 @@ details.more .fields{margin-top:12px}
 .exa button{border:1.5px solid var(--orange);background:#fff;color:#b5490f;border-radius:999px;padding:7px 14px;font-weight:800;font-size:12.5px}
 .exa button.pri{background:var(--orange);color:#fff}
 .ten{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:14px}
-.ten .tl{font-size:12.5px;font-weight:700}
+.ten .fld{width:220px}
+.ten .tt{font-size:12px;color:var(--muted);align-self:flex-end;padding-bottom:10px}
+.ten .tt b{color:var(--ink)}
 .ten .hint{margin:0}
 .bmx{font-size:11.5px;color:var(--muted);margin:-4px 0 8px}
 .bmx:empty{display:none}
@@ -440,7 +442,7 @@ footer a{color:var(--blue)}
       <button type="button" data-v="rec"><b>Recruiter</b><small>You fill the jobs</small></button>
       <button type="button" data-v="full" class="on"><b>Full desk</b><small>You write and fill</small></button>
     </div>
-    <div class="ten"><span class="tl">Time in your seat</span><div class="chips" id="ten"><button type="button" data-v="0">0&ndash;90 days</button><button type="button" data-v="1">91&ndash;180 days</button><button type="button" data-v="2">181&ndash;365 days</button><button type="button" data-v="3" class="on">1 year +</button></div><span class="hint">Sets your activity benchmarks (new producers ramp up).</span></div>
+    <div class="ten"><div class="fld"><label for="sdate">Your start date <i>(in this seat)</i></label><div class="box"><input type="date" id="sdate"></div></div><span class="tt" id="tenTxt">Leave blank if you&#8217;ve been in your seat over a year.</span></div>
     <div class="fld who"><label for="who">Your name <i>(goes on your downloaded plan)</i></label><div class="box"><input id="who" autocomplete="name" placeholder="e.g., Jordan Smith"></div></div>
   </section>
 
@@ -556,8 +558,8 @@ footer a{color:var(--blue)}
 (function(){
 var $=function(id){return document.getElementById(id);};
 var YEAR=2027,KEY="vbh-goal-2027";
-var FIELDS=["bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
-var EX={bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",subs:"",cints:"",util:"90"};
+var FIELDS=["sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
+var EX={sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",subs:"",cints:"",util:"90"};
 var AVGK=["pros","von","vvi","jobsc","jobsp","vints","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
 var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints"];
 var BMODE="quick",role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
@@ -706,7 +708,7 @@ function gamePlan(T,e,NEWC,NEWP,NEW,BK,G,B){
  var acts=["pros","visits","jobs","vints","subs","cints","starts"].filter(function(k){return k==="starts"||active(T,k);}).map(function(k){var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k),nd=isS?(NB.starts||0)/12:NB[k]/52;return b?{k:k,l:ST[k].l,u:isS?"a month":"a week",v:v,b:b,st:bmStat(v,b),need:nd}:null;}).filter(Boolean);
  return {leaks:leaks,strong:strong,OVb:OVb,gB:gB,gapB:gapB,moreB:moreB,top:top,topL:ST[top].many,tB:tB,tNow:tNow,ab:ab,acts:acts,gAct:gAct,gNow:B.g,gap:B.gap};}
 function drawGP(GP){var who={sales:"producer (sales)",rec:"recruiter",full:"full desk"}[role];
- var h='<div class="gp2"><h3>Your game plan</h3><p class="gsub">Compared with the 2027 benchmarks for a '+who+(TEN<3?' in their '+["first 90 days","91&ndash;180 days","181&ndash;365 days"][TEN]:'')+'.</p>';
+ var h='<div class="gp2"><h3>Your game plan</h3><p class="gsub">Compared with the 2027 benchmarks for a '+who+(TEN<3?', ramping up ('+["0&ndash;90","91&ndash;180","181&ndash;365"][TEN]+' days in seat)':'')+'.</p>';
  var n=0,fixVal=Math.max(GP.gB-GP.gNow,0),goodAct=GP.acts.filter(function(a){return a.st==="on"||a.st==="top";});
  /* 1. what's going well */
  n++;var wins=GP.strong.map(function(x){return '<li>'+pill(x.st)+'<b>'+x.l+'</b> &mdash; '+x.now+' (benchmark '+x.tg+')</li>';}).concat(goodAct.map(function(a){return '<li>'+pill(a.st)+'<b>'+a.l+'</b> &mdash; '+one(a.v)+' '+a.u+' (benchmark '+one(a.b[1])+')</li>';}));
@@ -768,7 +770,12 @@ function drawOvr(T){var h="",r=ratios(T);
 var PLAN="",PD=null,MB=null;
 function drawMbar(){var b=$("mbar");if(!MB){b.hidden=true;return;}b.hidden=false;var ok=MB.gap<=1;
  b.innerHTML='<div><small>2027 goal</small><b>'+k$(MB.G)+'</b></div><div><small>'+(ok?"On track":"Gap to goal")+'</small><b class="'+(ok?"ok":"bh")+'">'+(ok?"+":"")+k$(Math.abs(MB.gap))+'</b></div><div><small>'+MB.topL+'</small><b>'+MB.top+'<span style="font-size:11px;opacity:.7"> /wk</span></b></div><span class="go">&#8250;</span>';}
-function render(){
+function calcTen(){var v=$("sdate").value,el=$("tenTxt");if(!v){TEN=3;el.innerHTML="Leave blank if you&#8217;ve been in your seat over a year.";return;}
+ var t=new Date(),d=Math.floor((new Date(t.getFullYear(),t.getMonth(),t.getDate())-new Date(v+"T00:00:00"))/864e5);
+ if(d<0){TEN=0;el.innerHTML="Start date is in the future &mdash; using first-90-days benchmarks.";return;}
+ TEN=d<=90?0:d<=180?1:d<=365?2:3;var pct=[50,75,90,100][TEN];
+ el.innerHTML='<b>'+d.toLocaleString("en-US")+' days</b> in your seat &middot; '+(TEN<3?'activity benchmarks set at <b>'+pct+'%</b> while you ramp':'fully ramped benchmarks');}
+function render(){calcTen();
  [].forEach.call(document.querySelectorAll("[data-for]"),function(el){el.hidden=!mine(el.dataset.for);});
  var T=read(),w=weeks(),f=52/w,pace=T.gm*f,G=mode==="grow"?Math.round(pace*(1+T.grow/100)/1000)*1000:T.goal,e=eff(T),r=ratios(T);
  drawBookSum();var cmixG=T.gm>0?T.gmc/T.gm:1,GC=G*cmixG,GP=G-GC,BK=Math.min(bookGM(),G),NEWC=Math.max(GC-BK,0),NEWP=GP,NEW=NEWC+NEWP;
@@ -889,14 +896,13 @@ function apply(s){if(!s||s.ver!==5)return false;OPT=s.opt||{};BMODE=s.bmode||"qu
 function load(){try{return apply(JSON.parse(localStorage.getItem(KEY)||"null"));}catch(e){return false;}}
 function isEx(){return false;}
 function syncOpt(){[].forEach.call(document.querySelectorAll("[data-opt]"),function(b){var o=!!OPT[b.dataset.opt];b.classList.toggle("out",o);b.textContent=o?"Left out":"In forecast";b.setAttribute("aria-pressed",o?"false":"true");b.closest(".fld").classList.toggle("off",o);});}
-function sync(){syncOpt();[].forEach.call($("ten").children,function(b){b.classList.toggle("on",+b.dataset.v===TEN);});[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===per);});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;});}
+function sync(){syncOpt();[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===per);});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;});}
 function toast(t){var el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove("on");},1800);}
 
 $("role").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;role=b.dataset.v;sync();render();});
 $("inm").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||b.dataset.v===inm)return;convert(b.dataset.v);inm=b.dataset.v;sync();render();});
 $("per").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;per=b.dataset.v;if(per==="dates"&&!$("d1").value){var t=new Date();$("d1").value=t.getFullYear()+"-01-01";$("d2").value=t.toISOString().slice(0,10);}sync();render();});
 document.addEventListener("click",function(e){var b=e.target.closest("[data-opt]");if(!b)return;var k=b.dataset.opt;if(OPT[k])delete OPT[k];else OPT[k]=true;OV={};syncOpt();render();});
-$("ten").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;TEN=+b.dataset.v;sync();render();});
 $("bmode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;BMODE=b.dataset.v;if(BMODE==="list"&&!BOOK.length){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();}render();});
 $("mode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;mode=b.dataset.v;if(mode==="gm"){var T=read(),G=Math.round(T.gm*52*(1+T.grow/100)/1000)*1000;if(G)$("goal").value=G.toLocaleString("en-US");}sync();render();});
 $("quick").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;$("grow").value=b.dataset.g;sync();render();});
