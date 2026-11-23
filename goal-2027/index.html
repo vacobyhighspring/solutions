@@ -254,7 +254,7 @@ details.more .fields{margin-top:12px}
 .cv small{display:block;font-size:11.5px;color:var(--muted);line-height:1.35}
 .cv.ov{background:var(--orange-soft)}.cv.ov span{color:#b5490f}
 /* step nav */
-.steps{position:sticky;top:0;z-index:15;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--bg);padding:10px 0 8px;margin-top:-6px}
+.steps{position:sticky;top:0;z-index:15;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;background:var(--bg);padding:10px 0 8px;margin-top:-6px}
 .steps a{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px;text-decoration:none;color:var(--ink);font-size:12.5px;font-weight:700;min-width:0}
 .steps a i{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--tint);color:var(--muted);font-style:normal;font-size:11.5px;font-weight:800}
 .steps a span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -285,7 +285,7 @@ details.more .fields{margin-top:12px}
 .optt.out::before{content:"\2715  "}
 #bQuick .fld{flex:1 1 220px}
 /* two ways */
-.ways:empty{display:none}
+.ways:empty::before{content:"Fill in steps 2 and 3 to see your formula.";color:var(--muted);font-size:13px}
 .ways h3{font-family:var(--display);font-size:16px;margin:0 0 2px}
 .ways .sub2{margin-bottom:12px}
 .way{border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px}
@@ -308,6 +308,33 @@ details.more .fields{margin-top:12px}
 .lev.best .ll::after{content:"Easiest";margin-left:6px;font-size:10px;font-weight:800;background:#e1f3ea;color:var(--good);border-radius:999px;padding:1px 7px}
 .wfoot{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:8px;font-size:12px;color:var(--muted)}
 .wfoot button{background:none;border:0;padding:0;color:var(--blue);font-weight:700;text-decoration:underline;font-size:12px}
+.fx{display:grid;grid-template-columns:72px 1fr;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.fx .fl2{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.fx.y .fl2{color:#b5490f}
+.ft{display:flex;flex-wrap:wrap;align-items:center;gap:4px 5px}
+.ft i{font-style:normal;color:var(--muted);font-weight:800;font-size:12px}
+.tile{display:inline-flex;flex-direction:column;align-items:center;background:var(--blue-soft);border-radius:8px;padding:3px 7px;min-width:44px;line-height:1.15}
+.tile b{font-family:var(--display);font-size:13.5px;color:var(--ink)}
+.tile small{font-size:9.5px;color:var(--muted);white-space:nowrap}
+.tile.a{background:var(--band)}.tile.a b{color:#fff}.tile.a small{color:#c4d0e0}
+.tile.up{background:var(--orange-soft);outline:1.5px solid var(--orange)}
+.tile.s{background:#e9f7ef}
+.tile.r{background:var(--orange)}.tile.r b{color:#fff}.tile.r small{color:#ffe3d1}
+.fbr{font-size:11px;font-weight:800;color:var(--blue);margin-top:8px}
+.fbk{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.lev2{padding:9px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 300px;gap:6px 14px;align-items:center}
+@media (max-width:700px){.lev2{grid-template-columns:1fr}}
+.lev2:first-of-type{border-top:0}
+.lev2 .lt{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.lev2 .ll{font-weight:700;font-size:12.5px}
+.lev2 .lv{font-size:12px;color:var(--muted)}
+.lev2 .lv b{color:#b5490f}
+.lev2 .lv em{display:block;font-style:normal;font-size:11px}
+.lev2 .lt{flex-direction:column;align-items:flex-start;gap:1px}
+.lch{display:flex;width:100%}
+.lch button{flex:1;padding:5px 6px;font-size:12px}
+.lch button.on{color:#b5490f}
+.isum{margin-top:10px;background:var(--orange-soft);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.5}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -424,11 +451,15 @@ footer a{color:var(--blue)}
     <div class="bks" id="bookSum"></div>
   </section>
 
+  <section class="card" id="s5">
+    <h2><span class="step">5</span>Close the gap &mdash; do more or convert better</h2>
+    <div class="ways" id="ways"></div>
+  </section>
+
 </div>
 
 <aside class="side">
   <section class="card res" id="res"></section>
-  <section class="card ways" id="ways"></section>
   <section class="card plan">
     <h3>Your 2027 weekly plan</h3>
     <p class="sub2">What it takes each week to hit your goal, next to what you do now.</p>
@@ -552,24 +583,40 @@ function drawCn(T){[].forEach.call(document.querySelectorAll(".cn"),function(el)
 function laneTitle(){var h=document.querySelector(".lj .lh");if(h)h.textContent=role==="full"?"Both cycles meet here":"Results";}
 function nextStage(up){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),i=br.indexOf(up);return br[i-1];}
 function skipped(up,dn){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),a=br.indexOf(dn),b=br.indexOf(up);return br.slice(a+1,b).map(function(k){return ST[k].many;}).join(", ");}
-function drawWays(T,e,N,NEW,BK,G,gap,more,sY){
- var top=topStage(T),tw=sv(T,top),tn=N[top]/52,k=sY*e.gps>0?NEW/(sY*e.gps):0,anyOv=Object.keys(OV).some(function(x){return OV[x]!=null&&OV[x]>0;}),W={gap:gap,more:more,top:ST[top].many,tw:tw,tn:tn,lev:[]};
- if(!(k>0)){$("ways").innerHTML="";return W;}
- var h='<h3>'+(gap>1?'How to close your '+k$(gap)+' gap':'You&#8217;re on track')+'</h3><p class="sub2">'+(gap>1?'Two ways to get there &mdash; do more, convert better, or a bit of both.':'Today&#8217;s activity already gets you to your goal. Here&#8217;s how much room you have.')+'</p>';
- h+='<div class="way a"><div class="wh"><i>1</i>'+(gap>1?'Do more':'Activity you can spare')+'</div><div class="big">'+(gap>1?'+'+Math.max(more,0).toFixed(0)+'% <small>more activity</small>':(Math.abs(more)<0.5?'Right on target':Math.abs(more).toFixed(0)+'% <small>less activity</small>'))+'</div>'+
-  '<p><b>'+one(tn)+' '+ST[top].many+' a week</b> instead of '+one(tw)+'. Every stage of your cycle moves by the same amount &mdash; see your weekly plan below.</p></div>';
- if(gap>1){var P=pairs(T),levs=P.map(function(pr){var v=cvOf(T,pr),need=v*k,pct=isPct(pr.key),poss=!pct||need<=1;return {key:pr.key,l:ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),now:cvTxt(T,pr,v).big,need:poss?cvTxt(T,pr,need).big:"over 100%",v:need,poss:poss,lift:need-v,pct:pct};});
-  [["gpsc","GM per contract start"],["gpsp","GM per perm start"]].forEach(function(x){if(e[x[0]]>0&&N[x[0]==="gpsc"?"stc":"stp"]>0)levs.push({key:x[0],l:x[1],now:usd(e[x[0]]),need:usd(e[x[0]]*k),v:e[x[0]]*k,poss:true,lift:0,pct:false});});
-  var bp=levs.filter(function(l){return l.poss&&l.pct;}).sort(function(a,b){return a.lift-b.lift;})[0];
-  h+='<div class="way b"><div class="wh"><i>2</i>Convert better &mdash; same activity</div><p>Improve <b>any one</b> of these to the rate shown and you hit your goal without doing more.</p>'+
-   levs.map(function(l){return '<div class="lev'+(l.poss?'':' no')+(bp&&l.key===bp.key?' best':'')+'"><span class="ll">'+l.l+'</span><span class="lv">'+l.now+' &rarr; <b>'+l.need+'</b>'+(l.poss?'':' (can&#8217;t do it alone)')+'</span>'+(l.poss?'<button type="button" data-try="'+l.key+'" data-v="'+l.v+'">Try it</button>':'')+'</div>';}).join("")+
-   '<div class="wfoot"><span>Mix and match in step 3 &mdash; small gains in two or three rates add up fast.</span>'+(anyOv?'<button type="button" id="wReset">Clear my rate changes</button>':'')+'</div></div>';
-  W.lev=levs;}
- else if(anyOv)h+='<div class="wfoot"><span>Includes your improved conversion rates.</span><button type="button" id="wReset">Clear my rate changes</button></div>';
- $("ways").innerHTML=h;return W;}
-function waysTxt(W){if(!W||!W.top)return "";var t=W.gap>1?"How I close my "+usd(W.gap)+" gap:\n1) Do more: +"+W.more.toFixed(0)+"% activity — "+one(W.tn)+" "+W.top+" a week instead of "+one(W.tw)+"\n2) Or convert better (same activity), any one of:\n"+W.lev.filter(function(l){return l.poss;}).map(function(l){return "   - "+l.l.replace("&rarr;","->").replace("&ndash;","-")+": "+l.now+" -> "+l.need;}).join("\n"):"On track: today's activity covers my goal ("+Math.abs(W.more).toFixed(0)+"% to spare).";return t;}
-function drawSteps(st){var L=[["s1","Who you are",st[0],"Role"],["s2","Your numbers",st[1],"Numbers"],["s3","Your 2027 goal",st[2],"Goal"],["s4","Your book",st[3],"Book"]],first=true;
- $("steps").innerHTML=L.map(function(x,i){var cls=x[2]==="done"?"done":(x[2]==="todo"&&first?(first=false,"todo"):"");return '<a href="#'+x[0]+'" class="'+cls+'"><i>'+(x[2]==="done"?"&#10003;":i+1)+'</i><span><em class="fu">'+x[1]+'</em><em class="sh2">'+x[3]+'</em><small>'+(x[2]==="done"?"Done":x[2]==="opt"?"Optional":"To do")+'</small></span></a>';}).join("");}
+function fmtF(T,pr,v){return isPct(pr.key)?(Math.round(v*1000)/10)+"%":(+v.toFixed(2))+"";}
+function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
+ var top=topStage(T),W={gap:B.gap,more:B.more,top:ST[top].many,tw:sv(T,top),tn:B.N[top]/52,lev:[],f:[]};
+ if(!(B.k>0)){$("ways").innerHTML="";return W;}
+ var anyOv=Object.keys(OV).some(function(x){return OV[x]!=null&&OV[x]>0;});
+ /* ---------- the formula ---------- */
+ var h='<h3>Your formula</h3><p class="sub2">Activity &times; your conversion at every step &times; GM per start = your GM. Better conversion anywhere in the chain means less activity for the same result.</p>';
+ branches().forEach(function(br,bi){var c=chainOf(T,br);if(c.length<2)return;var tp=c[c.length-1],steps=[];for(var i=c.length-1;i>0;i--)steps.push({key:c[i]+">"+c[i-1],up:c[i],dn:c[i-1],cur:div(sv(T,c[i-1]),sv(T,c[i]))});
+  function line(lbl,act,useOv,gps,cls){var v=act,t='<div class="fx'+(cls?" "+cls:"")+'"><span class="fl2">'+lbl+'</span><div class="ft"><span class="tile a"><b>'+one(act)+'</b><small>'+ST[tp].many+' / wk</small></span>',txt=one(act)+" "+ST[tp].many+"/wk";
+   steps.forEach(function(st){var r=useOv?cvOf(T,st):st.cur,imp=useOv&&OV[st.key]>0;v*=r;t+='<i>&times;</i><span class="tile'+(imp?" up":"")+'"><b>'+fmtF(T,st,r)+'</b><small>'+(isPct(st.key)?'to '+ST[st.dn].many:ST[st.dn].many+' per '+ST[st.up].one)+'</small></span>';txt+=" x "+fmtF(T,st,r);});
+   t+='<i>=</i><span class="tile s"><b>'+(+v.toFixed(2))+'</b><small>starts / wk</small></span><i>&times;</i><span class="tile'+(useOv&&(OV.gpsc>0||OV.gpsp>0)?" up":"")+'"><b>'+k$(gps)+'</b><small>GM per start</small></span><i>&times; 52 =</i><span class="tile r"><b>'+k$(v*gps*52)+'</b><small>GM a year</small></span></div></div>';
+   txt+=" = "+(+v.toFixed(2))+" starts/wk x "+usd(gps)+" x 52 = "+usd(v*gps*52);return {h:t,txt:txt};}
+  var prod=steps.reduce(function(a,st){return a*cvOf(T,st);},1),a27=prod>0&&e.gps>0?NEW/52/e.gps/prod:0;var L1=line("Today",sv(T,tp),false,B.e.gps),L2=line(YEAR+" plan",a27,true,e.gps,"y");
+  h+=(branches().length>1?'<div class="fbr">'+(bi===0?"Sales cycle":"Recruiting cycle")+'</div>':'')+L1.h+L2.h;
+  W.f.push({br:branches().length>1?(bi===0?"Sales cycle":"Recruiting cycle"):"",today:L1.txt,plan:L2.txt});});
+ h+='<p class="fbk">'+YEAR+' plan = the new GM you need'+(BK>0?' (<b>'+k$(NEW)+'</b>) + <b>'+k$(BK)+'</b> from your current book':'')+' = your <b>'+k$(G)+'</b> goal. Orange tiles are rates you&#8217;ve improved.</p>';
+ /* ---------- two ways ---------- */
+ h+='<h3 style="margin-top:16px">'+(B.gap>1?'How to close your '+k$(B.gap)+' gap':'You&#8217;re on track')+'</h3>';
+ h+='<div class="way a"><div class="wh"><i>1</i>'+(B.gap>1?'Do more':'Activity you can spare')+'</div><div class="big">'+(B.gap>1?'+'+Math.max(B.more,0).toFixed(0)+'% <small>more activity at every step</small>':(Math.abs(B.more)<0.5?'Right on target':Math.abs(B.more).toFixed(0)+'% <small>less activity</small>'))+'</div>'+
+  '<p><b>'+one(B.N[top]/52)+' '+ST[top].many+' a week</b> instead of '+one(sv(T,top))+', at today&#8217;s conversion rates.</p></div>';
+ var P=pairs(T),r0=ratios(T),levs=P.map(function(pr){var need=pr.cur*B.k,pct=isPct(pr.key),poss=!pct||need<=1;return {key:pr.key,l:ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),cur:pr.cur,now:cvTxt(T,pr,pr.cur).big,need:poss?cvTxt(T,pr,need).big:"over 100%",poss:poss,pct:pct,pr:pr};});
+ [["gpsc","GM per contract start","stc"],["gpsp","GM per perm start","stp"]].forEach(function(x){if(r0[x[0]]>0&&B.N[x[2]]>0)levs.push({key:x[0],l:x[1],cur:r0[x[0]],now:usd(r0[x[0]]),need:usd(r0[x[0]]*B.k),poss:true,pct:false,gm:true});});
+ W.lev=levs;
+ var chip=function(l,v){var o=OV[l.key],on=v===0?!(o>0):(o>0&&Math.abs(o/l.cur-1-v)<1e-6);return '<button type="button" data-imp="'+l.key+'" data-cur="'+l.cur+'" data-v="'+v+'" class="'+(on?"on":"")+'">'+(v?"+"+Math.round(v*100)+"%":"Same")+'</button>';};
+ h+='<div class="way b"><div class="wh"><i>2</i>Convert better at each step</div><p>Tighten any step &mdash; or several. Improvements stack, because every step multiplies the next.</p>'+
+  levs.map(function(l){var o=OV[l.key]>0?OV[l.key]:null,nowTxt=l.gm?usd(o||l.cur):(o?cvTxt(T,l.pr,o).big:l.now);
+   return '<div class="lev2"><div class="lt"><span class="ll">'+l.l+'</span><span class="lv">'+l.now+(o?' &rarr; <b>'+nowTxt+'</b>':'')+'<em>'+(l.poss?'Alone closes the gap at '+l.need:'Can&#8217;t close the gap alone')+'</em></span></div><div class="chips lch">'+[0,.05,.1,.2].map(function(v){return chip(l,v);}).join("")+'</div></div>';}).join("");
+ if(anyOv){var gain=(sY*e.gps+BK)-B.g,left=G-(sY*e.gps+BK),saved=B.N[top]/52-N[top]/52;
+  h+='<div class="isum"><b>With your improvements:</b> today&#8217;s activity makes <b>'+k$(sY*e.gps+BK)+'</b> (+'+k$(Math.max(gain,0))+'). '+(left>1?'That leaves <b>'+k$(left)+'</b> &mdash; about <b>+'+Math.max(more,0).toFixed(0)+'% activity</b> ('+one(N[top]/52)+' '+ST[top].many+' a week).':'That <b>covers your goal</b> &mdash; you need <b>'+one(N[top]/52)+' '+ST[top].many+' a week</b>, '+one(Math.max(saved,0))+' fewer than without them.')+'</div>';}
+ h+='<div class="wfoot"><span>Want an exact rate? Type it in step 3.</span>'+(anyOv?'<button type="button" id="wReset">Clear improvements</button>':'')+'</div></div>';
+ $("ways").innerHTML=h;W.imp=anyOv?{g:sY*e.gps+BK,top:N[top]/52}:null;return W;}
+function waysTxt(W){if(!W||!W.top)return "";var t="My formula:\n"+W.f.map(function(f){return (f.br?f.br+":\n":"")+"  Today: "+f.today+"\n  "+YEAR+" plan: "+f.plan;}).join("\n")+"\n\n"+W.gap>1?"How I close my "+usd(W.gap)+" gap:\n1) Do more: +"+W.more.toFixed(0)+"% activity — "+one(W.tn)+" "+W.top+" a week instead of "+one(W.tw)+"\n2) Or convert better (same activity), any one of:\n"+W.lev.filter(function(l){return l.poss;}).map(function(l){return "   - "+l.l.replace("&rarr;","->").replace("&ndash;","-")+": "+l.now+" -> "+l.need;}).join("\n"):"On track: today's activity covers my goal ("+Math.abs(W.more).toFixed(0)+"% to spare).";return t;}
+function drawSteps(st){var L=[["s1","Role",st[0],"Role"],["s2","Numbers",st[1],"Numbers"],["s3","2027 goal",st[2],"Goal"],["s4","Book",st[3],"Book"],["s5","Close the gap",st[4],"Gap"]],first=true;
+ $("steps").innerHTML=L.map(function(x,i){var cls=x[2]==="done"?"done":(x[2]==="todo"&&first?(first=false,"todo"):"");return '<a href="#'+x[0]+'" class="'+cls+'"><i>'+(x[2]==="done"?"&#10003;":i+1)+'</i><span><em class="fu">'+x[1]+'</em><em class="sh2">'+x[3]+'</em><small>'+(x[2]==="done"?"Done":x[2]==="opt"?(i===4?"Your formula":"Optional"):"To do")+'</small></span></a>';}).join("");}
 function drawOvr(T){var h="",r=ratios(T);
  pairs(T).forEach(function(pr){var pct=isPct(pr.key),v=OV[pr.key],shown=v==null?"":(pct?Math.round(v*1000)/10:Math.round(v*100)/100),ph=pr.cur>0?(pct?Math.round(pr.cur*1000)/10:Math.round(pr.cur*100)/100):"";
   h+='<div class="fld"><label for="ov_'+pr.key+'">'+ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco")+' <i>now '+cvTxt(T,pr,pr.cur).big+'</i></label><div class="box"><input id="ov_'+pr.key+'" data-ov="'+pr.key+'" data-pct="'+(pct?1:0)+'" inputmode="decimal" value="'+shown+'" placeholder="'+ph+'">'+(pct?'<span class="suf">%</span>':'<span class="suf">per '+ST[pr.up].one+'</span>')+'</div></div>';});
@@ -596,7 +643,7 @@ function render(){
   Object.keys(PART).filter(function(f){var st=Object.keys(ST).filter(function(k){return ST[k].p.indexOf(f)>-1;})[0];return mine(ST[st].r);}).map(function(f){return {l:PART[f],wk:one(T[f]),wkU:"a week",yr:Math.round(T[f]*52).toLocaleString("en-US"),nf:!!OPT[f]};}));
  if(!document.activeElement||!document.activeElement.dataset||document.activeElement.dataset.ov==null)drawOvr(T);
  checkInputs(T);
- drawSteps(["done",(T.starts>0&&T.gm>0&&chainOf(T,role==="rec"?BR_B:BR_A).length>1)?"done":"todo",G>0?"done":"todo",bookGM()>0?"done":"opt"]);
+ drawSteps(["done",(T.starts>0&&T.gm>0&&chainOf(T,role==="rec"?BR_B:BR_A).length>1)?"done":"todo",G>0?"done":"todo",bookGM()>0?"done":"opt","opt"]);
 
  var missing=[];
  if(!G)missing.push(mode==="grow"?"your GM":"your 2027 GM goal");
@@ -611,7 +658,8 @@ function render(){
  var N=need(T,NEWC,NEWP,e),sY=fwdStartsYr(T),gNow=sY*e.gps+BK,gap=G-gNow,more=sY>0?(NEW/(sY*e.gps)-1)*100:0;
  h+='<div class="verdict">'+(gap>1?'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> in '+YEAR+'. To close the <b>'+k$(gap)+'</b> gap you need about <b>'+Math.max(more,0).toFixed(0)+'% more activity</b> &mdash; or better conversion rates (fine-tune them in step 4).':'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> &mdash; that already <b>covers your goal</b>. Consider stretching it.')+'</div>';
  $("res").innerHTML=h;
- var WAYS=drawWays(T,e,N,NEW,BK,G,gap,more,sY);
+ var _ov=OV;OV={};var e0=eff(T),sY0=fwdStartsYr(T),g0=sY0*e0.gps+BK,N0=need(T,NEWC,NEWP,e0);OV=_ov;
+ var WAYS=drawWays(T,e,N,NEW,BK,G,gap,more,sY,{e:e0,sY:sY0,g:g0,N:N0,gap:G-g0,more:sY0*e0.gps>0?(NEW/(sY0*e0.gps)-1)*100:0,k:sY0*e0.gps>0?NEW/(sY0*e0.gps):0});
 
  var top=topStage(T),order=["pros","visits","jobs","vints","subs","cints"],LST=[];
  order.forEach(function(k){if(!active(T,k)||N[k]==null)return;var parts=ST[k].p.filter(function(f){return !OPT[f];}),tot=sv(T,k),sub="";
@@ -725,6 +773,7 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  '<div><span>From current book</span><b>'+usd(d.BK)+'</b><small>'+(d.bmode==="quick"?(d.bqwk>0?usd(d.bqwk)+'/wk until '+(d.bqend?new Date(d.bqend+"T00:00:00").toLocaleDateString("en-US"):"year-end"):"None entered"):d.book.length+' consultant'+(d.book.length===1?'':'s')+' on billing')+'</small></div>'+
  '<div><span>New GM to win</span><b>'+usd(d.NEW)+'</b><small>'+usd(d.GC)+' contract &middot; '+usd(d.GP)+' perm goal</small></div></div><p style="font-size:12px;color:#5b6b82;margin:8px 0 0">GM per contract start '+usd(d.gpsc||0)+' &middot; GM per perm start '+usd(d.gpsp||0)+'</p>'+
  
+ (d.WAYS&&d.WAYS.f&&d.WAYS.f.length?'<h2>My formula</h2><p style="font-size:12px;color:#5b6b82;margin:-2px 0 6px">Activity &times; conversion at every step &times; GM per start &times; 52 = GM</p><table><tr><th></th><th>Today</th><th>'+YEAR+' plan</th></tr>'+d.WAYS.f.map(function(f){return '<tr><td>'+(f.br||'')+'</td><td style="font-size:12px">'+f.today+'</td><td style="font-size:12px"><b>'+f.plan+'</b></td></tr>';}).join("")+'</table>':'')+(d.WAYS&&d.WAYS.imp?'<div class="note">With my conversion improvements, today&#8217;s activity makes <b>'+usd(d.WAYS.imp.g)+'</b>.</div>':'')+
  (d.WAYS&&d.WAYS.top?'<h2>'+(d.WAYS.gap>1?'How I close my '+usd(d.WAYS.gap)+' gap':'I&#8217;m on track')+'</h2><div class="note" style="margin-top:0"><b>1) Do more:</b> '+(d.WAYS.more>=0?'+':'&minus;')+Math.abs(d.WAYS.more).toFixed(0)+'% activity &mdash; <b>'+one(d.WAYS.tn)+' '+d.WAYS.top+' a week</b> instead of '+one(d.WAYS.tw)+'.</div>'+
   (d.WAYS.lev.length?'<p style="font-size:13px;margin:10px 0 4px"><b>2) Or convert better</b> &mdash; same activity, improve any one of:</p><table><tr><th>Stage</th><th class="n">Today</th><th class="n">Needed alone</th></tr>'+d.WAYS.lev.map(function(l){return '<tr><td>'+l.l+'</td><td class="n">'+l.now+'</td><td class="n"><b>'+l.need+'</b></td></tr>';}).join("")+'</table>':''):'')+
  '<h2>My '+YEAR+' GM goals</h2><table><tr><th></th><th class="n">Run rate today</th><th class="n">'+YEAR+' goal</th><th class="n">Growth</th><th class="n">From my book</th><th class="n">New GM to win</th></tr>'+
@@ -749,7 +798,7 @@ $("openF").addEventListener("click",function(){$("fileIn").value="";$("fileIn").
 $("fileIn").addEventListener("change",function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{if(apply(JSON.parse(r.result))){sync();drawBook();render();toast("Numbers loaded");}else toast("That file isn’t a saved goal plan");}catch(e){toast("That file isn’t a saved goal plan");}};r.readAsText(f);});
 $("mbar").addEventListener("click",function(){$("res").scrollIntoView({behavior:"smooth",block:"start"});});
 $("steps").addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;e.preventDefault();var t=$(a.getAttribute("href").slice(1));window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-64,behavior:"smooth"});});
-$("ways").addEventListener("click",function(e){var t=e.target.closest("[data-try]");if(t){OV[t.dataset.try]=parseFloat(t.dataset.v);var d=document.querySelector("details.more");if(d)d.open=true;render();toast("Rate applied &mdash; see your plan update".replace("&mdash;","—"));return;}if(e.target.id==="wReset"){OV={};render();toast("Back to today’s rates");}});
+$("ways").addEventListener("click",function(e){var c=e.target.closest("[data-imp]");if(c){var k=c.dataset.imp,v=parseFloat(c.dataset.v),cur=parseFloat(c.dataset.cur);if(v>0)OV[k]=cur*(1+v);else delete OV[k];render();return;}var t=e.target.closest("[data-try]");if(t){OV[t.dataset.try]=parseFloat(t.dataset.v);var d=document.querySelector("details.more");if(d)d.open=true;render();toast("Rate applied &mdash; see your plan update".replace("&mdash;","—"));return;}if(e.target.id==="wReset"){OV={};render();toast("Back to today’s rates");}});
 $("print").addEventListener("click",function(){window.print();});
 
 if(!load()){inm="avg";convert("tot");inm="tot";}sync();drawBook();render();
