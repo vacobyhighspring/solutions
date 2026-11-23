@@ -164,11 +164,13 @@ details.more .fields{margin-top:12px}
 .inm{display:flex;gap:8px 10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;font-size:13px}
 .pw{font-size:12px;color:var(--muted)}
 .avgs{margin-top:14px;background:var(--orange-soft);border-radius:12px;padding:10px 14px;font-size:13px}
-.avgs:empty{display:none}
 .avgs .ah{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#b5490f;margin-bottom:6px}
 .avgs .ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px 14px}
 .avgs .ag span{color:var(--muted);font-size:12px}
-.avgs .ag b{display:block;font-family:var(--display);font-size:16px;color:var(--ink)}
+.avgs .ag b{display:block;font-family:var(--display);font-size:17px;color:var(--ink)}
+.avgs .ag small{display:block;font-size:11px;color:var(--muted)}
+.avgs .ag .rr{grid-column:span 2}
+.avgs .ag .rr b{font-size:22px}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -241,7 +243,7 @@ footer a{color:var(--blue)}
     <div class="chips" id="mode"><button type="button" data-v="grow" class="on">Grow by a %</button><button type="button" data-v="gm">Set a GM goal</button></div>
     <div id="growP" class="gp">
       <div class="quick" id="quick"><button type="button" data-g="10">+10%</button><button type="button" data-g="20">+20%</button><button type="button" data-g="30">+30%</button><button type="button" data-g="50">+50%</button></div>
-      <div class="fld"><label for="grow">Growth over your current pace</label><div class="box"><input id="grow" data-d inputmode="decimal" value="20"><span class="suf">% more GM</span></div></div>
+      <div class="fld"><label for="grow">Growth over your run rate</label><div class="box"><input id="grow" data-d inputmode="decimal" value="20"><span class="suf">% more GM</span></div></div>
     </div>
     <div id="gmP" class="gp" hidden>
       <div class="fld big"><label for="goal">2027 GM goal</label><div class="box"><span>$</span><input id="goal" data-n inputmode="numeric" value="700,000"></div></div>
@@ -363,10 +365,10 @@ function render(){
  [].forEach.call(document.querySelectorAll("[data-for]"),function(el){el.hidden=!mine(el.dataset.for);});
  var T=read(),w=weeks(),f=52/w,pace=T.gm*f,G=mode==="grow"?Math.round(pace*(1+T.grow/100)/1000)*1000:T.goal,e=eff(T),r=ratios(T);
  drawBookSum();var BK=Math.min(bookGM(),G),NEW=Math.max(G-BK,0);
- $("goalOut").innerHTML=G?'<span>Your 2027 GM goal</span><span class="gv">'+usd(G)+'</span>'+(mode==="grow"&&pace?'<b>'+usd(pace)+'</b> current pace + <b>'+one(T.grow).replace(/\.0$/,"")+'%</b>. ':'')+'That&#8217;s <b>'+usd(G/52)+'</b> GM a week, or <b>'+usd(G/12)+'</b> a month.':(mode==="grow"?"Enter your average GM per week in step 2.":"Type your 2027 GM goal.");
+ $("goalOut").innerHTML=G?'<span>Your 2027 GM goal</span><span class="gv">'+usd(G)+'</span>'+(mode==="grow"&&pace?'<b>'+usd(pace)+'</b> run rate + <b>'+one(T.grow).replace(/\.0$/,"")+'%</b>. ':'')+'That&#8217;s <b>'+usd(G/52)+'</b> GM a week, or <b>'+usd(G/12)+'</b> a month.':(mode==="grow"?"Enter your average GM per week in step 2.":"Type your 2027 GM goal.");
  $("perW").textContent=inm==="tot"?"("+one(totW())+" weeks)":"";
- $("avgs").innerHTML=inm==="tot"?'<div class="ah">Your weekly averages</div><div class="ag"><div><span>GM per week</span><b>'+usd(T.gm)+'</b></div><div><span>Starts per month</span><b>'+one(T.startsmo)+'</b></div>'+ACT.filter(function(a){return a[0]!=="starts"&&mine(a[2]);}).map(function(a){return '<div><span>'+a[1]+' per week</span><b>'+one(T[a[0]])+'</b></div>';}).join("")+'</div>':"";
- $("calc").innerHTML='<span>Current pace: <b>'+usd(pace)+'</b> GM a year</span><span>Starts a year: <b>'+one(T.startsmo*12).replace(/\.0$/,"")+'</b></span><span>GM per start: <b>'+(r.gps?usd(r.gps):"&ndash;")+'</b></span>';
+ $("avgs").innerHTML='<div class="ah">Your run rate'+(inm==="tot"?' &middot; from '+one(totW())+' weeks of numbers':'')+'</div><div class="ag"><div class="rr"><span>GM</span><b>'+usd(T.gm*52)+'</b><small>a year &middot; '+usd(T.gm)+' a week &middot; '+usd(T.gm*52/12)+' a month</small></div><div><span>Starts</span><b>'+one(T.startsmo*12)+'</b><small>a year &middot; '+one(T.startsmo)+' a month</small></div>'+ACT.filter(function(a){return a[0]!=="starts"&&mine(a[2]);}).map(function(a){return '<div><span>'+a[1]+'</span><b>'+Math.round(T[a[0]]*52).toLocaleString("en-US")+'</b><small>a year &middot; '+one(T[a[0]])+' a week</small></div>';}).join("")+'</div>';
+ $("calc").innerHTML='<span>Run rate: <b>'+usd(pace)+'</b> GM a year</span><span>GM per start: <b>'+(r.gps?usd(r.gps):"&ndash;")+'</b></span>';
  if(!document.activeElement||!document.activeElement.dataset||document.activeElement.dataset.ov==null)drawOvr(T);
 
  var missing=[];
@@ -377,7 +379,7 @@ function render(){
 
  var chg=pace?(G-pace)/pace:0;
  var h='<div class="lbl">Your '+YEAR+' GM goal</div><div class="goal">'+usd(G)+' </div>';
- if(pace&&G)h+='<span class="delta '+(chg>=0?"up":"dn")+'">'+(chg>=0?"&#9650; +":"&#9660; &minus;")+Math.abs(chg*100).toFixed(0)+'% vs your current pace of '+k$(pace)+'</span>';
+ if(pace&&G)h+='<span class="delta '+(chg>=0?"up":"dn")+'">'+(chg>=0?"&#9650; +":"&#9660; &minus;")+Math.abs(chg*100).toFixed(0)+'% vs your run rate of '+k$(pace)+'</span>';
  if(BK)h+='<div class="split"><div><span>From your current book</span><b>'+usd(BK)+'</b></div><i>+</i><div><span>New GM to win</span><b>'+usd(NEW)+'</b></div></div>';
  if(missing.length){h+='<div class="verdict">Add '+missing.join(", ").replace(/, ([^,]*)$/," and $1")+' to see your plan.</div>';$("res").innerHTML=h;$("rows").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your weekly plan appears here.</div>';$("yr").innerHTML="";PLAN="";PD=null;return;}
  var N=need(NEW,e),sNow=fwdStarts(T,e,f),gNow=sNow*e.gps+BK,gap=G-gNow,more=sNow>0?(NEW/(sNow*e.gps)-1)*100:0;
@@ -394,7 +396,7 @@ function render(){
  PD={G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
   rows:A.map(function(a){var k=a[0],n=N[k],isS=k==="starts",nw=T[k];return {l:a[1],hero:k===top,unit:isS?"a month":"a week",now:isS?nw*52/12:nw,need:isS?n/12:n/52,yr:n,nowYr:nw*52};}),
   book:BOOK.map(function(c){var r=cRow(c);return {t:c.t||"(no name)",g:num(c.g),s:c.s===""||c.s==null?100:num(c.s),e:c.e,wk:r.wk,ny:r.ny};}),util:Math.round(util()*100)};
- PLAN="My "+YEAR+" goal: "+usd(G)+" GM"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my current pace)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my "+BOOK.length+" consultant"+(BOOK.length===1?"":"s")+" on billing: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per start: "+usd(e.gps)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\nFor the year: "+A.map(function(a){var n=N[a[0]];return (isNaN(n)?"-":n.toLocaleString("en-US"))+" "+a[1].toLowerCase();}).join(", ");
+ PLAN="My "+YEAR+" goal: "+usd(G)+" GM"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my run rate)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my "+BOOK.length+" consultant"+(BOOK.length===1?"":"s")+" on billing: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per start: "+usd(e.gps)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\nFor the year: "+A.map(function(a){var n=N[a[0]];return (isNaN(n)?"-":n.toLocaleString("en-US"))+" "+a[1].toLowerCase();}).join(", ");
  $("how").innerHTML='Your ratios come from your weekly averages'+(inm==="tot"?' (your totals &divide; '+one(totW())+' weeks)':'')+'; 2027 targets are spread over 52 weeks. Your book = each consultant&#8217;s GM per hour &times; 40 hours &times; utilization &times; your % on deal, for every week from Jan 1 to their end date (blank = all year); perm GM doesn&#8217;t carry over. Starts = new GM &divide; GM per start ('+usd(e.gps)+'). '+(role==="sales"?'Jobs = starts &divide; share of jobs that start. ':'Client interviews = starts &divide; client interview to start. Submittals = client interviews &divide; submittal to client interview. Vaco interviews = submittals &divide; Vaco interview to submittal. '+(role==="full"?'Jobs = submittals &divide; submittals per job. ':''))+(role!=="rec"?'Client visits = jobs &divide; jobs per visit.':'')+' Same math as the Next-year goal tab in the Commission &amp; GM Calculator.';
  save();}
 
@@ -430,7 +432,7 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  var pct=function(a,b){if(!(a>0))return "";var c=(b-a)/a;return Math.abs(c)<.005?"same":'<span class="'+(c>0?"up":"dn")+'">'+(c>0?"+":"&minus;")+Math.abs(c*100).toFixed(0)+'%</span>';};
  var h='<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+YEAR+' Goal Plan'+(who?' &ndash; '+esc(who):'')+'</title><style>'+css+'</style></head><body><div class="pg">'+
  '<div class="hd"><img src="'+logo+'" alt="Vaco by Highspring"><h1>'+(who?esc(who)+'&#8217;s ':'My ')+'<span>'+YEAR+'</span> Goal Plan</h1><p>'+rl+' &middot; Built '+today+'</p></div><div class="bd">'+
- '<div class="kp"><div class="o"><span>'+YEAR+' GM goal</span><b>'+usd(d.G)+'</b><small>'+(d.pace?(d.chg>=0?"+":"&minus;")+Math.abs(d.chg*100).toFixed(0)+'% vs current pace of '+usd(d.pace):'')+'</small></div>'+
+ '<div class="kp"><div class="o"><span>'+YEAR+' GM goal</span><b>'+usd(d.G)+'</b><small>'+(d.pace?(d.chg>=0?"+":"&minus;")+Math.abs(d.chg*100).toFixed(0)+'% vs run rate of '+usd(d.pace):'')+'</small></div>'+
  '<div><span>From current book</span><b>'+usd(d.BK)+'</b><small>'+d.book.length+' consultant'+(d.book.length===1?'':'s')+' on billing</small></div>'+
  '<div><span>New GM to win</span><b>'+usd(d.NEW)+'</b><small>'+usd(d.gps)+' GM per start</small></div></div>'+
  '<h2>My weekly plan for '+YEAR+'</h2><table><tr><th>Activity</th><th class="n">Now</th><th class="n">'+YEAR+' target</th><th class="n">Change</th><th class="n">'+YEAR+' total</th></tr>'+
