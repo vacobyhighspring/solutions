@@ -253,6 +253,61 @@ details.more .fields{margin-top:12px}
 .cv b{font-family:var(--display);font-size:20px;color:var(--ink)}
 .cv small{display:block;font-size:11.5px;color:var(--muted);line-height:1.35}
 .cv.ov{background:var(--orange-soft)}.cv.ov span{color:#b5490f}
+/* step nav */
+.steps{position:sticky;top:0;z-index:15;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--bg);padding:10px 0 8px;margin-top:-6px}
+.steps a{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px;text-decoration:none;color:var(--ink);font-size:12.5px;font-weight:700;min-width:0}
+.steps a i{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--tint);color:var(--muted);font-style:normal;font-size:11.5px;font-weight:800}
+.steps a span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.steps a small{display:block;font-size:10.5px;font-weight:600;color:var(--muted)}
+.steps a.done i{background:var(--good);color:#fff}
+.steps a.todo{border-color:var(--orange)}.steps a.todo i{background:var(--orange);color:#fff}
+.steps em{font-style:normal}.steps .sh2{display:none}
+@media (max-width:620px){.steps a small{display:none}.steps a{padding:7px 8px;font-size:11.5px;gap:6px}.steps .fu{display:none}.steps .sh2{display:inline}}
+/* cycle */
+.cyc{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+.lane{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fbfcfe}
+.lane.lj{background:#fff}
+.lh{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.stg{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start}
+.sn b{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--band);color:#fff;font-size:12.5px;font-weight:800;margin-top:2px}
+.stg.off .sn b{background:var(--line)}
+.st{font-family:var(--display);font-weight:700;font-size:14.5px;margin:4px 0 8px}
+.st i{font-family:var(--body);font-style:normal;font-weight:500;font-size:12px;color:var(--muted)}
+.stg .fields{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.cn{margin:6px 0 6px 13px;padding:4px 0 4px 26px;border-left:2px dashed #c8d3e3;font-size:12px;color:var(--muted);min-height:10px}
+.cn:empty{min-height:12px}
+.cn b{display:inline-block;background:var(--blue-soft);color:var(--blue);border-radius:999px;padding:1px 9px;font-size:12px;margin-right:4px}
+.cn.ov b{background:var(--orange-soft);color:#b5490f}
+.optt{border:0;background:transparent;color:var(--good);padding:0;font-size:11px;font-weight:700}
+.optt::before{content:"\2713  "}
+.optt:hover{text-decoration:underline}
+.optt.out{border:0;background:var(--tint);color:var(--muted);border-radius:999px;padding:1px 8px}
+.optt.out::before{content:"\2715  "}
+#bQuick .fld{flex:1 1 220px}
+/* two ways */
+.ways:empty{display:none}
+.ways h3{font-family:var(--display);font-size:16px;margin:0 0 2px}
+.ways .sub2{margin-bottom:12px}
+.way{border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px}
+.way.a{border-color:var(--orange);background:linear-gradient(180deg,var(--orange-soft),#fff 70%)}
+.way .wh{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:14px}
+.way .wh i{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--orange);color:#fff;font-size:11.5px}
+.way.b .wh i{background:var(--blue)}
+.way .big{font-family:var(--display);font-weight:800;font-size:30px;line-height:1.1;margin:6px 0 2px}
+.way .big small{font-size:13px;font-weight:600;color:var(--muted)}
+.way p{margin:4px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+.way p b{color:var(--ink)}
+.lev{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:12.5px}
+.lev:first-of-type{border-top:0}
+.lev .ll{font-weight:700}
+.lev .lv{grid-column:1;color:var(--muted);font-size:12px}
+.lev .lv b{color:var(--blue)}
+.lev button{grid-row:1 / span 2;grid-column:2;border:1.5px solid var(--blue);background:#fff;color:var(--blue);border-radius:999px;padding:5px 12px;font-weight:800;font-size:12px}
+.lev button:hover{background:var(--blue-soft)}
+.lev.no .lv b{color:var(--bad)}
+.lev.best .ll::after{content:"Easiest";margin-left:6px;font-size:10px;font-weight:800;background:#e1f3ea;color:var(--good);border-radius:999px;padding:1px 7px}
+.wfoot{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:8px;font-size:12px;color:var(--muted)}
+.wfoot button{background:none;border:0;padding:0;color:var(--blue);font-weight:700;text-decoration:underline;font-size:12px}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -280,10 +335,10 @@ footer a{color:var(--blue)}
 
 <main><div class="inner"><div class="grid">
 <div class="left">
+  <nav class="steps" id="steps" aria-label="Steps"></nav>
 
-  <section class="card">
-    <h2><span class="step">1</span>What&#8217;s your role?</h2>
-    <p class="sub">This decides which numbers we ask for.</p>
+  <section class="card" id="s1">
+    <h2><span class="step">1</span>Who are you?</h2>
     <div class="roles" id="role">
       <button type="button" data-v="sales"><b>Sales</b><small>You write the jobs</small></button>
       <button type="button" data-v="rec"><b>Recruiter</b><small>You fill the jobs</small></button>
@@ -292,48 +347,48 @@ footer a{color:var(--blue)}
     <div class="fld who"><label for="who">Your name <i>(goes on your downloaded plan)</i></label><div class="box"><input id="who" autocomplete="name" placeholder="e.g., Jordan Smith"></div></div>
   </section>
 
-  <section class="card">
+  <section class="card" id="s2">
     <h2><span class="step">2</span>Your numbers today</h2>
-    <p class="sub">Your numbers right now. We use them to work out your ratios &mdash; how many visits turn into a job, submittals into interviews, and so on.</p>
-    <div class="inm"><span>I want to enter</span><div class="chips" id="inm"><button type="button" data-v="tot" class="on">Totals for a time period</button><button type="button" data-v="avg">My weekly averages</button></div></div>
+    <p class="sub">Fill in each stage of your cycle, top to bottom. Pull them straight from your scorecard.</p>
+    <div class="inm"><div class="chips" id="inm"><button type="button" data-v="tot" class="on">Totals for a time period</button><button type="button" data-v="avg">My weekly averages</button></div></div>
     <div class="period" id="perRow"><span>My totals cover</span>
       <div class="chips" id="per"><button type="button" data-v="ytd" class="on">Jan 1 to today</button><button type="button" data-v="dates">Pick dates</button></div>
       <span id="dates" hidden><span class="box" style="display:inline-flex"><input type="date" id="d1"></span> to <span class="box" style="display:inline-flex"><input type="date" id="d2"></span></span>
       <span class="pw" id="perW"></span>
     </div>
     <div class="ex" id="exNote">These are example numbers &mdash; replace them with yours. <button type="button" id="clearEx">Clear them</button></div>
-    <div class="grp"><p class="grph">Gross margin <i class="gi">(after splits)</i></p><div class="fields">
-      <div class="fld"><label for="gmc"><span data-a="Contract GM per week" data-t="Contract GM"></span></label><div class="box"><span>$</span><input id="gmc" data-n inputmode="numeric" value="8,400"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><label for="gmp"><span data-a="Perm GM per week" data-t="Perm GM"></span></label><div class="box"><span>$</span><input id="gmp" data-n inputmode="numeric" value="3,100"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-    </div></div>
-    <div class="grp"><p class="grph">Starts</p><div class="fields">
-      <div class="fld"><label for="stc"><span data-a="Contract starts per month" data-t="Contract starts"></span></label><div class="box"><input id="stc" data-d inputmode="decimal" value="1"><span class="suf" data-a="/month" data-t="total"></span></div></div>
-      <div class="fld"><label for="stp"><span data-a="Perm starts per month" data-t="Perm starts"></span></label><div class="box"><input id="stp" data-d inputmode="decimal" value="0.5"><span class="suf" data-a="/month" data-t="total"></span></div></div>
-    </div></div>
-    <div class="grp" data-for="sales full"><p class="grph">Sales activity</p><div class="fields">
-      <div class="fld"><div class="lr"><label for="pros">Prospecting attempts <i>stage 1</i></label><button type="button" class="optt" data-opt="pros" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="pros" data-d inputmode="decimal" value="15"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><div class="lr"><label for="von">Client visits, in person</label><button type="button" class="optt" data-opt="von" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="von" data-d inputmode="decimal" value="0.8"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><div class="lr"><label for="vvi">Client visits, virtual</label><button type="button" class="optt" data-opt="vvi" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="vvi" data-d inputmode="decimal" value="1.2"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><div class="lr"><label for="jobsc">Contract jobs written</label><button type="button" class="optt" data-opt="jobsc" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="jobsc" data-d inputmode="decimal" value="1.4"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><div class="lr"><label for="jobsp">Perm jobs written</label><button type="button" class="optt" data-opt="jobsp" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="jobsp" data-d inputmode="decimal" value="0.6"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-    </div></div>
-    <div class="grp" data-for="rec full"><p class="grph">Recruiting activity</p><div class="fields">
-      <div class="fld"><div class="lr"><label for="vints">Vaco interviews</label><button type="button" class="optt" data-opt="vints" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="vints" data-d inputmode="decimal" value="12"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><div class="lr"><label for="subs">Submittals</label><button type="button" class="optt" data-opt="subs" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="subs" data-d inputmode="decimal" value="6"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-    </div></div>
-    <div class="grp"><p class="grph">Client interviews</p><div class="fields">
-      <div class="fld"><div class="lr"><label for="cints">Client interviews</label><button type="button" class="optt" data-opt="cints" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="cints" data-d inputmode="decimal" value="2.5"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-    </div></div>
-    <p class="hint opth">Every activity counts toward your forecast. Click <b>In forecast</b> on any metric to leave it out &mdash; the plan skips that step and uses the next one.</p>
-    <div class="avgs" id="avgs"></div>
-    <div class="conv" id="conv"></div>
-    <div class="calc" id="calc"></div>
+    <div class="cyc">
+    <div class="lane" data-for="sales full"><div class="lh">Sales cycle</div>
+<div class="stg" data-stage="pros"><div class="sn"><b></b></div><div class="sb"><div class="st">Prospecting attempts</div><div class="fields"><div class="fld"><div class="lr"><label for="pros">Attempts</label><button type="button" class="optt" data-opt="pros" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="pros" data-d inputmode="decimal" value="15"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
+<div class="cn" id="cn_pros"></div>
+<div class="stg" data-stage="visits"><div class="sn"><b></b></div><div class="sb"><div class="st">Client visits</div><div class="fields"><div class="fld"><div class="lr"><label for="von">In person</label><button type="button" class="optt" data-opt="von" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="von" data-d inputmode="decimal" value="0.8"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="vvi">Virtual</label><button type="button" class="optt" data-opt="vvi" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="vvi" data-d inputmode="decimal" value="1.2"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
+<div class="cn" id="cn_visits"></div>
+<div class="stg" data-stage="jobs"><div class="sn"><b></b></div><div class="sb"><div class="st">Jobs written</div><div class="fields"><div class="fld"><div class="lr"><label for="jobsc">Contract</label><button type="button" class="optt" data-opt="jobsc" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="jobsc" data-d inputmode="decimal" value="1.4"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="jobsp">Perm</label><button type="button" class="optt" data-opt="jobsp" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="jobsp" data-d inputmode="decimal" value="0.6"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
+<div class="cn" id="cn_jobs"></div>
+    </div>
+    <div class="lane" data-for="rec full"><div class="lh">Recruiting cycle</div>
+<div class="stg" data-stage="vints"><div class="sn"><b></b></div><div class="sb"><div class="st">Vaco interviews</div><div class="fields"><div class="fld"><div class="lr"><label for="vints">Vaco interviews</label><button type="button" class="optt" data-opt="vints" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="vints" data-d inputmode="decimal" value="12"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
+<div class="cn" id="cn_vints"></div>
+<div class="stg" data-stage="subs"><div class="sn"><b></b></div><div class="sb"><div class="st">Submittals</div><div class="fields"><div class="fld"><div class="lr"><label for="subs">Submittals</label><button type="button" class="optt" data-opt="subs" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="subs" data-d inputmode="decimal" value="6"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
+<div class="cn" id="cn_subs"></div>
+    </div>
+    <div class="lane lj"><div class="lh">Both meet here</div>
+<div class="stg" data-stage="cints"><div class="sn"><b></b></div><div class="sb"><div class="st">Client interviews</div><div class="fields"><div class="fld"><div class="lr"><label for="cints">Client interviews</label><button type="button" class="optt" data-opt="cints" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="cints" data-d inputmode="decimal" value="2.5"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
+<div class="cn" id="cn_cints"></div>
+<div class="stg" data-stage="starts"><div class="sn"><b></b></div><div class="sb"><div class="st">Starts</div><div class="fields"><div class="fld"><div class="lr"><label for="stc"><span data-a="Contract per month" data-t="Contract"></span></label></div><div class="box"><input id="stc" data-d inputmode="decimal" value="1"><span class="suf" data-a="/month" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="stp"><span data-a="Perm per month" data-t="Perm"></span></label></div><div class="box"><input id="stp" data-d inputmode="decimal" value="0.5"><span class="suf" data-a="/month" data-t="total"></span></div></div></div></div></div>
+<div class="cn" id="cn_startsgm"></div>
+<div class="stg" data-stage="gm"><div class="sn"><b></b></div><div class="sb"><div class="st">Gross margin <i>(after splits)</i></div><div class="fields"><div class="fld"><div class="lr"><label for="gmc">Contract</label></div><div class="box"><span>$</span><input id="gmc" data-n inputmode="numeric" value="8,400"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="gmp">Perm</label></div><div class="box"><span>$</span><input id="gmp" data-n inputmode="numeric" value="3,100"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
+    </div>
+    </div>
+    <p class="hint opth">Every activity is <b>in your forecast</b>. Click <b>In forecast</b> next to any metric to leave it out &mdash; your plan skips that step.</p>
     <div class="warns" id="warns"></div>
+    <div class="avgs" id="avgs"></div>
+    <div class="calc" id="calc"></div>
   </section>
 
-  <section class="card">
+  <section class="card" id="s3">
     <h2><span class="step">3</span>Where do you want to be in 2027?</h2>
-    <p class="sub">Pick how much you want to grow, or type an exact GM goal. Your 2027 plan builds itself from your averages.</p>
+    <p class="sub">Pick how much you want to grow, or type an exact GM goal.</p>
     <div class="chips" id="mode"><button type="button" data-v="grow" class="on">Grow by a %</button><button type="button" data-v="gm">Set a GM goal</button></div>
     <div id="growP" class="gp">
       <div class="quick" id="quick"><button type="button" data-g="10">+10%</button><button type="button" data-g="20">+20%</button><button type="button" data-g="30">+30%</button><button type="button" data-g="50">+50%</button></div>
@@ -343,11 +398,21 @@ footer a{color:var(--blue)}
       <div class="fld big"><label for="goal">2027 GM goal</label><div class="box"><span>$</span><input id="goal" data-n inputmode="numeric" value="700,000"></div></div>
     </div>
     <div class="goalout" id="goalOut"></div>
+    <details class="more"><summary>Improve your conversion rates for 2027 (optional)</summary>
+      <p class="hint">Leave blank to keep today&#8217;s rates. Type a better rate to see how much less activity it takes.</p>
+      <div class="fields" id="ovr"></div>
+    </details>
   </section>
 
-  <section class="card">
-    <h2><span class="step">4</span>Your consultants on billing <span class="opt">Optional</span></h2>
-    <p class="sub">Contract consultants still billing on Jan 1 keep earning you GM in 2027 until their end date, so you need fewer new starts. Add each one.</p>
+  <section class="card" id="s4">
+    <h2><span class="step">4</span>Your book carrying into 2027 <span class="opt">Optional</span></h2>
+    <p class="sub">Contract consultants still billing on Jan 1 keep earning you GM until they end, so you need fewer new starts.</p>
+    <div class="chips" id="bmode"><button type="button" data-v="quick" class="on">Quick estimate</button><button type="button" data-v="list">Consultant by consultant</button></div>
+    <div id="bQuick" class="gp">
+      <div class="fld"><label for="bqwk">Your GM per week from consultants on billing <i>(after splits)</i></label><div class="box"><span>$</span><input id="bqwk" data-n inputmode="numeric" placeholder="0"><span class="suf">/week</span></div></div>
+      <div class="fld"><label for="bqend">Their average expected end date</label><div class="box"><input type="date" id="bqend"></div></div>
+    </div>
+    <div id="bList" hidden>
     <div class="bkh"><span>Consultant name</span><span>GM per hour</span><span>Credit share <i>% on deal</i></span><span>Expected end date <i>blank = all year</i></span><span>2027 GM</span><span></span></div>
     <div id="book"></div>
     <div class="bkf">
@@ -355,17 +420,15 @@ footer a{color:var(--blue)}
       <div class="fld util"><label for="util">Utilization <i>share of hours billed</i></label><div class="box"><input id="util" inputmode="decimal" value="90"><span class="suf">%</span></div></div>
     </div>
     <p class="hint" id="utilH"></p>
+    </div>
     <div class="bks" id="bookSum"></div>
-    <details class="more"><summary>Fine-tune your 2027 conversion rates (optional)</summary>
-      <p class="hint">Leave blank to use your 2026 ratios. Type a better number to see how much less activity it takes.</p>
-      <div class="fields" id="ovr"></div>
-    </details>
   </section>
 
 </div>
 
 <aside class="side">
   <section class="card res" id="res"></section>
+  <section class="card ways" id="ways"></section>
   <section class="card plan">
     <h3>Your 2027 weekly plan</h3>
     <p class="sub2">What it takes each week to hit your goal, next to what you do now.</p>
@@ -392,15 +455,18 @@ footer a{color:var(--blue)}
 (function(){
 var $=function(id){return document.getElementById(id);};
 var YEAR=2027,KEY="vbh-goal-2027";
-var FIELDS=["who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
-var EX={who:"",goal:"700,000",grow:"20",gmc:"8,400",gmp:"3,100",stc:"1",stp:"0.5",pros:"15",von:"0.8",vvi:"1.2",jobsc:"1.4",jobsp:"0.6",vints:"12",subs:"6",cints:"2.5",util:"90"};
+var FIELDS=["bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
+var EX={bqwk:"",bqend:"",who:"",goal:"700,000",grow:"20",gmc:"8,400",gmp:"3,100",stc:"1",stp:"0.5",pros:"15",von:"0.8",vvi:"1.2",jobsc:"1.4",jobsp:"0.6",vints:"12",subs:"6",cints:"2.5",util:"90"};
 var AVGK=["pros","von","vvi","jobsc","jobsp","vints","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
 var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints"];
-var role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
+var BMODE="quick",role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
 var Y0=new Date(YEAR,0,1),Y1=new Date(YEAR,11,31);
 function util(){return Math.min(Math.max(num($("util").value),0),100)/100;}
 function cRow(c){var sp=(c.s===""||c.s==null?50:num(c.s))/100,wkGM=num(c.g)*40*util()*sp,end=c.e?new Date(c.e+"T00:00:00"):null,last=end&&end<Y1?end:Y1,wks=last<Y0?0:Math.min((Math.round((last-Y0)/864e5)+1)/7,52);return {wk:wkGM,wks:wks,ny:wkGM*wks};}
-function bookGM(){return BOOK.reduce(function(a,c){return a+cRow(c).ny;},0);}
+function bookIn(a,b){if(BMODE==="quick"){var wk=num($("bqwk").value),v=$("bqend").value,end=v?new Date(v+"T00:00:00"):Y1,last=end<b?end:b;return !(wk>0)||last<a?0:wk*Math.min((Math.round((last-a)/864e5)+1)/7,52);}
+ return BOOK.reduce(function(t,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<b?end:b;return t+(last<a?0:r.wk*Math.min((Math.round((last-a)/864e5)+1)/7,52));},0);}
+function bookGM(){return bookIn(Y0,Y1);}
+function bookWk(){return BMODE==="quick"?num($("bqwk").value):BOOK.reduce(function(a,c){return a+cRow(c).wk;},0);}
 function cCell(c){var r=cRow(c);return '<b>'+usd(r.ny)+'</b><small>'+usd(r.wk)+'/wk'+(c.e?' &middot; '+one(r.wks)+' wks':' &middot; all year')+'</small>';}
 function drawBook(){
  $("book").innerHTML=BOOK.length?BOOK.map(function(c,i){
@@ -411,9 +477,11 @@ function drawBook(){
   '<div><span class="ml">Expected end date</span><div class="box"><input type="date" data-bf="e" value="'+esc(c.e||"")+'" aria-label="Expected end date"></div></div>'+
   '<div class="bkc">'+cCell(c)+'</div>'+
   '<button type="button" class="rm" data-rm="'+i+'" aria-label="Remove consultant">&times;</button></div>';}).join(""):'<div class="empty">No consultants added. Click <b>+ Add consultant</b> for each person on billing.</div>';}
-function drawBookSum(){var n=BOOK.length,t=bookGM(),wk=BOOK.reduce(function(a,c){return a+cRow(c).wk;},0),u=Math.round(util()*100),h=Math.round(40*util()*10)/10;
+function drawBookSum(){var n=BOOK.length,t=bookGM(),wk=bookWk(),u=Math.round(util()*100),h=Math.round(40*util()*10)/10;
  $("utilH").innerHTML="At "+u+"% a consultant bills about <b>"+h+" of 40 hours a week</b> on average (holidays, PTO and gaps aren&#8217;t billed). GM per week = GM per hour &times; 40 &times; utilization &times; your credit share.";
- $("bookSum").innerHTML=n?'<div><span>Consultants</span><b>'+n+'</b></div><div><span>Your GM per week today</span><b>'+usd(wk)+'</b></div><div><span>Carries into '+YEAR+'</span><b>'+usd(t)+'</b></div>':"";}
+ $("bQuick").hidden=BMODE!=="quick";$("bList").hidden=BMODE!=="list";[].forEach.call($("bmode").children,function(b){b.classList.toggle("on",b.dataset.v===BMODE);});
+ var qe=$("bqend").value,qw=qe?Math.min(Math.max((Math.round((new Date(qe+"T00:00:00")-Y0)/864e5)+1)/7,0),52):52;
+ $("bookSum").innerHTML=BMODE==="quick"?(wk>0?'<div><span>Your GM per week today</span><b>'+usd(wk)+'</b></div><div><span>Billing into '+YEAR+'</span><b>'+one(qw)+' weeks</b></div><div><span>Carries into '+YEAR+'</span><b>'+usd(t)+'</b></div>':''):(n?'<div><span>Consultants</span><b>'+n+'</b></div><div><span>Your GM per week today</span><b>'+usd(wk)+'</b></div><div><span>Carries into '+YEAR+'</span><b>'+usd(t)+'</b></div>':"");}
 /* funnel stages: parts are input fields; a stage can be left out of the forecast */
 var ST={pros:{l:"Prospecting attempts",p:["pros"],r:"sales full",one:"prospecting attempt",many:"prospecting attempts"},
  visits:{l:"Client visits",p:["von","vvi"],r:"sales full",one:"client visit",many:"client visits"},
@@ -460,20 +528,50 @@ function need(T,gc,gp,e){
  branches().forEach(function(br){var c=chainOf(T,br);for(var i=1;i<c.length;i++){var up=c[i],dn=c[i-1],cv=cvOf(T,{key:up+">"+dn,cur:div(sv(T,dn),sv(T,up))});if(N[up]==null)N[up]=cv>0&&!isNaN(N[dn])?ceil(N[dn]/cv):NaN;}});return N;}
 function topStage(T){var br=role==="rec"?BR_B:BR_A,c=chainOf(T,br),pref=role==="rec"?"vints":"visits";return c.indexOf(pref)>-1?pref:(c.length>1?c[c.length-1]:"starts");}
 function fwdStartsYr(T){var br=role==="rec"?BR_B:BR_A,c=chainOf(T,br),top=c[c.length-1],v=sv(T,top)*52;if(top==="starts")return T.starts*52;for(var i=c.length-1;i>0;i--){v*=cvOf(T,{key:c[i]+">"+c[i-1],cur:div(sv(T,c[i-1]),sv(T,c[i]))});}return v;}
-function cvTxt(T,pr,v){if(!(v>0))return {big:"&ndash;",sm:"Not enough data"};var u=ST[pr.up],d=ST[pr.dn];
- if(v<0.995)return {big:(Math.round(v*1000)/10)+"%",sm:"1 in "+(+(1/v).toFixed(1))+" "+u.many+" becomes a "+d.one};
+function isPct(key){var x=key.split(">");return x[1]==="starts"||x[0]==="pros"||!!MAX1[key];}
+function cvTxt(T,pr,v){if(!(v>0))return {big:"&ndash;",sm:"Not enough data"};var u=ST[pr.up],d=ST[pr.dn];if(isPct(pr.key)&&v>1)return {big:(Math.round(v*1000)/10)+"%",sm:"More "+d.many+" than "+u.many+" &mdash; check your numbers"};
+ if(isPct(pr.key))return {big:(Math.round(v*1000)/10)+"%",sm:"1 in "+(+(1/v).toFixed(1))+" "+u.many+" becomes a "+d.one};
  return {big:(+v.toFixed(2))+"",sm:d.many.charAt(0).toUpperCase()+d.many.slice(1)+" per "+u.one};}
 function drawConv(T){var P=pairs(T),h="";
  P.forEach(function(pr){var v=cvOf(T,pr),t=cvTxt(T,pr,v),o=OV[pr.key]!=null&&OV[pr.key]>0;h+='<div class="cv'+(o?" ov":"")+'"><span>'+ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco")+(o?' &middot; your 2027 rate':'')+'</span><b>'+t.big+'</b><small>'+t.sm+(o?' (now '+cvTxt(T,pr,pr.cur).big+')':'')+'</small></div>';});
  if(mine("sales full")){if(!OPT.jobsc&&T.jobsc>0)h+='<div class="cv"><span>Contract fill rate</span><b>'+(Math.round(div(T.stc,T.jobsc)*1000)/10)+'%</b><small>Contract jobs written that start</small></div>';
   if(!OPT.jobsp&&T.jobsp>0)h+='<div class="cv"><span>Perm fill rate</span><b>'+(Math.round(div(T.stp,T.jobsp)*1000)/10)+'%</b><small>Perm jobs written that start</small></div>';}
- $("conv").innerHTML=h?'<div class="ah">Your conversion rates</div><div class="cvg">'+h+'</div>':"";
+ if($("conv"))$("conv").innerHTML=h?'<div class="ah">Your conversion rates</div><div class="cvg">'+h+'</div>':"";
+ drawCn(T);
  var out=P.map(function(pr){var v=cvOf(T,pr),t=cvTxt(T,pr,v),n=cvTxt(T,pr,pr.cur);return {l:ST[pr.up].l+" \u2192 "+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),now:n.big,big:t.big,sm:t.sm,chg:OV[pr.key]!=null&&OV[pr.key]>0};});
  if(mine("sales full")){var fc=Math.round(div(T.stc,T.jobsc)*1000)/10+"%",fp=Math.round(div(T.stp,T.jobsp)*1000)/10+"%";if(!OPT.jobsc&&T.jobsc>0)out.push({l:"Contract fill rate (contract jobs \u2192 contract starts)",now:fc,big:fc,sm:"Contract jobs written that start",chg:false});if(!OPT.jobsp&&T.jobsp>0)out.push({l:"Perm fill rate (perm jobs \u2192 perm starts)",now:fp,big:fp,sm:"Perm jobs written that start",chg:false});}
  var r=ratios(T),e=eff(T);[["gpsc","GM per contract start"],["gpsp","GM per perm start"]].forEach(function(x){if(r[x[0]]||e[x[0]])out.push({l:x[1],now:r[x[0]]?usd(r[x[0]]):"&ndash;",big:e[x[0]]?usd(e[x[0]]):"&ndash;",sm:"Average GM each start brings in",chg:OV[x[0]]>0});});
  return out;}
+function drawCn(T){[].forEach.call(document.querySelectorAll(".cn"),function(el){el.innerHTML="";el.classList.remove("ov");});
+ pairs(T).forEach(function(pr){var el=$("cn_"+pr.up);if(!el)return;var v=cvOf(T,pr),t=cvTxt(T,pr,v),o=OV[pr.key]!=null&&OV[pr.key]>0;el.classList.toggle("ov",o);
+  el.innerHTML='<b>'+t.big+'</b>'+(isPct(pr.key)?'become '+ST[pr.dn].many:ST[pr.dn].many+' per '+ST[pr.up].one)+(pr.dn!==nextStage(pr.up)?' <i>(skips '+skipped(pr.up,pr.dn)+')</i>':'')+(o?' &middot; your 2027 rate (now '+cvTxt(T,pr,pr.cur).big+')':'');});
+ var e=eff(T),c=$("cn_startsgm");if(c)c.innerHTML=(e.gpsc||e.gpsp)?'<b>'+usd(e.gpsc||0)+'</b>GM per contract start &nbsp; <b>'+usd(e.gpsp||0)+'</b>GM per perm start':'';
+ laneTitle();var n=0,lastBr=null;[].forEach.call(document.querySelectorAll(".stg"),function(el){var k=el.dataset.stage,lane=el.closest(".lane");if(lane.hidden)return;var on=k==="starts"||k==="gm"||active(T,k);el.classList.toggle("off",!on);});
+ var num={};(role==="rec"?["vints","subs","cints","starts","gm"]:role==="sales"?["pros","visits","jobs","cints","starts","gm"]:["pros","visits","jobs","cints","starts","gm"]).forEach(function(k,i){num[k]=i+1;});if(role==="full"){num.vints=1;num.subs=2;}
+ [].forEach.call(document.querySelectorAll(".stg"),function(el){el.querySelector(".sn b").textContent=el.dataset.stage==="gm"?"$":(num[el.dataset.stage]||"");});}
+function laneTitle(){var h=document.querySelector(".lj .lh");if(h)h.textContent=role==="full"?"Both cycles meet here":"Results";}
+function nextStage(up){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),i=br.indexOf(up);return br[i-1];}
+function skipped(up,dn){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),a=br.indexOf(dn),b=br.indexOf(up);return br.slice(a+1,b).map(function(k){return ST[k].many;}).join(", ");}
+function drawWays(T,e,N,NEW,BK,G,gap,more,sY){
+ var top=topStage(T),tw=sv(T,top),tn=N[top]/52,k=sY*e.gps>0?NEW/(sY*e.gps):0,anyOv=Object.keys(OV).some(function(x){return OV[x]!=null&&OV[x]>0;}),W={gap:gap,more:more,top:ST[top].many,tw:tw,tn:tn,lev:[]};
+ if(!(k>0)){$("ways").innerHTML="";return W;}
+ var h='<h3>'+(gap>1?'How to close your '+k$(gap)+' gap':'You&#8217;re on track')+'</h3><p class="sub2">'+(gap>1?'Two ways to get there &mdash; do more, convert better, or a bit of both.':'Today&#8217;s activity already gets you to your goal. Here&#8217;s how much room you have.')+'</p>';
+ h+='<div class="way a"><div class="wh"><i>1</i>'+(gap>1?'Do more':'Activity you can spare')+'</div><div class="big">'+(gap>1?'+'+Math.max(more,0).toFixed(0)+'% <small>more activity</small>':(Math.abs(more)<0.5?'Right on target':Math.abs(more).toFixed(0)+'% <small>less activity</small>'))+'</div>'+
+  '<p><b>'+one(tn)+' '+ST[top].many+' a week</b> instead of '+one(tw)+'. Every stage of your cycle moves by the same amount &mdash; see your weekly plan below.</p></div>';
+ if(gap>1){var P=pairs(T),levs=P.map(function(pr){var v=cvOf(T,pr),need=v*k,pct=isPct(pr.key),poss=!pct||need<=1;return {key:pr.key,l:ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),now:cvTxt(T,pr,v).big,need:poss?cvTxt(T,pr,need).big:"over 100%",v:need,poss:poss,lift:need-v,pct:pct};});
+  [["gpsc","GM per contract start"],["gpsp","GM per perm start"]].forEach(function(x){if(e[x[0]]>0&&N[x[0]==="gpsc"?"stc":"stp"]>0)levs.push({key:x[0],l:x[1],now:usd(e[x[0]]),need:usd(e[x[0]]*k),v:e[x[0]]*k,poss:true,lift:0,pct:false});});
+  var bp=levs.filter(function(l){return l.poss&&l.pct;}).sort(function(a,b){return a.lift-b.lift;})[0];
+  h+='<div class="way b"><div class="wh"><i>2</i>Convert better &mdash; same activity</div><p>Improve <b>any one</b> of these to the rate shown and you hit your goal without doing more.</p>'+
+   levs.map(function(l){return '<div class="lev'+(l.poss?'':' no')+(bp&&l.key===bp.key?' best':'')+'"><span class="ll">'+l.l+'</span><span class="lv">'+l.now+' &rarr; <b>'+l.need+'</b>'+(l.poss?'':' (can&#8217;t do it alone)')+'</span>'+(l.poss?'<button type="button" data-try="'+l.key+'" data-v="'+l.v+'">Try it</button>':'')+'</div>';}).join("")+
+   '<div class="wfoot"><span>Mix and match in step 3 &mdash; small gains in two or three rates add up fast.</span>'+(anyOv?'<button type="button" id="wReset">Clear my rate changes</button>':'')+'</div></div>';
+  W.lev=levs;}
+ else if(anyOv)h+='<div class="wfoot"><span>Includes your improved conversion rates.</span><button type="button" id="wReset">Clear my rate changes</button></div>';
+ $("ways").innerHTML=h;return W;}
+function waysTxt(W){if(!W||!W.top)return "";var t=W.gap>1?"How I close my "+usd(W.gap)+" gap:\n1) Do more: +"+W.more.toFixed(0)+"% activity — "+one(W.tn)+" "+W.top+" a week instead of "+one(W.tw)+"\n2) Or convert better (same activity), any one of:\n"+W.lev.filter(function(l){return l.poss;}).map(function(l){return "   - "+l.l.replace("&rarr;","->").replace("&ndash;","-")+": "+l.now+" -> "+l.need;}).join("\n"):"On track: today's activity covers my goal ("+Math.abs(W.more).toFixed(0)+"% to spare).";return t;}
+function drawSteps(st){var L=[["s1","Who you are",st[0],"Role"],["s2","Your numbers",st[1],"Numbers"],["s3","Your 2027 goal",st[2],"Goal"],["s4","Your book",st[3],"Book"]],first=true;
+ $("steps").innerHTML=L.map(function(x,i){var cls=x[2]==="done"?"done":(x[2]==="todo"&&first?(first=false,"todo"):"");return '<a href="#'+x[0]+'" class="'+cls+'"><i>'+(x[2]==="done"?"&#10003;":i+1)+'</i><span><em class="fu">'+x[1]+'</em><em class="sh2">'+x[3]+'</em><small>'+(x[2]==="done"?"Done":x[2]==="opt"?"Optional":"To do")+'</small></span></a>';}).join("");}
 function drawOvr(T){var h="",r=ratios(T);
- pairs(T).forEach(function(pr){var pct=pr.cur<=1,v=OV[pr.key],shown=v==null?"":(pct?Math.round(v*1000)/10:Math.round(v*100)/100),ph=pr.cur>0?(pct?Math.round(pr.cur*1000)/10:Math.round(pr.cur*100)/100):"";
+ pairs(T).forEach(function(pr){var pct=isPct(pr.key),v=OV[pr.key],shown=v==null?"":(pct?Math.round(v*1000)/10:Math.round(v*100)/100),ph=pr.cur>0?(pct?Math.round(pr.cur*1000)/10:Math.round(pr.cur*100)/100):"";
   h+='<div class="fld"><label for="ov_'+pr.key+'">'+ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco")+' <i>now '+cvTxt(T,pr,pr.cur).big+'</i></label><div class="box"><input id="ov_'+pr.key+'" data-ov="'+pr.key+'" data-pct="'+(pct?1:0)+'" inputmode="decimal" value="'+shown+'" placeholder="'+ph+'">'+(pct?'<span class="suf">%</span>':'<span class="suf">per '+ST[pr.up].one+'</span>')+'</div></div>';});
  [["gpsc","GM per contract start"],["gpsp","GM per perm start"]].forEach(function(x){var v=OV[x[0]],cur=r[x[0]];h+='<div class="fld"><label for="ov_'+x[0]+'">'+x[1]+' <i>now '+(cur?usd(cur):"&ndash;")+'</i></label><div class="box"><span>$</span><input id="ov_'+x[0]+'" data-ov="'+x[0]+'" data-pct="0" inputmode="decimal" value="'+(v==null?"":Math.round(v).toLocaleString("en-US"))+'" placeholder="'+(cur?Math.round(cur).toLocaleString("en-US"):"")+'"></div></div>';});
  $("ovr").innerHTML=h;}
@@ -498,6 +596,7 @@ function render(){
   Object.keys(PART).filter(function(f){var st=Object.keys(ST).filter(function(k){return ST[k].p.indexOf(f)>-1;})[0];return mine(ST[st].r);}).map(function(f){return {l:PART[f],wk:one(T[f]),wkU:"a week",yr:Math.round(T[f]*52).toLocaleString("en-US"),nf:!!OPT[f]};}));
  if(!document.activeElement||!document.activeElement.dataset||document.activeElement.dataset.ov==null)drawOvr(T);
  checkInputs(T);
+ drawSteps(["done",(T.starts>0&&T.gm>0&&chainOf(T,role==="rec"?BR_B:BR_A).length>1)?"done":"todo",G>0?"done":"todo",bookGM()>0?"done":"opt"]);
 
  var missing=[];
  if(!G)missing.push(mode==="grow"?"your GM":"your 2027 GM goal");
@@ -508,10 +607,11 @@ function render(){
  var h='<div class="lbl">Your '+YEAR+' GM goal</div><div class="goal">'+usd(G)+' </div>';
  if(pace&&G)h+='<span class="delta '+(chg>=0?"up":"dn")+'">'+(chg>=0?"&#9650; +":"&#9660; &minus;")+Math.abs(chg*100).toFixed(0)+'% vs your run rate of '+k$(pace)+'</span>';
  if(BK)h+='<div class="split"><div><span>From your current book</span><b>'+usd(BK)+'</b></div><i>+</i><div><span>New GM to win</span><b>'+usd(NEW)+'</b></div></div>';
- if(missing.length){h+='<div class="verdict">Add '+missing.join(", ").replace(/, ([^,]*)$/," and $1")+' to see your plan.</div>';$("res").innerHTML=h;$("rows").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your weekly plan appears here.</div>';$("yr").innerHTML="";$("fc").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your forecast appears here.</div>';$("focus").innerHTML="";MB=null;drawMbar();PLAN="";PD=null;return;}
+ if(missing.length){$("ways").innerHTML="";h+='<div class="verdict">Add '+missing.join(", ").replace(/, ([^,]*)$/," and $1")+' to see your plan.</div>';$("res").innerHTML=h;$("rows").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your weekly plan appears here.</div>';$("yr").innerHTML="";$("fc").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your forecast appears here.</div>';$("focus").innerHTML="";MB=null;drawMbar();PLAN="";PD=null;return;}
  var N=need(T,NEWC,NEWP,e),sY=fwdStartsYr(T),gNow=sY*e.gps+BK,gap=G-gNow,more=sY>0?(NEW/(sY*e.gps)-1)*100:0;
  h+='<div class="verdict">'+(gap>1?'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> in '+YEAR+'. To close the <b>'+k$(gap)+'</b> gap you need about <b>'+Math.max(more,0).toFixed(0)+'% more activity</b> &mdash; or better conversion rates (fine-tune them in step 4).':'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> &mdash; that already <b>covers your goal</b>. Consider stretching it.')+'</div>';
  $("res").innerHTML=h;
+ var WAYS=drawWays(T,e,N,NEW,BK,G,gap,more,sY);
 
  var top=topStage(T),order=["pros","visits","jobs","vints","subs","cints"],LST=[];
  order.forEach(function(k){if(!active(T,k)||N[k]==null)return;var parts=ST[k].p.filter(function(f){return !OPT[f];}),tot=sv(T,k),sub="";
@@ -531,10 +631,10 @@ function render(){
  MB={G:G,gap:G-T.gm*52,top:isNaN(tn)?"–":one(tn/52),topL:topL};drawMbar();
  $("yr").innerHTML='For all of '+YEAR+': '+LST.map(function(x){return '<b>'+(isNaN(x.yr)?"&ndash;":x.yr.toLocaleString("en-US"))+'</b> '+x.l.toLowerCase().replace("vaco","Vaco");}).join(" &middot; ")+'. Rounded up &mdash; you can&#8217;t make half a placement.';
  N.top=N[top];var FC=forecast(T,G,BK,NEW,N,e,"top",topL);drawFC(FC);
- PD={CONV:CONV,MET:MET,RC:T.gmc*52,RP:T.gmp*52,NEWC:NEWC,NEWP:NEWP,cycle:branches().map(function(br){return chainOf(T,br).slice().reverse().map(function(k){return ST[k].l;}).join(" \u2192 ");}),FC:FC,GC:GC,GP:GP,gpsc:e.gpsc,gpsp:e.gpsp,G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
+ PD={WAYS:WAYS,bmode:BMODE,bqwk:bookWk(),bqend:$("bqend").value,CONV:CONV,MET:MET,RC:T.gmc*52,RP:T.gmp*52,NEWC:NEWC,NEWP:NEWP,cycle:branches().map(function(br){return chainOf(T,br).slice().reverse().map(function(k){return ST[k].l;}).join(" \u2192 ");}),FC:FC,GC:GC,GP:GP,gpsc:e.gpsc,gpsp:e.gpsp,G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
   rows:LST.map(function(x){return {l:x.l+(x.sub?' ('+x.sub+')':''),hero:x.k===top,unit:x.unit,now:x.now,need:x.need,yr:x.yr};}),
   book:BOOK.map(function(c){var r=cRow(c);return {t:c.t||"(no name)",g:num(c.g),s:c.s===""||c.s==null?50:num(c.s),e:c.e,wk:r.wk,ny:r.ny};}),util:Math.round(util()*100)};
- PLAN="My "+YEAR+" goal: "+usd(G)+" GM ("+usd(GC)+" contract + "+usd(GP)+" perm)"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my run rate)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my "+BOOK.length+" consultant"+(BOOK.length===1?"":"s")+" on billing: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per contract start: "+usd(e.gpsc||0)+" | GM per perm start: "+usd(e.gpsp||0)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\n"+YEAR+" by quarter (goal / run rate):\n"+FC.qs.map(function(q){return "- "+q.q+": "+usd(q.goal)+" / "+usd(q.rr);}).join("\n")+"\n"+FC.y+" year-end forecast: "+usd(FC.ye26)+"\n\nMy numbers today (average / run rate):\n"+MET.map(function(m){return "- "+m.l+": "+m.wk+" "+m.wkU+" / "+m.yr+" a year"+(m.nf?" (left out of forecast)":"");}).join("\n")+"\n\nConversion rates (today -> "+YEAR+" target):\n"+CONV.map(function(c){return "- "+c.l+": "+c.now.replace("&ndash;","-")+" -> "+c.big.replace("&ndash;","-");}).join("\n")+"\n\nFor the year: "+LST.map(function(x){return (isNaN(x.yr)?"-":x.yr.toLocaleString("en-US"))+" "+x.l.toLowerCase();}).join(", ");
+ PLAN=waysTxt(WAYS)+"\n\n"+"My "+YEAR+" goal: "+usd(G)+" GM ("+usd(GC)+" contract + "+usd(GP)+" perm)"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my run rate)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my current book: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per contract start: "+usd(e.gpsc||0)+" | GM per perm start: "+usd(e.gpsp||0)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\n"+YEAR+" by quarter (goal / run rate):\n"+FC.qs.map(function(q){return "- "+q.q+": "+usd(q.goal)+" / "+usd(q.rr);}).join("\n")+"\n"+FC.y+" year-end forecast: "+usd(FC.ye26)+"\n\nMy numbers today (average / run rate):\n"+MET.map(function(m){return "- "+m.l+": "+m.wk+" "+m.wkU+" / "+m.yr+" a year"+(m.nf?" (left out of forecast)":"");}).join("\n")+"\n\nConversion rates (today -> "+YEAR+" target):\n"+CONV.map(function(c){return "- "+c.l+": "+c.now.replace("&ndash;","-")+" -> "+c.big.replace("&ndash;","-");}).join("\n")+"\n\nFor the year: "+LST.map(function(x){return (isNaN(x.yr)?"-":x.yr.toLocaleString("en-US"))+" "+x.l.toLowerCase();}).join(", ");
  $("how").innerHTML='Your run rate is your weekly averages'+(inm==="tot"?' (your totals &divide; '+one(totW())+' weeks)':'')+' &times; 52. Your goal splits contract / perm at your current GM mix, and your consultants on billing count toward contract (GM per hour &times; 40 &times; utilization &times; credit share, through each end date). Contract starts = new contract GM &divide; GM per contract start ('+usd(e.gpsc||0)+'); perm starts = perm GM &divide; GM per perm start ('+usd(e.gpsp||0)+'). Then we work back up your funnel one stage at a time, using your conversion rate between each stage: '+branches().map(function(br){return chainOf(T,br).map(function(k){return ST[k].l.toLowerCase().replace("vaco","Vaco");}).join(" &larr; ");}).join(" and ")+'. Any metric you leave out of the forecast is skipped and the rate jumps straight to the next stage. 2027 targets are spread over 52 weeks.';
  save();}
 
@@ -559,11 +659,11 @@ function forecast(T,G,BK,NEW,N,e,top,topL){
  var t=new Date(),y=t.getFullYear(),ye=new Date(y,11,31),t0=new Date(y,t.getMonth(),t.getDate()),left=Math.max(52-Math.min((Math.round((t0-new Date(y,0,1))/864e5)+1)/7,52),0),ytdMode=inm==="tot"&&per==="ytd";
  var so=ytdMode?T.gm*totW():T.gm*(52-left),ye26=so+T.gm*left,st26=T.starts*52;
  var Q=[["Q1","Jan&ndash;Mar",0],["Q2","Apr&ndash;Jun",3],["Q3","Jul&ndash;Sep",6],["Q4","Oct&ndash;Dec",9]],cumR=0,cumG=0;
- var qs=Q.map(function(q){var qs0=new Date(YEAR,q[2],1),qe=new Date(YEAR,q[2]+3,0),bk=BOOK.reduce(function(a,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<qe?end:qe;var wks=last<qs0?0:(Math.round((last-qs0)/864e5)+1)/7;return a+r.wk*wks;},0);
+ var qs=Q.map(function(q){var qs0=new Date(YEAR,q[2],1),qe=new Date(YEAR,q[2]+3,0),bk=bookIn(qs0,qe);
   var wq=(Math.round((qe-qs0)/864e5)+1)/7,rr=T.gm*wq,gl=(BK>0?Math.min(bk,BK*(bk/(bookGM()||1))):0)+NEW*wq/52;cumR+=rr;cumG+=gl;
   return {q:q[0],m:q[1],bk:bk,goal:gl,rr:rr,cumR:cumR,cumG:cumG,starts:isNaN(N.starts)?NaN:N.starts*wq/52,stc:N.stc*wq/52,stp:N.stp*wq/52,top:isNaN(N[top])?NaN:N[top]*wq/52};});
  var sc=BK>0?BK/(bookGM()||1):0,mc=0,mr=0,ms=[{m:0,g:0,r:0}];
- for(var mi=0;mi<12;mi++){var m0=new Date(YEAR,mi,1),m1=new Date(YEAR,mi+1,0),dm=(Math.round((m1-m0)/864e5)+1),bkm=BOOK.reduce(function(a,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<m1?end:m1;return a+(last<m0?0:r.wk*(Math.round((last-m0)/864e5)+1)/7);},0);
+ for(var mi=0;mi<12;mi++){var m0=new Date(YEAR,mi,1),m1=new Date(YEAR,mi+1,0),dm=(Math.round((m1-m0)/864e5)+1),bkm=bookIn(m0,m1);
   mc+=bkm*sc+NEW*dm/365;mr+=T.gm*52*dm/365;ms.push({m:mi+1,g:mc,r:mr});}
  return {ms:ms,ytdMode:ytdMode,so:so,left:left,ye26:ye26,st26:st26,y:y,qs:qs,topName:topL,rr27:T.gm*52,G:G};}
 function chartSVG(F,wid){var W=wid||360,H=200,L=44,R=50,T0=12,B=24,ms=F.ms,mx=Math.max(F.G,ms[12].g,ms[12].r)*1.06||1,
@@ -587,8 +687,8 @@ function drawFC(F){var h='<div class="fye"><span>'+F.y+' year-end forecast</span
  h+='<p class="fsum">'+(gap>1?'Stay at today&#8217;s run rate and you finish '+YEAR+' around <b>'+usd(F.rr27)+'</b>, <b>'+usd(gap)+' short</b>. Your weekly plan above closes that gap.':'Today&#8217;s run rate alone gets you to about <b>'+usd(F.rr27)+'</b> &mdash; ahead of your goal.')+' "Goal" spreads your new GM evenly across the year and adds what your consultants bill in each quarter.</p>';
  $("fc").innerHTML=h;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state()));}catch(e){}}
-function state(){var s={ver:4,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,opt:OPT,book:BOOK,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
-function apply(s){if(!s||s.ver!==4)return false;OPT=s.opt||{};role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
+function state(){var s={ver:4,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,opt:OPT,book:BOOK,bmode:BMODE,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
+function apply(s){if(!s||s.ver!==4)return false;OPT=s.opt||{};BMODE=s.bmode||"quick";role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
 function load(){try{return apply(JSON.parse(localStorage.getItem(KEY)||"null"));}catch(e){return false;}}
 function isEx(){return !edited;}
 function syncOpt(){[].forEach.call(document.querySelectorAll("[data-opt]"),function(b){var o=!!OPT[b.dataset.opt];b.classList.toggle("out",o);b.textContent=o?"Left out":"In forecast";b.setAttribute("aria-pressed",o?"false":"true");b.closest(".fld").classList.toggle("off",o);});}
@@ -599,13 +699,14 @@ $("role").addEventListener("click",function(e){var b=e.target.closest("button");
 $("inm").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||b.dataset.v===inm)return;convert(b.dataset.v);inm=b.dataset.v;sync();render();});
 $("per").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;per=b.dataset.v;if(per==="dates"&&!$("d1").value){var t=new Date();$("d1").value=t.getFullYear()+"-01-01";$("d2").value=t.toISOString().slice(0,10);}sync();render();});
 document.addEventListener("click",function(e){var b=e.target.closest("[data-opt]");if(!b)return;var k=b.dataset.opt;if(OPT[k])delete OPT[k];else OPT[k]=true;OV={};syncOpt();render();});
+$("bmode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;BMODE=b.dataset.v;if(BMODE==="list"&&!BOOK.length){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();}render();});
 $("mode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;mode=b.dataset.v;if(mode==="gm"){var T=read(),G=Math.round(T.gm*52*(1+T.grow/100)/1000)*1000;if(G)$("goal").value=G.toLocaleString("en-US");}sync();render();});
 $("quick").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;$("grow").value=b.dataset.g;sync();render();});
 document.addEventListener("input",function(e){var t=e.target;if(EXK.indexOf(t.id)>-1)edited=true;if(t.dataset.bf){var row=t.closest(".bkr"),i=+row.dataset.i;BOOK[i][t.dataset.bf]=t.value;row.querySelector(".bkc").innerHTML=cCell(BOOK[i]);render();return;}if(t.id==="util"){drawBook();}if(t.dataset.ov!=null){var k=t.dataset.ov,v=num(t.value);OV[k]=t.value.trim()===""?null:(t.dataset.pct==="1"?v/100:v);}sync();render();});
 document.addEventListener("focusout",function(e){var t=e.target;if(t.dataset&&t.dataset.n!=null&&t.value.trim()!==""&&t.id!=="util")t.value=Math.round(num(t.value)).toLocaleString("en-US");if(t.dataset&&t.dataset.ov!=null)render();});
 document.addEventListener("focusin",function(e){var t=e.target;if(t.tagName==="INPUT"&&t.type!=="date")setTimeout(function(){try{t.select();}catch(x){}},0);});
 $("clearEx").addEventListener("click",function(){EXK.forEach(function(k){$(k).value="";});edited=true;$("exNote").hidden=true;render();$("gmc").focus();});
-$("reset").addEventListener("click",function(){FIELDS.forEach(function(k){$(k).value=EX[k];});role="full";mode="grow";OV={};OPT={};BOOK=[];inm="avg";per="ytd";edited=false;$("d1").value="";$("d2").value="";convert("tot");inm="tot";drawBook();try{localStorage.removeItem(KEY);}catch(e){}sync();render();window.scrollTo({top:0,behavior:"smooth"});});
+$("reset").addEventListener("click",function(){FIELDS.forEach(function(k){$(k).value=EX[k];});BMODE="quick";role="full";mode="grow";OV={};OPT={};BOOK=[];inm="avg";per="ytd";edited=false;$("d1").value="";$("d2").value="";convert("tot");inm="tot";drawBook();try{localStorage.removeItem(KEY);}catch(e){}sync();render();window.scrollTo({top:0,behavior:"smooth"});});
 $("copy").addEventListener("click",function(){if(!PLAN){toast("Fill in steps 1–3 first");return;}var done=function(){toast("Plan copied");};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(PLAN).then(done,function(){fallback();});else fallback();function fallback(){var ta=document.createElement("textarea");ta.value=PLAN;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done();}catch(e){toast("Couldn’t copy");}ta.remove();}});
 $("addC").addEventListener("click",function(){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();render();var r=$("book").querySelectorAll(".bkr");r[r.length-1].querySelector("input").focus();});
 $("book").addEventListener("click",function(e){var sb=e.target.closest("[data-sh]");if(sb){var i=+sb.closest(".bkr").dataset.i,c=BOOK[i];if(sb.dataset.sh==="c"){c.cs=true;}else{c.cs=false;c.s=sb.dataset.sh;}drawBook();render();if(c.cs){var inp=$("book").querySelectorAll(".bkr")[i].querySelector(".shi input");inp.focus();}return;}var b=e.target.closest("[data-rm]");if(!b)return;BOOK.splice(+b.dataset.rm,1);drawBook();render();});
@@ -621,9 +722,11 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  var h='<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+YEAR+' Goal Plan'+(who?' &ndash; '+esc(who):'')+'</title><style>'+css+'</style></head><body><div class="pg">'+
  '<div class="hd"><img src="'+logo+'" alt="Vaco by Highspring"><h1>'+(who?esc(who)+'&#8217;s ':'My ')+'<span>'+YEAR+'</span> Goal Plan</h1><p>'+rl+' &middot; Built '+today+'</p></div><div class="bd">'+
  '<div class="kp"><div class="o"><span>'+YEAR+' GM goal</span><b>'+usd(d.G)+'</b><small>'+(d.pace?(d.chg>=0?"+":"&minus;")+Math.abs(d.chg*100).toFixed(0)+'% vs run rate of '+usd(d.pace):'')+'</small></div>'+
- '<div><span>From current book</span><b>'+usd(d.BK)+'</b><small>'+d.book.length+' consultant'+(d.book.length===1?'':'s')+' on billing</small></div>'+
+ '<div><span>From current book</span><b>'+usd(d.BK)+'</b><small>'+(d.bmode==="quick"?(d.bqwk>0?usd(d.bqwk)+'/wk until '+(d.bqend?new Date(d.bqend+"T00:00:00").toLocaleDateString("en-US"):"year-end"):"None entered"):d.book.length+' consultant'+(d.book.length===1?'':'s')+' on billing')+'</small></div>'+
  '<div><span>New GM to win</span><b>'+usd(d.NEW)+'</b><small>'+usd(d.GC)+' contract &middot; '+usd(d.GP)+' perm goal</small></div></div><p style="font-size:12px;color:#5b6b82;margin:8px 0 0">GM per contract start '+usd(d.gpsc||0)+' &middot; GM per perm start '+usd(d.gpsp||0)+'</p>'+
  
+ (d.WAYS&&d.WAYS.top?'<h2>'+(d.WAYS.gap>1?'How I close my '+usd(d.WAYS.gap)+' gap':'I&#8217;m on track')+'</h2><div class="note" style="margin-top:0"><b>1) Do more:</b> '+(d.WAYS.more>=0?'+':'&minus;')+Math.abs(d.WAYS.more).toFixed(0)+'% activity &mdash; <b>'+one(d.WAYS.tn)+' '+d.WAYS.top+' a week</b> instead of '+one(d.WAYS.tw)+'.</div>'+
+  (d.WAYS.lev.length?'<p style="font-size:13px;margin:10px 0 4px"><b>2) Or convert better</b> &mdash; same activity, improve any one of:</p><table><tr><th>Stage</th><th class="n">Today</th><th class="n">Needed alone</th></tr>'+d.WAYS.lev.map(function(l){return '<tr><td>'+l.l+'</td><td class="n">'+l.now+'</td><td class="n"><b>'+l.need+'</b></td></tr>';}).join("")+'</table>':''):'')+
  '<h2>My '+YEAR+' GM goals</h2><table><tr><th></th><th class="n">Run rate today</th><th class="n">'+YEAR+' goal</th><th class="n">Growth</th><th class="n">From my book</th><th class="n">New GM to win</th></tr>'+
  [["Contract",d.RC,d.GC,d.BK,d.NEWC],["Perm",d.RP,d.GP,0,d.NEWP],["Total",d.RC+d.RP,d.G,d.BK,d.NEW]].map(function(x,i){var g=x[1]>0?(x[2]-x[1])/x[1]:0;return '<tr'+(i===2?' class="h"':'')+'><td>'+x[0]+' GM</td><td class="n">'+usd(x[1])+'</td><td class="n"><b>'+usd(x[2])+'</b></td><td class="n">'+(x[1]>0?(g>=0?"+":"&minus;")+Math.abs(g*100).toFixed(0)+"%":"&ndash;")+'</td><td class="n">'+usd(x[3])+'</td><td class="n">'+usd(x[4])+'</td></tr>';}).join("")+'</table>'+
  '<h2>My numbers today</h2><p style="font-size:12px;color:#5b6b82;margin:-2px 0 6px">My cycle: '+d.cycle.join(" &nbsp;|&nbsp; ")+'</p><table><tr><th>Metric</th><th class="n">Average</th><th class="n">Run rate (a year)</th></tr>'+
@@ -632,7 +735,7 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  '<h2>My weekly plan for '+YEAR+'</h2><table><tr><th>Activity</th><th class="n">Now</th><th class="n">'+YEAR+' target</th><th class="n">Change</th><th class="n">'+YEAR+' total</th></tr>'+
  d.rows.map(function(r){return '<tr'+(r.hero?' class="h"':'')+'><td>'+r.l+'</td><td class="n">'+one(r.now)+' '+r.unit+'</td><td class="n"><b>'+(isNaN(r.need)?"&ndash;":one(r.need))+'</b> '+r.unit+'</td><td class="n">'+pct(r.now,r.need)+'</td><td class="n">'+(isNaN(r.yr)?"&ndash;":r.yr.toLocaleString("en-US"))+'</td></tr>';}).join("")+'</table>'+
  '<div class="note">'+(d.gap>1?'At today&#8217;s activity I&#8217;d land near <b>'+usd(d.gNow)+'</b>. Closing the <b>'+usd(d.gap)+'</b> gap takes about <b>'+d.more.toFixed(0)+'% more activity</b> or better ratios.':'Today&#8217;s activity already covers this goal (about <b>'+usd(d.gNow)+'</b>).')+'</div>'+
- (d.book.length?'<h2>Consultants on billing carrying into '+YEAR+'</h2><table><tr><th>Consultant</th><th class="n">GM per hour</th><th class="n">Credit share</th><th class="n">Expected end</th><th class="n">GM per week</th><th class="n">'+YEAR+' GM</th></tr>'+
+ (d.bmode==='list'&&d.book.length?'<h2>Consultants on billing carrying into '+YEAR+'</h2><table><tr><th>Consultant</th><th class="n">GM per hour</th><th class="n">Credit share</th><th class="n">Expected end</th><th class="n">GM per week</th><th class="n">'+YEAR+' GM</th></tr>'+
   d.book.map(function(c){return '<tr><td>'+esc(c.t)+'</td><td class="n">$'+c.g.toLocaleString("en-US")+'</td><td class="n">'+c.s+'%</td><td class="n">'+(c.e?new Date(c.e+"T00:00:00").toLocaleDateString("en-US"):"All year")+'</td><td class="n">'+usd(c.wk)+'</td><td class="n">'+usd(c.ny)+'</td></tr>';}).join("")+
   '<tr class="h"><td>Total</td><td></td><td></td><td></td><td class="n">'+usd(d.book.reduce(function(a,c){return a+c.wk;},0))+'</td><td class="n">'+usd(d.BK)+'</td></tr></table><p style="font-size:11px;color:#5b6b82">At '+d.util+'% utilization of a 40-hour week.</p>':'')+
  '<h2>Auto-forecast</h2><div style="margin:0 0 10px">'+chartSVG(d.FC,760)+'<div style="display:flex;gap:16px;font-size:11px;color:#5b6b82"><span><b style="color:#f26b21">&#9644;</b> Goal (cumulative)</span><span><b style="color:#1d5aa6">&#9644;</b> At today&#8217;s run rate</span></div></div><div class="note" style="margin-top:0">'+d.FC.y+' year-end forecast: <b>'+usd(d.FC.ye26)+'</b> GM ('+(d.FC.ytdMode?usd(d.FC.so)+' so far + '+usd(d.FC.ye26-d.FC.so)+' over the '+one(d.FC.left)+' weeks left':'full-year run rate')+'). At today&#8217;s run rate '+YEAR+' lands near <b>'+usd(d.FC.rr27)+'</b>.</div>'+
@@ -645,6 +748,8 @@ $("saveF").addEventListener("click",function(){dlFile(YEAR+"-Goal-Numbers"+slug(
 $("openF").addEventListener("click",function(){$("fileIn").value="";$("fileIn").click();});
 $("fileIn").addEventListener("change",function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{if(apply(JSON.parse(r.result))){sync();drawBook();render();toast("Numbers loaded");}else toast("That file isn’t a saved goal plan");}catch(e){toast("That file isn’t a saved goal plan");}};r.readAsText(f);});
 $("mbar").addEventListener("click",function(){$("res").scrollIntoView({behavior:"smooth",block:"start"});});
+$("steps").addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;e.preventDefault();var t=$(a.getAttribute("href").slice(1));window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-64,behavior:"smooth"});});
+$("ways").addEventListener("click",function(e){var t=e.target.closest("[data-try]");if(t){OV[t.dataset.try]=parseFloat(t.dataset.v);var d=document.querySelector("details.more");if(d)d.open=true;render();toast("Rate applied &mdash; see your plan update".replace("&mdash;","—"));return;}if(e.target.id==="wReset"){OV={};render();toast("Back to today’s rates");}});
 $("print").addEventListener("click",function(){window.print();});
 
 if(!load()){inm="avg";convert("tot");inm="tot";}sync();drawBook();render();
