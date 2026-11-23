@@ -234,6 +234,25 @@ details.more .fields{margin-top:12px}
  .mbar .go{font-size:20px;opacity:.8}
 }
 @media print{.mbar{display:none!important}}
+.lr{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;margin-bottom:5px}
+.lr label{margin:0}
+.optt{flex:none;border:1px solid #bfe3cf;background:#e9f7ef;color:var(--good);border-radius:999px;padding:1px 8px;font-size:10.5px;font-weight:800;white-space:nowrap}
+.optt::before{content:"\2713  "}
+.optt.out{border-color:var(--line);background:var(--tint);color:var(--muted)}
+.optt.out::before{content:"\2715  "}
+.fld.off .box{opacity:.45;background:var(--tint)}
+.fld.off label{color:var(--muted);text-decoration:line-through}
+.opth{margin:10px 0 0}
+.ag .nf{display:inline-block;margin-left:4px;font-size:10px;font-weight:800;color:var(--muted);background:#fff;border-radius:999px;padding:0 6px}
+.conv{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.conv:empty{display:none}
+.conv .ah{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.cvg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.cv{background:var(--blue-soft);border-radius:10px;padding:9px 11px}
+.cv span{display:block;font-size:11.5px;font-weight:700;color:var(--blue)}
+.cv b{font-family:var(--display);font-size:20px;color:var(--ink)}
+.cv small{display:block;font-size:11.5px;color:var(--muted);line-height:1.35}
+.cv.ov{background:var(--orange-soft)}.cv.ov span{color:#b5490f}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -292,16 +311,22 @@ footer a{color:var(--blue)}
       <div class="fld"><label for="stp"><span data-a="Perm starts per month" data-t="Perm starts"></span></label><div class="box"><input id="stp" data-d inputmode="decimal" value="0.5"><span class="suf" data-a="/month" data-t="total"></span></div></div>
     </div></div>
     <div class="grp" data-for="sales full"><p class="grph">Sales activity</p><div class="fields">
-      <div class="fld"><label for="von">Client visits, in person</label><div class="box"><input id="von" data-d inputmode="decimal" value="0.8"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><label for="vvi">Client visits, virtual</label><div class="box"><input id="vvi" data-d inputmode="decimal" value="1.2"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><label for="jobs">Jobs written</label><div class="box"><input id="jobs" data-d inputmode="decimal" value="2"><span class="suf" data-a="/week" data-t="total"></span></div></div>
+      <div class="fld"><div class="lr"><label for="pros">Prospecting attempts <i>stage 1</i></label><button type="button" class="optt" data-opt="pros" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="pros" data-d inputmode="decimal" value="15"><span class="suf" data-a="/week" data-t="total"></span></div></div>
+      <div class="fld"><div class="lr"><label for="von">Client visits, in person</label><button type="button" class="optt" data-opt="von" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="von" data-d inputmode="decimal" value="0.8"><span class="suf" data-a="/week" data-t="total"></span></div></div>
+      <div class="fld"><div class="lr"><label for="vvi">Client visits, virtual</label><button type="button" class="optt" data-opt="vvi" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="vvi" data-d inputmode="decimal" value="1.2"><span class="suf" data-a="/week" data-t="total"></span></div></div>
+      <div class="fld"><div class="lr"><label for="jobsc">Contract jobs written</label><button type="button" class="optt" data-opt="jobsc" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="jobsc" data-d inputmode="decimal" value="1.4"><span class="suf" data-a="/week" data-t="total"></span></div></div>
+      <div class="fld"><div class="lr"><label for="jobsp">Perm jobs written</label><button type="button" class="optt" data-opt="jobsp" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="jobsp" data-d inputmode="decimal" value="0.6"><span class="suf" data-a="/week" data-t="total"></span></div></div>
     </div></div>
     <div class="grp" data-for="rec full"><p class="grph">Recruiting activity</p><div class="fields">
-      <div class="fld"><label for="vints">Vaco interviews</label><div class="box"><input id="vints" data-d inputmode="decimal" value="12"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><label for="subs">Submittals</label><div class="box"><input id="subs" data-d inputmode="decimal" value="6"><span class="suf" data-a="/week" data-t="total"></span></div></div>
-      <div class="fld"><label for="cints">Client interviews</label><div class="box"><input id="cints" data-d inputmode="decimal" value="2.5"><span class="suf" data-a="/week" data-t="total"></span></div></div>
+      <div class="fld"><div class="lr"><label for="vints">Vaco interviews</label><button type="button" class="optt" data-opt="vints" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="vints" data-d inputmode="decimal" value="12"><span class="suf" data-a="/week" data-t="total"></span></div></div>
+      <div class="fld"><div class="lr"><label for="subs">Submittals</label><button type="button" class="optt" data-opt="subs" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="subs" data-d inputmode="decimal" value="6"><span class="suf" data-a="/week" data-t="total"></span></div></div>
     </div></div>
+    <div class="grp"><p class="grph">Client interviews</p><div class="fields">
+      <div class="fld"><div class="lr"><label for="cints">Client interviews</label><button type="button" class="optt" data-opt="cints" aria-pressed="true" title="Click to leave this metric out of your forecast">In forecast</button></div><div class="box"><input id="cints" data-d inputmode="decimal" value="2.5"><span class="suf" data-a="/week" data-t="total"></span></div></div>
+    </div></div>
+    <p class="hint opth">Every activity counts toward your forecast. Click <b>In forecast</b> on any metric to leave it out &mdash; the plan skips that step and uses the next one.</p>
     <div class="avgs" id="avgs"></div>
+    <div class="conv" id="conv"></div>
     <div class="calc" id="calc"></div>
     <div class="warns" id="warns"></div>
   </section>
@@ -331,7 +356,7 @@ footer a{color:var(--blue)}
     </div>
     <p class="hint" id="utilH"></p>
     <div class="bks" id="bookSum"></div>
-    <details class="more"><summary>Fine-tune your ratios for 2027 (optional)</summary>
+    <details class="more"><summary>Fine-tune your 2027 conversion rates (optional)</summary>
       <p class="hint">Leave blank to use your 2026 ratios. Type a better number to see how much less activity it takes.</p>
       <div class="fields" id="ovr"></div>
     </details>
@@ -367,11 +392,11 @@ footer a{color:var(--blue)}
 (function(){
 var $=function(id){return document.getElementById(id);};
 var YEAR=2027,KEY="vbh-goal-2027";
-var FIELDS=["who","goal","grow","gmc","gmp","stc","stp","von","vvi","jobs","vints","subs","cints","util"];
-var EX={who:"",goal:"700,000",grow:"20",gmc:"8,400",gmp:"3,100",stc:"1",stp:"0.5",von:"0.8",vvi:"1.2",jobs:"2",vints:"12",subs:"6",cints:"2.5",util:"90"};
-var AVGK=["von","vvi","jobs","vints","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
-var EXK=["gmc","gmp","stc","stp","von","vvi","jobs","vints","subs","cints"];
-var role="full",mode="grow",OV={},BOOK=[],inm="tot",per="ytd",edited=false;
+var FIELDS=["who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
+var EX={who:"",goal:"700,000",grow:"20",gmc:"8,400",gmp:"3,100",stc:"1",stp:"0.5",pros:"15",von:"0.8",vvi:"1.2",jobsc:"1.4",jobsp:"0.6",vints:"12",subs:"6",cints:"2.5",util:"90"};
+var AVGK=["pros","von","vvi","jobsc","jobsp","vints","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
+var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints"];
+var role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
 var Y0=new Date(YEAR,0,1),Y1=new Date(YEAR,11,31);
 function util(){return Math.min(Math.max(num($("util").value),0),100)/100;}
 function cRow(c){var sp=(c.s===""||c.s==null?50:num(c.s))/100,wkGM=num(c.g)*40*util()*sp,end=c.e?new Date(c.e+"T00:00:00"):null,last=end&&end<Y1?end:Y1,wks=last<Y0?0:Math.min((Math.round((last-Y0)/864e5)+1)/7,52);return {wk:wkGM,wks:wks,ny:wkGM*wks};}
@@ -389,18 +414,24 @@ function drawBook(){
 function drawBookSum(){var n=BOOK.length,t=bookGM(),wk=BOOK.reduce(function(a,c){return a+cRow(c).wk;},0),u=Math.round(util()*100),h=Math.round(40*util()*10)/10;
  $("utilH").innerHTML="At "+u+"% a consultant bills about <b>"+h+" of 40 hours a week</b> on average (holidays, PTO and gaps aren&#8217;t billed). GM per week = GM per hour &times; 40 &times; utilization &times; your credit share.";
  $("bookSum").innerHTML=n?'<div><span>Consultants</span><b>'+n+'</b></div><div><span>Your GM per week today</span><b>'+usd(wk)+'</b></div><div><span>Carries into '+YEAR+'</span><b>'+usd(t)+'</b></div>':"";}
-var RAT=[
- ["jpv","Jobs written per client visit","x","sales full"],
- ["fpj","Share of jobs that start","%","sales"],
- ["spj","Submittals per job","x","full"],
- ["v2s","Vaco interview to submittal","%","rec full"],
- ["s2c","Submittal to client interview","%","rec full"],
- ["c2s","Client interview to start","%","rec full"],
- ["gpsc","GM per contract start","$","sales rec full"],
- ["gpsp","GM per perm start","$","sales rec full"]];
-var ACT=[["visits","Client visits","sales full"],["jobs","Jobs written","sales full"],["vints","Vaco interviews","rec full"],["subs","Submittals","rec full"],["cints","Client interviews","rec full"],["stc","Contract starts","sales rec full"],["stp","Perm starts","sales rec full"]];
+/* funnel stages: parts are input fields; a stage can be left out of the forecast */
+var ST={pros:{l:"Prospecting attempts",p:["pros"],r:"sales full",one:"prospecting attempt",many:"prospecting attempts"},
+ visits:{l:"Client visits",p:["von","vvi"],r:"sales full",one:"client visit",many:"client visits"},
+ jobs:{l:"Jobs written",p:["jobsc","jobsp"],r:"sales full",one:"job written",many:"jobs written"},
+ vints:{l:"Vaco interviews",p:["vints"],r:"rec full",one:"Vaco interview",many:"Vaco interviews"},
+ subs:{l:"Submittals",p:["subs"],r:"rec full",one:"submittal",many:"submittals"},
+ cints:{l:"Client interviews",p:["cints"],r:"sales rec full",one:"client interview",many:"client interviews"},
+ starts:{l:"Starts",p:["stc","stp"],r:"sales rec full",one:"start",many:"starts"}};
+var PART={pros:"Prospecting attempts",von:"Client visits, in person",vvi:"Client visits, virtual",jobsc:"Contract jobs written",jobsp:"Perm jobs written",vints:"Vaco interviews",subs:"Submittals",cints:"Client interviews"};
+var BR_A=["starts","cints","jobs","visits","pros"],BR_B=["starts","cints","subs","vints"];
+var MAX1={"pros>visits":1,"vints>subs":1,"subs>cints":1,"cints>starts":1,"jobs>starts":1,"subs>starts":1,"vints>cints":1};
 function isSt(k){return k==="stc"||k==="stp";}
-
+function sv(T,k){return ST[k].p.reduce(function(a,f){return a+(OPT[f]?0:T[f]);},0);}
+function active(T,k){return k==="starts"||(mine(ST[k].r)&&!ST[k].p.every(function(f){return OPT[f];})&&sv(T,k)>0);}
+function branches(){return role==="sales"?[BR_A]:role==="rec"?[BR_B]:[BR_A,BR_B];}
+function chainOf(T,br){return br.filter(function(k){return active(T,k);});}
+function pairs(T){var seen={},out=[];branches().forEach(function(br){var c=chainOf(T,br);for(var i=c.length-2;i>=0;i--){var up=c[i+1],dn=c[i],key=up+">"+dn;if(!seen[key]){seen[key]=1;out.push({key:key,up:up,dn:dn,cur:div(sv(T,dn),sv(T,up))});}}});return out.filter(function(x){return x.dn!=="starts";}).concat(out.filter(function(x){return x.dn==="starts";}));}
+function cvOf(T,pr){var o=OV[pr.key];return o!=null&&o>0?o:pr.cur;}
 function num(v){v=String(v==null?"":v).replace(/[^0-9.\-]/g,"");var n=parseFloat(v);return isFinite(n)?n:0;}
 function usd(v){return (v<0?"-":"")+"$"+Math.round(Math.abs(v)).toLocaleString("en-US");}
 function k$(v){return v>=1e6?"$"+(v/1e6).toFixed(2).replace(/0$/,"")+"M":usd(v);}
@@ -420,23 +451,31 @@ function convert(to){var W=totW(),m=to==="tot"?W:1/W,v;
  STK.forEach(function(k){var x=$(k);if(x.value.trim()!=="")x.value=to==="tot"?Math.round(num(x.value)*12/52*W)+"":fmtD(num(x.value)/W*52/12);});
  AVGK.forEach(function(k){var x=$(k);if(x.value.trim()!=="")x.value=to==="tot"?Math.round(num(x.value)*W)+"":fmtD(num(x.value)/W);});}
 
-function read(){var T={};FIELDS.forEach(function(k){T[k]=Math.max(num($(k).value),0);});if(inm==="tot"){var W=totW();MONK.concat(STK,AVGK).forEach(function(k){T[k]=T[k]/W;});}else{STK.forEach(function(k){T[k]=T[k]*12/52;});}T.gm=T.gmc+T.gmp;T.starts=T.stc+T.stp;T.visits=T.von+T.vvi;T.startsmo=T.starts*52/12;return T;}
-function ratios(T){return {jpv:div(T.jobs,T.visits),fpj:div(T.starts,T.jobs),spj:div(T.subs,T.jobs),v2s:div(T.subs,T.vints),s2c:div(T.cints,T.subs),c2s:div(T.starts,T.cints),gps:div(T.gm,T.starts),gpsc:div(T.gmc,T.stc),gpsp:div(T.gmp,T.stp)};}
-function eff(T){var r=ratios(T),o={};RAT.forEach(function(x){var k=x[0],v=OV[k];o[k]=(v!=null&&v>0)?v:r[k];if(x[2]==="%")o[k]=Math.min(o[k],1);});
+function read(){var T={};FIELDS.forEach(function(k){T[k]=Math.max(num($(k).value),0);});if(inm==="tot"){var W=totW();MONK.concat(STK,AVGK).forEach(function(k){T[k]=T[k]/W;});}else{STK.forEach(function(k){T[k]=T[k]*12/52;});}T.gm=T.gmc+T.gmp;T.starts=T.stc+T.stp;T.visits=T.von+T.vvi;T.jobs=T.jobsc+T.jobsp;T.startsmo=T.starts*52/12;return T;}
+function ratios(T){return {gps:div(T.gm,T.starts),gpsc:div(T.gmc,T.stc),gpsp:div(T.gmp,T.stp)};}
+function eff(T){var r=ratios(T),o={gpsc:OV.gpsc>0?OV.gpsc:r.gpsc,gpsp:OV.gpsp>0?OV.gpsp:r.gpsp};
  if(!(o.gpsc>0)&&T.gmc>0)o.gpsc=r.gps;if(!(o.gpsp>0)&&T.gmp>0)o.gpsp=r.gps;o.cmix=T.starts>0?T.stc/T.starts:(T.gm>0?T.gmc/T.gm:1);o.gps=o.cmix*(o.gpsc||0)+(1-o.cmix)*(o.gpsp||0);return o;}
-function need(gc,gp,e){
- var sc=gc>0?(e.gpsc>0?ceil(gc/e.gpsc):NaN):0,sp=gp>0?(e.gpsp>0?ceil(gp/e.gpsp):NaN):0,s=sc+sp,ci=e.c2s>0?ceil(s/e.c2s):NaN,sb=e.s2c>0?ceil(ci/e.s2c):NaN,vi=e.v2s>0?ceil(sb/e.v2s):NaN;
- var vis=function(j){return e.jpv>0&&!isNaN(j)?ceil(j/e.jpv):NaN;};
- if(role==="sales"){var js=e.fpj>0?ceil(s/e.fpj):NaN;return {starts:s,stc:sc,stp:sp,jobs:js,visits:vis(js)};}
- if(role==="rec")return {starts:s,stc:sc,stp:sp,cints:ci,subs:sb,vints:vi};
- var jf=e.spj>0?ceil(sb/e.spj):NaN;return {starts:s,stc:sc,stp:sp,cints:ci,subs:sb,vints:vi,jobs:jf,visits:vis(jf)};}
-function fwdStarts(T,e,f){return role==="sales"?T.visits*f*e.jpv*e.fpj:T.vints*f*e.v2s*e.s2c*e.c2s;}
-
-function fmtR(t,v){return t==="%"?(Math.round(v*1000)/10)+"%":t==="$"?usd(v):(Math.round(v*100)/100)+"";}
-function drawOvr(T){var r=ratios(T),h="";
- RAT.forEach(function(x){if(!mine(x[3]))return;var k=x[0],t=x[2],v=OV[k],cur=r[k];
-  var shown=v==null?"":(t==="%"?Math.round(v*1000)/10:t==="$"?Math.round(v).toLocaleString("en-US"):Math.round(v*100)/100);
-  h+='<div class="fld"><label for="ov_'+k+'">'+x[1]+' <i>now '+(cur?fmtR(t,cur):"&ndash;")+'</i></label><div class="box">'+(t==="$"?'<span>$</span>':'')+'<input id="ov_'+k+'" data-ov="'+k+'" inputmode="decimal" value="'+shown+'" placeholder="'+(cur?(t==="%"?Math.round(cur*1000)/10:t==="$"?Math.round(cur).toLocaleString("en-US"):Math.round(cur*100)/100):"")+'">'+(t==="%"?'<span class="suf">%</span>':'')+'</div></div>';});
+function need(T,gc,gp,e){
+ var sc=gc>0?(e.gpsc>0?ceil(gc/e.gpsc):NaN):0,sp=gp>0?(e.gpsp>0?ceil(gp/e.gpsp):NaN):0,N={stc:sc,stp:sp,starts:sc+sp};
+ branches().forEach(function(br){var c=chainOf(T,br);for(var i=1;i<c.length;i++){var up=c[i],dn=c[i-1],cv=cvOf(T,{key:up+">"+dn,cur:div(sv(T,dn),sv(T,up))});if(N[up]==null)N[up]=cv>0&&!isNaN(N[dn])?ceil(N[dn]/cv):NaN;}});return N;}
+function topStage(T){var br=role==="rec"?BR_B:BR_A,c=chainOf(T,br),pref=role==="rec"?"vints":"visits";return c.indexOf(pref)>-1?pref:(c.length>1?c[c.length-1]:"starts");}
+function fwdStartsYr(T){var br=role==="rec"?BR_B:BR_A,c=chainOf(T,br),top=c[c.length-1],v=sv(T,top)*52;if(top==="starts")return T.starts*52;for(var i=c.length-1;i>0;i--){v*=cvOf(T,{key:c[i]+">"+c[i-1],cur:div(sv(T,c[i-1]),sv(T,c[i]))});}return v;}
+function cvTxt(T,pr,v){if(!(v>0))return {big:"&ndash;",sm:"Not enough data"};var u=ST[pr.up],d=ST[pr.dn];
+ if(v<0.995)return {big:(Math.round(v*1000)/10)+"%",sm:"1 in "+(+(1/v).toFixed(1))+" "+u.many+" becomes a "+d.one};
+ return {big:(+v.toFixed(2))+"",sm:d.many.charAt(0).toUpperCase()+d.many.slice(1)+" per "+u.one};}
+function drawConv(T){var P=pairs(T),h="";
+ P.forEach(function(pr){var v=cvOf(T,pr),t=cvTxt(T,pr,v),o=OV[pr.key]!=null&&OV[pr.key]>0;h+='<div class="cv'+(o?" ov":"")+'"><span>'+ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco")+(o?' &middot; your 2027 rate':'')+'</span><b>'+t.big+'</b><small>'+t.sm+(o?' (now '+cvTxt(T,pr,pr.cur).big+')':'')+'</small></div>';});
+ if(mine("sales full")){if(!OPT.jobsc&&T.jobsc>0)h+='<div class="cv"><span>Contract fill rate</span><b>'+(Math.round(div(T.stc,T.jobsc)*1000)/10)+'%</b><small>Contract jobs written that start</small></div>';
+  if(!OPT.jobsp&&T.jobsp>0)h+='<div class="cv"><span>Perm fill rate</span><b>'+(Math.round(div(T.stp,T.jobsp)*1000)/10)+'%</b><small>Perm jobs written that start</small></div>';}
+ $("conv").innerHTML=h?'<div class="ah">Your conversion rates</div><div class="cvg">'+h+'</div>':"";
+ var out=P.map(function(pr){var v=cvOf(T,pr),t=cvTxt(T,pr,v),n=cvTxt(T,pr,pr.cur);return {l:ST[pr.up].l+" \u2192 "+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),now:n.big,big:t.big,sm:t.sm,chg:OV[pr.key]!=null&&OV[pr.key]>0};});
+ if(mine("sales full")){var fc=Math.round(div(T.stc,T.jobsc)*1000)/10+"%",fp=Math.round(div(T.stp,T.jobsp)*1000)/10+"%";if(!OPT.jobsc&&T.jobsc>0)out.push({l:"Contract fill rate (contract jobs \u2192 contract starts)",now:fc,big:fc,sm:"Contract jobs written that start",chg:false});if(!OPT.jobsp&&T.jobsp>0)out.push({l:"Perm fill rate (perm jobs \u2192 perm starts)",now:fp,big:fp,sm:"Perm jobs written that start",chg:false});}
+ var r=ratios(T),e=eff(T);[["gpsc","GM per contract start"],["gpsp","GM per perm start"]].forEach(function(x){if(r[x[0]]||e[x[0]])out.push({l:x[1],now:r[x[0]]?usd(r[x[0]]):"&ndash;",big:e[x[0]]?usd(e[x[0]]):"&ndash;",sm:"Average GM each start brings in",chg:OV[x[0]]>0});});
+ return out;}
+function drawOvr(T){var h="",r=ratios(T);
+ pairs(T).forEach(function(pr){var pct=pr.cur<=1,v=OV[pr.key],shown=v==null?"":(pct?Math.round(v*1000)/10:Math.round(v*100)/100),ph=pr.cur>0?(pct?Math.round(pr.cur*1000)/10:Math.round(pr.cur*100)/100):"";
+  h+='<div class="fld"><label for="ov_'+pr.key+'">'+ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco")+' <i>now '+cvTxt(T,pr,pr.cur).big+'</i></label><div class="box"><input id="ov_'+pr.key+'" data-ov="'+pr.key+'" data-pct="'+(pct?1:0)+'" inputmode="decimal" value="'+shown+'" placeholder="'+ph+'">'+(pct?'<span class="suf">%</span>':'<span class="suf">per '+ST[pr.up].one+'</span>')+'</div></div>';});
+ [["gpsc","GM per contract start"],["gpsp","GM per perm start"]].forEach(function(x){var v=OV[x[0]],cur=r[x[0]];h+='<div class="fld"><label for="ov_'+x[0]+'">'+x[1]+' <i>now '+(cur?usd(cur):"&ndash;")+'</i></label><div class="box"><span>$</span><input id="ov_'+x[0]+'" data-ov="'+x[0]+'" data-pct="0" inputmode="decimal" value="'+(v==null?"":Math.round(v).toLocaleString("en-US"))+'" placeholder="'+(cur?Math.round(cur).toLocaleString("en-US"):"")+'"></div></div>';});
  $("ovr").innerHTML=h;}
 
 var PLAN="",PD=null,MB=null;
@@ -448,57 +487,64 @@ function render(){
  drawBookSum();var cmixG=T.gm>0?T.gmc/T.gm:1,GC=G*cmixG,GP=G-GC,BK=Math.min(bookGM(),G),NEWC=Math.max(GC-BK,0),NEWP=GP,NEW=NEWC+NEWP;
  $("goalOut").innerHTML=G?'<span>Your 2027 GM goal</span><span class="gv">'+usd(G)+'</span>'+(mode==="grow"&&pace?'<b>'+usd(pace)+'</b> run rate + <b>'+one(T.grow).replace(/\.0$/,"")+'%</b>. ':'')+'That&#8217;s <b>'+usd(G/52)+'</b> GM a week, or <b>'+usd(G/12)+'</b> a month'+(T.gm?' &mdash; about <b>'+usd(GC)+'</b> contract and <b>'+usd(GP)+'</b> perm at your current mix':'')+'.':(mode==="grow"?"Enter your GM in step 2.":"Type your 2027 GM goal.");
  $("perW").textContent=inm==="tot"?"("+one(totW())+" weeks)":"";
- var RR=function(l,y,sub){return '<div><span>'+l+'</span><b>'+y+'</b><small>'+sub+'</small></div>';};
+ var RR=function(l,y,sub,nf){return '<div><span>'+l+(nf?'<em class="nf">not in forecast</em>':'')+'</span><b>'+y+'</b><small>'+sub+'</small></div>';};
  $("avgs").innerHTML='<div class="ah">Your run rate'+(inm==="tot"?' &middot; from '+one(totW())+' weeks of numbers':'')+'</div><div class="ag"><div class="rr"><span>Total GM</span><b>'+usd(T.gm*52)+'</b><small>a year &middot; '+usd(T.gm)+' a week &middot; '+usd(T.gm*52/12)+' a month</small></div>'+
   RR("Contract GM",usd(T.gmc*52),"a year &middot; "+usd(T.gmc)+" a week")+RR("Perm GM",usd(T.gmp*52),"a year &middot; "+usd(T.gmp)+" a week")+
   RR("Contract starts",one(T.stc*52),"a year &middot; "+one(T.stc*52/12)+" a month")+RR("Perm starts",one(T.stp*52),"a year &middot; "+one(T.stp*52/12)+" a month")+
-  (mine("sales full")?RR("Client visits, in person",Math.round(T.von*52).toLocaleString("en-US"),"a year &middot; "+one(T.von)+" a week")+RR("Client visits, virtual",Math.round(T.vvi*52).toLocaleString("en-US"),"a year &middot; "+one(T.vvi)+" a week"):"")+
-  ACT.filter(function(a){return a[0]!=="visits"&&!isSt(a[0])&&mine(a[2]);}).map(function(a){return RR(a[1],Math.round(T[a[0]]*52).toLocaleString("en-US"),"a year &middot; "+one(T[a[0]])+" a week");}).join("")+'</div>';
+  Object.keys(PART).filter(function(f){var st=Object.keys(ST).filter(function(k){return ST[k].p.indexOf(f)>-1;})[0];return mine(ST[st].r);}).map(function(f){return RR(PART[f],Math.round(T[f]*52).toLocaleString("en-US"),"a year &middot; "+one(T[f])+" a week",OPT[f]);}).join("")+'</div>';
  $("calc").innerHTML='<span>Run rate: <b>'+usd(pace)+'</b> GM a year</span><span>GM per contract start: <b>'+(r.gpsc?usd(r.gpsc):"&ndash;")+'</b></span><span>GM per perm start: <b>'+(r.gpsp?usd(r.gpsp):"&ndash;")+'</b></span>';
+ var CONV=drawConv(T);
+ var MET=[["Contract GM",T.gmc,"$"],["Perm GM",T.gmp,"$"],["Total GM",T.gm,"$"],["Contract starts",T.stc,"m"],["Perm starts",T.stp,"m"]].map(function(x){return {l:x[0],wk:x[2]==="$"?usd(x[1]):one(x[1]*52/12),wkU:x[2]==="$"?"a week":"a month",yr:x[2]==="$"?usd(x[1]*52):one(x[1]*52),nf:false};}).concat(
+  Object.keys(PART).filter(function(f){var st=Object.keys(ST).filter(function(k){return ST[k].p.indexOf(f)>-1;})[0];return mine(ST[st].r);}).map(function(f){return {l:PART[f],wk:one(T[f]),wkU:"a week",yr:Math.round(T[f]*52).toLocaleString("en-US"),nf:!!OPT[f]};}));
  if(!document.activeElement||!document.activeElement.dataset||document.activeElement.dataset.ov==null)drawOvr(T);
  checkInputs(T);
 
  var missing=[];
  if(!G)missing.push(mode==="grow"?"your GM":"your 2027 GM goal");
  if(!(T.starts>0))missing.push("your starts");
- if(role!=="sales"&&!(T.vints&&T.subs&&T.cints))missing.push("your recruiting activity");
- if(role!=="rec"&&!(T.visits&&T.jobs))missing.push("your sales activity");
+ if(T.starts>0&&chainOf(T,role==="rec"?BR_B:BR_A).length<2)missing.push(role==="rec"?"your recruiting activity":"your sales activity");
 
  var chg=pace?(G-pace)/pace:0;
  var h='<div class="lbl">Your '+YEAR+' GM goal</div><div class="goal">'+usd(G)+' </div>';
  if(pace&&G)h+='<span class="delta '+(chg>=0?"up":"dn")+'">'+(chg>=0?"&#9650; +":"&#9660; &minus;")+Math.abs(chg*100).toFixed(0)+'% vs your run rate of '+k$(pace)+'</span>';
  if(BK)h+='<div class="split"><div><span>From your current book</span><b>'+usd(BK)+'</b></div><i>+</i><div><span>New GM to win</span><b>'+usd(NEW)+'</b></div></div>';
  if(missing.length){h+='<div class="verdict">Add '+missing.join(", ").replace(/, ([^,]*)$/," and $1")+' to see your plan.</div>';$("res").innerHTML=h;$("rows").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your weekly plan appears here.</div>';$("yr").innerHTML="";$("fc").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your forecast appears here.</div>';$("focus").innerHTML="";MB=null;drawMbar();PLAN="";PD=null;return;}
- var N=need(NEWC,NEWP,e),sNow=fwdStarts(T,e,f),gNow=sNow*e.gps+BK,gap=G-gNow,more=sNow>0?(NEW/(sNow*e.gps)-1)*100:0;
- h+='<div class="verdict">'+(gap>1?'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> in '+YEAR+'. To close the <b>'+k$(gap)+'</b> gap you need about <b>'+Math.max(more,0).toFixed(0)+'% more activity</b> &mdash; or better ratios (fine-tune them in step 4).':'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> &mdash; that already <b>covers your goal</b>. Consider stretching it.')+'</div>';
+ var N=need(T,NEWC,NEWP,e),sY=fwdStartsYr(T),gNow=sY*e.gps+BK,gap=G-gNow,more=sY>0?(NEW/(sY*e.gps)-1)*100:0;
+ h+='<div class="verdict">'+(gap>1?'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> in '+YEAR+'. To close the <b>'+k$(gap)+'</b> gap you need about <b>'+Math.max(more,0).toFixed(0)+'% more activity</b> &mdash; or better conversion rates (fine-tune them in step 4).':'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> &mdash; that already <b>covers your goal</b>. Consider stretching it.')+'</div>';
  $("res").innerHTML=h;
 
- var A=ACT.filter(function(a){return mine(a[2]);}),top=role==="rec"?"vints":"visits",rows="",txt=[];
- A.forEach(function(a){var k=a[0],n=N[k],nw=T[k]/w,nd=n/52,c=nw>0?(nd-nw)/nw:0,tg=nw>0?(Math.abs(c)<.005?'<span class="tag eq">same</span>':'<span class="tag '+(c>0?"up":"dn")+'">'+(c>0?"+":"&minus;")+Math.abs(c*100).toFixed(0)+'%</span>'):"";
-  var isS=isSt(k),sp=k==="visits"&&T.visits>0&&!isNaN(n)?'<span class="sp">About '+one(nd*T.von/T.visits)+' in person + '+one(nd*T.vvi/T.visits)+' virtual a week</span>':'';
-  rows+='<div class="row'+(k===top?" hero":"")+'"><span class="nm">'+a[1]+tg+'</span><span class="nw">Now '+one(isS?nw*52/12:nw)+(isS?" a month":" a week")+'</span><span class="val"><b>'+(isNaN(n)?"&ndash;":one(isS?n/12:nd))+'</b><small>'+(isS?"a month":"a week")+'</small></span>'+sp+'</div>';
-  txt.push("- "+a[1]+": "+(isNaN(n)?"-":one(isS?n/12:nd))+(isS?" a month":" a week")+" (now "+one(isS?nw*52/12:nw)+")");});
- $("rows").innerHTML='<div class="rowsh">Every number, week by week</div>'+rows;
- var tn=N[top],tnw=T[top],topL=top==="visits"?"client visits":"Vaco interviews";
- $("focus").innerHTML='<div class="fl">Your one number</div><div class="fn"><b>'+(isNaN(tn)?"&ndash;":one(tn/52))+'</b><span>'+topL+' a week</span></div><div class="fs">'+(tnw>0?'You do '+one(tnw)+' now &mdash; '+(tn/52>tnw?'add '+one(tn/52-tnw)+' a week':'keep it there')+'.':'')+(top==="visits"&&T.visits>0&&!isNaN(tn)?' About '+one(tn/52*T.von/T.visits)+' in person + '+one(tn/52*T.vvi/T.visits)+' virtual.':'')+'</div>'+
+ var top=topStage(T),order=["pros","visits","jobs","vints","subs","cints"],LST=[];
+ order.forEach(function(k){if(!active(T,k)||N[k]==null)return;var parts=ST[k].p.filter(function(f){return !OPT[f];}),tot=sv(T,k),sub="";
+  if(parts.length>1&&tot>0&&!isNaN(N[k])){var nd=N[k]/52;sub=parts.map(function(f){return one(nd*T[f]/tot)+" "+(f==="von"?"in person":f==="vvi"?"virtual":f==="jobsc"?"contract":"perm");}).join(" + ");}
+  else if(parts.length===1&&ST[k].p.length>1)sub={von:"In person only",vvi:"Virtual only",jobsc:"Contract only",jobsp:"Perm only"}[parts[0]];
+  LST.push({k:k,l:ST[k].l,now:tot,need:N[k]/52,yr:N[k],unit:"a week",sub:sub});});
+ ["stc","stp"].forEach(function(k){LST.push({k:k,l:k==="stc"?"Contract starts":"Perm starts",now:T[k]*52/12,need:N[k]/12,yr:N[k],unit:"a month",sub:""});});
+ var rows="",txt=[];
+ LST.forEach(function(x){var c=x.now>0?(x.need-x.now)/x.now:0,tg=x.now>0&&!isNaN(x.need)?(Math.abs(c)<.005?'<span class="tag eq">same</span>':'<span class="tag '+(c>0?"up":"dn")+'">'+(c>0?"+":"&minus;")+Math.abs(c*100).toFixed(0)+'%</span>'):"";
+  rows+='<div class="row'+(x.k===top?" hero":"")+'"><span class="nm">'+x.l+tg+'</span><span class="nw">Now '+one(x.now)+' '+x.unit+'</span><span class="val"><b>'+(isNaN(x.need)?"&ndash;":one(x.need))+'</b><small>'+x.unit+'</small></span>'+(x.sub?'<span class="sp">'+(x.sub.indexOf(" only")>-1?x.sub:'About '+x.sub+' '+x.unit)+'</span>':'')+'</div>';
+  txt.push("- "+x.l+": "+(isNaN(x.need)?"-":one(x.need))+" "+x.unit+" (now "+one(x.now)+")"+(x.sub?" ["+x.sub+"]":""));});
+ var outs=Object.keys(PART).filter(function(f){return OPT[f];}).map(function(f){return PART[f];});
+ $("rows").innerHTML='<div class="rowsh">Every number, week by week</div>'+rows+(outs.length?'<p class="hint">Left out of your forecast: '+outs.join(", ")+'.</p>':'');
+ var tn=N[top],tnw=sv(T,top),topL=ST[top].many,tsub=(LST.filter(function(x){return x.k===top;})[0]||{}).sub;
+ $("focus").innerHTML='<div class="fl">Your one number</div><div class="fn"><b>'+(isNaN(tn)?"&ndash;":one(tn/52))+'</b><span>'+topL+' a week</span></div><div class="fs">'+(tnw>0?'You do '+one(tnw)+' now &mdash; '+(tn/52>tnw?'add '+one(tn/52-tnw)+' a week':'keep it there')+'.':'')+(tsub&&tsub.indexOf(" only")<0?' About '+tsub+'.':'')+'</div>'+
   '<div class="f2"><div><small>Contract starts</small><b>'+(isNaN(N.stc)?"&ndash;":one(N.stc/12))+'</b> <em>a month</em></div><div><small>Perm starts</small><b>'+(isNaN(N.stp)?"&ndash;":one(N.stp/12))+'</b> <em>a month</em></div></div>';
  MB={G:G,gap:G-T.gm*52,top:isNaN(tn)?"–":one(tn/52),topL:topL};drawMbar();
- $("yr").innerHTML='For all of '+YEAR+': '+A.map(function(a){var n=N[a[0]];return '<b>'+(isNaN(n)?"&ndash;":n.toLocaleString("en-US"))+'</b> '+a[1].toLowerCase().replace("vaco","Vaco");}).join(" &middot; ")+'. Rounded up &mdash; you can&#8217;t make half a placement.';
- var FC=forecast(T,G,BK,NEW,N,e,top);drawFC(FC);
- PD={FC:FC,GC:GC,GP:GP,gpsc:e.gpsc,gpsp:e.gpsp,G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
-  rows:A.map(function(a){var k=a[0],n=N[k],isS=isSt(k),nw=T[k];return {l:a[1]+(k==="visits"&&T.visits>0&&!isNaN(n)?' ('+one(n/52*T.von/T.visits)+' in person + '+one(n/52*T.vvi/T.visits)+' virtual)':''),hero:k===top,unit:isS?"a month":"a week",now:isS?nw*52/12:nw,need:isS?n/12:n/52,yr:n,nowYr:nw*52};}),
+ $("yr").innerHTML='For all of '+YEAR+': '+LST.map(function(x){return '<b>'+(isNaN(x.yr)?"&ndash;":x.yr.toLocaleString("en-US"))+'</b> '+x.l.toLowerCase().replace("vaco","Vaco");}).join(" &middot; ")+'. Rounded up &mdash; you can&#8217;t make half a placement.';
+ N.top=N[top];var FC=forecast(T,G,BK,NEW,N,e,"top",topL);drawFC(FC);
+ PD={CONV:CONV,MET:MET,RC:T.gmc*52,RP:T.gmp*52,NEWC:NEWC,NEWP:NEWP,cycle:branches().map(function(br){return chainOf(T,br).slice().reverse().map(function(k){return ST[k].l;}).join(" \u2192 ");}),FC:FC,GC:GC,GP:GP,gpsc:e.gpsc,gpsp:e.gpsp,G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
+  rows:LST.map(function(x){return {l:x.l+(x.sub?' ('+x.sub+')':''),hero:x.k===top,unit:x.unit,now:x.now,need:x.need,yr:x.yr};}),
   book:BOOK.map(function(c){var r=cRow(c);return {t:c.t||"(no name)",g:num(c.g),s:c.s===""||c.s==null?50:num(c.s),e:c.e,wk:r.wk,ny:r.ny};}),util:Math.round(util()*100)};
- PLAN="My "+YEAR+" goal: "+usd(G)+" GM"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my run rate)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my "+BOOK.length+" consultant"+(BOOK.length===1?"":"s")+" on billing: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per contract start: "+usd(e.gpsc||0)+" | GM per perm start: "+usd(e.gpsp||0)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\n"+YEAR+" by quarter (goal / run rate):\n"+FC.qs.map(function(q){return "- "+q.q+": "+usd(q.goal)+" / "+usd(q.rr);}).join("\n")+"\n"+FC.y+" year-end forecast: "+usd(FC.ye26)+"\n\nFor the year: "+A.map(function(a){var n=N[a[0]];return (isNaN(n)?"-":n.toLocaleString("en-US"))+" "+a[1].toLowerCase();}).join(", ");
- $("how").innerHTML='Your ratios come from your weekly averages'+(inm==="tot"?' (your totals &divide; '+one(totW())+' weeks)':'')+'; 2027 targets are spread over 52 weeks. Your book = each consultant&#8217;s GM per hour &times; 40 hours &times; utilization &times; your % on deal, for every week from Jan 1 to their end date (blank = all year); perm GM doesn&#8217;t carry over. Your goal splits contract / perm at your current GM mix; your book counts toward contract. Contract starts = new contract GM &divide; GM per contract start ('+usd(e.gpsc||0)+'); perm starts = perm GM &divide; GM per perm start ('+usd(e.gpsp||0)+'). '+(role==="sales"?'Jobs = starts &divide; share of jobs that start. ':'Client interviews = all starts &divide; client interview to start. Submittals = client interviews &divide; submittal to client interview. Vaco interviews = submittals &divide; Vaco interview to submittal. '+(role==="full"?'Jobs = submittals &divide; submittals per job. ':''))+(role!=="rec"?'Client visits = jobs &divide; jobs per visit.':'')+' Same math as the Next-year goal tab in the Commission &amp; GM Calculator.';
+ PLAN="My "+YEAR+" goal: "+usd(G)+" GM ("+usd(GC)+" contract + "+usd(GP)+" perm)"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my run rate)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my "+BOOK.length+" consultant"+(BOOK.length===1?"":"s")+" on billing: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per contract start: "+usd(e.gpsc||0)+" | GM per perm start: "+usd(e.gpsp||0)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\n"+YEAR+" by quarter (goal / run rate):\n"+FC.qs.map(function(q){return "- "+q.q+": "+usd(q.goal)+" / "+usd(q.rr);}).join("\n")+"\n"+FC.y+" year-end forecast: "+usd(FC.ye26)+"\n\nMy numbers today (average / run rate):\n"+MET.map(function(m){return "- "+m.l+": "+m.wk+" "+m.wkU+" / "+m.yr+" a year"+(m.nf?" (left out of forecast)":"");}).join("\n")+"\n\nConversion rates (today -> "+YEAR+" target):\n"+CONV.map(function(c){return "- "+c.l+": "+c.now.replace("&ndash;","-")+" -> "+c.big.replace("&ndash;","-");}).join("\n")+"\n\nFor the year: "+LST.map(function(x){return (isNaN(x.yr)?"-":x.yr.toLocaleString("en-US"))+" "+x.l.toLowerCase();}).join(", ");
+ $("how").innerHTML='Your run rate is your weekly averages'+(inm==="tot"?' (your totals &divide; '+one(totW())+' weeks)':'')+' &times; 52. Your goal splits contract / perm at your current GM mix, and your consultants on billing count toward contract (GM per hour &times; 40 &times; utilization &times; credit share, through each end date). Contract starts = new contract GM &divide; GM per contract start ('+usd(e.gpsc||0)+'); perm starts = perm GM &divide; GM per perm start ('+usd(e.gpsp||0)+'). Then we work back up your funnel one stage at a time, using your conversion rate between each stage: '+branches().map(function(br){return chainOf(T,br).map(function(k){return ST[k].l.toLowerCase().replace("vaco","Vaco");}).join(" &larr; ");}).join(" and ")+'. Any metric you leave out of the forecast is skipped and the rate jumps straight to the next stage. 2027 targets are spread over 52 weeks.';
  save();}
 
-function checkInputs(T){var W=[],F={},rec=mine("rec full"),sal=mine("sales full");
+function checkInputs(T){var W=[],F={};
  function add(msg,ids,bad){W.push('<div class="warn2'+(bad?" bad":"")+'"><i>!</i><span>'+msg+'</span></div>');ids.forEach(function(i){F[i]=1;});}
- if(rec&&T.subs>0&&T.cints>T.subs)add("More client interviews than submittals &mdash; check both numbers. Every client interview should come from a submittal.",["cints","subs"],1);
- if(rec&&T.vints>0&&T.subs>T.vints)add("More submittals than Vaco interviews &mdash; double-check. Most desks interview 2&ndash;3 people for every submittal.",["subs","vints"],1);
- if(rec&&T.cints>0&&T.starts>T.cints)add("More starts than client interviews &mdash; check your starts and client interviews.",["stc","stp","cints"],1);
- if(sal&&T.jobs>0&&T.starts>T.jobs)add("More starts than jobs written &mdash; check your jobs written.",["jobs","stc","stp"],1);
- if(sal&&T.visits>0&&T.jobs/T.visits>5)add("Over 5 jobs written per client visit &mdash; is a visit count missing?",["von","vvi","jobs"]);
+ pairs(T).forEach(function(pr){var u=sv(T,pr.up),d=sv(T,pr.dn),ids=ST[pr.up].p.concat(ST[pr.dn].p).filter(function(f){return !OPT[f];});
+  if(MAX1[pr.key]&&u>0&&d>u)add("More "+ST[pr.dn].many+" than "+ST[pr.up].many+" &mdash; check both numbers.",ids,1);
+  if(pr.key==="visits>jobs"&&u>0&&d/u>5)add("Over 5 jobs written per client visit &mdash; is a visit count missing?",ids);
+  if(pr.key==="pros>visits"&&u>0&&d/u>0.8)add("Most prospecting attempts turning into visits is unusual &mdash; double-check your attempts.",ids);});
+ if(mine("sales full")){if(!OPT.jobsc&&T.jobsc>0&&T.stc>T.jobsc)add("More contract starts than contract jobs written &mdash; check both.",["stc","jobsc"],1);if(!OPT.jobsp&&T.jobsp>0&&T.stp>T.jobsp)add("More perm starts than perm jobs written &mdash; check both.",["stp","jobsp"],1);}
  if(T.gmc>0&&!(T.stc>0))add("Contract GM but no contract starts &mdash; we&#8217;ll use your overall GM per start for contract. Add your contract starts for a sharper plan.",["stc"]);
  if(T.gmp>0&&!(T.stp>0))add("Perm GM but no perm starts &mdash; we&#8217;ll use your overall GM per start for perm. Add your perm starts.",["stp"]);
  if(T.stp>0&&!(T.gmp>0))add("Perm starts but no perm GM &mdash; add your perm GM or perm won&#8217;t show up in your goal.",["gmp"],1);
@@ -509,7 +555,7 @@ function checkInputs(T){var W=[],F={},rec=mine("rec full"),sal=mine("sales full"
  if(gp>150000)add("GM per perm start is "+usd(gp)+" &mdash; is a perm start missing?",["gmp","stp"]);
  $("warns").innerHTML=W.join("");
  EXK.forEach(function(k){var bx=$(k).closest(".box");if(bx)bx.classList.toggle("flag",!!F[k]);});}
-function forecast(T,G,BK,NEW,N,e,top){
+function forecast(T,G,BK,NEW,N,e,top,topL){
  var t=new Date(),y=t.getFullYear(),ye=new Date(y,11,31),t0=new Date(y,t.getMonth(),t.getDate()),left=Math.max(52-Math.min((Math.round((t0-new Date(y,0,1))/864e5)+1)/7,52),0),ytdMode=inm==="tot"&&per==="ytd";
  var so=ytdMode?T.gm*totW():T.gm*(52-left),ye26=so+T.gm*left,st26=T.starts*52;
  var Q=[["Q1","Jan&ndash;Mar",0],["Q2","Apr&ndash;Jun",3],["Q3","Jul&ndash;Sep",6],["Q4","Oct&ndash;Dec",9]],cumR=0,cumG=0;
@@ -519,7 +565,7 @@ function forecast(T,G,BK,NEW,N,e,top){
  var sc=BK>0?BK/(bookGM()||1):0,mc=0,mr=0,ms=[{m:0,g:0,r:0}];
  for(var mi=0;mi<12;mi++){var m0=new Date(YEAR,mi,1),m1=new Date(YEAR,mi+1,0),dm=(Math.round((m1-m0)/864e5)+1),bkm=BOOK.reduce(function(a,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<m1?end:m1;return a+(last<m0?0:r.wk*(Math.round((last-m0)/864e5)+1)/7);},0);
   mc+=bkm*sc+NEW*dm/365;mr+=T.gm*52*dm/365;ms.push({m:mi+1,g:mc,r:mr});}
- return {ms:ms,ytdMode:ytdMode,so:so,left:left,ye26:ye26,st26:st26,y:y,qs:qs,topName:top==="visits"?"Client visits":"Vaco interviews",rr27:T.gm*52,G:G};}
+ return {ms:ms,ytdMode:ytdMode,so:so,left:left,ye26:ye26,st26:st26,y:y,qs:qs,topName:topL,rr27:T.gm*52,G:G};}
 function chartSVG(F,wid){var W=wid||360,H=200,L=44,R=50,T0=12,B=24,ms=F.ms,mx=Math.max(F.G,ms[12].g,ms[12].r)*1.06||1,
  x=function(m){return L+(W-L-R)*m/12;},y=function(v){return T0+(H-T0-B)*(1-v/mx);},st=Math.pow(10,Math.floor(Math.log10(mx/4))),stp=[1,2,2.5,5,10].map(function(k){return k*st;}).filter(function(v){return mx/v<=5;})[0]||st*10,
  lab=function(v){return v>=1e6?"$"+(+(v/1e6).toFixed(1))+"M":"$"+Math.round(v/1e3)+"K";},g="",pg=ms.map(function(p){return x(p.m)+","+y(p.g);}).join(" "),pr=ms.map(function(p){return x(p.m)+","+y(p.r);}).join(" ");
@@ -536,28 +582,30 @@ function drawFC(F){var h='<div class="fye"><span>'+F.y+' year-end forecast</span
  h+='<div class="chart">'+chartSVG(F)+'<div class="lg"><span><i style="background:#f26b21"></i>Your goal (cumulative)</span><span><i style="background:#1d5aa6"></i>At today&#8217;s run rate</span></div></div>';
  h+='<div class="fq h"><span></span><span>Goal</span><span>Run rate</span><span>Running total</span></div>';
  F.qs.forEach(function(q){var d=q.cumR-q.cumG,ok=d>=-1,pct=q.cumG>0?Math.min(q.cumR/q.cumG,1)*100:100;
-  h+='<div class="fq"><span class="q">'+q.q+'<small>'+q.m+'</small></span><span><b>'+k$(q.goal)+'</b><em>'+one(q.stc)+' contract + '+one(q.stp)+' perm starts'+(q.bk>1?' &middot; '+k$(q.bk)+' book':'')+'</em></span><span><b>'+k$(q.rr)+'</b><em>'+Math.round(q.top)+' '+F.topName.toLowerCase().replace("vaco","Vaco")+'</em></span><span class="'+(ok?"ok":"bh")+'">'+(ok?"+":"&minus;")+k$(Math.abs(d))+'<em>'+(ok?"ahead":"behind")+'</em><div class="fbar'+(ok?" ok":"")+'"><i style="width:'+pct.toFixed(0)+'%"></i></div></span></div>';});
+  h+='<div class="fq"><span class="q">'+q.q+'<small>'+q.m+'</small></span><span><b>'+k$(q.goal)+'</b><em>'+one(q.stc)+' contract + '+one(q.stp)+' perm starts'+(q.bk>1?' &middot; '+k$(q.bk)+' book':'')+'</em></span><span><b>'+k$(q.rr)+'</b><em>'+Math.round(q.top)+' '+F.topName+'</em></span><span class="'+(ok?"ok":"bh")+'">'+(ok?"+":"&minus;")+k$(Math.abs(d))+'<em>'+(ok?"ahead":"behind")+'</em><div class="fbar'+(ok?" ok":"")+'"><i style="width:'+pct.toFixed(0)+'%"></i></div></span></div>';});
  var last=F.qs[3],gap=F.G-F.rr27;
  h+='<p class="fsum">'+(gap>1?'Stay at today&#8217;s run rate and you finish '+YEAR+' around <b>'+usd(F.rr27)+'</b>, <b>'+usd(gap)+' short</b>. Your weekly plan above closes that gap.':'Today&#8217;s run rate alone gets you to about <b>'+usd(F.rr27)+'</b> &mdash; ahead of your goal.')+' "Goal" spreads your new GM evenly across the year and adds what your consultants bill in each quarter.</p>';
  $("fc").innerHTML=h;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state()));}catch(e){}}
-function state(){var s={ver:3,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,book:BOOK,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
-function apply(s){if(!s||s.ver!==3)return false;role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
+function state(){var s={ver:4,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,opt:OPT,book:BOOK,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
+function apply(s){if(!s||s.ver!==4)return false;OPT=s.opt||{};role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
 function load(){try{return apply(JSON.parse(localStorage.getItem(KEY)||"null"));}catch(e){return false;}}
 function isEx(){return !edited;}
-function sync(){[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===per);});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;});}
+function syncOpt(){[].forEach.call(document.querySelectorAll("[data-opt]"),function(b){var o=!!OPT[b.dataset.opt];b.classList.toggle("out",o);b.textContent=o?"Left out":"In forecast";b.setAttribute("aria-pressed",o?"false":"true");b.closest(".fld").classList.toggle("off",o);});}
+function sync(){syncOpt();[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===per);});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;});}
 function toast(t){var el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove("on");},1800);}
 
 $("role").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;role=b.dataset.v;sync();render();});
 $("inm").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||b.dataset.v===inm)return;convert(b.dataset.v);inm=b.dataset.v;sync();render();});
 $("per").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;per=b.dataset.v;if(per==="dates"&&!$("d1").value){var t=new Date();$("d1").value=t.getFullYear()+"-01-01";$("d2").value=t.toISOString().slice(0,10);}sync();render();});
+document.addEventListener("click",function(e){var b=e.target.closest("[data-opt]");if(!b)return;var k=b.dataset.opt;if(OPT[k])delete OPT[k];else OPT[k]=true;OV={};syncOpt();render();});
 $("mode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;mode=b.dataset.v;if(mode==="gm"){var T=read(),G=Math.round(T.gm*52*(1+T.grow/100)/1000)*1000;if(G)$("goal").value=G.toLocaleString("en-US");}sync();render();});
 $("quick").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;$("grow").value=b.dataset.g;sync();render();});
-document.addEventListener("input",function(e){var t=e.target;if(EXK.indexOf(t.id)>-1)edited=true;if(t.dataset.bf){var row=t.closest(".bkr"),i=+row.dataset.i;BOOK[i][t.dataset.bf]=t.value;row.querySelector(".bkc").innerHTML=cCell(BOOK[i]);render();return;}if(t.id==="util"){drawBook();}if(t.dataset.ov!=null){var k=t.dataset.ov,x=RAT.filter(function(r){return r[0]===k;})[0],v=num(t.value);OV[k]=t.value.trim()===""?null:(x[2]==="%"?v/100:v);}sync();render();});
+document.addEventListener("input",function(e){var t=e.target;if(EXK.indexOf(t.id)>-1)edited=true;if(t.dataset.bf){var row=t.closest(".bkr"),i=+row.dataset.i;BOOK[i][t.dataset.bf]=t.value;row.querySelector(".bkc").innerHTML=cCell(BOOK[i]);render();return;}if(t.id==="util"){drawBook();}if(t.dataset.ov!=null){var k=t.dataset.ov,v=num(t.value);OV[k]=t.value.trim()===""?null:(t.dataset.pct==="1"?v/100:v);}sync();render();});
 document.addEventListener("focusout",function(e){var t=e.target;if(t.dataset&&t.dataset.n!=null&&t.value.trim()!==""&&t.id!=="util")t.value=Math.round(num(t.value)).toLocaleString("en-US");if(t.dataset&&t.dataset.ov!=null)render();});
 document.addEventListener("focusin",function(e){var t=e.target;if(t.tagName==="INPUT"&&t.type!=="date")setTimeout(function(){try{t.select();}catch(x){}},0);});
 $("clearEx").addEventListener("click",function(){EXK.forEach(function(k){$(k).value="";});edited=true;$("exNote").hidden=true;render();$("gmc").focus();});
-$("reset").addEventListener("click",function(){FIELDS.forEach(function(k){$(k).value=EX[k];});role="full";mode="grow";OV={};BOOK=[];inm="avg";per="ytd";edited=false;$("d1").value="";$("d2").value="";convert("tot");inm="tot";drawBook();try{localStorage.removeItem(KEY);}catch(e){}sync();render();window.scrollTo({top:0,behavior:"smooth"});});
+$("reset").addEventListener("click",function(){FIELDS.forEach(function(k){$(k).value=EX[k];});role="full";mode="grow";OV={};OPT={};BOOK=[];inm="avg";per="ytd";edited=false;$("d1").value="";$("d2").value="";convert("tot");inm="tot";drawBook();try{localStorage.removeItem(KEY);}catch(e){}sync();render();window.scrollTo({top:0,behavior:"smooth"});});
 $("copy").addEventListener("click",function(){if(!PLAN){toast("Fill in steps 1–3 first");return;}var done=function(){toast("Plan copied");};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(PLAN).then(done,function(){fallback();});else fallback();function fallback(){var ta=document.createElement("textarea");ta.value=PLAN;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done();}catch(e){toast("Couldn’t copy");}ta.remove();}});
 $("addC").addEventListener("click",function(){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();render();var r=$("book").querySelectorAll(".bkr");r[r.length-1].querySelector("input").focus();});
 $("book").addEventListener("click",function(e){var sb=e.target.closest("[data-sh]");if(sb){var i=+sb.closest(".bkr").dataset.i,c=BOOK[i];if(sb.dataset.sh==="c"){c.cs=true;}else{c.cs=false;c.s=sb.dataset.sh;}drawBook();render();if(c.cs){var inp=$("book").querySelectorAll(".bkr")[i].querySelector(".shi input");inp.focus();}return;}var b=e.target.closest("[data-rm]");if(!b)return;BOOK.splice(+b.dataset.rm,1);drawBook();render();});
@@ -575,6 +623,12 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  '<div class="kp"><div class="o"><span>'+YEAR+' GM goal</span><b>'+usd(d.G)+'</b><small>'+(d.pace?(d.chg>=0?"+":"&minus;")+Math.abs(d.chg*100).toFixed(0)+'% vs run rate of '+usd(d.pace):'')+'</small></div>'+
  '<div><span>From current book</span><b>'+usd(d.BK)+'</b><small>'+d.book.length+' consultant'+(d.book.length===1?'':'s')+' on billing</small></div>'+
  '<div><span>New GM to win</span><b>'+usd(d.NEW)+'</b><small>'+usd(d.GC)+' contract &middot; '+usd(d.GP)+' perm goal</small></div></div><p style="font-size:12px;color:#5b6b82;margin:8px 0 0">GM per contract start '+usd(d.gpsc||0)+' &middot; GM per perm start '+usd(d.gpsp||0)+'</p>'+
+ 
+ '<h2>My '+YEAR+' GM goals</h2><table><tr><th></th><th class="n">Run rate today</th><th class="n">'+YEAR+' goal</th><th class="n">Growth</th><th class="n">From my book</th><th class="n">New GM to win</th></tr>'+
+ [["Contract",d.RC,d.GC,d.BK,d.NEWC],["Perm",d.RP,d.GP,0,d.NEWP],["Total",d.RC+d.RP,d.G,d.BK,d.NEW]].map(function(x,i){var g=x[1]>0?(x[2]-x[1])/x[1]:0;return '<tr'+(i===2?' class="h"':'')+'><td>'+x[0]+' GM</td><td class="n">'+usd(x[1])+'</td><td class="n"><b>'+usd(x[2])+'</b></td><td class="n">'+(x[1]>0?(g>=0?"+":"&minus;")+Math.abs(g*100).toFixed(0)+"%":"&ndash;")+'</td><td class="n">'+usd(x[3])+'</td><td class="n">'+usd(x[4])+'</td></tr>';}).join("")+'</table>'+
+ '<h2>My numbers today</h2><p style="font-size:12px;color:#5b6b82;margin:-2px 0 6px">My cycle: '+d.cycle.join(" &nbsp;|&nbsp; ")+'</p><table><tr><th>Metric</th><th class="n">Average</th><th class="n">Run rate (a year)</th></tr>'+
+ d.MET.map(function(m){return '<tr><td>'+m.l+(m.nf?' <span style="color:#5b6b82;font-size:11px">(left out of forecast)</span>':'')+'</td><td class="n">'+m.wk+' '+m.wkU+'</td><td class="n">'+m.yr+'</td></tr>';}).join("")+'</table>'+
+ (d.CONV&&d.CONV.length?'<h2>My conversion rates</h2><table><tr><th>Stage</th><th class="n">Today</th><th class="n">'+YEAR+' target</th><th>What it means</th></tr>'+d.CONV.map(function(c){return '<tr><td>'+c.l+'</td><td class="n">'+c.now+'</td><td class="n"><b>'+c.big+'</b>'+(c.chg?' <span class="up" style="font-size:11px">improved</span>':'')+'</td><td style="font-size:12px;color:#5b6b82">'+c.sm+'</td></tr>';}).join("")+'</table>':'')+
  '<h2>My weekly plan for '+YEAR+'</h2><table><tr><th>Activity</th><th class="n">Now</th><th class="n">'+YEAR+' target</th><th class="n">Change</th><th class="n">'+YEAR+' total</th></tr>'+
  d.rows.map(function(r){return '<tr'+(r.hero?' class="h"':'')+'><td>'+r.l+'</td><td class="n">'+one(r.now)+' '+r.unit+'</td><td class="n"><b>'+(isNaN(r.need)?"&ndash;":one(r.need))+'</b> '+r.unit+'</td><td class="n">'+pct(r.now,r.need)+'</td><td class="n">'+(isNaN(r.yr)?"&ndash;":r.yr.toLocaleString("en-US"))+'</td></tr>';}).join("")+'</table>'+
  '<div class="note">'+(d.gap>1?'At today&#8217;s activity I&#8217;d land near <b>'+usd(d.gNow)+'</b>. Closing the <b>'+usd(d.gap)+'</b> gap takes about <b>'+d.more.toFixed(0)+'% more activity</b> or better ratios.':'Today&#8217;s activity already covers this goal (about <b>'+usd(d.gNow)+'</b>).')+'</div>'+
