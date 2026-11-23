@@ -119,7 +119,7 @@ details.more .fields{margin-top:12px}
 .warn{background:#fdecea;color:var(--bad);border-radius:10px;padding:10px 12px;font-size:13px;font-weight:600}
 .how{font-size:12px;color:var(--muted);line-height:1.55}
 .how summary{cursor:pointer;font-weight:700;color:var(--blue)}
-.bkh,.bkr{display:grid;grid-template-columns:minmax(130px,1.6fr) minmax(90px,1fr) minmax(70px,.75fr) minmax(130px,1.1fr) minmax(100px,1fr) 30px;gap:8px;align-items:center}
+.bkh,.bkr{display:grid;grid-template-columns:minmax(130px,1.6fr) minmax(90px,1fr) minmax(160px,1.1fr) minmax(130px,1.1fr) minmax(100px,1fr) 30px;gap:8px;align-items:center}
 .bkh{font-size:11.5px;font-weight:700;color:var(--muted);padding:0 2px 6px}
 .bkh i{font-style:normal;font-weight:500}
 .bkr{padding:6px 0;border-top:1px solid var(--line)}
@@ -129,6 +129,10 @@ details.more .fields{margin-top:12px}
 .bkr .ml{display:none}
 .bkc b{display:block;font-family:var(--display);font-size:15px}
 .bkc small{font-size:11px;color:var(--muted)}
+.sh{display:flex;background:var(--tint);border-radius:10px;padding:3px;gap:2px}
+.sh button{flex:1;border:0;background:transparent;border-radius:8px;padding:7px 4px;font-weight:800;font-size:12.5px;color:var(--muted)}
+.sh button.on{background:#fff;color:#b5490f;box-shadow:0 1px 3px rgba(11,31,58,.15)}
+.shi{margin-top:4px}
 .rm{border:0;background:var(--tint);border-radius:50%;width:28px;height:28px;font-size:16px;line-height:1;color:var(--muted)}
 .rm:hover{background:#fdecea;color:var(--bad)}
 .empty{color:var(--muted);font-size:13px;padding:10px 0;border-top:1px solid var(--line)}
@@ -171,6 +175,23 @@ details.more .fields{margin-top:12px}
 .avgs .ag small{display:block;font-size:11px;color:var(--muted)}
 .avgs .ag .rr{grid-column:span 2}
 .avgs .ag .rr b{font-size:22px}
+.fc h3{font-family:var(--display);font-size:15px;margin:0 0 2px}
+.fye{background:var(--tint);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.fye span{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.fye b{font-family:var(--display);font-size:24px}
+.fye small{display:block;font-size:12px;color:var(--muted)}
+.fq{display:grid;grid-template-columns:52px 1fr 1fr 1fr;gap:6px;align-items:center;font-size:12.5px;padding:8px 0;border-top:1px solid var(--line)}
+.fq.h{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border-top:0;padding-top:0}
+.fq .q{font-family:var(--display);font-weight:800}
+.fq .q small{display:block;font-family:var(--body);font-weight:500;font-size:10.5px;color:var(--muted)}
+.fq b{font-weight:800}
+.fq em{display:block;font-style:normal;font-size:10.5px;color:var(--muted)}
+.fq .ok{color:var(--good);font-weight:800}
+.fq .bh{color:var(--bad);font-weight:800}
+.fbar{height:8px;border-radius:99px;background:var(--tint);overflow:hidden;margin-top:4px}
+.fbar i{display:block;height:100%;background:var(--orange);border-radius:99px}
+.fbar.ok i{background:var(--good)}
+.fsum{margin-top:10px;font-size:12.5px;line-height:1.5}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -254,7 +275,7 @@ footer a{color:var(--blue)}
   <section class="card">
     <h2><span class="step">4</span>Your consultants on billing <span class="opt">Optional</span></h2>
     <p class="sub">Contract consultants still billing on Jan 1 keep earning you GM in 2027 until their end date, so you need fewer new starts. Add each one.</p>
-    <div class="bkh"><span>Consultant name</span><span>GM per hour</span><span>% on deal</span><span>Expected end date <i>blank = all year</i></span><span>2027 GM</span><span></span></div>
+    <div class="bkh"><span>Consultant name</span><span>GM per hour</span><span>Credit share <i>% on deal</i></span><span>Expected end date <i>blank = all year</i></span><span>2027 GM</span><span></span></div>
     <div id="book"></div>
     <div class="bkf">
       <button type="button" class="add" id="addC">+ Add consultant</button>
@@ -280,6 +301,11 @@ footer a{color:var(--blue)}
     <div class="acts"><button class="btn" id="dl" type="button">&#8681; Download my 2027 plan</button><button class="btn o" id="print" type="button">Save as PDF</button><button class="btn o" id="copy" type="button">Copy</button></div>
     <div class="files"><span>Pick up later or on another computer:</span><button type="button" id="saveF">Save my numbers</button><button type="button" id="openF">Open saved numbers</button><input type="file" id="fileIn" accept=".json,application/json" hidden></div>
   </section>
+  <section class="card fc" id="fcCard">
+    <h3>Your auto-forecast</h3>
+    <p class="sub2">Built from your run rate &mdash; nothing to fill in.</p>
+    <div id="fc"></div>
+  </section>
   <details class="card how"><summary>How we work this out</summary><p id="how"></p></details>
 </aside>
 </div></div></main>
@@ -298,7 +324,7 @@ var EXK=["gmwk","startsmo","visits","jobs","vints","subs","cints"];
 var role="full",mode="grow",OV={},BOOK=[],inm="tot",per="ytd",edited=false;
 var Y0=new Date(YEAR,0,1),Y1=new Date(YEAR,11,31);
 function util(){return Math.min(Math.max(num($("util").value),0),100)/100;}
-function cRow(c){var sp=(c.s===""||c.s==null?100:num(c.s))/100,wkGM=num(c.g)*40*util()*sp,end=c.e?new Date(c.e+"T00:00:00"):null,last=end&&end<Y1?end:Y1,wks=last<Y0?0:Math.min((Math.round((last-Y0)/864e5)+1)/7,52);return {wk:wkGM,wks:wks,ny:wkGM*wks};}
+function cRow(c){var sp=(c.s===""||c.s==null?50:num(c.s))/100,wkGM=num(c.g)*40*util()*sp,end=c.e?new Date(c.e+"T00:00:00"):null,last=end&&end<Y1?end:Y1,wks=last<Y0?0:Math.min((Math.round((last-Y0)/864e5)+1)/7,52);return {wk:wkGM,wks:wks,ny:wkGM*wks};}
 function bookGM(){return BOOK.reduce(function(a,c){return a+cRow(c).ny;},0);}
 function cCell(c){var r=cRow(c);return '<b>'+usd(r.ny)+'</b><small>'+usd(r.wk)+'/wk'+(c.e?' &middot; '+one(r.wks)+' wks':' &middot; all year')+'</small>';}
 function drawBook(){
@@ -306,12 +332,12 @@ function drawBook(){
   return '<div class="bkr" data-i="'+i+'">'+
   '<div class="nmc"><span class="ml">Consultant name</span><div class="box"><input data-bf="t" value="'+esc(c.t||"")+'" placeholder="e.g., Jordan Smith" aria-label="Consultant name"></div></div>'+
   '<div><span class="ml">GM per hour</span><div class="box"><span>$</span><input data-bf="g" inputmode="decimal" value="'+esc(c.g||"")+'" placeholder="0" aria-label="GM per hour"><span class="suf">/hr</span></div></div>'+
-  '<div><span class="ml">% on deal</span><div class="box"><input data-bf="s" inputmode="decimal" value="'+esc(c.s==null?"100":c.s)+'" aria-label="Percent on deal"><span class="suf">%</span></div></div>'+
+  '<div class="shc"><span class="ml">Credit share (% on deal)</span><div class="sh" role="group" aria-label="Credit share">'+["25","50"].map(function(v){return '<button type="button" data-sh="'+v+'" class="'+(!c.cs&&String(c.s==null?"50":c.s)===v?"on":"")+'">'+v+'%</button>';}).join("")+'<button type="button" data-sh="c" class="'+(c.cs?"on":"")+'">Custom</button></div>'+(c.cs?'<div class="box shi"><input data-bf="s" inputmode="decimal" value="'+esc(c.s==null?"":c.s)+'" aria-label="Custom credit share"><span class="suf">%</span></div>':'')+'</div>'+
   '<div><span class="ml">Expected end date</span><div class="box"><input type="date" data-bf="e" value="'+esc(c.e||"")+'" aria-label="Expected end date"></div></div>'+
   '<div class="bkc">'+cCell(c)+'</div>'+
   '<button type="button" class="rm" data-rm="'+i+'" aria-label="Remove consultant">&times;</button></div>';}).join(""):'<div class="empty">No consultants added. Click <b>+ Add consultant</b> for each person on billing.</div>';}
 function drawBookSum(){var n=BOOK.length,t=bookGM(),wk=BOOK.reduce(function(a,c){return a+cRow(c).wk;},0),u=Math.round(util()*100),h=Math.round(40*util()*10)/10;
- $("utilH").innerHTML="At "+u+"% a consultant bills about <b>"+h+" of 40 hours a week</b> on average (holidays, PTO and gaps aren&#8217;t billed). GM per week = GM per hour &times; 40 &times; utilization &times; your % on deal.";
+ $("utilH").innerHTML="At "+u+"% a consultant bills about <b>"+h+" of 40 hours a week</b> on average (holidays, PTO and gaps aren&#8217;t billed). GM per week = GM per hour &times; 40 &times; utilization &times; your credit share.";
  $("bookSum").innerHTML=n?'<div><span>Consultants</span><b>'+n+'</b></div><div><span>Your GM per week today</span><b>'+usd(wk)+'</b></div><div><span>Carries into '+YEAR+'</span><b>'+usd(t)+'</b></div>':"";}
 var RAT=[
  ["jpv","Jobs written per client visit","x","sales full"],
@@ -381,7 +407,7 @@ function render(){
  var h='<div class="lbl">Your '+YEAR+' GM goal</div><div class="goal">'+usd(G)+' </div>';
  if(pace&&G)h+='<span class="delta '+(chg>=0?"up":"dn")+'">'+(chg>=0?"&#9650; +":"&#9660; &minus;")+Math.abs(chg*100).toFixed(0)+'% vs your run rate of '+k$(pace)+'</span>';
  if(BK)h+='<div class="split"><div><span>From your current book</span><b>'+usd(BK)+'</b></div><i>+</i><div><span>New GM to win</span><b>'+usd(NEW)+'</b></div></div>';
- if(missing.length){h+='<div class="verdict">Add '+missing.join(", ").replace(/, ([^,]*)$/," and $1")+' to see your plan.</div>';$("res").innerHTML=h;$("rows").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your weekly plan appears here.</div>';$("yr").innerHTML="";PLAN="";PD=null;return;}
+ if(missing.length){h+='<div class="verdict">Add '+missing.join(", ").replace(/, ([^,]*)$/," and $1")+' to see your plan.</div>';$("res").innerHTML=h;$("rows").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your weekly plan appears here.</div>';$("yr").innerHTML="";$("fc").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your forecast appears here.</div>';PLAN="";PD=null;return;}
  var N=need(NEW,e),sNow=fwdStarts(T,e,f),gNow=sNow*e.gps+BK,gap=G-gNow,more=sNow>0?(NEW/(sNow*e.gps)-1)*100:0;
  h+='<div class="verdict">'+(gap>1?'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> in '+YEAR+'. To close the <b>'+k$(gap)+'</b> gap you need about <b>'+Math.max(more,0).toFixed(0)+'% more activity</b> &mdash; or better ratios (fine-tune them in step 4).':'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> &mdash; that already <b>covers your goal</b>. Consider stretching it.')+'</div>';
  $("res").innerHTML=h;
@@ -393,13 +419,29 @@ function render(){
   txt.push("- "+a[1]+": "+(isNaN(n)?"-":one(isS?n/12:nd))+(isS?" a month":" a week")+" (now "+one(isS?nw*52/12:nw)+")");});
  $("rows").innerHTML=rows;
  $("yr").innerHTML='For all of '+YEAR+': '+A.map(function(a){var n=N[a[0]];return '<b>'+(isNaN(n)?"&ndash;":n.toLocaleString("en-US"))+'</b> '+a[1].toLowerCase().replace("vaco","Vaco");}).join(" &middot; ")+'. Rounded up &mdash; you can&#8217;t make half a placement.';
- PD={G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
+ var FC=forecast(T,G,BK,NEW,N,e,top);drawFC(FC);
+ PD={FC:FC,G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
   rows:A.map(function(a){var k=a[0],n=N[k],isS=k==="starts",nw=T[k];return {l:a[1],hero:k===top,unit:isS?"a month":"a week",now:isS?nw*52/12:nw,need:isS?n/12:n/52,yr:n,nowYr:nw*52};}),
-  book:BOOK.map(function(c){var r=cRow(c);return {t:c.t||"(no name)",g:num(c.g),s:c.s===""||c.s==null?100:num(c.s),e:c.e,wk:r.wk,ny:r.ny};}),util:Math.round(util()*100)};
- PLAN="My "+YEAR+" goal: "+usd(G)+" GM"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my run rate)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my "+BOOK.length+" consultant"+(BOOK.length===1?"":"s")+" on billing: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per start: "+usd(e.gps)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\nFor the year: "+A.map(function(a){var n=N[a[0]];return (isNaN(n)?"-":n.toLocaleString("en-US"))+" "+a[1].toLowerCase();}).join(", ");
+  book:BOOK.map(function(c){var r=cRow(c);return {t:c.t||"(no name)",g:num(c.g),s:c.s===""||c.s==null?50:num(c.s),e:c.e,wk:r.wk,ny:r.ny};}),util:Math.round(util()*100)};
+ PLAN="My "+YEAR+" goal: "+usd(G)+" GM"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my run rate)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my "+BOOK.length+" consultant"+(BOOK.length===1?"":"s")+" on billing: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per start: "+usd(e.gps)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\n"+YEAR+" by quarter (goal / run rate):\n"+FC.qs.map(function(q){return "- "+q.q+": "+usd(q.goal)+" / "+usd(q.rr);}).join("\n")+"\n"+FC.y+" year-end forecast: "+usd(FC.ye26)+"\n\nFor the year: "+A.map(function(a){var n=N[a[0]];return (isNaN(n)?"-":n.toLocaleString("en-US"))+" "+a[1].toLowerCase();}).join(", ");
  $("how").innerHTML='Your ratios come from your weekly averages'+(inm==="tot"?' (your totals &divide; '+one(totW())+' weeks)':'')+'; 2027 targets are spread over 52 weeks. Your book = each consultant&#8217;s GM per hour &times; 40 hours &times; utilization &times; your % on deal, for every week from Jan 1 to their end date (blank = all year); perm GM doesn&#8217;t carry over. Starts = new GM &divide; GM per start ('+usd(e.gps)+'). '+(role==="sales"?'Jobs = starts &divide; share of jobs that start. ':'Client interviews = starts &divide; client interview to start. Submittals = client interviews &divide; submittal to client interview. Vaco interviews = submittals &divide; Vaco interview to submittal. '+(role==="full"?'Jobs = submittals &divide; submittals per job. ':''))+(role!=="rec"?'Client visits = jobs &divide; jobs per visit.':'')+' Same math as the Next-year goal tab in the Commission &amp; GM Calculator.';
  save();}
 
+function forecast(T,G,BK,NEW,N,e,top){
+ var t=new Date(),y=t.getFullYear(),ye=new Date(y,11,31),t0=new Date(y,t.getMonth(),t.getDate()),left=Math.max(52-Math.min((Math.round((t0-new Date(y,0,1))/864e5)+1)/7,52),0),ytdMode=inm==="tot"&&per==="ytd";
+ var so=ytdMode?T.gm*totW():T.gm*(52-left),ye26=so+T.gm*left,st26=T.starts*52;
+ var Q=[["Q1","Jan&ndash;Mar",0],["Q2","Apr&ndash;Jun",3],["Q3","Jul&ndash;Sep",6],["Q4","Oct&ndash;Dec",9]],cumR=0,cumG=0;
+ var qs=Q.map(function(q){var qs0=new Date(YEAR,q[2],1),qe=new Date(YEAR,q[2]+3,0),bk=BOOK.reduce(function(a,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<qe?end:qe;var wks=last<qs0?0:(Math.round((last-qs0)/864e5)+1)/7;return a+r.wk*wks;},0);
+  var wq=(Math.round((qe-qs0)/864e5)+1)/7,rr=T.gm*wq,gl=(BK>0?Math.min(bk,BK*(bk/(bookGM()||1))):0)+NEW*wq/52;cumR+=rr;cumG+=gl;
+  return {q:q[0],m:q[1],bk:bk,goal:gl,rr:rr,cumR:cumR,cumG:cumG,starts:isNaN(N.starts)?NaN:N.starts*wq/52,top:isNaN(N[top])?NaN:N[top]*wq/52};});
+ return {ytdMode:ytdMode,so:so,left:left,ye26:ye26,st26:st26,y:y,qs:qs,topName:top==="visits"?"Client visits":"Vaco interviews",rr27:T.gm*52,G:G};}
+function drawFC(F){var h='<div class="fye"><span>'+F.y+' year-end forecast</span><b>'+usd(F.ye26)+'</b><small>'+(F.ytdMode?usd(F.so)+' so far + '+usd(F.ye26-F.so)+' over the '+one(F.left)+' weeks left, at your run rate':'Your run rate for a full year')+' &middot; about '+Math.round(F.st26)+' starts</small></div>';
+ h+='<div class="fq h"><span></span><span>Goal</span><span>Run rate</span><span>Running total</span></div>';
+ F.qs.forEach(function(q){var d=q.cumR-q.cumG,ok=d>=-1,pct=q.cumG>0?Math.min(q.cumR/q.cumG,1)*100:100;
+  h+='<div class="fq"><span class="q">'+q.q+'<small>'+q.m+'</small></span><span><b>'+k$(q.goal)+'</b><em>'+one(q.starts)+' starts'+(q.bk>1?' &middot; '+k$(q.bk)+' book':'')+'</em></span><span><b>'+k$(q.rr)+'</b><em>'+Math.round(q.top)+' '+F.topName.toLowerCase().replace("vaco","Vaco")+'</em></span><span class="'+(ok?"ok":"bh")+'">'+(ok?"+":"&minus;")+k$(Math.abs(d))+'<em>'+(ok?"ahead":"behind")+'</em><div class="fbar'+(ok?" ok":"")+'"><i style="width:'+pct.toFixed(0)+'%"></i></div></span></div>';});
+ var last=F.qs[3],gap=F.G-F.rr27;
+ h+='<p class="fsum">'+(gap>1?'Stay at today&#8217;s run rate and you finish '+YEAR+' around <b>'+usd(F.rr27)+'</b>, <b>'+usd(gap)+' short</b>. Your weekly plan above closes that gap.':'Today&#8217;s run rate alone gets you to about <b>'+usd(F.rr27)+'</b> &mdash; ahead of your goal.')+' "Goal" spreads your new GM evenly across the year and adds what your consultants bill in each quarter.</p>';
+ $("fc").innerHTML=h;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state()));}catch(e){}}
 function state(){var s={ver:2,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,book:BOOK,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
 function apply(s){if(!s||s.ver!==2)return false;role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
@@ -419,8 +461,8 @@ document.addEventListener("focusin",function(e){var t=e.target;if(t.tagName==="I
 $("clearEx").addEventListener("click",function(){EXK.forEach(function(k){$(k).value="";});edited=true;$("exNote").hidden=true;render();$("gmwk").focus();});
 $("reset").addEventListener("click",function(){FIELDS.forEach(function(k){$(k).value=EX[k];});role="full";mode="grow";OV={};BOOK=[];inm="avg";per="ytd";edited=false;$("d1").value="";$("d2").value="";convert("tot");inm="tot";drawBook();try{localStorage.removeItem(KEY);}catch(e){}sync();render();window.scrollTo({top:0,behavior:"smooth"});});
 $("copy").addEventListener("click",function(){if(!PLAN){toast("Fill in steps 1–3 first");return;}var done=function(){toast("Plan copied");};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(PLAN).then(done,function(){fallback();});else fallback();function fallback(){var ta=document.createElement("textarea");ta.value=PLAN;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done();}catch(e){toast("Couldn’t copy");}ta.remove();}});
-$("addC").addEventListener("click",function(){BOOK.push({t:"",g:"",s:"100",e:""});drawBook();render();var r=$("book").querySelectorAll(".bkr");r[r.length-1].querySelector("input").focus();});
-$("book").addEventListener("click",function(e){var b=e.target.closest("[data-rm]");if(!b)return;BOOK.splice(+b.dataset.rm,1);drawBook();render();});
+$("addC").addEventListener("click",function(){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();render();var r=$("book").querySelectorAll(".bkr");r[r.length-1].querySelector("input").focus();});
+$("book").addEventListener("click",function(e){var sb=e.target.closest("[data-sh]");if(sb){var i=+sb.closest(".bkr").dataset.i,c=BOOK[i];if(sb.dataset.sh==="c"){c.cs=true;}else{c.cs=false;c.s=sb.dataset.sh;}drawBook();render();if(c.cs){var inp=$("book").querySelectorAll(".bkr")[i].querySelector(".shi input");inp.focus();}return;}var b=e.target.closest("[data-rm]");if(!b)return;BOOK.splice(+b.dataset.rm,1);drawBook();render();});
 function slug(){var n=$("who").value.trim().replace(/[^A-Za-z0-9]+/g,"-").replace(/^-|-$/g,"");return n?"-"+n:"";}
 function dlFile(name,text,type){var a=document.createElement("a"),u=URL.createObjectURL(new Blob([text],{type:type}));a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove();},500);}
 function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"}),logo=document.querySelector(".band img").src,rl={sales:"Sales",rec:"Recruiter",full:"Full desk"}[d.role];
@@ -438,9 +480,11 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  '<h2>My weekly plan for '+YEAR+'</h2><table><tr><th>Activity</th><th class="n">Now</th><th class="n">'+YEAR+' target</th><th class="n">Change</th><th class="n">'+YEAR+' total</th></tr>'+
  d.rows.map(function(r){return '<tr'+(r.hero?' class="h"':'')+'><td>'+r.l+'</td><td class="n">'+one(r.now)+' '+r.unit+'</td><td class="n"><b>'+(isNaN(r.need)?"&ndash;":one(r.need))+'</b> '+r.unit+'</td><td class="n">'+pct(r.now,r.need)+'</td><td class="n">'+(isNaN(r.yr)?"&ndash;":r.yr.toLocaleString("en-US"))+'</td></tr>';}).join("")+'</table>'+
  '<div class="note">'+(d.gap>1?'At today&#8217;s activity I&#8217;d land near <b>'+usd(d.gNow)+'</b>. Closing the <b>'+usd(d.gap)+'</b> gap takes about <b>'+d.more.toFixed(0)+'% more activity</b> or better ratios.':'Today&#8217;s activity already covers this goal (about <b>'+usd(d.gNow)+'</b>).')+'</div>'+
- (d.book.length?'<h2>Consultants on billing carrying into '+YEAR+'</h2><table><tr><th>Consultant</th><th class="n">GM per hour</th><th class="n">% on deal</th><th class="n">Expected end</th><th class="n">GM per week</th><th class="n">'+YEAR+' GM</th></tr>'+
+ (d.book.length?'<h2>Consultants on billing carrying into '+YEAR+'</h2><table><tr><th>Consultant</th><th class="n">GM per hour</th><th class="n">Credit share</th><th class="n">Expected end</th><th class="n">GM per week</th><th class="n">'+YEAR+' GM</th></tr>'+
   d.book.map(function(c){return '<tr><td>'+esc(c.t)+'</td><td class="n">$'+c.g.toLocaleString("en-US")+'</td><td class="n">'+c.s+'%</td><td class="n">'+(c.e?new Date(c.e+"T00:00:00").toLocaleDateString("en-US"):"All year")+'</td><td class="n">'+usd(c.wk)+'</td><td class="n">'+usd(c.ny)+'</td></tr>';}).join("")+
   '<tr class="h"><td>Total</td><td></td><td></td><td></td><td class="n">'+usd(d.book.reduce(function(a,c){return a+c.wk;},0))+'</td><td class="n">'+usd(d.BK)+'</td></tr></table><p style="font-size:11px;color:#5b6b82">At '+d.util+'% utilization of a 40-hour week.</p>':'')+
+ '<h2>Auto-forecast</h2><div class="note" style="margin-top:0">'+d.FC.y+' year-end forecast: <b>'+usd(d.FC.ye26)+'</b> GM ('+(d.FC.ytdMode?usd(d.FC.so)+' so far + '+usd(d.FC.ye26-d.FC.so)+' over the '+one(d.FC.left)+' weeks left':'full-year run rate')+'). At today&#8217;s run rate '+YEAR+' lands near <b>'+usd(d.FC.rr27)+'</b>.</div>'+
+ '<table><tr><th>Quarter</th><th class="n">Goal GM</th><th class="n">Starts needed</th><th class="n">GM at run rate</th><th class="n">Running ahead / behind</th></tr>'+d.FC.qs.map(function(q){var x=q.cumR-q.cumG;return '<tr><td>'+q.q+' '+YEAR+'</td><td class="n">'+usd(q.goal)+'</td><td class="n">'+one(q.starts)+'</td><td class="n">'+usd(q.rr)+'</td><td class="n"><span class="'+(x>=-1?"dn":"up")+'">'+(x>=-1?"+":"&minus;")+usd(Math.abs(x))+'</span></td></tr>';}).join("")+'</table>'+
  '<div class="sig"><div>Producer</div><div>Leader</div></div></div>'+
  '<div class="ft">Vaco by Highspring &middot; '+YEAR+' goal setting &middot; vacobyhighspring.github.io/solutions/goal-2027/</div></div></body></html>';
  return h;}
