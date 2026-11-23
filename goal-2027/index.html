@@ -18,7 +18,7 @@ button,input{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 [hidden]{display:none!important}
-.inner{max-width:1120px;margin:0 auto;padding:0 16px}
+.inner{max-width:1360px;margin:0 auto;padding:0 20px}
 
 .band{background:var(--band);color:#fff;padding:16px 0 18px}
 .band-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -32,7 +32,7 @@ h1 span{color:var(--orange)}
 .ghost:hover{background:rgba(255,255,255,.08)}
 
 main{padding:16px 0 40px}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:14px;align-items:start}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;align-items:start}
 .side{position:sticky;top:14px;display:flex;flex-direction:column;gap:12px}
 @media (max-width:920px){.grid{grid-template-columns:1fr}.side{position:static}}
 .left{display:flex;flex-direction:column;gap:12px}
@@ -300,6 +300,26 @@ details.more .fields{margin-top:12px}
 .lev.best .ll::after{content:"Easiest";margin-left:6px;font-size:10px;font-weight:800;background:#e1f3ea;color:var(--good);border-radius:999px;padding:1px 7px}
 .wfoot{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:8px;font-size:12px;color:var(--muted)}
 .wfoot button{background:none;border:0;padding:0;color:var(--blue);font-weight:700;text-decoration:underline;font-size:12px}
+.fgrid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:4px}
+.fgrid.two{grid-template-columns:1fr 1fr}
+@media (max-width:760px){.fgrid.two{grid-template-columns:1fr}}
+.ftab{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ftab table{width:100%;border-collapse:collapse;font-size:13px}
+.ftab th{background:var(--tint);text-align:left;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:9px 12px}
+.ftab th.n{text-align:right}
+.ftab th.p{color:#b5490f;background:var(--orange-soft)}
+.ftab td{padding:7px 12px;border-top:1px solid var(--tint)}
+.ftab td i{display:inline-block;width:18px;font-style:normal;font-weight:800;color:var(--muted)}
+.ftab td span{color:var(--muted);font-size:11.5px}
+.ftab td.n{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ftab td.p{background:#fffaf6}
+.ftab td.up{background:var(--orange-soft);color:#b5490f}
+.ftab tr.fa td{font-weight:700;background:#f6f8fc}
+.ftab tr.fa td.p{background:#fff1e7}
+.ftab tr.fs td{background:#eef8f2;font-weight:700}
+.ftab tr.fr td{background:var(--band);color:#fff;font-weight:800;font-size:14px}
+.ftab tr.fr td i{color:#9fb0c8}
+.ftab tr.fr td.p{background:var(--orange)}
 .fx{display:grid;grid-template-columns:72px 1fr;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
 .fx .fl2{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .fx.y .fl2{color:#b5490f}
@@ -734,15 +754,22 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
  /* ---------- the formula ---------- */
  var GP=gamePlan(T,e,B.NEWC,B.NEWP,NEW,BK,G,B);W.GP=GP;
  var h=drawGP(GP)+'<h3>Your formula</h3><p class="sub2">Activity &times; your conversion at every step &times; GM per start = your GM. Better conversion anywhere in the chain means less activity for the same result.</p>';
+ var FT=[];
  branches().forEach(function(br,bi){var c=chainOf(T,br);if(c.length<2)return;var tp=c[c.length-1],steps=[];for(var i=c.length-1;i>0;i--)steps.push({key:c[i]+">"+c[i-1],up:c[i],dn:c[i-1],cur:div(sv(T,c[i-1]),sv(T,c[i]))});
-  function line(lbl,act,useOv,gps,cls){var v=act,t='<div class="fx'+(cls?" "+cls:"")+'"><span class="fl2">'+lbl+'</span><div class="ft"><span class="tile a"><b>'+one(act)+'</b><small>'+ST[tp].many+' / wk</small></span>',txt=one(act)+" "+ST[tp].many+"/wk";
-   steps.forEach(function(st){var r=useOv?cvOf(T,st):st.cur,imp=useOv&&OV[st.key]>0;v*=r;t+='<i>&times;</i><span class="tile'+(imp?" up":"")+'"><b>'+fmtF(T,st,r)+'</b><small>'+(isPct(st.key)?'to '+ST[st.dn].many:ST[st.dn].many+' per '+ST[st.up].one)+'</small></span>';txt+=" x "+fmtF(T,st,r);});
-   t+='<i>=</i><span class="tile s"><b>'+(+v.toFixed(2))+'</b><small>starts / wk</small></span><i>&times;</i><span class="tile'+(useOv&&(OV.gpsc>0||OV.gpsp>0)?" up":"")+'"><b>'+k$(gps)+'</b><small>GM per start</small></span><i>&times; 52 =</i><span class="tile r"><b>'+k$(v*gps*52)+'</b><small>GM a year</small></span></div></div>';
-   txt+=" = "+(+v.toFixed(2))+" starts/wk x "+usd(gps)+" x 52 = "+usd(v*gps*52);return {h:t,txt:txt};}
-  var prod=steps.reduce(function(a,st){return a*cvOf(T,st);},1),a27=prod>0&&e.gps>0?NEW/52/e.gps/prod:0;var L1=line("Today",sv(T,tp),false,B.e.gps),L2=line(YEAR+" plan",a27,true,e.gps,"y");
-  h+=(branches().length>1?'<div class="fbr">'+(bi===0?"Sales cycle":"Recruiting cycle")+'</div>':'')+L1.h+L2.h;
-  W.f.push({br:branches().length>1?(bi===0?"Sales cycle":"Recruiting cycle"):"",today:L1.txt,plan:L2.txt});});
- h+='<p class="fbk">'+YEAR+' plan = the new GM you need'+(BK>0?' (<b>'+k$(NEW)+'</b>) + <b>'+k$(BK)+'</b> from your current book':'')+' = your <b>'+k$(G)+'</b> goal. Orange tiles are rates you&#8217;ve improved.</p>';
+  var prod=steps.reduce(function(a,st){return a*cvOf(T,st);},1),a27=prod>0&&e.gps>0?NEW/52/e.gps/prod:0,aT=sv(T,tp),vT=aT,vP=a27,txT=one(aT)+" "+ST[tp].many+"/wk",txP=one(a27)+" "+ST[tp].many+"/wk";
+  var rows='<tr class="fa"><td>'+ST[tp].l+' <span>a week</span></td><td class="n">'+one(aT)+'</td><td class="n p">'+one(a27)+'</td></tr>';
+  steps.forEach(function(st){var rT=st.cur,rP=cvOf(T,st),imp=OV[st.key]>0;vT*=rT;vP*=rP;txT+=" x "+fmtF(T,st,rT);txP+=" x "+fmtF(T,st,rP);
+   rows+='<tr><td><i>&times;</i>'+(isPct(st.key)?'become '+ST[st.dn].many:ST[st.dn].many+' per '+ST[st.up].one)+'</td><td class="n">'+fmtF(T,st,rT)+'</td><td class="n p'+(imp?' up':'')+'">'+fmtF(T,st,rP)+'</td></tr>';});
+  var gImp=OV.gpsc>0||OV.gpsp>0;
+  rows+='<tr class="fs"><td><i>=</i>Starts <span>a week</span></td><td class="n">'+(+vT.toFixed(2))+'</td><td class="n p">'+(+vP.toFixed(2))+'</td></tr>'+
+   '<tr><td><i>&times;</i>GM per start</td><td class="n">'+usd(B.e.gps)+'</td><td class="n p'+(gImp?' up':'')+'">'+usd(e.gps)+'</td></tr>'+
+   '<tr class="fr"><td><i>&times;</i>52 weeks = <b>GM a year</b></td><td class="n">'+usd(vT*B.e.gps*52)+'</td><td class="n p">'+usd(vP*e.gps*52)+'</td></tr>';
+  txT+=" = "+(+vT.toFixed(2))+" starts/wk x "+usd(B.e.gps)+" x 52 = "+usd(vT*B.e.gps*52);txP+=" = "+(+vP.toFixed(2))+" starts/wk x "+usd(e.gps)+" x 52 = "+usd(vP*e.gps*52);
+  var name=branches().length>1?(bi===0?"Sales cycle":"Recruiting cycle"):({sales:"Sales cycle",rec:"Recruiting cycle",full:"Your cycle"}[role]);
+  FT.push('<div class="ftab"><table><tr><th>'+name+'</th><th class="n">Today</th><th class="n p">'+YEAR+' plan</th></tr>'+rows+'</table></div>');
+  W.f.push({br:branches().length>1?name:"",today:txT,plan:txP});});
+ h+='<div class="fgrid'+(FT.length>1?' two':'')+'">'+FT.join("")+'</div>';
+ h+='<p class="fbk">'+YEAR+' plan = the new GM you need'+(BK>0?' (<b>'+k$(NEW)+'</b>) + <b>'+k$(BK)+'</b> from your current book':'')+' = your <b>'+k$(G)+'</b> goal. Orange cells are rates you&#8217;ve improved.</p>';
  /* ---------- two ways ---------- */
  h+='<h3 style="margin-top:16px">'+(B.gap>1?'How to close your '+k$(B.gap)+' gap':'You&#8217;re on track')+'</h3>';
  h+='<div class="way a"><div class="wh"><i>1</i>'+(B.gap>1?'Do more':'Activity you can spare')+'</div><div class="big">'+(B.gap>1?'+'+Math.max(B.more,0).toFixed(0)+'% <small>more activity at every step</small>':(Math.abs(B.more)<0.5?'Right on target':Math.abs(B.more).toFixed(0)+'% <small>less activity</small>'))+'</div>'+
