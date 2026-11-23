@@ -119,7 +119,10 @@ details.more .fields{margin-top:12px}
 .warn{background:var(--tint);color:var(--muted);border-radius:10px;padding:10px 12px;font-size:13px;font-weight:600}
 .how{font-size:12px;color:var(--muted);line-height:1.55}
 .how summary{cursor:pointer;font-weight:700;color:var(--blue)}
-.bkh,.bkr{display:grid;grid-template-columns:minmax(130px,1.6fr) minmax(90px,1fr) minmax(160px,1.1fr) minmax(130px,1.1fr) minmax(100px,1fr) 30px;gap:8px;align-items:center}
+.bkh,.bkr{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.85fr) minmax(0,1.35fr) minmax(0,1.15fr) minmax(0,.9fr) 28px;gap:8px;align-items:center}
+.bkr>*,.bkh>*{min-width:0}
+.bkr .sh button{padding:7px 2px;font-size:12px}
+.bkr .bkc b{font-size:14px}
 .bkh{font-size:11.5px;font-weight:700;color:var(--muted);padding:0 2px 6px}
 .bkh i{font-style:normal;font-weight:500}
 .bkr{padding:6px 0;border-top:1px solid var(--line)}
@@ -136,10 +139,11 @@ details.more .fields{margin-top:12px}
 .rm{border:0;background:var(--tint);border-radius:50%;width:28px;height:28px;font-size:16px;line-height:1;color:var(--muted)}
 .rm:hover{background:#fdecea;color:var(--bad)}
 .empty{color:var(--muted);font-size:13px;padding:10px 0;border-top:1px solid var(--line)}
-.bkf{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:10px}
+.bkf{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
 .add{border:1.5px dashed var(--orange);background:var(--orange-soft);color:#b5490f;border-radius:10px;padding:10px 16px;font-weight:800;font-size:13px}
 .add:hover{background:#fbdcc9}
-.util{width:200px}
+.util{width:220px}
+.util label{font-size:12px}
 .bks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
 .bks:empty{display:none}
 .bks div{background:var(--tint);border-radius:10px;padding:10px 12px}
@@ -334,7 +338,7 @@ details.more .fields{margin-top:12px}
 .tile.r{background:var(--orange)}.tile.r b{color:#fff}.tile.r small{color:#ffe3d1}
 .fbr{font-size:11px;font-weight:800;color:var(--blue);margin-top:8px}
 .fbk{font-size:12.5px;color:var(--muted);margin:6px 0 0}
-.lev2{padding:9px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 300px;gap:6px 14px;align-items:center}
+.lev2{padding:9px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 400px;gap:6px 14px;align-items:center}
 @media (max-width:700px){.lev2{grid-template-columns:1fr}}
 .lev2:first-of-type{border-top:0}
 .lev2 .lt{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
@@ -426,6 +430,20 @@ details.more .fields{margin-top:12px}
 .rrt td.n{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
 .rrt td.n span{font-weight:500;color:var(--muted);font-size:11px}
 .rrt tr.nf2 td{color:var(--muted)}
+.lc{display:flex;flex-direction:column;gap:4px}
+.lch .cbox{flex:1.3;display:flex;align-items:center;gap:2px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:0 8px;margin-left:3px;min-width:0}
+.lch .cbox.on{border-color:var(--orange);background:var(--orange-soft)}
+.lch .cbox input{border:0;outline:0;background:transparent;width:100%;min-width:0;padding:5px 0;font-size:12px;font-weight:700;text-align:center}
+.lch .cbox span{font-size:10.5px;color:var(--muted);font-weight:700}
+.lg3{font-size:11.5px;color:var(--muted);text-align:right}
+.lg3 b{color:var(--good)}
+.dmg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:8px}
+.dm{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.dm.hot{border-color:var(--orange)}
+.dm span{display:block;font-size:11.5px;font-weight:700;color:var(--muted)}
+.dm b{font-family:var(--display);font-size:19px}
+.dm small{display:block;font-size:11px;color:var(--muted)}
+.dm em{font-style:normal;color:#b5490f;font-weight:700}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -496,7 +514,7 @@ footer a{color:var(--blue)}
 <div class="cn" id="cn_cints"></div>
 <div class="stg" data-stage="starts"><div class="sn"><b></b></div><div class="sb"><div class="st">Starts</div><div class="bmx" id="bm_starts"></div><div class="fields"><div class="fld"><div class="lr"><label for="stc"><span data-a="Contract per month" data-t="Contract"></span></label></div><div class="box"><input id="stc" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/month" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="stp"><span data-a="Perm per month" data-t="Perm"></span></label></div><div class="box"><input id="stp" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/month" data-t="total"></span></div></div></div></div></div>
 <div class="cn" id="cn_startsgm"></div>
-<div class="stg" data-stage="gm"><div class="sn"><b></b></div><div class="sb"><div class="st">Gross margin <i>(after splits)</i></div><div class="bmx" id="bm_gm"></div><div class="fields"><div class="fld"><div class="lr"><label for="gmc">Contract</label></div><div class="box"><span>$</span><input id="gmc" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="gmp">Perm</label></div><div class="box"><span>$</span><input id="gmp" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
+<div class="stg" data-stage="gm"><div class="sn"><b></b></div><div class="sb"><div class="st">Gross margin <i>(after splits)</i></div><div class="bmx" id="bm_gm"></div><div class="fields"><div class="fld"><div class="lr"><label for="gmc">Contract</label></div><div class="box"><span>$</span><input id="gmc" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="gmp">Perm</label></div><div class="box"><span>$</span><input id="gmp" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="gmhr">Avg contract GM per hour <i>(your share)</i></label></div><div class="box"><span>$</span><input id="gmhr" data-d inputmode="decimal" value="" placeholder="0"><span class="suf">/hr</span></div></div></div></div></div>
     </div>
     </div>
     <p class="hint opth">Every activity is <b>in your forecast</b>. Click <b>In forecast</b> next to any metric to leave it out &mdash; your plan skips that step.</p>
@@ -578,8 +596,8 @@ footer a{color:var(--blue)}
 (function(){
 var $=function(id){return document.getElementById(id);};
 var YEAR=2027,KEY="vbh-goal-2027";
-var FIELDS=["sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
-var EX={sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",subs:"",cints:"",util:"90"};
+var FIELDS=["gmhr","sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
+var EX={gmhr:"",sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",subs:"",cints:"",util:"90"};
 var AVGK=["pros","von","vvi","jobsc","jobsp","vints","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
 var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints"];
 var BMODE="quick",role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
@@ -773,17 +791,27 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
  /* ---------- two ways ---------- */
  h+='<h3 style="margin-top:16px">'+(B.gap>1?'How to close your '+k$(B.gap)+' gap':'You&#8217;re on track')+'</h3>';
  h+='<div class="way a"><div class="wh"><i>1</i>'+(B.gap>1?'Do more':'Activity you can spare')+'</div><div class="big">'+(B.gap>1?'+'+Math.max(B.more,0).toFixed(0)+'% <small>more activity at every step</small>':(Math.abs(B.more)<0.5?'Right on target':Math.abs(B.more).toFixed(0)+'% <small>less activity</small>'))+'</div>'+
-  '<p><b>'+one(B.N[top]/52)+' '+ST[top].many+' a week</b> instead of '+one(sv(T,top))+', at today&#8217;s conversion rates.</p></div>';
+  '<p>At today&#8217;s conversion rates, here&#8217;s every activity per week:</p><div class="dmg">'+["pros","visits","jobs","vints","subs","cints"].filter(function(k){return active(T,k)&&B.N[k]!=null&&!isNaN(B.N[k]);}).map(function(k){var nw=sv(T,k),nd=B.N[k]/52;return '<div class="dm'+(k===top?' hot':'')+'"><span>'+ST[k].l+'</span><b>'+one(nd)+'</b><small>a week &middot; now '+one(nw)+(nd>nw?' &middot; <em>+'+one(nd-nw)+'</em>':'')+'</small></div>';}).join("")+
+  '<div class="dm"><span>Contract + perm starts</span><b>'+one((B.N.stc||0)/12)+' + '+one((B.N.stp||0)/12)+'</b><small>a month &middot; now '+one(T.stc*52/12)+' + '+one(T.stp*52/12)+'</small></div></div></div>';
  var P=pairs(T),r0=ratios(T),levs=P.map(function(pr){var need=pr.cur*B.k,pct=isPct(pr.key),poss=!pct||need<=1;return {key:pr.key,l:ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),cur:pr.cur,now:cvTxt(T,pr,pr.cur).big,need:poss?cvTxt(T,pr,need).big:"over 100%",poss:poss,pct:pct,pr:pr};});
- [["gpsc","GM per contract start","stc"],["gpsp","GM per perm start","stp"]].forEach(function(x){if(r0[x[0]]>0&&B.N[x[2]]>0)levs.push({key:x[0],l:x[1],cur:r0[x[0]],now:usd(r0[x[0]]),need:usd(r0[x[0]]*B.k),poss:true,pct:false,gm:true});});
+ var hr=num($("gmhr").value);
+ if(r0.gpsc>0&&B.N.stc>0)levs.push(hr>0?{key:"gpsc",l:"Contract GM per hour",cur:r0.gpsc,hr:hr,now:"$"+hr.toFixed(2)+"/hr",need:"$"+(hr*B.k).toFixed(2)+"/hr",poss:true,pct:false,gm:true}:{key:"gpsc",l:"GM per contract start",cur:r0.gpsc,now:usd(r0.gpsc),need:usd(r0.gpsc*B.k),poss:true,pct:false,gm:true,nohr:true});
+ if(r0.gpsp>0&&B.N.stp>0)levs.push({key:"gpsp",l:"GM per perm start",cur:r0.gpsp,now:usd(r0.gpsp),need:usd(r0.gpsp*B.k),poss:true,pct:false,gm:true});
+ var gAct=B.sY*B.e.gps,gainOf=function(l,nv){if(!(nv>0))return 0;if(l.key==="gpsc")return B.sY*B.e.cmix*(nv-l.cur);if(l.key==="gpsp")return B.sY*(1-B.e.cmix)*(nv-l.cur);return gAct*(nv/l.cur-1);};
  W.lev=levs;
- var chip=function(l,v){var o=OV[l.key],on=v===0?!(o>0):(o>0&&Math.abs(o/l.cur-1-v)<1e-6);return '<button type="button" data-imp="'+l.key+'" data-cur="'+l.cur+'" data-v="'+v+'" class="'+(on?"on":"")+'">'+(v?"+"+Math.round(v*100)+"%":"Same")+'</button>';};
+ var presets=function(l){return l.hr?[0,1,2,5]:[0,.05,.1,.2];},target=function(l,v){return l.hr?l.cur*(l.hr+v)/l.hr:l.cur*(1+v);},
+  chip=function(l,v){var o=OV[l.key],on=v===0?!(o>0):(o>0&&Math.abs(o-target(l,v))<1e-6*l.cur);return '<button type="button" data-imp="'+l.key+'" data-t="'+target(l,v)+'" class="'+(on?"on":"")+'">'+(v?(l.hr?"+$"+v+"/hr":"+"+Math.round(v*100)+"%"):"Same")+'</button>';},
+  isCust=function(l){var o=OV[l.key];return o>0&&!presets(l).some(function(v){return v&&Math.abs(o-target(l,v))<1e-6*l.cur;});},
+  custVal=function(l){var o=OV[l.key];if(!(isCust(l)))return "";return l.hr?(l.hr*o/l.cur).toFixed(2):l.gm?Math.round(o).toLocaleString("en-US"):l.pct?(Math.round(o*1000)/10)+"":(+o.toFixed(2))+"";},
+  custUnit=function(l){return l.hr?"$/hr":l.gm?"$":l.pct?"%":"#";};
  h+='<div class="way b"><div class="wh"><i>2</i>Convert better at each step</div><p>Tighten any step &mdash; or several. Improvements stack, because every step multiplies the next.</p>'+
-  levs.map(function(l){var o=OV[l.key]>0?OV[l.key]:null,nowTxt=l.gm?usd(o||l.cur):(o?cvTxt(T,l.pr,o).big:l.now);
-   return '<div class="lev2"><div class="lt"><span class="ll">'+l.l+'</span><span class="lv">'+l.now+(o?' &rarr; <b>'+nowTxt+'</b>':'')+'<em>'+(l.poss?'Alone closes the gap at '+l.need:'Can&#8217;t close the gap alone')+'</em></span></div><div class="chips lch">'+[0,.05,.1,.2].map(function(v){return chip(l,v);}).join("")+'</div></div>';}).join("");
+  levs.map(function(l){var o=OV[l.key]>0?OV[l.key]:null,nowTxt=l.hr?(o?"$"+(l.hr*o/l.cur).toFixed(2)+"/hr":""):l.gm?usd(o||l.cur):(o?cvTxt(T,l.pr,o).big:l.now),g=gainOf(l,o),step=gainOf(l,target(l,presets(l)[1]));
+   return '<div class="lev2"><div class="lt"><span class="ll">'+l.l+'</span><span class="lv">'+l.now+(o?' &rarr; <b>'+nowTxt+'</b>':'')+'<em>'+(l.poss?'Alone closes the gap at '+l.need:'Can&#8217;t close the gap alone')+(l.nohr?' &middot; add your contract GM per hour in step 2 to plan in $/hr':'')+'</em></span></div>'+
+    '<div class="lc"><div class="chips lch">'+presets(l).map(function(v){return chip(l,v);}).join("")+'<label class="cbox'+(isCust(l)?' on':'')+'"><input class="cust" data-cust="'+l.key+'" inputmode="decimal" placeholder="Custom" value="'+custVal(l)+'"><span>'+custUnit(l)+'</span></label></div>'+
+    '<div class="lg3">'+(o?'<b>'+(g>=0?'+':'&minus;')+k$(Math.abs(g))+'</b> GM a year at today&#8217;s activity':'Each '+(l.hr?'+$1/hr':'+5%')+' &asymp; <b>+'+k$(Math.max(step,0))+'</b> GM a year')+'</div></div></div>';}).join("");
  if(anyOv){var gain=(sY*e.gps+BK)-B.g,left=G-(sY*e.gps+BK),saved=B.N[top]/52-N[top]/52;
   h+='<div class="isum"><b>With your improvements:</b> today&#8217;s activity makes <b>'+k$(sY*e.gps+BK)+'</b> (+'+k$(Math.max(gain,0))+'). '+(left>1?'That leaves <b>'+k$(left)+'</b> &mdash; about <b>+'+Math.max(more,0).toFixed(0)+'% activity</b> ('+one(N[top]/52)+' '+ST[top].many+' a week).':'That <b>covers your goal</b> &mdash; you need <b>'+one(N[top]/52)+' '+ST[top].many+' a week</b>, '+one(Math.max(saved,0))+' fewer than without them.')+'</div>';}
- h+='<div class="wfoot"><span>Want an exact rate? Type it in step 3.</span>'+(anyOv?'<button type="button" id="wReset">Clear improvements</button>':'')+'</div></div>';
+ h+='<div class="wfoot"><span>Type any target in <b>Custom</b> &mdash; a rate, a number, or dollars.</span>'+(anyOv?'<button type="button" id="wReset">Clear improvements</button>':'')+'</div></div>';
  $("ways").innerHTML=h;W.imp=anyOv?{g:sY*e.gps+BK,top:N[top]/52}:null;return W;}
 function waysTxt(W){if(!W||!W.top)return "";var g=W.GP,gp=g?"My game plan (vs 2027 benchmarks):\n"+(g.leaks.length?(g.strong.length?"What I'm doing well: "+g.strong.map(function(x){return x.lt+" ("+x.now+")";}).join(", ")+"\n":"")+"1) Areas of improvement:\n"+g.leaks.slice(0,4).map(function(l){return "   - "+l.lt+": "+l.now+" -> benchmark "+l.tg+(l.inFwd&&l.val>0?" (+"+usd(l.val)+" a year)":"")+recTxt(l.key,l);}).join("\n")+"\n2) Activity plan: "+one(g.tB)+" "+g.topL+" a week (now "+one(g.tNow)+(g.ab?", benchmark "+one(g.ab[1]):"")+")":"1) Areas of improvement: conversion is at or above benchmark everywhere. 2) Activity plan: "+one(g.tB)+" "+g.topL+" a week")+"\n\n":"";var t=gp+"My formula:\n"+W.f.map(function(f){return (f.br?f.br+":\n":"")+"  Today: "+f.today+"\n  "+YEAR+" plan: "+f.plan;}).join("\n")+"\n\n"+(W.gap>1?"How I close my "+usd(W.gap)+" gap:\n1) Do more: +"+W.more.toFixed(0)+"% activity — "+one(W.tn)+" "+W.top+" a week instead of "+one(W.tw)+"\n2) Or convert better (same activity), any one of:\n"+W.lev.filter(function(l){return l.poss;}).map(function(l){return "   - "+l.l.replace("&rarr;","->").replace("&ndash;","-")+": "+l.now+" -> "+l.need;}).join("\n"):"On track: today's activity covers my goal ("+Math.abs(W.more).toFixed(0)+"% to spare).");return t;}
 function drawSteps(st){var L=[["s1","Role",st[0],"Role"],["s2","Numbers",st[1],"Numbers"],["s3","2027 goal",st[2],"Goal"],["s4","Book",st[3],"Book"],["s5","Game plan",st[4],"Plan"]],first=true;
@@ -815,7 +843,7 @@ function render(){calcTen();
   act=function(fs){return fs.filter(function(f){var st=Object.keys(ST).filter(function(k){return ST[k].p.indexOf(f)>-1;})[0];return mine(ST[st].r);}).map(function(f){return row(PART[f].replace("Client visits, ","Visits, "),one(T[f]),"/ wk",Math.round(T[f]*52).toLocaleString("en-US"),OPT[f]);});};
  $("avgs").innerHTML='<div class="rrh"><div class="rrn"><span class="lab">Your run rate</span><b>'+usd(T.gm*52)+'</b><small>GM a year &middot; '+usd(T.gm)+' a week'+(inm==="tot"?' &middot; from '+one(totW())+' weeks of numbers':'')+'</small></div>'+
   '<div class="mix"><div class="bar"><i style="width:'+(cs*100).toFixed(1)+'%"></i></div><div class="lg2"><span><i class="dc"></i>Contract <b>'+k$(T.gmc*52)+'</b> '+Math.round(cs*100)+'%</span><span><i class="dp"></i>Perm <b>'+k$(T.gmp*52)+'</b> '+Math.round((1-cs)*100)+'%</span></div>'+
-  '<div class="gps"><span>GM per contract start <b>'+(r.gpsc?usd(r.gpsc):"&ndash;")+'</b></span><span>GM per perm start <b>'+(r.gpsp?usd(r.gpsp):"&ndash;")+'</b></span></div></div></div>'+
+  '<div class="gps">'+(num($("gmhr").value)>0?'<span>Contract GM per hour <b>$'+num($("gmhr").value).toFixed(2)+'/hr</b></span>':'')+'<span>GM per contract start <b>'+(r.gpsc?usd(r.gpsc):"&ndash;")+'</b></span><span>GM per perm start <b>'+(r.gpsp?usd(r.gpsp):"&ndash;")+'</b></span></div></div></div>'+
   '<div class="rrg">'+grp("Results",[row("Contract starts",one(T.stc*52/12),"/ mo",one(T.stc*52)),row("Perm starts",one(T.stp*52/12),"/ mo",one(T.stp*52))])+
   grp("Sales cycle",act(["pros","von","vvi","jobsc","jobsp"]))+grp("Recruiting cycle",act(["vints","subs"]))+grp("Both cycles",act(["cints"]))+'</div>';
  $("calc").innerHTML="";}
@@ -916,7 +944,7 @@ function drawFC(F){var h='<div class="fye"><span>'+F.y+' year-end forecast</span
  h+='<p class="fsum">'+(gap>1?'Stay at today&#8217;s run rate and you finish '+YEAR+' around <b>'+usd(F.rr27)+'</b>, <b>'+usd(gap)+' short</b>. Your weekly plan above closes that gap.':'Today&#8217;s run rate alone gets you to about <b>'+usd(F.rr27)+'</b> &mdash; ahead of your goal.')+' "Goal" spreads your new GM evenly across the year and adds what your consultants bill in each quarter.</p>';
  $("fc").innerHTML=h;}
 var EXMODE=false,SAVED=null;
-var EXSTATE={ver:5,role:"full",mode:"grow",inm:"tot",per:"ytd",d1:"",d2:"",edited:true,ov:{},opt:{},bmode:"list",book:[{t:"Jordan Smith",g:"42",s:"50",e:"2027-06-30"},{t:"Priya Patel",g:"35",s:"50",e:""},{t:"Marcus Lee",g:"28",s:"25",e:"2027-03-31"}],v:{who:"Example Producer",goal:"",grow:"20",gmc:"356,700",gmp:"138,400",stc:"10",stp:"6",pros:"2,100",von:"70",vvi:"117",jobsc:"47",jobsp:"33",vints:"280",subs:"168",cints:"85",util:"90",bqwk:"",bqend:""}};
+var EXSTATE={ver:5,role:"full",mode:"grow",inm:"tot",per:"ytd",d1:"",d2:"",edited:true,ov:{},opt:{},bmode:"list",book:[{t:"Jordan Smith",g:"42",s:"50",e:"2027-06-30"},{t:"Priya Patel",g:"35",s:"50",e:""},{t:"Marcus Lee",g:"28",s:"25",e:"2027-03-31"}],v:{who:"Example Producer",goal:"",grow:"20",gmc:"356,700",gmp:"138,400",gmhr:"18",stc:"10",stp:"6",pros:"2,100",von:"70",vvi:"117",jobsc:"47",jobsp:"33",vints:"280",subs:"168",cints:"85",util:"90",bqwk:"",bqend:""}};
 function save(){if(EXMODE)return;try{localStorage.setItem(KEY,JSON.stringify(state()));}catch(e){}}
 function state(){var s={ver:5,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,opt:OPT,book:BOOK,bmode:BMODE,ten:TEN,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
 function apply(s){if(!s||s.ver!==5)return false;OPT=s.opt||{};BMODE=s.bmode||"quick";TEN=s.ten!=null?s.ten:3;role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
@@ -933,7 +961,7 @@ document.addEventListener("click",function(e){var b=e.target.closest("[data-opt]
 $("bmode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;BMODE=b.dataset.v;if(BMODE==="list"&&!BOOK.length){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();}render();});
 $("mode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;mode=b.dataset.v;if(mode==="gm"){var T=read(),G=Math.round(T.gm*52*(1+T.grow/100)/1000)*1000;if(G)$("goal").value=G.toLocaleString("en-US");}sync();render();});
 $("quick").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;$("grow").value=b.dataset.g;sync();render();});
-document.addEventListener("input",function(e){var t=e.target;if(EXK.indexOf(t.id)>-1)edited=true;if(t.dataset.bf){var row=t.closest(".bkr"),i=+row.dataset.i;BOOK[i][t.dataset.bf]=t.value;row.querySelector(".bkc").innerHTML=cCell(BOOK[i]);render();return;}if(t.id==="util"){drawBook();}if(t.dataset.ov!=null){var k=t.dataset.ov,v=num(t.value);OV[k]=t.value.trim()===""?null:(t.dataset.pct==="1"?v/100:v);}sync();render();});
+document.addEventListener("input",function(e){var t=e.target;if(t.classList&&t.classList.contains("cust"))return;if(EXK.indexOf(t.id)>-1)edited=true;if(t.dataset.bf){var row=t.closest(".bkr"),i=+row.dataset.i;BOOK[i][t.dataset.bf]=t.value;row.querySelector(".bkc").innerHTML=cCell(BOOK[i]);render();return;}if(t.id==="util"){drawBook();}if(t.dataset.ov!=null){var k=t.dataset.ov,v=num(t.value);OV[k]=t.value.trim()===""?null:(t.dataset.pct==="1"?v/100:v);}sync();render();});
 document.addEventListener("focusout",function(e){var t=e.target;if(t.dataset&&t.dataset.n!=null&&t.value.trim()!==""&&t.id!=="util")t.value=Math.round(num(t.value)).toLocaleString("en-US");if(t.dataset&&t.dataset.ov!=null)render();});
 document.addEventListener("focusin",function(e){var t=e.target;if(t.tagName==="INPUT"&&t.type!=="date")setTimeout(function(){try{t.select();}catch(x){}},0);});
 $("clearEx").addEventListener("click",function(){EXK.forEach(function(k){$(k).value="";});edited=true;$("exNote").hidden=true;render();$("gmc").focus();});
@@ -995,7 +1023,10 @@ function aiPrompt(){var d=PD,g=d&&d.WAYS&&d.WAYS.GP;if(!g)return "";var rl={sale
  L.push("\nAt benchmark conversion my goal takes "+one(g.tB)+" "+g.topL+" a week (I do "+one(g.tNow)+" now).");
  L.push("\nPlease give me an encouraging, practical 90-day coaching plan: start with what I'm doing well, then my top 3 areas of improvement in priority order, with specific weekly habits, talk tracks and tips for each, things to be aware of, leading indicators that show it's working, and a simple weekly schedule. Keep it specific to staffing and to my numbers.");
  return L.join("\n");}
-$("ways").addEventListener("click",function(e){if(e.target.id==="aiCoach"){var t=aiPrompt();if(!t){toast("Fill in your numbers first");return;}try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(x){}window.open("https://claude.ai/new?q="+encodeURIComponent(t),"_blank","noopener");toast("Opening Claude — your plan is on your clipboard too");return;}if(e.target.id==="applyBm"&&PD&&PD.WAYS&&PD.WAYS.GP){OV=PD.WAYS.GP.OVb;render();toast("Benchmark rates applied");return;}var c=e.target.closest("[data-imp]");if(c){var k=c.dataset.imp,v=parseFloat(c.dataset.v),cur=parseFloat(c.dataset.cur);if(v>0)OV[k]=cur*(1+v);else delete OV[k];render();return;}var t=e.target.closest("[data-try]");if(t){OV[t.dataset.try]=parseFloat(t.dataset.v);var d=document.querySelector("details.more");if(d)d.open=true;render();toast("Rate applied &mdash; see your plan update".replace("&mdash;","—"));return;}if(e.target.id==="wReset"){OV={};render();toast("Back to today’s rates");}});
+$("ways").addEventListener("change",function(e){var t=e.target;if(!t.classList.contains("cust"))return;var k=t.dataset.cust,v=num(t.value),T=read(),r0=ratios(T);if(!(v>0)){delete OV[k];render();return;}
+ if(k==="gpsc"){var hr=num($("gmhr").value);OV.gpsc=hr>0?r0.gpsc*v/hr:v;}else if(k==="gpsp"){OV.gpsp=v;}else{OV[k]=isPct(k)?v/100:v;}render();});
+$("ways").addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.classList.contains("cust"))e.target.blur();});
+$("ways").addEventListener("click",function(e){if(e.target.id==="aiCoach"){var t=aiPrompt();if(!t){toast("Fill in your numbers first");return;}try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(x){}window.open("https://claude.ai/new?q="+encodeURIComponent(t),"_blank","noopener");toast("Opening Claude — your plan is on your clipboard too");return;}if(e.target.id==="applyBm"&&PD&&PD.WAYS&&PD.WAYS.GP){OV=PD.WAYS.GP.OVb;render();toast("Benchmark rates applied");return;}var c=e.target.closest("[data-imp]");if(c){var k=c.dataset.imp,t=parseFloat(c.dataset.t),r0=ratios(read()),cur=k==="gpsc"||k==="gpsp"?r0[k]:null;if(cur!=null?Math.abs(t-cur)>1e-9:true){if(c.textContent==="Same")delete OV[k];else OV[k]=t;}else delete OV[k];render();return;}var t=e.target.closest("[data-try]");if(t){OV[t.dataset.try]=parseFloat(t.dataset.v);var d=document.querySelector("details.more");if(d)d.open=true;render();toast("Rate applied &mdash; see your plan update".replace("&mdash;","—"));return;}if(e.target.id==="wReset"){OV={};render();toast("Back to today’s rates");}});
 function showEx(on){EXMODE=on;$("exBan").hidden=!on;$("exBtn").hidden=on;}
 $("exBtn").addEventListener("click",function(){SAVED=state();apply(JSON.parse(JSON.stringify(EXSTATE)));showEx(true);sync();drawBook();render();window.scrollTo({top:0,behavior:"smooth"});toast("Example loaded");});
 $("exBack").addEventListener("click",function(){showEx(false);if(SAVED)apply(SAVED);sync();drawBook();render();window.scrollTo({top:0,behavior:"smooth"});});
