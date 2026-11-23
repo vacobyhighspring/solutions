@@ -194,7 +194,47 @@ details.more .fields{margin-top:12px}
 .fsum{margin-top:10px;font-size:12.5px;line-height:1.5}
 .grph .gi{font-style:normal;font-weight:600;text-transform:none;letter-spacing:0}
 .row .sp{grid-column:1 / -1;font-size:11.5px;color:var(--muted)}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
+/* warnings */
+.warns{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.warns:empty{display:none}
+.warn2{display:flex;gap:8px;align-items:flex-start;background:#fff6e5;border:1px solid #f5d9a6;color:#7a4b00;border-radius:10px;padding:8px 12px;font-size:12.5px;line-height:1.45}
+.warn2 i{font-style:normal;font-weight:900;flex:none}
+.warn2.bad{background:#fdecea;border-color:#f3c2bb;color:var(--bad)}
+.box.flag{border-color:#e8a33b;background:#fffaf0}
+/* focus number */
+.focus{background:var(--band);color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.focus:empty{display:none}
+.focus .fl{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffb183}
+.focus .fn{display:flex;align-items:baseline;gap:8px;margin-top:2px}
+.focus .fn b{font-family:var(--display);font-size:46px;font-weight:800;line-height:1;letter-spacing:-.02em}
+.focus .fn span{font-size:14px;font-weight:600;opacity:.8}
+.focus .fs{font-size:12.5px;opacity:.8;margin-top:4px}
+.focus .f2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.focus .f2 div{background:rgba(255,255,255,.08);border-radius:10px;padding:8px 10px}
+.focus .f2 small{display:block;font-size:11px;opacity:.7}
+.focus .f2 b{font-family:var(--display);font-size:20px}
+.focus .f2 em{font-style:normal;font-size:11px;opacity:.7}
+.rowsh{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+/* chart */
+.chart{margin:4px 0 14px}
+.chart svg{display:block;width:100%;height:auto}
+.lg{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:4px}
+.lg span{display:inline-flex;align-items:center;gap:5px}
+.lg i{display:inline-block;width:16px;height:3px;border-radius:2px}
+/* mobile bar */
+.mbar{display:none}
+@media (max-width:920px){
+ body{padding-bottom:74px}
+ .mbar{display:flex;position:fixed;left:10px;right:10px;bottom:10px;z-index:30;background:var(--band);color:#fff;border:0;border-radius:16px;padding:10px 14px;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 10px 30px rgba(11,31,58,.35);text-align:left}
+ .mbar[hidden]{display:none!important}
+ .mbar div{display:flex;flex-direction:column;min-width:0}
+ .mbar small{font-size:10.5px;opacity:.7;font-weight:700;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+ .mbar b{font-family:var(--display);font-size:17px;white-space:nowrap}
+ .mbar .bh{color:#ffb183}.mbar .ok{color:#8be0b6}
+ .mbar .go{font-size:20px;opacity:.8}
+}
+@media print{.mbar{display:none!important}}
+.toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
 footer a{color:var(--blue)}
@@ -263,6 +303,7 @@ footer a{color:var(--blue)}
     </div></div>
     <div class="avgs" id="avgs"></div>
     <div class="calc" id="calc"></div>
+    <div class="warns" id="warns"></div>
   </section>
 
   <section class="card">
@@ -303,6 +344,7 @@ footer a{color:var(--blue)}
   <section class="card plan">
     <h3>Your 2027 weekly plan</h3>
     <p class="sub2">What it takes each week to hit your goal, next to what you do now.</p>
+    <div class="focus" id="focus"></div>
     <div class="rows" id="rows"></div>
     <div class="yr" id="yr"></div>
     <div class="acts"><button class="btn" id="dl" type="button">&#8681; Download my 2027 plan</button><button class="btn o" id="print" type="button">Save as PDF</button><button class="btn o" id="copy" type="button">Copy</button></div>
@@ -319,6 +361,7 @@ footer a{color:var(--blue)}
 
 <footer>Your numbers stay in this browser. Need commission plans, consultant-by-consultant forecasts or an office-wide goal? Use the full <a href="../commission/#goal">Commission &amp; GM Calculator</a>.</footer>
 <div class="toast" id="toast"></div>
+<button type="button" class="mbar" id="mbar" aria-label="Jump to your plan"></button>
 
 <script>
 (function(){
@@ -396,7 +439,9 @@ function drawOvr(T){var r=ratios(T),h="";
   h+='<div class="fld"><label for="ov_'+k+'">'+x[1]+' <i>now '+(cur?fmtR(t,cur):"&ndash;")+'</i></label><div class="box">'+(t==="$"?'<span>$</span>':'')+'<input id="ov_'+k+'" data-ov="'+k+'" inputmode="decimal" value="'+shown+'" placeholder="'+(cur?(t==="%"?Math.round(cur*1000)/10:t==="$"?Math.round(cur).toLocaleString("en-US"):Math.round(cur*100)/100):"")+'">'+(t==="%"?'<span class="suf">%</span>':'')+'</div></div>';});
  $("ovr").innerHTML=h;}
 
-var PLAN="",PD=null;
+var PLAN="",PD=null,MB=null;
+function drawMbar(){var b=$("mbar");if(!MB){b.hidden=true;return;}b.hidden=false;var ok=MB.gap<=1;
+ b.innerHTML='<div><small>2027 goal</small><b>'+k$(MB.G)+'</b></div><div><small>'+(ok?"Ahead of run rate":"Gap to run rate")+'</small><b class="'+(ok?"ok":"bh")+'">'+(ok?"+":"")+k$(Math.abs(MB.gap))+'</b></div><div><small>'+MB.topL+'</small><b>'+MB.top+'<span style="font-size:11px;opacity:.7"> /wk</span></b></div><span class="go">&#8250;</span>';}
 function render(){
  [].forEach.call(document.querySelectorAll("[data-for]"),function(el){el.hidden=!mine(el.dataset.for);});
  var T=read(),w=weeks(),f=52/w,pace=T.gm*f,G=mode==="grow"?Math.round(pace*(1+T.grow/100)/1000)*1000:T.goal,e=eff(T),r=ratios(T);
@@ -411,6 +456,7 @@ function render(){
   ACT.filter(function(a){return a[0]!=="visits"&&!isSt(a[0])&&mine(a[2]);}).map(function(a){return RR(a[1],Math.round(T[a[0]]*52).toLocaleString("en-US"),"a year &middot; "+one(T[a[0]])+" a week");}).join("")+'</div>';
  $("calc").innerHTML='<span>Run rate: <b>'+usd(pace)+'</b> GM a year</span><span>GM per contract start: <b>'+(r.gpsc?usd(r.gpsc):"&ndash;")+'</b></span><span>GM per perm start: <b>'+(r.gpsp?usd(r.gpsp):"&ndash;")+'</b></span>';
  if(!document.activeElement||!document.activeElement.dataset||document.activeElement.dataset.ov==null)drawOvr(T);
+ checkInputs(T);
 
  var missing=[];
  if(!G)missing.push(mode==="grow"?"your GM":"your 2027 GM goal");
@@ -422,7 +468,7 @@ function render(){
  var h='<div class="lbl">Your '+YEAR+' GM goal</div><div class="goal">'+usd(G)+' </div>';
  if(pace&&G)h+='<span class="delta '+(chg>=0?"up":"dn")+'">'+(chg>=0?"&#9650; +":"&#9660; &minus;")+Math.abs(chg*100).toFixed(0)+'% vs your run rate of '+k$(pace)+'</span>';
  if(BK)h+='<div class="split"><div><span>From your current book</span><b>'+usd(BK)+'</b></div><i>+</i><div><span>New GM to win</span><b>'+usd(NEW)+'</b></div></div>';
- if(missing.length){h+='<div class="verdict">Add '+missing.join(", ").replace(/, ([^,]*)$/," and $1")+' to see your plan.</div>';$("res").innerHTML=h;$("rows").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your weekly plan appears here.</div>';$("yr").innerHTML="";$("fc").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your forecast appears here.</div>';PLAN="";PD=null;return;}
+ if(missing.length){h+='<div class="verdict">Add '+missing.join(", ").replace(/, ([^,]*)$/," and $1")+' to see your plan.</div>';$("res").innerHTML=h;$("rows").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your weekly plan appears here.</div>';$("yr").innerHTML="";$("fc").innerHTML='<div class="warn">Fill in steps 1&ndash;3 and your forecast appears here.</div>';$("focus").innerHTML="";MB=null;drawMbar();PLAN="";PD=null;return;}
  var N=need(NEWC,NEWP,e),sNow=fwdStarts(T,e,f),gNow=sNow*e.gps+BK,gap=G-gNow,more=sNow>0?(NEW/(sNow*e.gps)-1)*100:0;
  h+='<div class="verdict">'+(gap>1?'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> in '+YEAR+'. To close the <b>'+k$(gap)+'</b> gap you need about <b>'+Math.max(more,0).toFixed(0)+'% more activity</b> &mdash; or better ratios (fine-tune them in step 4).':'At today&#8217;s activity you&#8217;d land near <b>'+k$(gNow)+'</b> &mdash; that already <b>covers your goal</b>. Consider stretching it.')+'</div>';
  $("res").innerHTML=h;
@@ -432,7 +478,11 @@ function render(){
   var isS=isSt(k),sp=k==="visits"&&T.visits>0&&!isNaN(n)?'<span class="sp">About '+one(nd*T.von/T.visits)+' in person + '+one(nd*T.vvi/T.visits)+' virtual a week</span>':'';
   rows+='<div class="row'+(k===top?" hero":"")+'"><span class="nm">'+a[1]+tg+'</span><span class="nw">Now '+one(isS?nw*52/12:nw)+(isS?" a month":" a week")+'</span><span class="val"><b>'+(isNaN(n)?"&ndash;":one(isS?n/12:nd))+'</b><small>'+(isS?"a month":"a week")+'</small></span>'+sp+'</div>';
   txt.push("- "+a[1]+": "+(isNaN(n)?"-":one(isS?n/12:nd))+(isS?" a month":" a week")+" (now "+one(isS?nw*52/12:nw)+")");});
- $("rows").innerHTML=rows;
+ $("rows").innerHTML='<div class="rowsh">Every number, week by week</div>'+rows;
+ var tn=N[top],tnw=T[top],topL=top==="visits"?"client visits":"Vaco interviews";
+ $("focus").innerHTML='<div class="fl">Your one number</div><div class="fn"><b>'+(isNaN(tn)?"&ndash;":one(tn/52))+'</b><span>'+topL+' a week</span></div><div class="fs">'+(tnw>0?'You do '+one(tnw)+' now &mdash; '+(tn/52>tnw?'add '+one(tn/52-tnw)+' a week':'keep it there')+'.':'')+(top==="visits"&&T.visits>0&&!isNaN(tn)?' About '+one(tn/52*T.von/T.visits)+' in person + '+one(tn/52*T.vvi/T.visits)+' virtual.':'')+'</div>'+
+  '<div class="f2"><div><small>Contract starts</small><b>'+(isNaN(N.stc)?"&ndash;":one(N.stc/12))+'</b> <em>a month</em></div><div><small>Perm starts</small><b>'+(isNaN(N.stp)?"&ndash;":one(N.stp/12))+'</b> <em>a month</em></div></div>';
+ MB={G:G,gap:G-T.gm*52,top:isNaN(tn)?"–":one(tn/52),topL:topL};drawMbar();
  $("yr").innerHTML='For all of '+YEAR+': '+A.map(function(a){var n=N[a[0]];return '<b>'+(isNaN(n)?"&ndash;":n.toLocaleString("en-US"))+'</b> '+a[1].toLowerCase().replace("vaco","Vaco");}).join(" &middot; ")+'. Rounded up &mdash; you can&#8217;t make half a placement.';
  var FC=forecast(T,G,BK,NEW,N,e,top);drawFC(FC);
  PD={FC:FC,GC:GC,GP:GP,gpsc:e.gpsc,gpsp:e.gpsp,G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
@@ -442,6 +492,23 @@ function render(){
  $("how").innerHTML='Your ratios come from your weekly averages'+(inm==="tot"?' (your totals &divide; '+one(totW())+' weeks)':'')+'; 2027 targets are spread over 52 weeks. Your book = each consultant&#8217;s GM per hour &times; 40 hours &times; utilization &times; your % on deal, for every week from Jan 1 to their end date (blank = all year); perm GM doesn&#8217;t carry over. Your goal splits contract / perm at your current GM mix; your book counts toward contract. Contract starts = new contract GM &divide; GM per contract start ('+usd(e.gpsc||0)+'); perm starts = perm GM &divide; GM per perm start ('+usd(e.gpsp||0)+'). '+(role==="sales"?'Jobs = starts &divide; share of jobs that start. ':'Client interviews = all starts &divide; client interview to start. Submittals = client interviews &divide; submittal to client interview. Vaco interviews = submittals &divide; Vaco interview to submittal. '+(role==="full"?'Jobs = submittals &divide; submittals per job. ':''))+(role!=="rec"?'Client visits = jobs &divide; jobs per visit.':'')+' Same math as the Next-year goal tab in the Commission &amp; GM Calculator.';
  save();}
 
+function checkInputs(T){var W=[],F={},rec=mine("rec full"),sal=mine("sales full");
+ function add(msg,ids,bad){W.push('<div class="warn2'+(bad?" bad":"")+'"><i>!</i><span>'+msg+'</span></div>');ids.forEach(function(i){F[i]=1;});}
+ if(rec&&T.subs>0&&T.cints>T.subs)add("More client interviews than submittals &mdash; check both numbers. Every client interview should come from a submittal.",["cints","subs"],1);
+ if(rec&&T.vints>0&&T.subs>T.vints)add("More submittals than Vaco interviews &mdash; double-check. Most desks interview 2&ndash;3 people for every submittal.",["subs","vints"],1);
+ if(rec&&T.cints>0&&T.starts>T.cints)add("More starts than client interviews &mdash; check your starts and client interviews.",["stc","stp","cints"],1);
+ if(sal&&T.jobs>0&&T.starts>T.jobs)add("More starts than jobs written &mdash; check your jobs written.",["jobs","stc","stp"],1);
+ if(sal&&T.visits>0&&T.jobs/T.visits>5)add("Over 5 jobs written per client visit &mdash; is a visit count missing?",["von","vvi","jobs"]);
+ if(T.gmc>0&&!(T.stc>0))add("Contract GM but no contract starts &mdash; we&#8217;ll use your overall GM per start for contract. Add your contract starts for a sharper plan.",["stc"]);
+ if(T.gmp>0&&!(T.stp>0))add("Perm GM but no perm starts &mdash; we&#8217;ll use your overall GM per start for perm. Add your perm starts.",["stp"]);
+ if(T.stp>0&&!(T.gmp>0))add("Perm starts but no perm GM &mdash; add your perm GM or perm won&#8217;t show up in your goal.",["gmp"],1);
+ if(T.stc>0&&!(T.gmc>0))add("Contract starts but no contract GM &mdash; add your contract GM.",["gmc"],1);
+ var gc=div(T.gmc,T.stc),gp=div(T.gmp,T.stp);
+ if(gc>0&&gc<5000)add("GM per contract start is only "+usd(gc)+" &mdash; check your contract GM and contract starts.",["gmc","stc"]);
+ if(gp>0&&gp<5000)add("GM per perm start is only "+usd(gp)+" &mdash; check your perm GM and perm starts.",["gmp","stp"]);
+ if(gp>150000)add("GM per perm start is "+usd(gp)+" &mdash; is a perm start missing?",["gmp","stp"]);
+ $("warns").innerHTML=W.join("");
+ EXK.forEach(function(k){var bx=$(k).closest(".box");if(bx)bx.classList.toggle("flag",!!F[k]);});}
 function forecast(T,G,BK,NEW,N,e,top){
  var t=new Date(),y=t.getFullYear(),ye=new Date(y,11,31),t0=new Date(y,t.getMonth(),t.getDate()),left=Math.max(52-Math.min((Math.round((t0-new Date(y,0,1))/864e5)+1)/7,52),0),ytdMode=inm==="tot"&&per==="ytd";
  var so=ytdMode?T.gm*totW():T.gm*(52-left),ye26=so+T.gm*left,st26=T.starts*52;
@@ -449,8 +516,24 @@ function forecast(T,G,BK,NEW,N,e,top){
  var qs=Q.map(function(q){var qs0=new Date(YEAR,q[2],1),qe=new Date(YEAR,q[2]+3,0),bk=BOOK.reduce(function(a,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<qe?end:qe;var wks=last<qs0?0:(Math.round((last-qs0)/864e5)+1)/7;return a+r.wk*wks;},0);
   var wq=(Math.round((qe-qs0)/864e5)+1)/7,rr=T.gm*wq,gl=(BK>0?Math.min(bk,BK*(bk/(bookGM()||1))):0)+NEW*wq/52;cumR+=rr;cumG+=gl;
   return {q:q[0],m:q[1],bk:bk,goal:gl,rr:rr,cumR:cumR,cumG:cumG,starts:isNaN(N.starts)?NaN:N.starts*wq/52,stc:N.stc*wq/52,stp:N.stp*wq/52,top:isNaN(N[top])?NaN:N[top]*wq/52};});
- return {ytdMode:ytdMode,so:so,left:left,ye26:ye26,st26:st26,y:y,qs:qs,topName:top==="visits"?"Client visits":"Vaco interviews",rr27:T.gm*52,G:G};}
+ var sc=BK>0?BK/(bookGM()||1):0,mc=0,mr=0,ms=[{m:0,g:0,r:0}];
+ for(var mi=0;mi<12;mi++){var m0=new Date(YEAR,mi,1),m1=new Date(YEAR,mi+1,0),dm=(Math.round((m1-m0)/864e5)+1),bkm=BOOK.reduce(function(a,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<m1?end:m1;return a+(last<m0?0:r.wk*(Math.round((last-m0)/864e5)+1)/7);},0);
+  mc+=bkm*sc+NEW*dm/365;mr+=T.gm*52*dm/365;ms.push({m:mi+1,g:mc,r:mr});}
+ return {ms:ms,ytdMode:ytdMode,so:so,left:left,ye26:ye26,st26:st26,y:y,qs:qs,topName:top==="visits"?"Client visits":"Vaco interviews",rr27:T.gm*52,G:G};}
+function chartSVG(F,wid){var W=wid||360,H=200,L=44,R=50,T0=12,B=24,ms=F.ms,mx=Math.max(F.G,ms[12].g,ms[12].r)*1.06||1,
+ x=function(m){return L+(W-L-R)*m/12;},y=function(v){return T0+(H-T0-B)*(1-v/mx);},st=Math.pow(10,Math.floor(Math.log10(mx/4))),stp=[1,2,2.5,5,10].map(function(k){return k*st;}).filter(function(v){return mx/v<=5;})[0]||st*10,
+ lab=function(v){return v>=1e6?"$"+(+(v/1e6).toFixed(1))+"M":"$"+Math.round(v/1e3)+"K";},g="",pg=ms.map(function(p){return x(p.m)+","+y(p.g);}).join(" "),pr=ms.map(function(p){return x(p.m)+","+y(p.r);}).join(" ");
+ for(var v=0;v<=mx;v+=stp)g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="#dfe5ee"/><text x="'+(L-6)+'" y="'+(y(v)+3.5)+'" text-anchor="end" font-size="10" fill="#5b6b82">'+lab(v)+'</text>';
+ ["Jan","Apr","Jul","Oct","Dec"].forEach(function(t,i){var m=[0.5,3.5,6.5,9.5,11.5][i];g+='<text x="'+x(m)+'" y="'+(H-6)+'" text-anchor="middle" font-size="10" fill="#5b6b82">'+t+'</text>';});
+ var area=ms.map(function(p){return x(p.m)+","+y(p.g);}).join(" ")+" "+ms.slice().reverse().map(function(p){return x(p.m)+","+y(p.r);}).join(" "),e=ms[12],behind=e.r<e.g;
+ return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="2027 cumulative GM: goal vs run rate" font-family="Manrope,Segoe UI,sans-serif">'+g+
+ '<polygon points="'+area+'" fill="'+(behind?"#f26b21":"#1f8a5b")+'" opacity=".12"/>'+
+ '<polyline points="'+pr+'" fill="none" stroke="#1d5aa6" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round"/>'+
+ '<polyline points="'+pg+'" fill="none" stroke="#f26b21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<circle cx="'+x(12)+'" cy="'+y(e.g)+'" r="4" fill="#f26b21"/><circle cx="'+x(12)+'" cy="'+y(e.r)+'" r="4" fill="#1d5aa6"/>'+
+ (function(){var yg=y(e.g),yr=y(e.r),d=13-Math.abs(yg-yr);if(d>0){if(yg<=yr){yg-=d/2;yr+=d/2;}else{yg+=d/2;yr-=d/2;}}return '<text x="'+(x(12)+7)+'" y="'+(yg+4)+'" font-size="11" font-weight="800" fill="#c2551a">'+lab(e.g)+'</text><text x="'+(x(12)+7)+'" y="'+(yr+4)+'" font-size="11" font-weight="800" fill="#1d5aa6">'+lab(e.r)+'</text>';})()+'</svg>';}
 function drawFC(F){var h='<div class="fye"><span>'+F.y+' year-end forecast</span><b>'+usd(F.ye26)+'</b><small>'+(F.ytdMode?usd(F.so)+' so far + '+usd(F.ye26-F.so)+' over the '+one(F.left)+' weeks left, at your run rate':'Your run rate for a full year')+' &middot; about '+Math.round(F.st26)+' starts</small></div>';
+ h+='<div class="chart">'+chartSVG(F)+'<div class="lg"><span><i style="background:#f26b21"></i>Your goal (cumulative)</span><span><i style="background:#1d5aa6"></i>At today&#8217;s run rate</span></div></div>';
  h+='<div class="fq h"><span></span><span>Goal</span><span>Run rate</span><span>Running total</span></div>';
  F.qs.forEach(function(q){var d=q.cumR-q.cumG,ok=d>=-1,pct=q.cumG>0?Math.min(q.cumR/q.cumG,1)*100:100;
   h+='<div class="fq"><span class="q">'+q.q+'<small>'+q.m+'</small></span><span><b>'+k$(q.goal)+'</b><em>'+one(q.stc)+' contract + '+one(q.stp)+' perm starts'+(q.bk>1?' &middot; '+k$(q.bk)+' book':'')+'</em></span><span><b>'+k$(q.rr)+'</b><em>'+Math.round(q.top)+' '+F.topName.toLowerCase().replace("vaco","Vaco")+'</em></span><span class="'+(ok?"ok":"bh")+'">'+(ok?"+":"&minus;")+k$(Math.abs(d))+'<em>'+(ok?"ahead":"behind")+'</em><div class="fbar'+(ok?" ok":"")+'"><i style="width:'+pct.toFixed(0)+'%"></i></div></span></div>';});
@@ -498,7 +581,7 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  (d.book.length?'<h2>Consultants on billing carrying into '+YEAR+'</h2><table><tr><th>Consultant</th><th class="n">GM per hour</th><th class="n">Credit share</th><th class="n">Expected end</th><th class="n">GM per week</th><th class="n">'+YEAR+' GM</th></tr>'+
   d.book.map(function(c){return '<tr><td>'+esc(c.t)+'</td><td class="n">$'+c.g.toLocaleString("en-US")+'</td><td class="n">'+c.s+'%</td><td class="n">'+(c.e?new Date(c.e+"T00:00:00").toLocaleDateString("en-US"):"All year")+'</td><td class="n">'+usd(c.wk)+'</td><td class="n">'+usd(c.ny)+'</td></tr>';}).join("")+
   '<tr class="h"><td>Total</td><td></td><td></td><td></td><td class="n">'+usd(d.book.reduce(function(a,c){return a+c.wk;},0))+'</td><td class="n">'+usd(d.BK)+'</td></tr></table><p style="font-size:11px;color:#5b6b82">At '+d.util+'% utilization of a 40-hour week.</p>':'')+
- '<h2>Auto-forecast</h2><div class="note" style="margin-top:0">'+d.FC.y+' year-end forecast: <b>'+usd(d.FC.ye26)+'</b> GM ('+(d.FC.ytdMode?usd(d.FC.so)+' so far + '+usd(d.FC.ye26-d.FC.so)+' over the '+one(d.FC.left)+' weeks left':'full-year run rate')+'). At today&#8217;s run rate '+YEAR+' lands near <b>'+usd(d.FC.rr27)+'</b>.</div>'+
+ '<h2>Auto-forecast</h2><div style="margin:0 0 10px">'+chartSVG(d.FC,760)+'<div style="display:flex;gap:16px;font-size:11px;color:#5b6b82"><span><b style="color:#f26b21">&#9644;</b> Goal (cumulative)</span><span><b style="color:#1d5aa6">&#9644;</b> At today&#8217;s run rate</span></div></div><div class="note" style="margin-top:0">'+d.FC.y+' year-end forecast: <b>'+usd(d.FC.ye26)+'</b> GM ('+(d.FC.ytdMode?usd(d.FC.so)+' so far + '+usd(d.FC.ye26-d.FC.so)+' over the '+one(d.FC.left)+' weeks left':'full-year run rate')+'). At today&#8217;s run rate '+YEAR+' lands near <b>'+usd(d.FC.rr27)+'</b>.</div>'+
  '<table><tr><th>Quarter</th><th class="n">Goal GM</th><th class="n">Contract starts</th><th class="n">Perm starts</th><th class="n">GM at run rate</th><th class="n">Running ahead / behind</th></tr>'+d.FC.qs.map(function(q){var x=q.cumR-q.cumG;return '<tr><td>'+q.q+' '+YEAR+'</td><td class="n">'+usd(q.goal)+'</td><td class="n">'+one(q.stc)+'</td><td class="n">'+one(q.stp)+'</td><td class="n">'+usd(q.rr)+'</td><td class="n"><span class="'+(x>=-1?"dn":"up")+'">'+(x>=-1?"+":"&minus;")+usd(Math.abs(x))+'</span></td></tr>';}).join("")+'</table>'+
  '<div class="sig"><div>Producer</div><div>Leader</div></div></div>'+
  '<div class="ft">Vaco by Highspring &middot; '+YEAR+' goal setting &middot; vacobyhighspring.github.io/solutions/goal-2027/</div></div></body></html>';
@@ -507,6 +590,7 @@ $("dl").addEventListener("click",function(){if(!PD){toast("Fill in steps 1–3 f
 $("saveF").addEventListener("click",function(){dlFile(YEAR+"-Goal-Numbers"+slug()+".json",JSON.stringify(state(),null,1),"application/json");toast("Numbers saved");});
 $("openF").addEventListener("click",function(){$("fileIn").value="";$("fileIn").click();});
 $("fileIn").addEventListener("change",function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{if(apply(JSON.parse(r.result))){sync();drawBook();render();toast("Numbers loaded");}else toast("That file isn’t a saved goal plan");}catch(e){toast("That file isn’t a saved goal plan");}};r.readAsText(f);});
+$("mbar").addEventListener("click",function(){$("res").scrollIntoView({behavior:"smooth",block:"start"});});
 $("print").addEventListener("click",function(){window.print();});
 
 if(!load()){inm="avg";convert("tot");inm="tot";}sync();drawBook();render();
