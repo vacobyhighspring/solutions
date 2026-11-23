@@ -263,13 +263,19 @@ details.more .fields{margin-top:12px}
 .cyc{display:flex;flex-direction:column;gap:14px;margin-top:6px}
 .lane{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fbfcfe}
 .lane.lj{background:#fff}
+.lh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+.lsw{display:inline-flex;background:var(--tint);border-radius:999px;padding:2px;text-transform:none;letter-spacing:0}
+.lsw button{border:0;background:transparent;border-radius:999px;padding:4px 10px;font-size:11.5px;font-weight:700;color:var(--muted)}
+.lsw button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(11,31,58,.15)}
+.suf[data-a]{cursor:pointer;border-bottom:1px dotted #b8c3d3}
+.suf[data-a]:hover{color:var(--orange)}
 .lh{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .stg{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start}
 .sn b{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--band);color:#fff;font-size:12.5px;font-weight:800;margin-top:2px}
 .stg.off .sn b{background:var(--line)}
 .st{font-family:var(--display);font-weight:700;font-size:14.5px;margin:4px 0 8px}
 .st i{font-family:var(--body);font-style:normal;font-weight:500;font-size:12px;color:var(--muted)}
-.stg .fields{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.stg .fields{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));align-items:end}
 .cn{margin:6px 0 6px 13px;padding:4px 0 4px 26px;border-left:2px dashed #c8d3e3;font-size:12px;color:var(--muted);min-height:10px}
 .cn:empty{min-height:12px}
 .cn b{display:inline-block;background:var(--blue-soft);color:var(--blue);border-radius:999px;padding:1px 9px;font-size:12px;margin-right:4px}
@@ -444,6 +450,9 @@ details.more .fields{margin-top:12px}
 .dm b{font-family:var(--display);font-size:19px}
 .dm small{display:block;font-size:11px;color:var(--muted)}
 .dm em{font-style:normal;color:#b5490f;font-weight:700}
+.box.tot{background:var(--tint);border-style:dashed}
+.box.tot output{display:block;width:100%;padding:10px 4px;font-size:15px;font-weight:800}
+.box .suf2{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -495,7 +504,7 @@ footer a{color:var(--blue)}
     </div>
     <div class="ex" id="exNote">These are example numbers &mdash; replace them with yours. <button type="button" id="clearEx">Clear them</button></div>
     <div class="cyc">
-    <div class="lane" data-for="sales full"><div class="lh">Sales cycle</div>
+    <div class="lane" data-for="sales full"><div class="lh"><span class="lt2">Sales cycle</span><span class="lsw" role="group" aria-label="Enter totals or weekly averages"><button type="button" data-inm="tot">Totals</button><button type="button" data-inm="avg">Weekly averages</button></span></div>
 <div class="stg" data-stage="pros"><div class="sn"><b></b></div><div class="sb"><div class="st">Prospecting attempts</div><div class="bmx" id="bm_pros"></div><div class="fields"><div class="fld"><div class="lr"><label for="pros">Attempts</label><button type="button" class="optt" data-opt="pros" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="pros" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
 <div class="cn" id="cn_pros"></div>
 <div class="stg" data-stage="visits"><div class="sn"><b></b></div><div class="sb"><div class="st">Client visits</div><div class="bmx" id="bm_visits"></div><div class="fields"><div class="fld"><div class="lr"><label for="von">In person</label><button type="button" class="optt" data-opt="von" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="von" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="vvi">Virtual</label><button type="button" class="optt" data-opt="vvi" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="vvi" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
@@ -503,18 +512,18 @@ footer a{color:var(--blue)}
 <div class="stg" data-stage="jobs"><div class="sn"><b></b></div><div class="sb"><div class="st">Jobs written</div><div class="bmx" id="bm_jobs"></div><div class="fields"><div class="fld"><div class="lr"><label for="jobsc">Contract</label><button type="button" class="optt" data-opt="jobsc" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="jobsc" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="jobsp">Perm</label><button type="button" class="optt" data-opt="jobsp" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="jobsp" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
 <div class="cn" id="cn_jobs"></div>
     </div>
-    <div class="lane" data-for="rec full"><div class="lh">Recruiting cycle</div>
+    <div class="lane" data-for="rec full"><div class="lh"><span class="lt2">Recruiting cycle</span><span class="lsw" role="group" aria-label="Enter totals or weekly averages"><button type="button" data-inm="tot">Totals</button><button type="button" data-inm="avg">Weekly averages</button></span></div>
 <div class="stg" data-stage="vints"><div class="sn"><b></b></div><div class="sb"><div class="st">Vaco interviews</div><div class="bmx" id="bm_vints"></div><div class="fields"><div class="fld"><div class="lr"><label for="vints">Vaco interviews</label><button type="button" class="optt" data-opt="vints" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="vints" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
 <div class="cn" id="cn_vints"></div>
 <div class="stg" data-stage="subs"><div class="sn"><b></b></div><div class="sb"><div class="st">Submittals</div><div class="bmx" id="bm_subs"></div><div class="fields"><div class="fld"><div class="lr"><label for="subs">Submittals</label><button type="button" class="optt" data-opt="subs" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="subs" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
 <div class="cn" id="cn_subs"></div>
     </div>
-    <div class="lane lj"><div class="lh">Both meet here</div>
+    <div class="lane lj"><div class="lh"><span class="lt2">Both meet here</span><span class="lsw" role="group" aria-label="Enter totals or weekly averages"><button type="button" data-inm="tot">Totals</button><button type="button" data-inm="avg">Weekly averages</button></span></div>
 <div class="stg" data-stage="cints"><div class="sn"><b></b></div><div class="sb"><div class="st">Client interviews</div><div class="bmx" id="bm_cints"></div><div class="fields"><div class="fld"><div class="lr"><label for="cints">Client interviews</label><button type="button" class="optt" data-opt="cints" aria-pressed="true" title="Included in your forecast. Click to leave it out.">In forecast</button></div><div class="box"><input id="cints" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div></div></div></div>
 <div class="cn" id="cn_cints"></div>
 <div class="stg" data-stage="starts"><div class="sn"><b></b></div><div class="sb"><div class="st">Starts</div><div class="bmx" id="bm_starts"></div><div class="fields"><div class="fld"><div class="lr"><label for="stc"><span data-a="Contract per month" data-t="Contract"></span></label></div><div class="box"><input id="stc" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/month" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="stp"><span data-a="Perm per month" data-t="Perm"></span></label></div><div class="box"><input id="stp" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/month" data-t="total"></span></div></div></div></div></div>
 <div class="cn" id="cn_startsgm"></div>
-<div class="stg" data-stage="gm"><div class="sn"><b></b></div><div class="sb"><div class="st">Gross margin <i>(after splits)</i></div><div class="bmx" id="bm_gm"></div><div class="fields"><div class="fld"><div class="lr"><label for="gmc">Contract</label></div><div class="box"><span>$</span><input id="gmc" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="gmp">Perm</label></div><div class="box"><span>$</span><input id="gmp" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="gmhr">Avg contract GM per hour <i>(your share)</i></label></div><div class="box"><span>$</span><input id="gmhr" data-d inputmode="decimal" value="" placeholder="0"><span class="suf">/hr</span></div></div></div></div></div>
+<div class="stg" data-stage="gm"><div class="sn"><b></b></div><div class="sb"><div class="st">Gross margin <i>(after splits)</i></div><div class="bmx" id="bm_gm"></div><div class="fields"><div class="fld"><div class="lr"><label for="gmc">Contract</label></div><div class="box"><span>$</span><input id="gmc" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label for="gmp">Perm</label></div><div class="box"><span>$</span><input id="gmp" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div></div><div class="fld"><div class="lr"><label>Total GM <i>(auto)</i></label></div><div class="box tot"><span>$</span><output id="gmtot">0</output><span class="suf2" id="gmtotU">total</span></div></div></div></div></div>
     </div>
     </div>
     <p class="hint opth">Every activity is <b>in your forecast</b>. Click <b>In forecast</b> next to any metric to leave it out &mdash; your plan skips that step.</p>
@@ -596,8 +605,8 @@ footer a{color:var(--blue)}
 (function(){
 var $=function(id){return document.getElementById(id);};
 var YEAR=2027,KEY="vbh-goal-2027";
-var FIELDS=["gmhr","sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
-var EX={gmhr:"",sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",subs:"",cints:"",util:"90"};
+var FIELDS=["sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints","util"];
+var EX={sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",subs:"",cints:"",util:"90"};
 var AVGK=["pros","von","vvi","jobsc","jobsp","vints","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
 var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","subs","cints"];
 var BMODE="quick",role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
@@ -606,6 +615,7 @@ function util(){return Math.min(Math.max(num($("util").value),0),100)/100;}
 function cRow(c){var sp=(c.s===""||c.s==null?50:num(c.s))/100,wkGM=num(c.g)*40*util()*sp,end=c.e?new Date(c.e+"T00:00:00"):null,last=end&&end<Y1?end:Y1,wks=last<Y0?0:Math.min((Math.round((last-Y0)/864e5)+1)/7,52);return {wk:wkGM,wks:wks,ny:wkGM*wks};}
 function bookIn(a,b){if(BMODE==="quick"){var wk=num($("bqwk").value),v=$("bqend").value,end=v?new Date(v+"T00:00:00"):Y1,last=end<b?end:b;return !(wk>0)||last<a?0:wk*Math.min((Math.round((last-a)/864e5)+1)/7,52);}
  return BOOK.reduce(function(t,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<b?end:b;return t+(last<a?0:r.wk*Math.min((Math.round((last-a)/864e5)+1)/7,52));},0);}
+function bookHr(){if(BMODE!=="list")return 0;var L=BOOK.filter(function(c){return num(c.g)>0;});if(!L.length)return 0;return L.reduce(function(a,c){return a+num(c.g)*((c.s===""||c.s==null?50:num(c.s))/100);},0)/L.length;}
 function bookGM(){return bookIn(Y0,Y1);}
 function bookWk(){return BMODE==="quick"?num($("bqwk").value):BOOK.reduce(function(a,c){return a+cRow(c).wk;},0);}
 function cCell(c){var r=cRow(c);return '<b>'+usd(r.ny)+'</b><small>'+usd(r.wk)+'/wk'+(c.e?' &middot; '+one(r.wks)+' wks':' &middot; all year')+'</small>';}
@@ -710,7 +720,7 @@ function drawCn(T){[].forEach.call(document.querySelectorAll(".cn"),function(el)
  if($("bm_gm"))$("bm_gm").innerHTML='Reference: $200K / $300K / $400K a year per producer, <i>before</i> splits';[].forEach.call(document.querySelectorAll(".stg"),function(el){var k=el.dataset.stage,lane=el.closest(".lane");if(lane.hidden)return;var on=k==="starts"||k==="gm"||active(T,k);el.classList.toggle("off",!on);});
  var num={};(role==="rec"?["vints","subs","cints","starts","gm"]:role==="sales"?["pros","visits","jobs","cints","starts","gm"]:["pros","visits","jobs","cints","starts","gm"]).forEach(function(k,i){num[k]=i+1;});if(role==="full"){num.vints=1;num.subs=2;}
  [].forEach.call(document.querySelectorAll(".stg"),function(el){el.querySelector(".sn b").textContent=el.dataset.stage==="gm"?"$":(num[el.dataset.stage]||"");});}
-function laneTitle(){var h=document.querySelector(".lj .lh");if(h)h.textContent=role==="full"?"Both cycles meet here":"Results";}
+function laneTitle(){var h=document.querySelector(".lj .lh .lt2");if(h)h.textContent=role==="full"?"Both cycles meet here":"Results";}
 function nextStage(up){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),i=br.indexOf(up);return br[i-1];}
 function skipped(up,dn){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),a=br.indexOf(dn),b=br.indexOf(up);return br.slice(a+1,b).map(function(k){return ST[k].many;}).join(", ");}
 function fmtF(T,pr,v){return isPct(pr.key)?(Math.round(v*1000)/10)+"%":(+v.toFixed(2))+"";}
@@ -794,8 +804,8 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
   '<p>At today&#8217;s conversion rates, here&#8217;s every activity per week:</p><div class="dmg">'+["pros","visits","jobs","vints","subs","cints"].filter(function(k){return active(T,k)&&B.N[k]!=null&&!isNaN(B.N[k]);}).map(function(k){var nw=sv(T,k),nd=B.N[k]/52;return '<div class="dm'+(k===top?' hot':'')+'"><span>'+ST[k].l+'</span><b>'+one(nd)+'</b><small>a week &middot; now '+one(nw)+(nd>nw?' &middot; <em>+'+one(nd-nw)+'</em>':'')+'</small></div>';}).join("")+
   '<div class="dm"><span>Contract + perm starts</span><b>'+one((B.N.stc||0)/12)+' + '+one((B.N.stp||0)/12)+'</b><small>a month &middot; now '+one(T.stc*52/12)+' + '+one(T.stp*52/12)+'</small></div></div></div>';
  var P=pairs(T),r0=ratios(T),levs=P.map(function(pr){var need=pr.cur*B.k,pct=isPct(pr.key),poss=!pct||need<=1;return {key:pr.key,l:ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),cur:pr.cur,now:cvTxt(T,pr,pr.cur).big,need:poss?cvTxt(T,pr,need).big:"over 100%",poss:poss,pct:pct,pr:pr};});
- var hr=num($("gmhr").value);
- if(r0.gpsc>0&&B.N.stc>0)levs.push(hr>0?{key:"gpsc",l:"Contract GM per hour",cur:r0.gpsc,hr:hr,now:"$"+hr.toFixed(2)+"/hr",need:"$"+(hr*B.k).toFixed(2)+"/hr",poss:true,pct:false,gm:true}:{key:"gpsc",l:"GM per contract start",cur:r0.gpsc,now:usd(r0.gpsc),need:usd(r0.gpsc*B.k),poss:true,pct:false,gm:true,nohr:true});
+ var hr=bookHr();
+ if(r0.gpsc>0&&B.N.stc>0)levs.push(hr>0?{key:"gpsc",l:"Contract GM per hour (your share, from your consultants)",cur:r0.gpsc,hr:hr,now:"$"+hr.toFixed(2)+"/hr",need:"$"+(hr*B.k).toFixed(2)+"/hr",poss:true,pct:false,gm:true}:{key:"gpsc",l:"GM per contract start",cur:r0.gpsc,now:usd(r0.gpsc),need:usd(r0.gpsc*B.k),poss:true,pct:false,gm:true,nohr:true});
  if(r0.gpsp>0&&B.N.stp>0)levs.push({key:"gpsp",l:"GM per perm start",cur:r0.gpsp,now:usd(r0.gpsp),need:usd(r0.gpsp*B.k),poss:true,pct:false,gm:true});
  var gAct=B.sY*B.e.gps,gainOf=function(l,nv){if(!(nv>0))return 0;if(l.key==="gpsc")return B.sY*B.e.cmix*(nv-l.cur);if(l.key==="gpsp")return B.sY*(1-B.e.cmix)*(nv-l.cur);return gAct*(nv/l.cur-1);};
  W.lev=levs;
@@ -806,7 +816,7 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
   custUnit=function(l){return l.hr?"$/hr":l.gm?"$":l.pct?"%":"#";};
  h+='<div class="way b"><div class="wh"><i>2</i>Convert better at each step</div><p>Tighten any step &mdash; or several. Improvements stack, because every step multiplies the next.</p>'+
   levs.map(function(l){var o=OV[l.key]>0?OV[l.key]:null,nowTxt=l.hr?(o?"$"+(l.hr*o/l.cur).toFixed(2)+"/hr":""):l.gm?usd(o||l.cur):(o?cvTxt(T,l.pr,o).big:l.now),g=gainOf(l,o),step=gainOf(l,target(l,presets(l)[1]));
-   return '<div class="lev2"><div class="lt"><span class="ll">'+l.l+'</span><span class="lv">'+l.now+(o?' &rarr; <b>'+nowTxt+'</b>':'')+'<em>'+(l.poss?'Alone closes the gap at '+l.need:'Can&#8217;t close the gap alone')+(l.nohr?' &middot; add your contract GM per hour in step 2 to plan in $/hr':'')+'</em></span></div>'+
+   return '<div class="lev2"><div class="lt"><span class="ll">'+l.l+'</span><span class="lv">'+l.now+(o?' &rarr; <b>'+nowTxt+'</b>':'')+'<em>'+(l.poss?'Alone closes the gap at '+l.need:'Can&#8217;t close the gap alone')+(l.nohr?' &middot; add your consultants in step 4 (consultant by consultant) to plan in $/hr':'')+'</em></span></div>'+
     '<div class="lc"><div class="chips lch">'+presets(l).map(function(v){return chip(l,v);}).join("")+'<label class="cbox'+(isCust(l)?' on':'')+'"><input class="cust" data-cust="'+l.key+'" inputmode="decimal" placeholder="Custom" value="'+custVal(l)+'"><span>'+custUnit(l)+'</span></label></div>'+
     '<div class="lg3">'+(o?'<b>'+(g>=0?'+':'&minus;')+k$(Math.abs(g))+'</b> GM a year at today&#8217;s activity':'Each '+(l.hr?'+$1/hr':'+5%')+' &asymp; <b>+'+k$(Math.max(step,0))+'</b> GM a year')+'</div></div></div>';}).join("");
  if(anyOv){var gain=(sY*e.gps+BK)-B.g,left=G-(sY*e.gps+BK),saved=B.N[top]/52-N[top]/52;
@@ -830,7 +840,7 @@ function calcTen(){var v=$("sdate").value,el=$("tenTxt");if(!v){TEN=3;el.innerHT
  if(d<0){TEN=0;el.innerHTML="Start date is in the future &mdash; using first-90-days benchmarks.";return;}
  TEN=d<=90?0:d<=180?1:d<=365?2:3;var pct=[50,75,90,100][TEN];
  el.innerHTML='<b>'+d.toLocaleString("en-US")+' days</b> in your seat &middot; '+(TEN<3?'activity benchmarks set at <b>'+pct+'%</b> while you ramp':'fully ramped benchmarks');}
-function render(){calcTen();
+function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("gmtot").textContent=Math.round(_gt).toLocaleString("en-US");$("gmtotU").textContent=inm==="tot"?"total":"/week";
  [].forEach.call(document.querySelectorAll("[data-for]"),function(el){el.hidden=!mine(el.dataset.for);});
  var T=read(),w=weeks(),f=52/w,pace=T.gm*f,G=mode==="grow"?Math.round(pace*(1+T.grow/100)/1000)*1000:T.goal,e=eff(T),r=ratios(T);
  drawBookSum();var cmixG=T.gm>0?T.gmc/T.gm:1,GC=G*cmixG,GP=G-GC,BK=Math.min(bookGM(),G),NEWC=Math.max(GC-BK,0),NEWP=GP,NEW=NEWC+NEWP;
@@ -843,7 +853,7 @@ function render(){calcTen();
   act=function(fs){return fs.filter(function(f){var st=Object.keys(ST).filter(function(k){return ST[k].p.indexOf(f)>-1;})[0];return mine(ST[st].r);}).map(function(f){return row(PART[f].replace("Client visits, ","Visits, "),one(T[f]),"/ wk",Math.round(T[f]*52).toLocaleString("en-US"),OPT[f]);});};
  $("avgs").innerHTML='<div class="rrh"><div class="rrn"><span class="lab">Your run rate</span><b>'+usd(T.gm*52)+'</b><small>GM a year &middot; '+usd(T.gm)+' a week'+(inm==="tot"?' &middot; from '+one(totW())+' weeks of numbers':'')+'</small></div>'+
   '<div class="mix"><div class="bar"><i style="width:'+(cs*100).toFixed(1)+'%"></i></div><div class="lg2"><span><i class="dc"></i>Contract <b>'+k$(T.gmc*52)+'</b> '+Math.round(cs*100)+'%</span><span><i class="dp"></i>Perm <b>'+k$(T.gmp*52)+'</b> '+Math.round((1-cs)*100)+'%</span></div>'+
-  '<div class="gps">'+(num($("gmhr").value)>0?'<span>Contract GM per hour <b>$'+num($("gmhr").value).toFixed(2)+'/hr</b></span>':'')+'<span>GM per contract start <b>'+(r.gpsc?usd(r.gpsc):"&ndash;")+'</b></span><span>GM per perm start <b>'+(r.gpsp?usd(r.gpsp):"&ndash;")+'</b></span></div></div></div>'+
+  '<div class="gps">'+(bookHr()>0?'<span>Contract GM per hour <b>$'+bookHr().toFixed(2)+'/hr</b></span>':'')+'<span>GM per contract start <b>'+(r.gpsc?usd(r.gpsc):"&ndash;")+'</b></span><span>GM per perm start <b>'+(r.gpsp?usd(r.gpsp):"&ndash;")+'</b></span></div></div></div>'+
   '<div class="rrg">'+grp("Results",[row("Contract starts",one(T.stc*52/12),"/ mo",one(T.stc*52)),row("Perm starts",one(T.stp*52/12),"/ mo",one(T.stp*52))])+
   grp("Sales cycle",act(["pros","von","vvi","jobsc","jobsp"]))+grp("Recruiting cycle",act(["vints","subs"]))+grp("Both cycles",act(["cints"]))+'</div>';
  $("calc").innerHTML="";}
@@ -944,18 +954,20 @@ function drawFC(F){var h='<div class="fye"><span>'+F.y+' year-end forecast</span
  h+='<p class="fsum">'+(gap>1?'Stay at today&#8217;s run rate and you finish '+YEAR+' around <b>'+usd(F.rr27)+'</b>, <b>'+usd(gap)+' short</b>. Your weekly plan above closes that gap.':'Today&#8217;s run rate alone gets you to about <b>'+usd(F.rr27)+'</b> &mdash; ahead of your goal.')+' "Goal" spreads your new GM evenly across the year and adds what your consultants bill in each quarter.</p>';
  $("fc").innerHTML=h;}
 var EXMODE=false,SAVED=null;
-var EXSTATE={ver:5,role:"full",mode:"grow",inm:"tot",per:"ytd",d1:"",d2:"",edited:true,ov:{},opt:{},bmode:"list",book:[{t:"Jordan Smith",g:"42",s:"50",e:"2027-06-30"},{t:"Priya Patel",g:"35",s:"50",e:""},{t:"Marcus Lee",g:"28",s:"25",e:"2027-03-31"}],v:{who:"Example Producer",goal:"",grow:"20",gmc:"356,700",gmp:"138,400",gmhr:"18",stc:"10",stp:"6",pros:"2,100",von:"70",vvi:"117",jobsc:"47",jobsp:"33",vints:"280",subs:"168",cints:"85",util:"90",bqwk:"",bqend:""}};
+var EXSTATE={ver:5,role:"full",mode:"grow",inm:"tot",per:"ytd",d1:"",d2:"",edited:true,ov:{},opt:{},bmode:"list",book:[{t:"Jordan Smith",g:"42",s:"50",e:"2027-06-30"},{t:"Priya Patel",g:"35",s:"50",e:""},{t:"Marcus Lee",g:"28",s:"25",e:"2027-03-31"}],v:{who:"Example Producer",goal:"",grow:"20",gmc:"356,700",gmp:"138,400",stc:"10",stp:"6",pros:"2,100",von:"70",vvi:"117",jobsc:"47",jobsp:"33",vints:"280",subs:"168",cints:"85",util:"90",bqwk:"",bqend:""}};
 function save(){if(EXMODE)return;try{localStorage.setItem(KEY,JSON.stringify(state()));}catch(e){}}
 function state(){var s={ver:5,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,opt:OPT,book:BOOK,bmode:BMODE,ten:TEN,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
 function apply(s){if(!s||s.ver!==5)return false;OPT=s.opt||{};BMODE=s.bmode||"quick";TEN=s.ten!=null?s.ten:3;role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
 function load(){try{return apply(JSON.parse(localStorage.getItem(KEY)||"null"));}catch(e){return false;}}
 function isEx(){return false;}
 function syncOpt(){[].forEach.call(document.querySelectorAll("[data-opt]"),function(b){var o=!!OPT[b.dataset.opt];b.classList.toggle("out",o);b.textContent=o?"Left out":"In forecast";b.setAttribute("aria-pressed",o?"false":"true");b.closest(".fld").classList.toggle("off",o);});}
-function sync(){syncOpt();[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===per);});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;});}
+function sync(){syncOpt();[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===per);});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;if(el.classList.contains("suf"))el.title=inm==="tot"?"Click to enter weekly averages instead":"Click to enter totals instead";});[].forEach.call(document.querySelectorAll("[data-inm]"),function(b){b.classList.toggle("on",b.dataset.inm===inm);});}
 function toast(t){var el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove("on");},1800);}
 
 $("role").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;role=b.dataset.v;sync();render();});
-$("inm").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||b.dataset.v===inm)return;convert(b.dataset.v);inm=b.dataset.v;sync();render();});
+function setInm(v){if(v===inm)return;convert(v);inm=v;sync();render();toast(v==="tot"?"Showing totals for your time period":"Showing weekly averages");}
+$("inm").addEventListener("click",function(e){var b=e.target.closest("button");if(b)setInm(b.dataset.v);});
+document.addEventListener("click",function(e){var b=e.target.closest("[data-inm]");if(b){setInm(b.dataset.inm);return;}var u=e.target.closest(".suf[data-a]");if(u){setInm(inm==="tot"?"avg":"tot");}});
 $("per").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;per=b.dataset.v;if(per==="dates"&&!$("d1").value){var t=new Date();$("d1").value=t.getFullYear()+"-01-01";$("d2").value=t.toISOString().slice(0,10);}sync();render();});
 document.addEventListener("click",function(e){var b=e.target.closest("[data-opt]");if(!b)return;var k=b.dataset.opt;if(OPT[k])delete OPT[k];else OPT[k]=true;OV={};syncOpt();render();});
 $("bmode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;BMODE=b.dataset.v;if(BMODE==="list"&&!BOOK.length){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();}render();});
@@ -1024,7 +1036,7 @@ function aiPrompt(){var d=PD,g=d&&d.WAYS&&d.WAYS.GP;if(!g)return "";var rl={sale
  L.push("\nPlease give me an encouraging, practical 90-day coaching plan: start with what I'm doing well, then my top 3 areas of improvement in priority order, with specific weekly habits, talk tracks and tips for each, things to be aware of, leading indicators that show it's working, and a simple weekly schedule. Keep it specific to staffing and to my numbers.");
  return L.join("\n");}
 $("ways").addEventListener("change",function(e){var t=e.target;if(!t.classList.contains("cust"))return;var k=t.dataset.cust,v=num(t.value),T=read(),r0=ratios(T);if(!(v>0)){delete OV[k];render();return;}
- if(k==="gpsc"){var hr=num($("gmhr").value);OV.gpsc=hr>0?r0.gpsc*v/hr:v;}else if(k==="gpsp"){OV.gpsp=v;}else{OV[k]=isPct(k)?v/100:v;}render();});
+ if(k==="gpsc"){var hr=bookHr();OV.gpsc=hr>0?r0.gpsc*v/hr:v;}else if(k==="gpsp"){OV.gpsp=v;}else{OV[k]=isPct(k)?v/100:v;}render();});
 $("ways").addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.classList.contains("cust"))e.target.blur();});
 $("ways").addEventListener("click",function(e){if(e.target.id==="aiCoach"){var t=aiPrompt();if(!t){toast("Fill in your numbers first");return;}try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(x){}window.open("https://claude.ai/new?q="+encodeURIComponent(t),"_blank","noopener");toast("Opening Claude — your plan is on your clipboard too");return;}if(e.target.id==="applyBm"&&PD&&PD.WAYS&&PD.WAYS.GP){OV=PD.WAYS.GP.OVb;render();toast("Benchmark rates applied");return;}var c=e.target.closest("[data-imp]");if(c){var k=c.dataset.imp,t=parseFloat(c.dataset.t),r0=ratios(read()),cur=k==="gpsc"||k==="gpsp"?r0[k]:null;if(cur!=null?Math.abs(t-cur)>1e-9:true){if(c.textContent==="Same")delete OV[k];else OV[k]=t;}else delete OV[k];render();return;}var t=e.target.closest("[data-try]");if(t){OV[t.dataset.try]=parseFloat(t.dataset.v);var d=document.querySelector("details.more");if(d)d.open=true;render();toast("Rate applied &mdash; see your plan update".replace("&mdash;","—"));return;}if(e.target.id==="wReset"){OV={};render();toast("Back to today’s rates");}});
 function showEx(on){EXMODE=on;$("exBan").hidden=!on;$("exBtn").hidden=on;}
