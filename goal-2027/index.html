@@ -516,7 +516,7 @@ footer a{color:var(--blue)}
 .wzbar{height:5px;border-radius:9px;background:var(--line);overflow:hidden;margin:2px 0 4px}
 .wzbar i{display:block;height:100%;background:var(--orange);transition:width .3s}
 @media(max-width:700px){.wzf{position:sticky;bottom:0;background:var(--surface);margin:18px -16px -16px;padding:12px 16px;border-radius:0 0 14px 14px;z-index:5}.wzf .wzc{display:none}.wzf button{flex:1}}
-</style>
+#per button small{font-weight:600;opacity:.7;margin-left:4px;font-size:.9em}</style>
 </head>
 <body>
 <header class="band"><div class="inner">
@@ -547,7 +547,7 @@ footer a{color:var(--blue)}
     <p class="sub">Fill in each stage of your cycle, top to bottom. Pull them straight from your scorecard.</p>
     <div class="inm"><div class="chips" id="inm"><button type="button" data-v="tot" class="on">Totals for a time period</button><button type="button" data-v="avg">My weekly averages</button></div></div>
     <div class="period" id="perRow"><span>My totals cover</span>
-      <div class="chips" id="per"><button type="button" data-v="ytd" class="on">Jan 1 to today</button><button type="button" data-v="dates">Pick dates</button></div>
+      <div class="chips" id="per"><button type="button" data-v="ytd" class="on">Jan 1 to today</button><button type="button" data-v="q1">Last quarter</button><button type="button" data-v="q2">Last 2 quarters</button><button type="button" data-v="dates">Pick dates</button></div>
       <span id="dates" hidden><span class="box" style="display:inline-flex"><input type="date" id="d1"></span> to <span class="box" style="display:inline-flex"><input type="date" id="d2"></span></span>
       <span class="pw" id="perW"></span>
     </div>
@@ -660,6 +660,7 @@ var FIELDS=["sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","
 var EX={sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",jom:"",subs:"",cints:"",util:"90"};
 var AVGK=["pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
 var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints"];
+var PQ="";function qRange(n){var t=new Date(),qs=Math.floor(t.getMonth()/3)*3,end=new Date(t.getFullYear(),qs,0),st=new Date(t.getFullYear(),qs-3*n,1),f=function(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");};return [f(st),f(end)];}
 var BMODE="quick",role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
 var Y0=new Date(YEAR,0,1),Y1=new Date(YEAR,11,31);
 function util(){return Math.min(Math.max(num($("util").value),0),100)/100;}
@@ -1028,14 +1029,17 @@ function apply(s){if(!s||s.ver!==5)return false;OPT=s.opt||{};BMODE=s.bmode||"qu
 function load(){try{return apply(JSON.parse(localStorage.getItem(KEY)||"null"));}catch(e){return false;}}
 function isEx(){return false;}
 function syncOpt(){[].forEach.call(document.querySelectorAll("[data-opt]"),function(b){var o=!!OPT[b.dataset.opt];b.classList.toggle("out",o);b.textContent=o?"Left out":"In forecast";b.setAttribute("aria-pressed",o?"false":"true");b.closest(".fld").classList.toggle("off",o);});}
-function sync(){syncOpt();[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===per);});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;if(el.classList.contains("suf"))el.title=inm==="tot"?"Click to enter weekly averages instead":"Click to enter totals instead";});[].forEach.call(document.querySelectorAll("[data-inm]"),function(b){b.classList.toggle("on",b.dataset.inm===inm);});}
+function sync(){syncOpt();[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===(per==="dates"&&PQ?PQ:per));});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;if(el.classList.contains("suf"))el.title=inm==="tot"?"Click to enter weekly averages instead":"Click to enter totals instead";});[].forEach.call(document.querySelectorAll("[data-inm]"),function(b){b.classList.toggle("on",b.dataset.inm===inm);});}
 function toast(t){var el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove("on");},1800);}
 
 $("role").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;role=b.dataset.v;sync();render();});
 function setInm(v){if(v===inm)return;convert(v);inm=v;sync();render();toast(v==="tot"?"Showing totals for your time period":"Showing weekly averages");}
 $("inm").addEventListener("click",function(e){var b=e.target.closest("button");if(b)setInm(b.dataset.v);});
 document.addEventListener("click",function(e){var b=e.target.closest("[data-inm]");if(b){setInm(b.dataset.inm);return;}var u=e.target.closest(".suf[data-a]");if(u){setInm(inm==="tot"?"avg":"tot");}});
-$("per").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;per=b.dataset.v;if(per==="dates"&&!$("d1").value){var t=new Date();$("d1").value=t.getFullYear()+"-01-01";$("d2").value=t.toISOString().slice(0,10);}sync();render();});
+(function(){var M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];function lab(n){var r=qRange(n),a=new Date(r[0]+"T00:00:00"),b=new Date(r[1]+"T00:00:00");return M[a.getMonth()]+"\u2013"+M[b.getMonth()]+(a.getFullYear()!==new Date().getFullYear()?" "+a.getFullYear():"");}
+var p=document.getElementById("per");p.querySelector('[data-v="q1"]').innerHTML='Last quarter <small>'+lab(1)+'</small>';p.querySelector('[data-v="q2"]').innerHTML='Last 2 quarters <small>'+lab(2)+'</small>';
+["d1","d2"].forEach(function(id){document.getElementById(id).addEventListener("change",function(){if(PQ){PQ="";sync();render();}});});})();
+$("per").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var v=b.dataset.v;PQ="";if(v==="q1"||v==="q2"){var q=qRange(v==="q1"?1:2);PQ=v;per="dates";$("d1").value=q[0];$("d2").value=q[1];sync();render();return;}per=v;if(per==="dates"&&!$("d1").value){var t=new Date();$("d1").value=t.getFullYear()+"-01-01";$("d2").value=t.toISOString().slice(0,10);}sync();render();});
 document.addEventListener("click",function(e){var b=e.target.closest("[data-opt]");if(!b)return;var k=b.dataset.opt;if(OPT[k])delete OPT[k];else OPT[k]=true;OV={};syncOpt();render();});
 $("bmode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;BMODE=b.dataset.v;if(BMODE==="list"&&!BOOK.length){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();}render();});
 $("mode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;mode=b.dataset.v;if(mode==="gm"){var T=read(),G=Math.round(T.gm*52*(1+T.grow/100)/1000)*1000;if(G)$("goal").value=G.toLocaleString("en-US");}sync();render();});
