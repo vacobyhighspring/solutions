@@ -499,6 +499,23 @@ footer a{color:var(--blue)}
   .res{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .card{break-inside:avoid}
 }
+
+/* wizard: one step at a time */
+.grid>.left,.grid>.side{min-width:0}
+.gp2{overflow-x:auto}@media(max-width:600px){.acttab{font-size:12px}}
+@media(max-width:900px){.grid{grid-template-columns:minmax(0,1fr)!important}}
+.wzh{display:none!important}
+.wzf{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.wzf .wzc{font-size:12.5px;font-weight:700;color:var(--muted)}
+.wzf button{font:inherit;font-weight:800;font-size:14.5px;border-radius:999px;padding:11px 20px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink)}
+.wzf .wzn{background:var(--orange);border-color:var(--orange);color:#fff}
+.wzf .wzn:hover{filter:brightness(.95)}
+.wzf button[hidden]{display:none}
+.steps a{cursor:pointer}
+.steps a.cur{border-color:var(--orange);box-shadow:0 0 0 2px var(--orange) inset;background:#fff}
+.wzbar{height:5px;border-radius:9px;background:var(--line);overflow:hidden;margin:2px 0 4px}
+.wzbar i{display:block;height:100%;background:var(--orange);transition:width .3s}
+@media(max-width:700px){.wzf{position:sticky;bottom:0;background:var(--surface);margin:18px -16px -16px;padding:12px 16px;border-radius:0 0 14px 14px;z-index:5}.wzf .wzc{display:none}.wzf button{flex:1}}
 </style>
 </head>
 <body>
@@ -510,7 +527,7 @@ footer a{color:var(--blue)}
   </div>
 </div></header>
 
-<main><div class="inner"><div class="exban" id="exBan" hidden><span><b>You&#8217;re looking at an example</b> &mdash; a full desk producer, fully built out. Scroll through, try the buttons, download the plan.</span><span class="exa"><button type="button" id="exBack">Back to my numbers</button><button type="button" id="exNew" class="pri">Start my own</button></span></div><div class="grid">
+<main><div class="inner"><div class="exban" id="exBan" hidden><span><b>You&#8217;re looking at an example</b> &mdash; a full desk producer, fully built out. Use the steps above to look around, then download the plan.</span><span class="exa"><button type="button" id="exBack">Back to my numbers</button><button type="button" id="exNew" class="pri">Start my own</button></span></div><div class="grid">
 <div class="left">
   <nav class="steps" id="steps" aria-label="Steps"></nav>
 
@@ -1096,6 +1113,29 @@ $("exNew").addEventListener("click",function(){showEx(false);$("reset").click();
 $("print").addEventListener("click",function(){window.print();});
 
 if(!load()){inm="tot";}sync();drawBook();render();
+})();
+</script>
+<script>
+(function(){
+ var S=["s1","s2","s3","s4","s5"],N=["Role","Your numbers","2027 goal","Your book","Game plan"],cur=0;
+ function $(i){return document.getElementById(i);}
+ var bar=document.createElement("div");bar.className="wzbar";bar.innerHTML="<i></i>";$("steps").after(bar);
+ S.forEach(function(id,k){var sec=$(id),f=document.createElement("div");f.className="wzf";
+  f.innerHTML='<button type="button" class="wzb"'+(k===0?' hidden':'')+'>&larr; Back</button><span class="wzc">Step '+(k+1)+' of 5</span>'+
+   (k<4?'<button type="button" class="wzn">Next: '+N[k+1]+' &rarr;</button>':'<button type="button" class="wzn wzd">&#8681; Download my 2027 plan</button>');
+  sec.appendChild(f);
+  f.querySelector(".wzb").addEventListener("click",function(){go(k-1);});
+  f.querySelector(".wzn").addEventListener("click",function(){if(k<4)go(k+1);else $("dl").click();});
+ });
+ function mark(){var a=$("steps").querySelectorAll("a");[].forEach.call(a,function(x,k){x.classList.toggle("cur",k===cur);});}
+ function go(k,noScroll){cur=Math.max(0,Math.min(4,k));S.forEach(function(id,j){$(id).classList.toggle("wzh",j!==cur);});
+  bar.firstChild.style.width=((cur+1)/5*100)+"%";mark();
+  if(!noScroll){var t=$("steps");window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+window.scrollY-8),behavior:"smooth"});}}
+ $("steps").addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;e.preventDefault();e.stopImmediatePropagation();
+  var k=S.indexOf(a.getAttribute("href").slice(1));if(k>-1)go(k);},true);
+ new MutationObserver(mark).observe($("steps"),{childList:true});
+ ["exBtn","exBack","exNew","reset"].forEach(function(id){var b=$(id);if(b)b.addEventListener("click",function(){setTimeout(function(){go(id==="exBtn"?4:0,true);},30);});});
+ go(0,true);
 })();
 </script>
 </body>
