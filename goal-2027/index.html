@@ -516,7 +516,7 @@ footer a{color:var(--blue)}
 .wzbar{height:5px;border-radius:9px;background:var(--line);overflow:hidden;margin:2px 0 4px}
 .wzbar i{display:block;height:100%;background:var(--orange);transition:width .3s}
 @media(max-width:700px){.wzf{position:sticky;bottom:0;background:var(--surface);margin:18px -16px -16px;padding:12px 16px;border-radius:0 0 14px 14px;z-index:5}.wzf .wzc{display:none}.wzf button{flex:1}}
-#per button small{font-weight:600;opacity:.7;margin-left:4px;font-size:.9em}</style>
+#per button small{font-weight:600;opacity:.7;margin-left:4px;font-size:.9em}.row.r3 .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0 2px;grid-column:1/-1}.row.r3 .trio div{background:var(--tint,#f1f4f8);border-radius:9px;padding:6px 8px}.row.r3 .trio small{display:block;font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.row.r3 .trio b{font-size:17px}.row.r3 .trio .inc{background:#fff1e8}.row.r3 .trio .inc b{color:#c2410c}.row.r3 .trio .keep{background:#e9f7f1}.row.r3 .trio .keep b{color:#0b7a55;font-size:14px}.row.r3 .un{grid-column:1/-1;font-size:11px;color:var(--muted)}.row.r3 .bmk{grid-column:1/-1;display:block;font-size:12px;color:#44546a;margin-top:3px}.row.r3 .bmk i{font-style:normal;font-weight:700;margin-left:4px;color:#8a5a00}.row.r3 .bmk i.ok{color:#0b7a55}.row.r3 .bmk i.hi{color:#b42318}.row.r3 .nw,.row.r3 .val{display:none}</style>
 </head>
 <body>
 <header class="band"><div class="inner">
@@ -632,7 +632,7 @@ footer a{color:var(--blue)}
   <section class="card res" id="res"></section>
   <section class="card plan">
     <h3>Your 2027 weekly plan</h3>
-    <p class="sub2">What it takes each week to hit your goal, next to what you do now.</p>
+    <p class="sub2">What you did this year, what your 2027 goal needs, and how much to increase &mdash; with benchmarks and top producers.</p>
     <div class="focus" id="focus"></div>
     <div class="rows" id="rows"></div>
     <div class="yr" id="yr"></div>
@@ -648,7 +648,7 @@ footer a{color:var(--blue)}
 </aside>
 </div></div></main>
 
-<footer>Your numbers stay in this browser. Need commission plans, consultant-by-consultant forecasts or an office-wide goal? Use the full <a href="../commission/#goal">Commission &amp; GM Calculator</a>.</footer>
+<footer>Your numbers stay in this browser. Want to see what your goal pays? Use the <a href="../commission/">Commission &amp; GM Calculator</a>.</footer>
 <div class="toast" id="toast"></div>
 <button type="button" class="mbar" id="mbar" aria-label="Jump to your plan"></button>
 
@@ -956,8 +956,10 @@ function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("g
  ["stc","stp"].forEach(function(k){LST.push({k:k,l:k==="stc"?"Contract starts":"Perm starts",now:T[k]*52/12,need:N[k]/12,yr:N[k],unit:"a month",sub:""});});
  var rows="",txt=[];
  LST.forEach(function(x){var c=x.now>0?(x.need-x.now)/x.now:0,tg=x.now>0&&!isNaN(x.need)?(Math.abs(c)<.005?'<span class="tag eq">same</span>':'<span class="tag '+(c>0?"up":"dn")+'">'+(c>0?"+":"&minus;")+Math.abs(c*100).toFixed(0)+'%</span>'):"";
-  rows+='<div class="row'+(x.k===top?" hero":"")+'"><span class="nm">'+x.l+tg+'</span><span class="nw">Now '+one(x.now)+' '+x.unit+'</span><span class="val"><b>'+(isNaN(x.need)?"&ndash;":one(x.need))+'</b><small>'+x.unit+'</small></span>'+(x.sub?'<span class="sp">'+(x.sub.indexOf(" only")>-1?x.sub:'About '+x.sub+' '+x.unit)+'</span>':'')+'</div>';
-  txt.push("- "+x.l+": "+(isNaN(x.need)?"-":one(x.need))+" "+x.unit+" (now "+one(x.now)+")"+(x.sub?" ["+x.sub+"]":""));});
+  var bm=bmAct(x.k==="stc"||x.k==="stp"?"_":x.k);x.bm=bm;var d=isNaN(x.need)?NaN:x.need-x.now,up=d>0.05;
+  var bl=bm?'<span class="bmk">Benchmark <b>'+one(bm[1])+'</b> &middot; top producers <b>'+one(bm[2])+'</b> '+x.unit+(isNaN(x.need)?'':x.need>bm[2]*1.001?' <i class="hi">Your goal needs more than top producers do &mdash; also work on your ratios</i>':x.need>=bm[1]?' <i class="ok">At benchmark or better</i>':' <i>Below benchmark</i>')+'</span>':'';
+  rows+='<div class="row r3'+(x.k===top?" hero":"")+'"><span class="nm">'+x.l+tg+'</span><div class="trio"><div><small>This year, '+x.unit+'</small><b>'+one(x.now)+'</b></div><div><small>'+YEAR+' goal needs</small><b>'+(isNaN(x.need)?"&ndash;":one(x.need))+'</b></div><div class="'+(up?"inc":"keep")+'"><small>'+(up?"Increase by":"Change")+'</small><b>'+(isNaN(d)?"&ndash;":up?"+"+one(d):"On pace")+'</b></div></div>'+bl+(x.sub?'<span class="sp">'+(x.sub.indexOf(" only")>-1?x.sub:'About '+x.sub+' '+x.unit)+'</span>':'')+'</div>';
+  txt.push("- "+x.l+": this year "+one(x.now)+" "+x.unit+", "+YEAR+" goal needs "+(isNaN(x.need)?"-":one(x.need))+(isNaN(d)?"":up?" (increase by "+one(d)+")":" (on pace)")+(bm?"; benchmark "+one(bm[1])+", top producers "+one(bm[2]):"")+(x.sub?" ["+x.sub+"]":""));});
  var outs=Object.keys(PART).filter(function(f){return OPT[f];}).map(function(f){return PART[f];});
  $("rows").innerHTML='<div class="rowsh">Every number, week by week</div>'+rows+(outs.length?'<p class="hint">Left out of your forecast: '+outs.join(", ")+'.</p>':'');
  var tn=N[top],tnw=sv(T,top),topL=ST[top].many,tsub=(LST.filter(function(x){return x.k===top;})[0]||{}).sub;
@@ -967,7 +969,7 @@ function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("g
  $("yr").innerHTML='For all of '+YEAR+': '+LST.map(function(x){return '<b>'+(isNaN(x.yr)?"&ndash;":x.yr.toLocaleString("en-US"))+'</b> '+x.l.toLowerCase().replace("vaco","Vaco");}).join(" &middot; ")+'. Rounded up &mdash; you can&#8217;t make half a placement.';
  N.top=N[top];var FC=forecast(T,G,BK,NEW,N,e,"top",topL);drawFC(FC);
  PD={pace:pace,WAYS:WAYS,bmode:BMODE,bqwk:bookWk(),bqend:$("bqend").value,CONV:CONV,MET:MET,RC:T.gmc*52,RP:T.gmp*52,NEWC:NEWC,NEWP:NEWP,cycle:branches().map(function(br){return chainOf(T,br).slice().reverse().map(function(k){return ST[k].l;}).join(" \u2192 ");}),FC:FC,GC:GC,GP:GP,gpsc:e.gpsc,gpsp:e.gpsp,G:G,pace:pace,chg:chg,BK:BK,NEW:NEW,gps:e.gps,gNow:gNow,gap:gap,more:Math.max(more,0),mode:mode,grow:T.grow,role:role,
-  rows:LST.map(function(x){return {l:x.l+(x.sub?' ('+x.sub+')':''),hero:x.k===top,unit:x.unit,now:x.now,need:x.need,yr:x.yr};}),
+  rows:LST.map(function(x){return {l:x.l+(x.sub?' ('+x.sub+')':''),hero:x.k===top,unit:x.unit,now:x.now,need:x.need,yr:x.yr,bm:x.bm||null};}),
   book:BOOK.map(function(c){var r=cRow(c);return {t:c.t||"(no name)",g:num(c.g),s:c.s===""||c.s==null?50:num(c.s),e:c.e,wk:r.wk,ny:r.ny};}),util:Math.round(util()*100)};
  PLAN=waysTxt(WAYS)+"\n\n"+"My "+YEAR+" goal: "+usd(G)+" GM ("+usd(GC)+" contract + "+usd(GP)+" perm)"+(pace?" ("+(chg>=0?"+":"-")+Math.abs(chg*100).toFixed(0)+"% vs my run rate)":"")+"\nRole: "+{sales:"Sales",rec:"Recruiter",full:"Full desk"}[role]+(BK?"\nFrom my current book: "+usd(BK)+" | New GM to win: "+usd(NEW):"")+"\nGM per contract start: "+usd(e.gpsc||0)+" | GM per perm start: "+usd(e.gpsp||0)+"\n\nWhat it takes:\n"+txt.join("\n")+"\n\n"+YEAR+" by quarter (goal / run rate):\n"+FC.qs.map(function(q){return "- "+q.q+": "+usd(q.goal)+" / "+usd(q.rr);}).join("\n")+"\n"+FC.y+" year-end forecast: "+usd(FC.ye26)+"\n\nMy numbers today (average / run rate):\n"+MET.map(function(m){return "- "+m.l+": "+m.wk+" "+m.wkU+" / "+m.yr+" a year"+(m.nf?" (left out of forecast)":"");}).join("\n")+"\n\nConversion rates (today -> "+YEAR+" target):\n"+CONV.map(function(c){return "- "+c.l+": "+c.now.replace("&ndash;","-")+" -> "+c.big.replace("&ndash;","-");}).join("\n")+"\n\nFor the year: "+LST.map(function(x){return (isNaN(x.yr)?"-":x.yr.toLocaleString("en-US"))+" "+x.l.toLowerCase();}).join(", ");
  $("how").innerHTML='Your run rate is your weekly averages'+(inm==="tot"?' (your totals &divide; '+one(totW())+' weeks)':'')+' &times; 52. Your goal splits contract / perm at your current GM mix, and your consultants on billing count toward contract (GM per hour &times; 40 &times; utilization &times; credit share, through each end date). Contract starts = new contract GM &divide; GM per contract start ('+usd(e.gpsc||0)+'); perm starts = perm GM &divide; GM per perm start ('+usd(e.gpsp||0)+'). Then we work back up your funnel one stage at a time, using your conversion rate between each stage: '+branches().map(function(br){return chainOf(T,br).map(function(k){return ST[k].l.toLowerCase().replace("vaco","Vaco");}).join(" &larr; ");}).join(" and ")+'. Any metric you leave out of the forecast is skipped and the rate jumps straight to the next stage. 2027 targets are spread over 52 weeks.';
@@ -1100,11 +1102,12 @@ $("steps").addEventListener("click",function(e){var a=e.target.closest("a");if(!
 function aiPrompt(){var d=PD,g=d&&d.WAYS&&d.WAYS.GP;if(!g)return "";var rl={sales:"producer (sales)",rec:"recruiter",full:"full desk producer"}[role],L=[];
  L.push("I'm a "+rl+" at Vaco by Highspring (IT and professional staffing)"+(TEN<3?", "+["in my first 90 days","91-180 days in my seat","181-365 days in my seat"][TEN]:"")+". Please coach me toward my 2027 goal.");
  L.push("2027 GM goal (after splits): "+usd(d.G)+" ("+usd(d.GC)+" contract + "+usd(d.GP)+" perm). Current run rate: "+usd(d.pace)+". Book carrying into 2027: "+usd(d.BK)+".");
- L.push("\nMy weekly activity vs 2027 benchmarks (range / target):");g.acts.forEach(function(a){L.push("- "+a.l+": "+one(a.v)+" "+a.u+" (benchmark "+one(a.b[1])+", range "+one(a.b[0])+"-"+one(a.b[2])+")");});
+ L.push("\nThis year vs what my 2027 goal needs vs benchmark and top producers:");(d.rows||[]).forEach(function(r){if(isNaN(r.need))return;var inc=r.need-r.now;L.push("- "+r.l+": this year "+one(r.now)+" "+r.unit+"; 2027 goal needs "+one(r.need)+" "+r.unit+(inc>0.05?" (increase by "+one(inc)+", +"+(r.now>0?Math.round(inc/r.now*100):0)+"%)":" (on pace)")+(r.bm?"; benchmark "+one(r.bm[1])+", top producers "+one(r.bm[2])+(r.need>r.bm[2]?" - my goal needs MORE than top producers do, so ratios must improve":""):""));});
+
  L.push("\nMy conversion rates vs benchmark:");g.leaks.concat(g.strong).forEach(function(l){L.push("- "+l.lt+": "+l.now+" (benchmark "+l.tg+")"+(l.inFwd&&l.val>0?" - worth about "+usd(l.val)+" a year at benchmark":""));});
  L.push("GM per contract start: "+usd(d.gpsc||0)+". GM per perm start: "+usd(d.gpsp||0)+".");
  L.push("\nAt benchmark conversion my goal takes "+one(g.tB)+" "+g.topL+" a week (I do "+one(g.tNow)+" now).");
- L.push("\nPlease give me an encouraging, practical 90-day coaching plan: start with what I'm doing well, then my top 3 areas of improvement in priority order, with specific weekly habits, talk tracks and tips for each, things to be aware of, leading indicators that show it's working, and a simple weekly schedule. Keep it specific to staffing and to my numbers.");
+ L.push("\nPlease give me an encouraging, practical 90-day coaching plan built around three things: what I did this year, my 2027 target, and exactly what I need to increase to hit it. Use the benchmarks and top-producer numbers to judge which increases are realistic, and where my goal needs more activity than top producers do, tell me which conversion rates to improve instead. Start with what I'm doing well, then my top 3 areas of improvement in priority order, with specific weekly habits, talk tracks and tips for each, things to be aware of, leading indicators that show it's working, and a simple weekly schedule. Keep it specific to staffing and to my numbers.");
  return L.join("\n");}
 $("ways").addEventListener("change",function(e){var t=e.target;if(!t.classList.contains("cust"))return;var k=t.dataset.cust,v=num(t.value),T=read(),r0=ratios(T);if(!(v>0)){delete OV[k];render();return;}
  if(k==="gpsc"){var hr=bookHr();OV.gpsc=hr>0?r0.gpsc*v/hr:v;}else if(k==="gpsp"){OV.gpsp=v;}else{OV[k]=isPct(k)?v/100:v;}render();});
