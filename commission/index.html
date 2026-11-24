@@ -1256,7 +1256,7 @@ var custom=(store("vh_custom_plans")||[]).map(fromStore);
 function plans(){return BASE_PLANS.concat(custom);}
 function saveCustom(){store("vh_custom_plans",custom.map(function(p){return {k:p.k,n:p.n,col:p.col,bonus:p.bonus,custom:true,base:p.base,retro:!!p.retro,draw:p.draw,tiers:p.tiers.map(function(t){return {lo:t.lo,hi:t.hi===Infinity?null:t.hi,r:t.r};})};}));}
 function gH1(){try{var h=num($("gGm1").value),h2=num($("gGm2").value);return (h>0||h2>0)?h:null;}catch(e){return null;}}
-function gDraw(p){try{if(typeof FDR!=="undefined"&&FDR.t==="non"){var A=num($("fcDrA").value),M=Math.min(Math.max(Math.round(num($("fcDrM").value))||0,1),12);if(A>0&&!(p.draw&&p.draw.type!=="none"&&p.draw.amt>0)&&!p._noG)var h=num($("gGm1").value),h2=num($("gGm2").value);return {type:"non",amt:A/M,mo:M,h1:(h>0||h2>0)?h:null};}}catch(e){}return p.draw;}
+function gDraw(p){try{if(typeof FDR!=="undefined"&&FDR.t==="non"){var A=num($("fcDrA").value),M=Math.min(Math.max(Math.round(num($("fcDrM").value))||0,1),12);if(A>0&&!(p.draw&&p.draw.type!=="none"&&p.draw.amt>0)&&!p._noG){var h=num($("gGm1").value),h2=num($("gGm2").value);return {type:"non",amt:A/M,mo:M,h1:(h>0||h2>0)?h:null};}}}catch(e){}return p.draw;}
 function monthSim(p,g,bs,bn){if(!p.tiers)p.tiers=toTiers(p.bands);var d=gDraw(p)||{type:"none"},hasD=d.type!=="none"&&d.amt>0,mo=hasD?Math.min(Math.max(d.mo||12,1),12):0,B=0,top=0,prev=0,rows=[],GE=0,GG=0,GP=0;
  for(var m=1;m<=12;m++){var cum=g*m/12,tc=tiered(cum,p.tiers,p.retro),earned=tc.c-prev;prev=tc.c;var draw=0,paid,rate=tc.reach?tc.reach.r:0;
   if(!p.retro){var cr=0;p.tiers.forEach(function(t){if(cum>t.lo&&cum<=t.hi)cr=t.r;});rate=cr;}
