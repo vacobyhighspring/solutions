@@ -1404,7 +1404,7 @@ function gxDraw(G){var I=inputs(),bonus=I.ub+I.l,_ps=(PSH=PSHO!=null?PSHO:((I.co
  res.forEach(function(r,i){if(r.total>res[bi].total)bi=i;});
  $("gxV").textContent=usd(G);gxR.style.setProperty("--p",gxF(G)*100+"%");gxR.setAttribute("aria-valuetext",usd(G));
  var mine=Math.round(I.g);$("gxMe").hidden=Math.abs(G-mine)<1;
- $("gxS").innerHTML=Math.abs(G-mine)<1?"Your GM from the numbers below.":(G>mine?"<b>"+usd(G-mine)+"</b> more than your GM below ("+usd(mine)+")":"<b>"+usd(mine-G)+"</b> less than your GM below ("+usd(mine)+")");
+ var _gh=(typeof FDR!=="undefined"&&FDR.t==="non"&&window._gHs===G)?gH1():null;$("gxS").innerHTML=_gh!=null?("Year 1 GM from the guarantee card: <b>"+usd(_gh)+"</b> during the guarantee + <b>"+usd(G-_gh)+"</b> after. Your GM in step 3 is "+usd(mine)+"."):Math.abs(G-mine)<1?"Your GM from step 3 (Figure out your GM).":(mine>0?"Your GM in step 3 is "+usd(mine)+". The gauge is set <b>"+usd(Math.abs(G-mine))+"</b> "+(G>mine?"higher":"lower")+" to show what-if pay.":"What-if GM. Add your real GM in step 3.");
  [].slice.call($("gxC").children).forEach(function(b){b.classList.toggle("on",+b.dataset.g===G);});
  if(P.length>1&&G>0){var srt=res.map(function(r,i){return i;}).sort(function(x,y){return res[y].total-res[x].total;}),d=res[srt[0]].total-res[srt[1]].total;
   $("gxD").innerHTML=d<1?"Both plans pay the same at this GM.":"At this GM, the <b class=\"w\">"+esc(P[srt[0]].n)+"</b> pays <b>"+usd(d)+"</b> more than the "+esc(P[srt[1]].n)+".";}
