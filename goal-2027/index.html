@@ -516,7 +516,30 @@ footer a{color:var(--blue)}
 .wzbar{height:5px;border-radius:9px;background:var(--line);overflow:hidden;margin:2px 0 4px}
 .wzbar i{display:block;height:100%;background:var(--orange);transition:width .3s}
 @media(max-width:700px){.wzf{position:sticky;bottom:0;background:var(--surface);margin:18px -16px -16px;padding:12px 16px;border-radius:0 0 14px 14px;z-index:5}.wzf .wzc{display:none}.wzf button{flex:1}}
-#per button small{font-weight:600;opacity:.7;margin-left:4px;font-size:.9em}.row.r3 .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0 2px;grid-column:1/-1}.row.r3 .trio div{background:var(--tint,#f1f4f8);border-radius:9px;padding:6px 8px}.row.r3 .trio small{display:block;font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.row.r3 .trio b{font-size:17px}.row.r3 .trio .inc{background:#fff1e8}.row.r3 .trio .inc b{color:#c2410c}.row.r3 .trio .keep{background:#e9f7f1}.row.r3 .trio .keep b{color:#0b7a55;font-size:14px}.row.r3 .un{grid-column:1/-1;font-size:11px;color:var(--muted)}.row.r3 .bmk{grid-column:1/-1;display:block;font-size:12px;color:#44546a;margin-top:3px}.row.r3 .bmk i{font-style:normal;font-weight:700;margin-left:4px;color:#8a5a00}.row.r3 .bmk i.ok{color:#0b7a55}.row.r3 .bmk i.hi{color:#b42318}.row.r3 .nw,.row.r3 .val{display:none}</style>
+#per button small{font-weight:600;opacity:.7;margin-left:4px;font-size:.9em}.row.r3 .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0 2px;grid-column:1/-1}.row.r3 .trio div{background:var(--tint,#f1f4f8);border-radius:9px;padding:6px 8px}.row.r3 .trio small{display:block;font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.row.r3 .trio b{font-size:17px}.row.r3 .trio .inc{background:#fff1e8}.row.r3 .trio .inc b{color:#c2410c}.row.r3 .trio .keep{background:#e9f7f1}.row.r3 .trio .keep b{color:#0b7a55;font-size:14px}.row.r3 .un{grid-column:1/-1;font-size:11px;color:var(--muted)}.row.r3 .bmk{grid-column:1/-1;display:block;font-size:12px;color:#44546a;margin-top:3px}.row.r3 .bmk i{font-style:normal;font-weight:700;margin-left:4px;color:#8a5a00}.row.r3 .bmk i.ok{color:#0b7a55}.row.r3 .bmk i.hi{color:#b42318}.row.r3 .nw,.row.r3 .val{display:none}
+/* v-fun */
+.trk{grid-column:1/-1;margin:8px 0 2px}
+.trk .tb{position:relative;height:12px;border-radius:9px;background:#eef2f7}
+.trk .zb{position:absolute;top:0;bottom:0;background:#dff3ea;border-radius:9px}
+.trk .fill{position:absolute;left:0;top:3px;height:6px;border-radius:9px;background:#0f2a44;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.trk .gap{position:absolute;top:3px;height:6px;border-radius:9px;background:repeating-linear-gradient(90deg,#f26b21 0 6px,#ffb98f 6px 10px);animation:gapmove 1.2s linear infinite;background-size:20px 6px}
+@keyframes gapmove{to{background-position:20px 0}}
+.trk .mk{position:absolute;top:50%;transform:translate(-50%,-50%);display:block}
+.trk .mk.nw{width:12px;height:12px;border-radius:50%;background:#0f2a44;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.trk .mk.nd{width:13px;height:13px;background:#f26b21;border:2px solid #fff;transform:translate(-50%,-50%) rotate(45deg);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.trk .mk.bm{width:2px;height:18px;background:#0b7a55}
+.trk .mk.tp{font-size:14px;color:#e0a100;top:-2px;text-shadow:0 1px 0 #fff}
+.trk .tl{display:flex;flex-wrap:wrap;gap:10px;font-size:10.5px;color:var(--muted);margin-top:5px}
+.trk .tl .d{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.trk .tl .d.nw{background:#0f2a44}.trk .tl .d.nd{background:#f26b21;border-radius:1px;transform:rotate(45deg)}.trk .tl .d.bm{background:#0b7a55;width:2px;border-radius:0}
+.row.r3 .tl{display:none}.row.r3:first-of-type .tl,.row.r3.hero .tl{display:flex}
+[data-g] small{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.7}
+.card:not(.wzh){animation:wzin .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes wzin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.row.r3{transition:transform .15s,box-shadow .15s}.row.r3:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(15,42,68,.08)}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:9999}
+.fn b.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.12)}}
+</style>
 </head>
 <body>
 <header class="band"><div class="inner">
@@ -588,7 +611,7 @@ footer a{color:var(--blue)}
     <p class="sub">Pick how much you want to grow, or type an exact GM goal.</p>
     <div class="chips" id="mode"><button type="button" data-v="grow" class="on">Grow by a %</button><button type="button" data-v="gm">Set a GM goal</button></div>
     <div id="growP" class="gp">
-      <div class="quick" id="quick"><button type="button" data-g="10">+10%</button><button type="button" data-g="20">+20%</button><button type="button" data-g="30">+30%</button><button type="button" data-g="50">+50%</button></div>
+      <div class="quick" id="quick"><button type="button" data-g="10"><small>Steady</small>+10%</button><button type="button" data-g="20"><small>Push</small>+20%</button><button type="button" data-g="30"><small>Stretch</small>+30%</button><button type="button" data-g="50"><small>Moonshot</small>+50%</button></div>
       <div class="fld"><label for="grow">Growth over your run rate</label><div class="box"><input id="grow" data-d inputmode="decimal" value="20"><span class="suf">% more GM</span></div></div>
     </div>
     <div id="gmP" class="gp" hidden>
@@ -958,7 +981,8 @@ function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("g
  LST.forEach(function(x){var c=x.now>0?(x.need-x.now)/x.now:0,tg=x.now>0&&!isNaN(x.need)?(Math.abs(c)<.005?'<span class="tag eq">same</span>':'<span class="tag '+(c>0?"up":"dn")+'">'+(c>0?"+":"&minus;")+Math.abs(c*100).toFixed(0)+'%</span>'):"";
   var bm=bmAct(x.k==="stc"||x.k==="stp"?"_":x.k);x.bm=bm;var d=isNaN(x.need)?NaN:x.need-x.now,up=d>0.05;
   var bl=bm?'<span class="bmk">Benchmark <b>'+one(bm[1])+'</b> &middot; top producers <b>'+one(bm[2])+'</b> '+x.unit+(isNaN(x.need)?'':x.need>bm[2]*1.001?' <i class="hi">Your goal needs more than top producers do &mdash; also work on your ratios</i>':x.need>=bm[1]?' <i class="ok">At benchmark or better</i>':' <i>Below benchmark</i>')+'</span>':'';
-  rows+='<div class="row r3'+(x.k===top?" hero":"")+'"><span class="nm">'+x.l+tg+'</span><div class="trio"><div><small>This year, '+x.unit+'</small><b>'+one(x.now)+'</b></div><div><small>'+YEAR+' goal needs</small><b>'+(isNaN(x.need)?"&ndash;":one(x.need))+'</b></div><div class="'+(up?"inc":"keep")+'"><small>'+(up?"Increase by":"Change")+'</small><b>'+(isNaN(d)?"&ndash;":up?"+"+one(d):"On pace")+'</b></div></div>'+bl+(x.sub?'<span class="sp">'+(x.sub.indexOf(" only")>-1?x.sub:'About '+x.sub+' '+x.unit)+'</span>':'')+'</div>';
+  var trk='';if(bm&&!isNaN(x.need)){var mx=Math.max(bm[2]*1.15,x.need*1.1,x.now*1.1),P=function(v){return Math.min(Math.max(v/mx*100,0),100).toFixed(1);};trk='<div class="trk"><div class="tb"><i class="zb" style="left:'+P(bm[0])+'%;width:'+(P(bm[2])-P(bm[0])).toFixed(1)+'%"></i><i class="fill" style="width:'+P(x.now)+'%"></i><i class="gap" style="left:'+P(Math.min(x.now,x.need))+'%;width:'+Math.abs(P(x.need)-P(x.now)).toFixed(1)+'%"></i>'+'<span class="mk bm" style="left:'+P(bm[1])+'%" title="Benchmark '+one(bm[1])+'"></span><span class="mk tp" style="left:'+P(bm[2])+'%" title="Top producers '+one(bm[2])+'">&#9733;</span><span class="mk nw" style="left:'+P(x.now)+'%" title="This year '+one(x.now)+'"></span><span class="mk nd" style="left:'+P(x.need)+'%" title="2027 goal '+one(x.need)+'"></span></div><div class="tl"><span><i class="d nw"></i>You</span><span><i class="d nd"></i>2027 goal</span><span><i class="d bm"></i>Benchmark</span><span>&#9733; Top producers</span></div></div>';}
+  rows+='<div class="row r3'+(x.k===top?" hero":"")+'"><span class="nm">'+x.l+tg+'</span><div class="trio"><div><small>This year, '+(x.unit==="a week"?"per week":"per month")+'</small><b>'+one(x.now)+'</b></div><div><small>'+YEAR+' goal needs</small><b>'+(isNaN(x.need)?"&ndash;":one(x.need))+'</b></div><div class="'+(up?"inc":"keep")+'"><small>'+(up?"Increase by":"Change")+'</small><b>'+(isNaN(d)?"&ndash;":up?"+"+one(d):"On pace")+'</b></div></div>'+trk+bl+(x.sub?'<span class="sp">'+(x.sub.indexOf(" only")>-1?x.sub:'About '+x.sub+' '+x.unit)+'</span>':'')+'</div>';
   txt.push("- "+x.l+": this year "+one(x.now)+" "+x.unit+", "+YEAR+" goal needs "+(isNaN(x.need)?"-":one(x.need))+(isNaN(d)?"":up?" (increase by "+one(d)+")":" (on pace)")+(bm?"; benchmark "+one(bm[1])+", top producers "+one(bm[2]):"")+(x.sub?" ["+x.sub+"]":""));});
  var outs=Object.keys(PART).filter(function(f){return OPT[f];}).map(function(f){return PART[f];});
  $("rows").innerHTML='<div class="rowsh">Every number, week by week</div>'+rows+(outs.length?'<p class="hint">Left out of your forecast: '+outs.join(", ")+'.</p>':'');
@@ -1137,12 +1161,28 @@ if(!load()){inm="tot";}sync();drawBook();render();
  function mark(){var a=$("steps").querySelectorAll("a");[].forEach.call(a,function(x,k){x.classList.toggle("cur",k===cur);});}
  function go(k,noScroll){cur=Math.max(0,Math.min(4,k));S.forEach(function(id,j){$(id).classList.toggle("wzh",j!==cur);});
   bar.firstChild.style.width=((cur+1)/5*100)+"%";mark();
-  if(!noScroll){var t=$("steps");window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+window.scrollY-8),behavior:"smooth"});}}
+  if(!noScroll){var t=$(S[cur]);window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+window.scrollY-96),behavior:"smooth"});}}
  $("steps").addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;e.preventDefault();e.stopImmediatePropagation();
   var k=S.indexOf(a.getAttribute("href").slice(1));if(k>-1)go(k);},true);
  new MutationObserver(mark).observe($("steps"),{childList:true});
  ["exBtn","exBack","exNew","reset"].forEach(function(id){var b=$(id);if(b)b.addEventListener("click",function(){setTimeout(function(){go(id==="exBtn"?4:0,true);},30);});});
  go(0,true);
+})();
+</script>
+<script>
+(function(){
+ var cv=document.createElement("canvas");cv.id="cf";document.body.appendChild(cv);var cx=cv.getContext("2d"),P=[],run=false;
+ function boom(){cv.width=innerWidth;cv.height=innerHeight;var C=["#f26b21","#0f2a44","#2DBFF9","#0E9F6E","#ffb98f","#e0a100"];for(var i=0;i<140;i++)P.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*12-4,r:Math.random()*6+4,c:C[i%C.length],a:Math.random()*6,s:(Math.random()-.5)*.3,l:120});if(!run){run=true;tick();}}
+ function tick(){cx.clearRect(0,0,cv.width,cv.height);P=P.filter(function(p){return p.l-->0&&p.y<cv.height+20;});P.forEach(function(p){p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=p.s;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);cx.restore();});if(P.length)requestAnimationFrame(tick);else{run=false;cx.clearRect(0,0,cv.width,cv.height);}}
+ window.vhBoom=boom;
+ var done=false;
+ function has(){var r=document.getElementById("res");return r&&/\$\d/.test(r.innerText);}
+ var s5=document.getElementById("s5");
+ new MutationObserver(function(){if(!s5.classList.contains("wzh")&&has()&&!done){done=true;setTimeout(boom,250);}}).observe(s5,{attributes:true,attributeFilter:["class"]});
+ // count-up for the one number
+ var last=null;
+ var anim=false;new MutationObserver(function(){if(anim)return;var b=document.querySelector("#focus .fn b");if(!b)return;var v=parseFloat(b.textContent);if(isNaN(v)||v===last)return;anim=true;var from=last==null?0:last,to=v,t0=performance.now(),dec=(b.textContent.split(".")[1]||"").length;last=v;b.classList.remove("pop");void b.offsetWidth;b.classList.add("pop");
+  (function step(t){var k=Math.min((t-t0)/600,1),e=1-Math.pow(1-k,3);b.textContent=(from+(to-from)*e).toFixed(dec);if(k<1)requestAnimationFrame(step);else setTimeout(function(){anim=false;},0);})(t0);}).observe(document.getElementById("focus"),{childList:true,subtree:true});
 })();
 </script>
 </body>
