@@ -22,7 +22,7 @@ button{cursor:pointer}
 
 .band{background:var(--band);color:#fff;padding:16px 0 18px}
 .band-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.band img{height:34px;display:block}
+.band img{height:48px;display:block}
 .band .unit{font:600 12px var(--body);opacity:.7}
 .title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(24px,3vw,32px);line-height:1.08;margin:0;letter-spacing:-.02em}
@@ -537,6 +537,63 @@ details.more2[open]>summary{margin-bottom:10px}
 .xbg{font-size:10.5px;color:var(--muted);margin-top:5px;border-top:1px dashed var(--line);padding-top:4px}
 .pcsg{max-width:240px}
 .pl li.fx1{background:#fffaf6;border:1px solid #f6d7c3;border-radius:10px;padding:8px 10px;list-style-position:inside;margin-left:-22px}
+/* plan cards */
+.pl2{margin-top:16px}
+.pl2-h{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.pl2-h h4{margin:0;font-family:var(--display);font-size:18px;letter-spacing:-.01em}
+.mode{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:3px 10px}
+.m-eff{background:#e1f3ea;color:var(--good)}.m-act{background:var(--orange-soft);color:#b5490f}.m-both{background:var(--blue-soft);color:var(--blue)}
+.pl2-dx{margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#3a4a60;max-width:760px}
+.pc{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:4px 14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-top:10px;box-shadow:0 1px 2px rgba(11,31,58,.04),0 6px 20px -12px rgba(11,31,58,.18);transition:transform .15s,box-shadow .15s}
+.pc:hover{transform:translateY(-1px);box-shadow:0 1px 2px rgba(11,31,58,.05),0 12px 28px -14px rgba(11,31,58,.28)}
+.pc.pfx{border-color:#f3c9ad;background:linear-gradient(135deg,#fff 60%,#fff6ef)}
+.pc-n{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--band);color:#fff;font-weight:800;font-size:14px;font-family:var(--display)}
+.pc.pfx .pc-n{background:var(--orange)}
+.pc-t{font-family:var(--display);font-weight:700;font-size:15px;line-height:1.3}
+.pc-t .pill{margin-left:6px;vertical-align:2px}
+.pc-s{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.45}
+.pc-s b{color:var(--ink)}
+.pc-r{text-align:right;white-space:nowrap}
+.pc-r>b{display:block;font-family:var(--display);font-size:28px;font-weight:800;line-height:1;letter-spacing:-.02em}
+.pc-r>small{font-size:11px;color:var(--muted);font-weight:600}
+.pc-b{grid-column:2 / -1}
+@media (max-width:620px){.pc{grid-template-columns:32px 1fr}.pc-r{grid-column:2;text-align:left}.pc-b{grid-column:1 / -1}}
+.msr{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:8px}
+.ms{background:var(--tint);border-radius:12px;padding:9px 11px}
+.ms b{display:block;font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-.01em}
+.ms span{display:block;font-size:11.5px;color:var(--muted);line-height:1.3}
+.ms em{display:inline-block;margin-top:4px;font-style:normal;font-size:10.5px;font-weight:800;color:#b5490f;background:#fff;border-radius:999px;padding:1px 7px}
+.ft2{display:flex;align-items:baseline;gap:8px;font-family:var(--display);font-weight:800}
+.ft2 span{font-size:16px;color:var(--muted);text-decoration:line-through;text-decoration-color:#c8d1de}
+.ft2 i{font-style:normal;color:var(--muted)}
+.ft2 b{font-size:26px;color:var(--orange);letter-spacing:-.02em}
+.wv2{display:inline-block;margin-top:6px;font-size:11.5px;font-weight:800;color:var(--good);background:#e9f7ef;border-radius:999px;padding:2px 10px}
+.pc-tip{margin-top:8px;font-size:12.5px;line-height:1.5;background:#f6f8fc;border-radius:10px;padding:8px 11px 8px 30px;position:relative}
+.pc-tip::before{content:"";position:absolute;left:11px;top:12px;width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 3px #fde2cf}
+.chk{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chk span{font-size:12.5px;font-weight:700;background:var(--blue-soft);color:var(--blue);border-radius:999px;padding:4px 11px}
+.pc .qm{margin-top:8px}
+/* pace / goal / gap with ring */
+.sgh2{display:grid;grid-template-columns:auto 1fr auto 1fr auto 1fr;gap:10px;align-items:center}
+.kp2{align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+.sgh2>i{font-style:normal;font-weight:800;color:var(--muted);font-size:18px}
+.kp2{border-radius:14px;padding:12px 14px;background:var(--tint)}
+.kp2.g{background:var(--orange-soft)}.kp2.gp{background:#fff0e5}.kp2.ok{background:#e9f7ef}
+.kp2 span{display:block;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.kp2 b{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ring{position:relative;width:92px;text-align:center}
+.ring svg{width:64px;height:64px;display:block;margin:0 auto;transform:rotate(-90deg)}
+.ring .rt{fill:none;stroke:var(--tint);stroke-width:7}
+.ring .rf{fill:none;stroke:var(--orange);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.2,.8,.2,1)}
+.ring b{position:absolute;left:0;right:0;top:21px;font-family:var(--display);font-size:15px;font-weight:800}
+.ring span{display:block;font-size:10px;line-height:1.2;color:var(--muted);margin-top:3px}
+@media (max-width:520px){.sgh2{grid-template-columns:1fr!important}.kp2 b{font-size:24px}}
+@media (max-width:760px){.sgh2{grid-template-columns:1fr 1fr}.sgh2>i{display:none}.ring{grid-column:1 / -1;width:auto;display:flex;align-items:center;gap:10px}.ring svg{margin:0}.ring b{left:0;width:64px;top:22px}.ring span{margin:0;text-align:left}}
+/* general polish */
+.card{box-shadow:0 1px 2px rgba(11,31,58,.04),0 10px 30px -18px rgba(11,31,58,.25)}
+.box{transition:border-color .15s,box-shadow .15s}
+.box:focus-within{box-shadow:0 0 0 4px rgba(242,107,33,.12)}
+.sgp{border:0;background:linear-gradient(180deg,#fbfcfe,#fff);box-shadow:inset 0 0 0 1px var(--line)}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -941,22 +998,30 @@ function buildPlan(T,B,GP,NEW,BK,G){
 function dxTxt(P){var f=P.focus[0];if(P.mode==="eff")return "You&#8217;re putting in the work &mdash; your "+P.strongA.join(", ")+(P.strongA.length>1?" are":" is")+" at or above benchmark"+(P.startsShort?", but it isn&#8217;t turning into enough starts":"")+". Your plan is about <b>efficiency</b>: convert better"+(f?" at "+f.l.replace(/<[^>]+>/g,"").split(" (")[0].toLowerCase().replace("vaco","Vaco"):"")+" before adding more activity.";
  if(P.mode==="act")return "Your conversion is at or above benchmark at every step. Your lever is <b>activity</b>"+(P.weakA.length?" &mdash; especially "+P.weakA.slice(0,2).join(" and "):"")+".";
  return "Two levers: <b>a bit more activity</b>"+(P.weakA.length?" ("+P.weakA.slice(0,2).join(", ")+")":"")+" and <b>better conversion</b>"+(f?" at "+f.l.replace(/<[^>]+>/g,"").split(" (")[0].toLowerCase().replace("vaco","Vaco"):"")+".";}
-function planHtml(P,G){var n=0,h='<h4 class="sgt">Your '+YEAR+' plan</h4><div class="dx dx-'+P.mode+'"><span>'+({eff:"Efficiency plan",act:"Activity plan",both:"Activity + efficiency plan"}[P.mode])+'</span>'+dxTxt(P)+'</div><ol class="pl">';
- var actLi='',focLi='';
- if(P.act.length){n++;actLi+='<li><b>'+(P.mode==="eff"?'Then your activity':'Every week')+':</b> '+P.act.map(function(a){return '<b class="hl">'+one(a.nd)+' '+a.l+'</b> (you do '+one(a.nd>a.nw?a.nw:a.nw)+' now'+(a.nd>a.nw+0.05?', <em>+'+one(a.nd-a.nw)+'</em>':'')+')';}).join(" and ")+', and <b>'+one(P.cob?P.cob.starts:P.starts.c)+' contract + '+one(P.starts.p)+' perm starts a month</b>.'+(P.act.some(function(a){return a.eff!=null&&a.eff<a.nd-0.05;})?' <span class="mu">Hit '+(P.mode==="eff"?'your efficiency targets above':'the two targets below')+' and it drops to '+P.act.map(function(a){return one(a.eff)+' '+a.l;}).join(" and ")+'.</span>':'')+'</li>';}
- P.focus.forEach(function(f,i){focLi+='<li><b>Get more efficient'+(P.focus.length>1?' #'+(i+1):'')+':</b> '+f.l+' from '+f.now+' to <b class="hl">'+f.tg+'</b> <span class="wv">'+f.worth.replace("\u2019","&#8217;")+'</span>'+(f.tip?'<div class="tp">&#128161; '+f.tip+'</div>':'')+'</li>';});
- if(!P.focus.length)focLi+='<li><b>Keep your conversion where it is</b> &mdash; you&#8217;re at or above benchmark at every step. Your lever is activity.</li>';
- if(P.mode==="eff"&&P.act.length){var allOk=P.act.every(function(a){return a.eff!=null&&a.eff<=a.nw+0.05;});
-  actLi='<li><b>'+(allOk?'Keep your activity steady':'Then your activity')+':</b> '+P.act.map(function(a){var t=a.eff!=null?Math.max(a.eff,allOk?a.nw:a.eff):a.nd;return '<b class="hl">'+one(allOk?a.nw:t)+' '+a.l+'</b> a week'+(!allOk&&t>a.nw+0.05?' (now '+one(a.nw)+', <em>+'+one(t-a.nw)+'</em>)':'');}).join(" and ")+'.'+(allOk?' <span class="mu">With your efficiency targets you&#8217;d only need '+P.act.map(function(a){return one(a.eff)+' '+a.l;}).join(" and ")+' &mdash; no extra activity required.</span>':' <span class="mu">That&#8217;s with your efficiency targets; at today&#8217;s rates it would take '+P.act.map(function(a){return one(a.nd)+' '+a.l;}).join(" and ")+'.</span>')+'</li>';}
- var fx='';
- if(P.cob){var c=P.cob;fx='<li class="fx1"><b>Grow your consultants on billing:</b> from <b class="hl">'+Math.round(c.now)+' today to '+Math.round(c.end)+' by December</b> &mdash; net <b>+'+one(c.a)+' a month</b>'+(c.g!=null?' (you&#8217;re at '+(c.g>=0?'+':'&minus;')+one(Math.abs(c.g))+' a month so far)':'')+'. With about '+one(c.e)+' ending each month, that&#8217;s <b>'+one(c.starts)+' contract starts a month</b> (now '+one(c.startsNow)+').'+(c.a<0.05?' <span class="mu">Your current bench already covers your contract goal &mdash; keep adding to stay ahead of ends.</span>':'')+'<div class="tp">&#128161; Track your billing count on the 1st of every month &mdash; it&#8217;s the clearest sign your desk is growing.</div></li>';}
- if(P.dh){var d=P.dh,low=d.f>0&&d.f<22.5;fx='<li class="fx1"><b>Direct hire:</b> <b class="hl">'+one(d.permNeed)+' perm placements a month</b> (now '+one(d.permNow)+')'+(d.f>0?' at a <b>'+d.f+'% fee</b> '+pill(d.g.st).replace(STL[d.g.st],d.g.l):'')+'. Average total fee <b>'+usd(d.fee)+'</b>'+(d.sh<1?' (your '+Math.round(d.sh*100)+'% = '+usd(d.share)+')':'')+'.'+
-  (d.f>0&&d.f<20&&d.strongVol?'<div class="tp">&#128161; Your placement volume is strong, so a lower fee can be part of your strategy. Protect your total fee per placement ('+usd(d.fee)+'+) and nudge new searches toward 20%.</div>':
-   low?'<div class="tp">&#128161; Raise your DH fee toward 22.5%+'+(d.ptPer>0?': every +1 point is about <b>'+usd(d.ptPer)+'</b> more per placement &mdash; <b>'+usd(d.ptYr)+'</b> a year at your plan':'')+'. Quote 25% first and hold firm on retained or hard-to-fill roles.</div>':
-   d.f>0&&d.f<25?'<div class="tp">&#128161; Solid fee &mdash; push new searches toward 25% and keep growing volume.</div>':d.f>0?'<div class="tp">&#128161; Great fee discipline &mdash; hold it there and grow your placement volume.</div>':'<div class="tp">&#128161; Add your average DH fee % to see how it grades.</div>')+'</li>';}
- h+=fx+(P.mode==="eff"?focLi+actLi:actLi+focLi);
- h+='<li><b>Hit your quarterly milestones:</b><div class="qm">'+P.q.map(function(q){return '<div><span>'+q.q+' <i>'+q.m+'</i></span><b>'+k$(q.cum)+'</b><small>'+k$(q.g)+' this quarter &middot; '+one(q.st)+' starts</small></div>';}).join("")+'</div></li>';
- h+='<li><b>Every Friday, check:</b> '+P.check.join(" &middot; ")+'. On pace? Keep going. Behind two weeks in a row? Revisit this plan.</li></ol>';
+function planHtml(P,G){
+ var badge=function(n,ic){return '<div class="pc-n">'+(ic||n)+'</div>';},
+  card=function(n,title,sub,right,body,cls){return '<div class="pc'+(cls?' '+cls:'')+'">'+badge(n)+'<div class="pc-m"><div class="pc-t">'+title+'</div>'+(sub?'<div class="pc-s">'+sub+'</div>':'')+'</div>'+(right?'<div class="pc-r">'+right+'</div>':'')+(body?'<div class="pc-b">'+body+'</div>':'')+'</div>';},
+  big=function(v,u){return '<b>'+v+'</b><small>'+u+'</small>';},
+  stat=function(v,l,d){return '<div class="ms"><b>'+v+'</b><span>'+l+'</span>'+(d?'<em>'+d+'</em>':'')+'</div>';},
+  tip=function(t){return t?'<div class="pc-tip">'+t+'</div>':'';};
+ var h='<div class="pl2"><div class="pl2-h"><h4>Your '+YEAR+' plan</h4><span class="mode m-'+P.mode+'">'+({eff:"Efficiency plan",act:"Activity plan",both:"Activity + efficiency"}[P.mode])+'</span></div><p class="pl2-dx">'+dxTxt(P)+'</p>';
+ var n=0,items=[];
+ /* focus */
+ if(P.cob){var c=P.cob;items.push(function(k){return card(k,'Grow consultants on billing','From <b>'+Math.round(c.now)+'</b> today &rarr; <b>'+Math.round(c.end)+'</b> by December'+(c.g!=null?' &middot; growing '+(c.g>=0?'+':'&minus;')+one(Math.abs(c.g))+' a month so far':''),big('+'+one(c.a),'net a month'),
+  '<div class="msr">'+stat(one(c.starts),'contract starts a month','now '+one(c.startsNow))+stat(one(c.e),'end each month','')+stat(usd(c.q),'GM per consultant a week','')+'</div>'+tip('Track your billing count on the 1st of every month &mdash; it&#8217;s the clearest sign your desk is growing.'),'pfx');});}
+ if(P.dh){var d=P.dh,low=d.f>0&&d.f<22.5;items.push(function(k){return card(k,'Direct hire'+(d.g?' '+pill(d.g.st).replace(STL[d.g.st],d.g.l):''),(d.f>0?'<b>'+d.f+'%</b> fee &middot; ':'')+'average total fee <b>'+usd(d.fee)+'</b>'+(d.sh<1?' &middot; your '+Math.round(d.sh*100)+'% = '+usd(d.share):''),big(one(d.permNeed),'perm placements a month'),
+  (d.f>0&&d.f<20&&d.strongVol?tip('Your volume is strong, so a lower fee can be part of your strategy. Protect your total fee per placement and nudge new searches toward 20%.'):low?tip('Raise your fee toward 22.5%+'+(d.ptPer>0?' &mdash; every +1 point is about <b>'+usd(d.ptPer)+'</b> per placement, <b>'+usd(d.ptYr)+'</b> a year':'')+'. Quote 25% first.'):d.f>0&&d.f<25?tip('Solid fee &mdash; push new searches toward 25%.'):d.f>0?tip('Great fee discipline &mdash; hold it and grow volume.'):tip('Add your average DH fee % to see how it grades.')),'pfx');});}
+ /* activity */
+ var actC=function(k){if(!P.act.length)return '';var allOk=P.mode==="eff"&&P.act.every(function(a){return a.eff!=null&&a.eff<=a.nw+0.05;});
+  var tiles=P.act.map(function(a){var t=P.mode==="eff"&&a.eff!=null?(allOk?a.nw:Math.max(a.eff,a.nw)):a.nd,dl=t-a.nw;return stat(one(t),a.l+' a week',dl>0.05?'+'+one(dl)+' vs now':'hold steady');}).concat([stat(one(P.cob?P.cob.starts:P.starts.c)+' + '+one(P.starts.p),'contract + perm starts a month','')]);
+  var sub=allOk?'With your efficiency targets you&#8217;d only need '+P.act.map(function(a){return one(a.eff)+' '+a.l;}).join(' and ')+'.':(P.act.some(function(a){return a.eff!=null&&a.eff<a.nd-0.05;})&&P.mode!=="eff"?'Hit your efficiency targets and it drops to '+P.act.map(function(a){return one(a.eff)+' '+a.l;}).join(' and ')+'.':'');
+  return card(k,allOk?'Keep your activity steady':'Your weekly activity',sub,'','<div class="msr">'+tiles.join('')+'</div>');};
+ var focC=P.focus.map(function(f,i){return function(k){return card(k,'Get more efficient'+(P.focus.length>1?' #'+(i+1):''),f.l,'<div class="ft2"><span>'+f.now+'</span><i>&rarr;</i><b>'+f.tg+'</b></div>','<div class="wv2">'+f.worth.replace("’","&#8217;")+'</div>'+tip(f.tip),'');};});
+ if(!P.focus.length)focC=[function(k){return card(k,'Keep your conversion where it is','You&#8217;re at or above benchmark at every step &mdash; your lever is activity.','','');}];
+ if(P.mode==="eff"){items=items.concat(focC);items.push(actC);}else{items.push(actC);items=items.concat(focC);}
+ items.push(function(k){return card(k,'Quarterly milestones','Cumulative GM &mdash; Q4 lands on your goal','','<div class="qm">'+P.q.map(function(q){return '<div><span>'+q.q+' <i>'+q.m+'</i></span><b>'+k$(q.cum)+'</b><small>+'+k$(q.g)+' &middot; '+one(q.st)+' starts</small></div>';}).join('')+'</div>');});
+ items.push(function(k){return card(k,'Every Friday, check','On pace? Keep going. Behind two weeks in a row? Revisit this plan.','','<div class="chk">'+P.check.map(function(c){return '<span>'+c+'</span>';}).join('')+'</div>');});
+ h+=items.map(function(f){var x=f(n+1);if(x)n++;return x;}).join('')+'</div>';
  return h;}
 function planTxt(P){if(!P)return "";var cl=function(t){return String(t).replace(/<[^>]+>/g,"").replace(/&[a-z#0-9]+;/g,function(m){return {"&mdash;":"-","&ndash;":"-","&#8217;":"'","&ldquo;":"\"","&rdquo;":"\"","&rarr;":"->","&middot;":"·","&amp;":"&"}[m]||"";});},It=[];
  if(P.cob)It.push("Grow consultants on billing from "+Math.round(P.cob.now)+" to "+Math.round(P.cob.end)+" by December (net +"+one(P.cob.a)+" a month; about "+one(P.cob.starts)+" contract starts a month).");
@@ -967,11 +1032,16 @@ function planTxt(P){if(!P)return "";var cl=function(t){return String(t).replace(
  It.push("Quarterly milestones (cumulative GM): "+P.q.map(function(q){return q.q+" "+usd(q.cum);}).join(", ")+".");
  It.push("Every Friday, check: "+P.check.join(", ")+".");
  return ["My "+YEAR+" plan ("+({eff:"efficiency plan",act:"activity plan",both:"activity + efficiency plan"}[P.mode])+"):",cl(dxTxt(P))].concat(It.map(function(t,k){return (k+1)+") "+t;})).join("\n");}
+var CU_SEEN={};
+function countUp(root){if(!root||window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;[].forEach.call(root.querySelectorAll("[data-cu]"),function(el,i){var to=+el.dataset.cu,key=i+":"+to;if(CU_SEEN[key])return;CU_SEEN[key]=1;var t0=null,d=700;
+ function f(t){if(!t0)t0=t;var p=Math.min((t-t0)/d,1),e=1-Math.pow(1-p,3);el.textContent=k$(to*e);if(p<1)requestAnimationFrame(f);else el.textContent=k$(to);}requestAnimationFrame(f);});}
 function simpleGP(T,e,N,NEW,BK,G,B,GP){
  var pace=T.gm*52,gap=G-(B.sY*B.e.gps+BK),gps=B.e.gps,
   stages=["pros","visits","jobs","vints","jom","subs","cints"].filter(function(k){return active(T,k)&&B.N[k]!=null&&!isNaN(B.N[k]);}),
   perUnit=function(k){var br=BR_A.indexOf(k)>-1&&chainOf(T,BR_A).indexOf(k)>-1?BR_A:BR_B,c=chainOf(T,br),i=c.indexOf(k),p=1;if(i<0)return 0;for(var j=i;j>0;j--)p*=div(sv(T,c[j-1]),sv(T,c[j]));return p*gps*52;};
- var h='<div class="sgp"><div class="sgh"><div><span>Your pace today</span><b>'+k$(pace)+'</b></div><i>&rarr;</i><div class="g"><span>Your '+YEAR+' goal</span><b>'+k$(G)+'</b></div><i>=</i><div class="'+(gap>1?'gp':'ok')+'"><span>'+(gap>1?'Gap to close':'Ahead by')+'</span><b>'+k$(Math.abs(gap))+'</b></div></div>';
+ var cov=G>0?Math.min((G-Math.max(gap,0))/G,1):0,R=26,C=2*Math.PI*R;
+ var h='<div class="sgp"><div class="sgh2"><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="'+R+'" class="rt"/><circle cx="32" cy="32" r="'+R+'" class="rf" style="stroke-dasharray:'+C.toFixed(1)+';stroke-dashoffset:'+(C*(1-cov)).toFixed(1)+'"/></svg><b>'+Math.round(cov*100)+'%</b><span>of goal covered<br>(activity + book)</span></div>'+
+  '<div class="kp2"><span>Your pace today</span><b data-cu="'+Math.round(pace)+'">'+k$(pace)+'</b></div><i>&rarr;</i><div class="kp2 g"><span>Your '+YEAR+' goal</span><b data-cu="'+Math.round(G)+'">'+k$(G)+'</b></div><i>=</i><div class="kp2 '+(gap>1?'gp':'ok')+'"><span>'+(gap>1?'Gap to close':'Ahead by')+'</span><b data-cu="'+Math.round(Math.abs(gap))+'">'+k$(Math.abs(gap))+'</b></div></div>';
  var PL=buildPlan(T,B,GP,NEW,BK,G);GP.PL=PL;h+=planHtml(PL,G);
  /* if you do more */
  h+='<h4 class="sgt">Your core numbers &mdash; if you do more, here&#8217;s where you land</h4><table class="sgtab"><tr><th>Each week</th><th class="n">You now</th><th class="n">Goal needs</th><th class="n">+1 more a week adds</th></tr>'+
@@ -1049,7 +1119,7 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
   h+='<div class="isum"><b>With your improvements:</b> today&#8217;s activity makes <b>'+k$(sY*e.gps+BK)+'</b> (+'+k$(Math.max(gain,0))+'). '+(left>1?'That leaves <b>'+k$(left)+'</b> &mdash; about <b>+'+Math.max(more,0).toFixed(0)+'% activity</b> ('+one(N[top]/52)+' '+ST[top].many+' a week).':'That <b>covers your goal</b> &mdash; you need <b>'+one(N[top]/52)+' '+ST[top].many+' a week</b>, '+one(Math.max(saved,0))+' fewer than without them.')+'</div>';}
  h+='<div class="wfoot"><span>Type any target in <b>Custom</b> &mdash; a rate, a number, or dollars.</span>'+(anyOv?'<button type="button" id="wReset">Clear improvements</button>':'')+'</div></div>';
  h+='</details>';
- $("ways").innerHTML=h;W.imp=anyOv?{g:sY*e.gps+BK,top:N[top]/52}:null;return W;}
+ $("ways").innerHTML=h;countUp($("ways"));W.imp=anyOv?{g:sY*e.gps+BK,top:N[top]/52}:null;return W;}
 function waysTxt(W){if(!W||!W.top)return "";var g=W.GP,gp=g?"My game plan (vs 2027 benchmarks):\n"+(g.leaks.length?(g.strong.length?"What I'm doing well: "+g.strong.map(function(x){return x.lt+" ("+x.now+")";}).join(", ")+"\n":"")+"1) Areas of improvement:\n"+g.leaks.slice(0,4).map(function(l){return "   - "+l.lt+": "+l.now+" -> benchmark "+l.tg+(l.inFwd&&l.val>0?" (+"+usd(l.val)+" a year)":"")+recTxt(l.key,l);}).join("\n")+"\n2) Activity plan: "+one(g.tB)+" "+g.topL+" a week (now "+one(g.tNow)+(g.ab?", benchmark "+one(g.ab[1]):"")+")":"1) Areas of improvement: conversion is at or above benchmark everywhere. 2) Activity plan: "+one(g.tB)+" "+g.topL+" a week")+"\n\n":"";var t=gp+"My formula:\n"+W.f.map(function(f){return (f.br?f.br+":\n":"")+"  Today: "+f.today+"\n  "+YEAR+" plan: "+f.plan;}).join("\n")+"\n\n"+(W.gap>1?"How I close my "+usd(W.gap)+" gap:\n1) Do more: +"+W.more.toFixed(0)+"% activity — "+one(W.tn)+" "+W.top+" a week instead of "+one(W.tw)+"\n2) Or convert better (same activity), any one of:\n"+W.lev.filter(function(l){return l.poss;}).map(function(l){return "   - "+l.l.replace("&rarr;","->").replace("&ndash;","-")+": "+l.now+" -> "+l.need;}).join("\n"):"On track: today's activity covers my goal ("+Math.abs(W.more).toFixed(0)+"% to spare).");return t;}
 function drawSteps(st){var L=[["s1","Role",st[0],"Role"],["s2","Numbers",st[1],"Numbers"],["s3","2027 goal",st[2],"Goal"],["s4","Book",st[3],"Book"],["s5","Game plan",st[4],"Plan"]],first=true;
  $("steps").innerHTML=L.map(function(x,i){var cls=x[2]==="done"?"done":(x[2]==="todo"&&first?(first=false,"todo"):"");return '<a href="#'+x[0]+'" class="'+cls+'"><i>'+(x[2]==="done"?"&#10003;":i+1)+'</i><span><em class="fu">'+x[1]+'</em><em class="sh2">'+x[3]+'</em><small>'+(x[2]==="done"?"Done":x[2]==="opt"?(i===4?"vs benchmark":"Optional"):"To do")+'</small></span></a>';}).join("");}
