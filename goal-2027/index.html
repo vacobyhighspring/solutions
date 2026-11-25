@@ -594,6 +594,11 @@ details.more2[open]>summary{margin-bottom:10px}
 .box{transition:border-color .15s,box-shadow .15s}
 .box:focus-within{box-shadow:0 0 0 4px rgba(242,107,33,.12)}
 .sgp{border:0;background:linear-gradient(180deg,#fbfcfe,#fff);box-shadow:inset 0 0 0 1px var(--line)}
+.spl2{margin-top:14px}
+.sr{display:grid;grid-template-columns:minmax(150px,1.1fr) auto 140px 170px;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.sr .sl b{display:block;font-size:13.5px}.sr .sl span{font-size:12px;color:var(--muted)}
+.sq{flex-wrap:nowrap}.sq button{padding:7px 10px;font-size:12.5px}
+@media (max-width:760px){.sr{grid-template-columns:1fr 1fr}.sr .sl,.sr .sq{grid-column:1 / -1}}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -726,13 +731,24 @@ footer a{color:var(--blue)}
   <section class="card" id="s3">
     <h2><span class="step">3</span>Where do you want to be in 2027?</h2>
     <p class="sub">Pick how much you want to grow, or type an exact GM goal.</p>
-    <div class="chips" id="mode"><button type="button" data-v="grow" class="on">Grow by a %</button><button type="button" data-v="gm">Set a GM goal</button></div>
+    <div class="chips" id="mode"><button type="button" data-v="grow" class="on">Grow by a %</button><button type="button" data-v="gm">Set a GM goal</button><button type="button" data-v="split">Contract + direct hire</button></div>
     <div id="growP" class="gp">
       <div class="quick" id="quick"><button type="button" data-g="10"><small>Steady</small>+10%</button><button type="button" data-g="20"><small>Push</small>+20%</button><button type="button" data-g="30"><small>Stretch</small>+30%</button><button type="button" data-g="50"><small>Moonshot</small>+50%</button></div>
       <div class="fld"><label for="grow">Growth over your run rate</label><div class="box"><input id="grow" data-d inputmode="decimal" value="20"><span class="suf">% more GM</span></div></div>
     </div>
     <div id="gmP" class="gp" hidden>
       <div class="fld big"><label for="goal">2027 GM goal</label><div class="box"><span>$</span><input id="goal" data-n inputmode="numeric" value="" placeholder="0"></div></div>
+    </div>
+    <div id="splitP" class="spl2" hidden>
+      <p class="hint" style="margin:0 0 8px">Grow each side at your own pace &mdash; lean into contract, direct hire, or both. Type a growth % or a dollar goal; the other fills in.</p>
+      <div class="sr"><div class="sl"><b>Contract GM</b><span id="spRC">This year &ndash;</span></div>
+        <div class="quick sq" data-sq="gcp"><button type="button" data-g="0">Hold</button><button type="button" data-g="10">+10%</button><button type="button" data-g="20">+20%</button><button type="button" data-g="30">+30%</button></div>
+        <div class="box"><input id="gcp" data-d inputmode="decimal" value="20"><span class="suf">% growth</span></div>
+        <div class="box"><span>$</span><input id="gcd" class="spd" data-sp="gcp" inputmode="numeric" placeholder="0"><span class="suf">goal</span></div></div>
+      <div class="sr"><div class="sl"><b>Direct hire (perm) GM</b><span id="spRP">This year &ndash;</span></div>
+        <div class="quick sq" data-sq="gpp"><button type="button" data-g="0">Hold</button><button type="button" data-g="10">+10%</button><button type="button" data-g="20">+20%</button><button type="button" data-g="30">+30%</button></div>
+        <div class="box"><input id="gpp" data-d inputmode="decimal" value="20"><span class="suf">% growth</span></div>
+        <div class="box"><span>$</span><input id="gpd" class="spd" data-sp="gpp" inputmode="numeric" placeholder="0"><span class="suf">goal</span></div></div>
     </div>
     <div class="goalout" id="goalOut"></div>
     <details class="more"><summary>Improve your conversion rates for 2027 (optional)</summary>
@@ -796,8 +812,8 @@ footer a{color:var(--blue)}
 (function(){
 var $=function(id){return document.getElementById(id);};
 var YEAR=2027,KEY="vbh-goal-2027";
-var FIELDS=["cobs","cobn","dhf","pcs","sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints","util"];
-var EX={cobs:"",cobn:"",dhf:"",pcs:"100",sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",jom:"",subs:"",cints:"",util:"90"};
+var FIELDS=["gcp","gpp","cobs","cobn","dhf","pcs","sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints","util"];
+var EX={gcp:"20",gpp:"20",cobs:"",cobn:"",dhf:"",pcs:"100",sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",jom:"",subs:"",cints:"",util:"90"};
 var AVGK=["pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
 var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints"];
 var PQ="";function qRange(n){var t=new Date(),qs=Math.floor(t.getMonth()/3)*3,end=new Date(t.getFullYear(),qs,0),st=new Date(t.getFullYear(),qs-3*n,1),f=function(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");};return [f(st),f(end)];}
@@ -963,7 +979,8 @@ function gamePlan(T,e,NEWC,NEWP,NEW,BK,G,B){
 function pcsV(){var v=num($("pcs").value);return v>0?Math.min(v,100)/100:1;}
 function cobCalc(T){var S=num($("cobs").value),C=num($("cobn").value);if(!(C>0))return null;var W=inm==="tot"?totW():52,m=Math.max(W/4.345,1),stP=T.stc*W,net=C-S,ends=Math.max(stP-net,0),avgHC=S>0?(S+C)/2:C;
  return {S:S,C:C,m:m,g:S>0?net/m:null,e:S>0?ends/m:null,q:avgHC>0?T.gmc/avgHC:0};}
-function cobPlan(T,G){var c=cobCalc(T);if(!c||!(c.q>0))return null;var GC=G*(T.gm>0?T.gmc/T.gm:1),A=GC/(c.q*52),a=Math.max((A-c.C)/6.5,0),Y=c.C+12*a,e=c.e!=null?c.e:Math.max(T.stc*52/12-(c.g||0),0);
+var CUR_GC=0;
+function cobPlan(T,G){var c=cobCalc(T);if(!c||!(c.q>0))return null;var GC=CUR_GC||G*(T.gm>0?T.gmc/T.gm:1),A=GC/(c.q*52),a=Math.max((A-c.C)/6.5,0),Y=c.C+12*a,e=c.e!=null?c.e:Math.max(T.stc*52/12-(c.g||0),0);
  return {now:c.C,g:c.g,e:e,avgNeed:A,a:a,end:Y,starts:a+e,startsNow:T.stc*52/12,q:c.q,GC:GC};}
 var DHG=[[20,"below","Needs to come up"],[22.5,"close","Room to grow"],[25,"on","Solid"],[25.0001,"top","Great"],[1e9,"top","A+"]];
 function dhGrade(f){if(!(f>0))return null;for(var i=0;i<DHG.length;i++){if(f<DHG[i][0])return {st:DHG[i][1],l:DHG[i][2]};}return {st:"top",l:"A+"};}
@@ -1143,10 +1160,14 @@ function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("g
   if(!(raw>0)){el.innerHTML="";return;}var wk=inm==="tot"?raw/W:(st?raw*12/52:raw),yr=wk*52,f=function(v){return money?usd(v):(v>=100?Math.round(v).toLocaleString("en-US"):one(v));};
   el.innerHTML=inm==="tot"?(st?f(wk*52/12)+' a month':f(wk)+' a week')+' &middot; <b>'+f(yr)+' a year</b>':'= <b>'+f(yr)+' a year</b>';});})();
  [].forEach.call(document.querySelectorAll("[data-for]"),function(el){el.hidden=!mine(el.dataset.for);});
- var T=read(),w=weeks(),f=52/w,pace=T.gm*f,G=mode==="grow"?Math.round(pace*(1+T.grow/100)/1000)*1000:T.goal,e=eff(T),r=ratios(T);
- drawBookSum();var cmixG=T.gm>0?T.gmc/T.gm:1,GC=G*cmixG,GP=G-GC,BK=Math.min(bookGM(),G),NEWC=Math.max(GC-BK,0),NEWP=GP,NEW=NEWC+NEWP;
- var _pc=pace*cmixG,_pp=pace-_pc,_row=function(l,now,g,cls){var d=g-now;return '<tr class="'+(cls||'')+'"><td>'+l+'</td><td>'+(pace?usd(now):'&ndash;')+'</td><td><b>'+usd(g)+'</b></td><td class="'+(d>=0?'up':'dn')+'">'+(pace?(d>=0?'+':'&minus;')+usd(Math.abs(d))+(now>0?' <small>('+(d>=0?'+':'&minus;')+Math.abs(d/now*100).toFixed(0)+'%)</small>':''):'&ndash;')+'</td></tr>';};
- $("goalOut").innerHTML=G?'<span>Your 2027 GM goal</span><span class="gv">'+usd(G)+'</span><table class="gmt"><thead><tr><th>Gross margin (GM)</th><th>This year<small>run rate</small></th><th>2027 goal</th><th>Increase</th></tr></thead><tbody>'+_row('Total GM',pace,G,'tot')+(T.gm?_row('Contract GM',_pc,GC)+_row('Perm GM',_pp,GP):'')+'</tbody></table><div class="gmp"><div><small>A week</small><b>'+usd(G/52)+'</b>'+(pace?'<em>now '+usd(pace/52)+'</em>':'')+'</div><div><small>A month</small><b>'+usd(G/12)+'</b>'+(pace?'<em>now '+usd(pace/12)+'</em>':'')+'</div><div><small>A quarter</small><b>'+usd(G/4)+'</b>'+(pace?'<em>now '+usd(pace/4)+'</em>':'')+'</div></div><p class="gmx">GM is your gross margin credit after splits. Contract GM is (bill rate &minus; pay rate) &times; hours billed; perm GM is the placement fee. The 2027 split keeps your current contract/perm mix.</p>':(mode==="grow"?"Enter your GM in step 2.":"Type your 2027 GM goal.");
+ var T=read(),w=weeks(),f=52/w,pace=T.gm*f,G=mode==="grow"?Math.round(pace*(1+T.grow/100)/1000)*1000:mode==="split"?Math.round(T.gmc*f*(1+num($("gcp").value)/100)+T.gmp*f*(1+num($("gpp").value)/100)):T.goal,e=eff(T),r=ratios(T);
+ (function(){var rc=T.gmc*f,rp=T.gmp*f;$("spRC").innerHTML="This year "+usd(rc);$("spRP").innerHTML="This year "+usd(rp);var ae=document.activeElement;
+  if(ae!==$("gcd"))$("gcd").value=rc>0?Math.round(rc*(1+num($("gcp").value)/100)).toLocaleString("en-US"):"";if(ae!==$("gpd"))$("gpd").value=rp>0?Math.round(rp*(1+num($("gpp").value)/100)).toLocaleString("en-US"):"";
+  [].forEach.call(document.querySelectorAll(".sq"),function(q){var v=$(q.dataset.sq).value.trim();[].forEach.call(q.children,function(b){b.classList.toggle("on",b.dataset.g===v);});});})();
+ drawBookSum();var cmixG=mode==="split"&&G>0?(T.gmc*f*(1+num($("gcp").value)/100))/(T.gmc*f*(1+num($("gcp").value)/100)+T.gmp*f*(1+num($("gpp").value)/100)||1):(T.gm>0?T.gmc/T.gm:1),GC=G*cmixG,GP=G-GC;CUR_GC=GC;
+ var BK=Math.min(bookGM(),G),NEWC=Math.max(GC-BK,0),NEWP=GP,NEW=NEWC+NEWP;
+ var _pc=T.gmc*f,_pp=T.gmp*f,_row=function(l,now,g,cls){var d=Math.round(g-now);return '<tr class="'+(cls||'')+'"><td>'+l+'</td><td>'+(pace?usd(now):'&ndash;')+'</td><td><b>'+usd(g)+'</b></td><td class="'+(d>=0?'up':'dn')+'">'+(pace?(d>=0?'+':'&minus;')+usd(Math.abs(d))+(now>0?' <small>('+(d>=0?'+':'&minus;')+Math.abs(d/now*100).toFixed(0)+'%)</small>':''):'&ndash;')+'</td></tr>';};
+ $("goalOut").innerHTML=G?'<span>Your 2027 GM goal</span><span class="gv">'+usd(G)+'</span><table class="gmt"><thead><tr><th>Gross margin (GM)</th><th>This year<small>run rate</small></th><th>2027 goal</th><th>Increase</th></tr></thead><tbody>'+_row('Total GM',pace,G,'tot')+(T.gm?_row('Contract GM',_pc,GC)+_row('Perm GM',_pp,GP):'')+'</tbody></table><div class="gmp"><div><small>A week</small><b>'+usd(G/52)+'</b>'+(pace?'<em>now '+usd(pace/52)+'</em>':'')+'</div><div><small>A month</small><b>'+usd(G/12)+'</b>'+(pace?'<em>now '+usd(pace/12)+'</em>':'')+'</div><div><small>A quarter</small><b>'+usd(G/4)+'</b>'+(pace?'<em>now '+usd(pace/4)+'</em>':'')+'</div></div><p class="gmx">GM is your gross margin credit after splits. Contract GM is (bill rate &minus; pay rate) &times; hours billed; perm GM is the placement fee. '+(mode==="split"?"You set contract and direct hire growth separately.":"The 2027 split keeps your current contract/perm mix.")+'</p>':(mode==="grow"?"Enter your GM in step 2.":"Type your 2027 GM goal.");
  $("perW").textContent=inm==="tot"?"("+one(totW())+" weeks)":"";
  var hasData=T.gm>0||T.starts>0||AVGK.some(function(f){return T[f]>0;});
  if(!hasData){$("avgs").innerHTML="";$("calc").innerHTML="";}else{
@@ -1267,7 +1288,7 @@ function apply(s){if(!s||s.ver!==5)return false;OPT=s.opt||{};BMODE=s.bmode||"qu
 function load(){try{return apply(JSON.parse(localStorage.getItem(KEY)||"null"));}catch(e){return false;}}
 function isEx(){return false;}
 function syncOpt(){[].forEach.call(document.querySelectorAll("[data-opt]"),function(b){var o=!!OPT[b.dataset.opt];b.classList.toggle("out",o);b.textContent=o?"Left out":"In forecast";b.setAttribute("aria-pressed",o?"false":"true");b.closest(".fld").classList.toggle("off",o);});}
-function sync(){syncOpt();[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===(per==="dates"&&PQ?PQ:per));});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;if(el.classList.contains("suf"))el.title=inm==="tot"?"Click to enter weekly averages instead":"Click to enter totals instead";});[].forEach.call(document.querySelectorAll("[data-inm]"),function(b){b.classList.toggle("on",b.dataset.inm===inm);});}
+function sync(){syncOpt();[].forEach.call($("role").children,function(b){b.classList.toggle("on",b.dataset.v===role);});[].forEach.call($("mode").children,function(b){b.classList.toggle("on",b.dataset.v===mode);});$("growP").hidden=mode!=="grow";$("gmP").hidden=mode!=="gm";$("splitP").hidden=mode!=="split";var g=$("grow").value.trim();[].forEach.call($("quick").children,function(b){b.classList.toggle("on",b.dataset.g===g);});$("exNote").hidden=!isEx();[].forEach.call($("inm").children,function(b){b.classList.toggle("on",b.dataset.v===inm);});[].forEach.call($("per").children,function(b){b.classList.toggle("on",b.dataset.v===(per==="dates"&&PQ?PQ:per));});$("perRow").hidden=inm!=="tot";$("dates").hidden=per!=="dates";[].forEach.call(document.querySelectorAll("[data-a]"),function(el){el.textContent=inm==="tot"?el.dataset.t:el.dataset.a;if(el.classList.contains("suf"))el.title=inm==="tot"?"Click to enter weekly averages instead":"Click to enter totals instead";});[].forEach.call(document.querySelectorAll("[data-inm]"),function(b){b.classList.toggle("on",b.dataset.inm===inm);});}
 function toast(t){var el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove("on");},1800);}
 
 $("role").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;role=b.dataset.v;sync();render();});
@@ -1280,6 +1301,8 @@ var p=document.getElementById("per");p.querySelector('[data-v="q1"]').innerHTML=
 $("per").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var v=b.dataset.v;PQ="";if(v==="q1"||v==="q2"){var q=qRange(v==="q1"?1:2);PQ=v;per="dates";$("d1").value=q[0];$("d2").value=q[1];sync();render();return;}per=v;if(per==="dates"&&!$("d1").value){var t=new Date();$("d1").value=t.getFullYear()+"-01-01";$("d2").value=t.toISOString().slice(0,10);}sync();render();});
 document.addEventListener("click",function(e){var b=e.target.closest("[data-opt]");if(!b)return;var k=b.dataset.opt;if(OPT[k])delete OPT[k];else OPT[k]=true;OV={};syncOpt();render();});
 $("bmode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;BMODE=b.dataset.v;if(BMODE==="list"&&!BOOK.length){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();}render();});
+document.addEventListener("click",function(e){var b=e.target.closest(".sq button");if(!b)return;$(b.parentNode.dataset.sq).value=b.dataset.g;render();});
+document.addEventListener("input",function(e){var t=e.target;if(!t.classList||!t.classList.contains("spd"))return;var T=read(),f=52,base=t.dataset.sp==="gcp"?T.gmc*f:T.gmp*f,v=num(t.value);if(base>0&&v>0){$(t.dataset.sp).value=String(Math.round((v/base-1)*10000)/100);}},true);
 $("mode").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;mode=b.dataset.v;if(mode==="gm"){var T=read(),G=Math.round(T.gm*52*(1+T.grow/100)/1000)*1000;if(G)$("goal").value=G.toLocaleString("en-US");}sync();render();});
 $("quick").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;$("grow").value=b.dataset.g;sync();render();});
 document.addEventListener("input",function(e){var t=e.target;if(t.classList&&t.classList.contains("cust"))return;if(EXK.indexOf(t.id)>-1)edited=true;if(t.dataset.bf){var row=t.closest(".bkr"),i=+row.dataset.i;BOOK[i][t.dataset.bf]=t.value;row.querySelector(".bkc").innerHTML=cCell(BOOK[i]);render();return;}if(t.id==="util"){drawBook();}if(t.dataset.ov!=null){var k=t.dataset.ov,v=num(t.value);OV[k]=t.value.trim()===""?null:(t.dataset.pct==="1"?v/100:v);}sync();render();});
