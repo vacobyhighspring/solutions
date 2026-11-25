@@ -743,6 +743,8 @@ h2{font-size:20px}
 .impx tr.dup td{color:var(--muted)}
 .impx .if{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--muted)}
 .impx .note{font-size:12px;color:var(--muted);margin:8px 0 0}
+.gmbm{display:flex;gap:8px;align-items:flex-start;margin:10px 0 4px;padding:10px 12px;border-radius:12px;background:#f4f7fb;font-size:12.5px;line-height:1.45}
+.gmbm i{color:var(--muted);font-style:normal}
 .cvt{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
 .cvt th{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right;padding:6px 8px;border-bottom:1px solid var(--line)}
 .cvt th:first-child,.cvt td:first-child{text-align:left}
@@ -953,10 +955,26 @@ var BM={rates:{"pros>visits":[.003,.01,.03],"visits>jobs":[.25,.40,.55],"jobs>ci
   full:{pros:[37.5,50,62.5],visits:[3,5,6.5],vints:[5,6,7.5],jobs:[1.2,2,2.6],subs:[3.333,4,5],cints:[1.266,2.11,2.683],starts:[1.3,2.167,2.752]}},
  ramp:[.5,.75,.9,1],gmRef:[200000,300000,400000]};
 var TEN=3;
+/* Tenure model, measured across 2027 (average of each month's tenure), smooth by month.
+   act/st: ramp from the benchmark file (50/75/90/100 and 25/50/75/100 at 0/3/6/12 months).
+   cv: conversion gets a little better the longer you are in seat.
+   GM benchmark by year in seat: yr1 $120K, yr2 $300K, yr3 $500K, yr4 $700K, then +10% a year, prorated month by month across 2027. */
+var RAMP={act:[[0,.5],[3,.75],[6,.9],[12,1]],st:[[0,.25],[3,.5],[6,.75],[12,1]],cv:[[0,.85],[12,1],[24,1.03],[36,1.05]],gmYr:[120000,300000,500000,700000],gmGrow:.10,gmBand:30000};
+function gmYrRate(y){var a=RAMP.gmYr;return y<a.length?a[y]:a[a.length-1]*Math.pow(1+RAMP.gmGrow,y-a.length+1);}
+var TF={act:1,st:1,cv:1,gmB:0,mo:null,now:null};
+function rampAt(c,m){if(m<=c[0][0])return c[0][1];for(var i=1;i<c.length;i++){if(m<=c[i][0]){var a=c[i-1],b=c[i];return a[1]+(b[1]-a[1])*(m-a[0])/(b[0]-a[0]);}}return c[c.length-1][1];}
+function calcTF(){var v=$("sdate").value;if(!v){TF={act:1,st:1,cv:1,gmB:0,mo:null,now:null};return;}var sd=new Date(v+"T00:00:00"),t=new Date(),now=Math.max((t-sd)/864e5/30.44,0),o={act:0,st:0,cv:0,gmB:0},ms=0;
+ for(var i=0;i<12;i++){var m=Math.max((YEAR-sd.getFullYear())*12+(i-sd.getMonth())+(15-sd.getDate())/30.44,0);ms+=m;o.act+=rampAt(RAMP.act,m);o.st+=rampAt(RAMP.st,m);o.cv+=rampAt(RAMP.cv,m);o.gmB+=gmYrRate(Math.floor(m/12))/12;}
+ TF={act:o.act/12,st:o.st/12,cv:o.cv/12,gmB:o.gmB,yr:Math.floor(ms/12)+1,mo:ms/12,now:now};}
+function gmBmTxt(G){if(!TF.gmB)return '<div class="gmbm"><span>Add your <b>start date</b> in step 1 to see the '+YEAR+' GM benchmark for your time in seat.</span></div>';
+ var tg=TF.gmB,bd=RAMP.gmBand,st=bmStat(G,[tg-bd,tg,tg+bd]);
+ return '<div class="gmbm">'+pill(st)+'<span>'+YEAR+' GM benchmark for your time in seat: <b>'+k$(tg-bd)+' &ndash; '+k$(tg+bd)+'</b>, target <b>'+k$(tg)+'</b>. Average producers: year 1 $120K ($90K&ndash;$150K), year 2 $300K, year 3 $500K, year 4 $700K, then +10% a year (each &plusmn;$30K) &mdash; prorated by month from your start date.</span></div>';}
+function pctR(v){return Math.round(v*100)+"%";}
 function cmixT(T){return T.starts>0?T.stc/T.starts:.55;}
 function bmBase(key,T){var b=BM.rates[key];if(!b)return null;if(b.c){var w=cmixT(T);return [0,1,2].map(function(i){return w*b.c[i]+(1-w)*b.p[i];});}return b;}
-function bmRate(key,T){if(key==="vints>jom"||key==="jom>subs")return null;if(key==="vints>subs")return BM.rates["vints>subs"];var x=key.split(">"),up=x[0],dn=x[1],br=BR_A.indexOf(up)>-1&&BR_A.indexOf(dn)>-1?BR_A:BR_B,a=br.indexOf(up),b=br.indexOf(dn);if(a<0||b<0||a<=b)return null;var out=[1,1,1];for(var i=a;i>b;i--){var r=bmBase(br[i]+">"+br[i-1],T);if(!r)return null;out=out.map(function(v,j){return v*r[j];});}return out;}
-function bmAct(k){var t=BM.act[role]&&BM.act[role][k];if(!t)return null;var f=k==="starts"?(TEN===0?.25:TEN===1?.5:TEN===2?.75:1):BM.ramp[TEN];return t.map(function(v){return v*f;});}
+function bmRate(key,T){var r=bmRate0(key,T);if(!r||TF.cv===1)return r;var pc=isPct(key);return r.map(function(v){v=v*TF.cv;return pc?Math.min(v,.98):v;});}
+function bmRate0(key,T){if(key==="vints>jom"||key==="jom>subs")return null;if(key==="vints>subs")return BM.rates["vints>subs"];var x=key.split(">"),up=x[0],dn=x[1],br=BR_A.indexOf(up)>-1&&BR_A.indexOf(dn)>-1?BR_A:BR_B,a=br.indexOf(up),b=br.indexOf(dn);if(a<0||b<0||a<=b)return null;var out=[1,1,1];for(var i=a;i>b;i--){var r=bmBase(br[i]+">"+br[i-1],T);if(!r)return null;out=out.map(function(v,j){return v*r[j];});}return out;}
+function bmAct(k){var t=BM.act[role]&&BM.act[role][k];if(!t)return null;var f=k==="starts"?TF.st:TF.act;return t.map(function(v){return v*f;});}
 function bmStat(v,b){var t=.995;return !(v>0)?"":v<b[0]*t?"below":v<b[1]*t?"close":v<b[2]*t?"on":"top";}
 var STL={below:"Focus area",close:"Room to grow",on:"On target",top:"Strength"};
 function pill(st){return st?'<span class="pill '+st+'">'+STL[st]+'</span>':'';}
@@ -1183,7 +1201,7 @@ function simpleGP(T,e,N,NEW,BK,G,B,GP){
  h+=(GP.leaks.length?'<div class="gbtns"><button type="button" class="gbtn" id="applyBm">Apply these efficiency targets to my plan</button></div>':'')+'</div>';
  return h;}
 function drawGP(GP){var who={sales:"producer (sales)",rec:"recruiter",full:"full desk"}[role];
- var h='<div class="gp2"><h3>Your game plan</h3><p class="gsub">Compared with the 2027 benchmarks for a '+who+(TEN<3?', ramping up ('+["0&ndash;90","91&ndash;180","181&ndash;365"][TEN]+' days in seat)':'')+'.</p>';
+ var h='<div class="gp2"><h3>Your game plan</h3><p class="gsub">Compared with the 2027 benchmarks for a '+who+(TF.mo!=null&&TF.act<1?', ramping up (activity '+pctR(TF.act)+', starts '+pctR(TF.st)+' of fully ramped across '+YEAR+')':TF.cv>1?', with '+YEAR+' conversion benchmarks set '+Math.round((TF.cv-1)*100)+'% higher for your tenure':'')+'.</p>';
  var n=0,fixVal=Math.max(GP.gB-GP.gNow,0),goodAct=GP.acts.filter(function(a){return a.st==="on"||a.st==="top";});
  /* 1. what's going well */
  n++;var wins=GP.strong.map(function(x){return '<li>'+pill(x.st)+'<b>'+x.l+'</b> &mdash; '+x.now+' (benchmark '+x.tg+')</li>';}).concat(goodAct.map(function(a){return '<li>'+pill(a.st)+'<b>'+a.l+'</b> &mdash; '+one(a.v)+' '+a.u+' (benchmark '+one(a.b[1])+')</li>';}));
@@ -1263,12 +1281,12 @@ function drawOvr(T){var h="",r=ratios(T);
 var PLAN="",PD=null,MB=null;
 function drawMbar(){var b=$("mbar");if(!MB){b.hidden=true;return;}b.hidden=false;var ok=MB.gap<=1;
  b.innerHTML='<div><small>2027 goal</small><b>'+k$(MB.G)+'</b></div><div><small>'+(ok?"On track":"Gap to goal")+'</small><b class="'+(ok?"ok":"bh")+'">'+(ok?"+":"")+k$(Math.abs(MB.gap))+'</b></div><div><small>'+MB.topL+'</small><b>'+MB.top+'<span style="font-size:11px;opacity:.7"> /wk</span></b></div><span class="go">&#8250;</span>';}
-function calcTen(){var v=$("sdate").value,el=$("tenTxt");if(!v){TEN=3;el.innerHTML="Leave blank if you&#8217;ve been in your seat over a year.";return;}
+function calcTen(){var v=$("sdate").value,el=$("tenTxt");calcTF();if(!v){TEN=3;el.innerHTML="Leave blank if you&#8217;ve been in your seat over a year.";return;}
  var t=new Date(),d=Math.floor((new Date(t.getFullYear(),t.getMonth(),t.getDate())-new Date(v+"T00:00:00"))/864e5);
- if(d<0){TEN=0;el.innerHTML="Start date is in the future &mdash; using first-90-days benchmarks.";return;}
- TEN=d<=90?0:d<=180?1:d<365?2:3;var pct=[50,75,90,100][TEN];
+ TEN=d<=90?0:d<=180?1:d<365?2:3;
  var sd=new Date(v+"T00:00:00"),tt=new Date(),mo=(tt.getFullYear()-sd.getFullYear())*12+(tt.getMonth()-sd.getMonth())-(tt.getDate()<sd.getDate()?1:0),yy=Math.floor(mo/12),mm=mo%12,dur=mo<1?d+' day'+(d===1?'':'s'):(yy?yy+' year'+(yy===1?'':'s'):'')+(yy&&mm?', ':'')+(mm?mm+' month'+(mm===1?'':'s'):'');
- el.innerHTML='<b>'+dur+'</b> in your seat &middot; '+(TEN<3?'activity benchmarks set at <b>'+pct+'%</b> while you ramp':'fully ramped benchmarks');}
+ var parts=[];if(TF.act<.995)parts.push('activity <b>'+pctR(TF.act)+'</b>');if(TF.st<.995)parts.push('starts <b>'+pctR(TF.st)+'</b>');
+ el.innerHTML='<b>'+dur+'</b> in your seat &middot; '+(parts.length?'your '+YEAR+' benchmarks: '+parts.join(', ')+' of fully ramped, conversion '+pctR(TF.cv)+(TF.gmB?' &middot; '+YEAR+' GM benchmark <b>'+k$(TF.gmB-RAMP.gmBand)+'&ndash;'+k$(TF.gmB+RAMP.gmBand)+'</b>':''):'fully ramped'+(TF.gmB?' &middot; '+YEAR+' GM benchmark <b>'+k$(TF.gmB-RAMP.gmBand)+'&ndash;'+k$(TF.gmB+RAMP.gmBand)+'</b>':'')+(TF.cv>1.004?' &middot; conversion benchmarks <b>+'+Math.round((TF.cv-1)*100)+'%</b> for your experience':''));}
 function perLabel(short){if(inm!=="tot")return short?"weekly averages":"your weekly averages";var f=function(v){var d=new Date(v+"T00:00:00");return d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});},w=Math.round(totW());
  if(per==="dates"&&$("d1").value&&$("d2").value){var nm=PQ==="q1"?"Last quarter":PQ==="q2"?"Last 2 quarters":PQ==="m12"?"Last 12 months":"";return (short?(nm||f($("d1").value)+" – "+f($("d2").value)):(nm?nm+", ":"")+f($("d1").value)+" – "+f($("d2").value))+(short?"":" ("+w+" weeks)");}
  return short?"Jan 1 – today":"Jan 1 – today ("+w+" weeks)";}
@@ -1286,7 +1304,7 @@ function render(){clampDates();calcTen();var _gt=num($("gmc").value)+num($("gmp"
  drawBookSum();var cmixG=mode==="split"&&G>0?(T.gmc*f*(1+num($("gcp").value)/100))/(T.gmc*f*(1+num($("gcp").value)/100)+T.gmp*f*(1+num($("gpp").value)/100)||1):(T.gm>0?T.gmc/T.gm:1),GC=G*cmixG,GP=G-GC;CUR_GC=GC;
  var BK=Math.min(bookGM(),G),NEWC=Math.max(GC-BK,0),NEWP=GP,NEW=NEWC+NEWP;
  var _pc=T.gmc*f,_pp=T.gmp*f,_row=function(l,now,g,cls){var d=Math.round(g-now);return '<tr class="'+(cls||'')+'"><td>'+l+'</td><td>'+(pace?usd(now):'&ndash;')+'</td><td><b>'+usd(g)+'</b></td><td class="'+(d>=0?'up':'dn')+'">'+(pace?(d>=0?'+':'&minus;')+usd(Math.abs(d))+(now>0?' <small>('+(d>=0?'+':'&minus;')+Math.abs(d/now*100).toFixed(0)+'%)</small>':''):'&ndash;')+'</td></tr>';};
- $("goalOut").innerHTML=G?'<span>Your 2027 GM goal</span><span class="gv">'+usd(G)+'</span><table class="gmt"><thead><tr><th>Gross margin (GM)</th><th>Run rate<small>'+perLabel(true)+'</small></th><th>2027 goal</th><th>Increase</th></tr></thead><tbody>'+_row('Total GM',pace,G,'tot')+(T.gm?_row('Contract GM',_pc,GC)+_row('Perm GM',_pp,GP):'')+'</tbody></table><div class="gmp"><div><small>A week</small><b>'+usd(G/52)+'</b>'+(pace?'<em>now '+usd(pace/52)+'</em>':'')+'</div><div><small>A month</small><b>'+usd(G/12)+'</b>'+(pace?'<em>now '+usd(pace/12)+'</em>':'')+'</div><div><small>A quarter</small><b>'+usd(G/4)+'</b>'+(pace?'<em>now '+usd(pace/4)+'</em>':'')+'</div></div><p class="gmx">GM is your gross margin credit after splits. Contract GM is (bill rate &minus; pay rate) &times; hours billed; perm GM is the placement fee. '+(mode==="split"?"You set contract and direct hire growth separately.":"The 2027 split keeps your current contract/perm mix.")+'</p>':(mode==="grow"?"Enter your GM in step 2.":"Type your 2027 GM goal.");
+ $("goalOut").innerHTML=G?'<span>Your 2027 GM goal</span><span class="gv">'+usd(G)+'</span><table class="gmt"><thead><tr><th>Gross margin (GM)</th><th>Run rate<small>'+perLabel(true)+'</small></th><th>2027 goal</th><th>Increase</th></tr></thead><tbody>'+_row('Total GM',pace,G,'tot')+(T.gm?_row('Contract GM',_pc,GC)+_row('Perm GM',_pp,GP):'')+'</tbody></table><div class="gmp"><div><small>A week</small><b>'+usd(G/52)+'</b>'+(pace?'<em>now '+usd(pace/52)+'</em>':'')+'</div><div><small>A month</small><b>'+usd(G/12)+'</b>'+(pace?'<em>now '+usd(pace/12)+'</em>':'')+'</div><div><small>A quarter</small><b>'+usd(G/4)+'</b>'+(pace?'<em>now '+usd(pace/4)+'</em>':'')+'</div></div>'+gmBmTxt(G)+'<p class="gmx">GM is your gross margin credit after splits. Contract GM is (bill rate &minus; pay rate) &times; hours billed; perm GM is the placement fee. '+(mode==="split"?"You set contract and direct hire growth separately.":"The 2027 split keeps your current contract/perm mix.")+'</p>':(mode==="grow"?"Enter your GM in step 2.":"Type your 2027 GM goal.");
  $("perW").textContent=inm==="tot"?"("+one(totW())+" weeks)":"";
  var hasData=T.gm>0||T.starts>0||AVGK.some(function(f){return T[f]>0;});
  if(!hasData){$("avgs").innerHTML="";$("calc").innerHTML="";}else{
@@ -1529,7 +1547,7 @@ var wt='<div class="sec"><h2>Weekly targets for '+YEAR+'</h2><table class="wt"><
    '<div class="sec"><h2>Quarterly milestones &mdash; cumulative GM</h2><div class="qm">'+P.q.map(function(q){return '<div><span>'+q.q+'</span><b>'+k$(q.cum)+'</b></div>';}).join("")+'</div></div>';}
  var h='<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+YEAR+' Goal Plan'+(who?' &ndash; '+esc(who):'')+'</title><style>'+css+'</style></head><body><div class="pg">'+
   '<div class="hd"><div><img src="'+logo+'" alt="Vaco by Highspring"><h1>'+(who?esc(who)+'&#8217;s ':'My ')+'<span>'+YEAR+'</span> plan</h1><p>'+rl+'</p></div><div class="rt">'+today+'</div></div><div class="bd">'+
-  gm+wt+cvt+foc+'<div class="sig"><div>Producer</div><div>Leader</div></div></div><div class="ft">Vaco by Highspring &middot; '+YEAR+' goal setting</div></div></body></html>';
+  gm+(TF.gmB?'<p style="font-size:12.5px;color:#5b6b82;margin:-10px 0 18px">'+YEAR+' GM benchmark for time in seat: <b style="color:#0b1f3a">'+usd(TF.gmB-RAMP.gmBand)+' &ndash; '+usd(TF.gmB+RAMP.gmBand)+'</b> (target '+usd(TF.gmB)+').</p>':'')+wt+cvt+foc+'<div class="sig"><div>Producer</div><div>Leader</div></div></div><div class="ft">Vaco by Highspring &middot; '+YEAR+' goal setting</div></div></body></html>';
  return h;}
 $("dl").addEventListener("click",function(){if(!PD){toast("Fill in steps 1–3 first");return;}dlFile(YEAR+"-Goal-Plan"+slug()+".html",report(),"text/html");toast("Plan downloaded");});
 $("saveF").addEventListener("click",function(){dlFile(YEAR+"-Goal-Numbers"+slug()+".json",JSON.stringify(state(),null,1),"application/json");toast("Numbers saved");});
