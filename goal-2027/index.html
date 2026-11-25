@@ -378,8 +378,15 @@ details.more .fields{margin-top:12px}
 .pill.on{background:var(--blue-soft);color:var(--blue)}
 .pill.top{background:#e1f3ea;color:var(--good)}
 .cn .bmt{margin-left:6px}
-.cn .pst{display:block;margin-top:4px;font-size:12px;color:var(--ink);font-weight:600}
-.cn .pst em{font-style:normal;display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#b5490f;background:var(--orange-soft);border-radius:999px;padding:1px 8px;margin-right:6px}
+.cn{display:grid;gap:5px}
+.cn .cnl,.cn .pst{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;color:var(--ink);font-weight:600;margin:0}
+.cn .cnl>b,.cn .pst>b{margin:0;min-width:46px;text-align:center}
+.cn .pst>b{background:var(--orange-soft);color:#b5490f;border-radius:999px;padding:1px 9px}
+.cn .pst i{font-style:normal;color:var(--muted);font-weight:600}
+.cn em.nx,.cn .pst em{width:82px;flex:none;text-align:center;font-style:normal;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 0;margin:0}
+.cn em.nx{color:var(--blue);background:var(--blue-soft)}
+.cn .bmt{display:block;margin:0 0 0 88px;font-size:11.5px;color:var(--muted);font-weight:500}
+.cn .pst em{color:#b5490f;background:#ffe3d1}
 /* game plan */
 .gp2{border:2px solid var(--band);border-radius:16px;padding:14px 16px;margin-bottom:16px}
 .gp2 h3{font-family:var(--display);font-size:17px;margin:0 0 2px}
@@ -723,6 +730,19 @@ h1 span{background:linear-gradient(90deg,#ff9a4d,#f26b21 40%,#ffd0a8 60%,#f26b21
 h2{font-size:20px}
 @media (max-width:760px){.steps{margin-top:-22px;top:6px}.band{padding:22px 0 38px}}
 @media (prefers-reduced-motion:reduce){h1 span{animation:none}.band::before,.res::after{animation:none}}
+
+.imp{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border:1.5px dashed rgba(242,107,33,.45);background:linear-gradient(90deg,#fff6ef,#fff);border-radius:16px;padding:14px 16px;margin:4px 0 14px;transition:background .15s,border-color .15s}
+.imp.drag{background:#ffe9da;border-color:#f26b21}
+.imt{display:flex;flex-direction:column;gap:3px;max-width:560px}.imt b{font-size:14.5px}.imt span{font-size:12.5px;color:var(--muted)}
+.impx{border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:0 0 14px;background:#fff}
+.impx .ih{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.impx select{font:inherit;font-weight:700;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:#f9fafc}
+.impx table{width:100%;border-collapse:collapse;font-size:13px}
+.impx th{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.impx td{padding:7px 8px;border-bottom:1px solid #eef1f6}.impx td.n{text-align:right;font-variant-numeric:tabular-nums}
+.impx tr.dup td{color:var(--muted)}
+.impx .if{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.impx .note{font-size:12px;color:var(--muted);margin:8px 0 0}
 </style>
 </head>
 <body>
@@ -782,7 +802,7 @@ h2{font-size:20px}
 <div class="stg" data-stage="starts"><div class="sn"><b></b></div><div class="sb"><div class="st">Starts<span class="spl" id="pl_starts"></span></div><div class="bmx" id="bm_starts"></div><div class="fields"><div class="fld"><div class="lr"><label for="stc"><span data-a="Contract per month" data-t="Contract"></span></label></div><div class="box"><input id="stc" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/month" data-t="total"></span></div><div class="ann" id="ann_stc"></div></div><div class="fld"><div class="lr"><label for="stp"><span data-a="Perm per month" data-t="Perm"></span></label></div><div class="box"><input id="stp" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/month" data-t="total"></span></div><div class="ann" id="ann_stp"></div></div></div></div></div>
 <div class="cn" id="cn_startsgm"></div>
 <div class="stg" data-stage="gm"><div class="sn"><b></b></div><div class="sb"><div class="st">Gross margin <i>(after splits)</i><span class="spl" id="pl_gm"></span></div><div class="bmx" id="bm_gm"></div><div class="fields"><div class="fld"><div class="lr"><label for="gmc">Contract</label></div><div class="box"><span>$</span><input id="gmc" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div><div class="ann" id="ann_gmc"></div></div><div class="fld"><div class="lr"><label for="gmp">Perm</label></div><div class="box"><span>$</span><input id="gmp" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div><div class="ann" id="ann_gmp"></div></div><div class="fld"><div class="lr"><label>Total GM <i>(auto)</i></label></div><div class="box tot"><span>$</span><output id="gmtot">0</output><span class="suf2" id="gmtotU">total</span></div><div class="ann" id="ann_gmtot"></div></div></div></div></div>
-<div class="stg xb" data-stage="cob" data-for="sales rec"><div class="sn"><b>#</b></div><div class="sb"><div class="st">Consultants on billing <span class="spl">your #1 growth number</span></div><div class="bmx" id="cobInfo"></div><div class="fields">
+<div class="stg xb" data-stage="cob" data-for="sales rec full"><div class="sn"><b>#</b></div><div class="sb"><div class="st">Consultants on billing <span class="spl">your #1 growth number</span></div><div class="bmx" id="cobInfo"></div><div class="fields">
  <div class="fld"><div class="lr"><label for="cobs" id="cobsL">At the start of your period</label></div><div class="box"><input id="cobs" data-d inputmode="numeric" value="" placeholder="0"><span class="suf">consultants</span></div></div>
  <div class="fld"><div class="lr"><label for="cobn">On billing today</label></div><div class="box"><input id="cobn" data-d inputmode="numeric" value="" placeholder="0"><span class="suf">consultants</span></div></div>
 </div></div></div>
@@ -830,6 +850,11 @@ h2{font-size:20px}
   <section class="card" id="s4">
     <h2><span class="step">4</span>Your book carrying into 2027 <span class="opt">Optional</span></h2>
     <p class="sub">Contract consultants still billing on Jan 1 keep earning you GM until they end, so you need fewer new starts.</p>
+    <div class="imp" id="impZone">
+      <div class="imt"><b>Import your consultants from your PDSR</b><span>Upload the PDSR (Producer Detail Summary Report) PDF. We pull each consultant's GM per hour and your % on the deal. You just add expected end dates.</span></div>
+      <button type="button" class="btn" id="impBtn">&#8679; Upload PDSR (PDF)</button><input type="file" id="impIn" accept=".pdf,application/pdf" hidden>
+    </div>
+    <div class="impx" id="impBox" hidden></div>
     <div class="chips" id="bmode"><button type="button" data-v="quick" class="on">Quick estimate</button><button type="button" data-v="list">Consultant by consultant</button></div>
     <div id="bQuick" class="gp">
       <div class="fld"><label for="bqwk">Your GM per week from consultants on billing <i>(after splits)</i></label><div class="box"><span>$</span><input id="bqwk" data-n inputmode="numeric" placeholder="0"><span class="suf">/week</span></div></div>
@@ -992,10 +1017,10 @@ function drawCn(T){[].forEach.call(document.querySelectorAll(".cn"),function(el)
  pairs(T).forEach(function(pr){var el=$("cn_"+pr.up);if(!el)return;var v=cvOf(T,pr),t=cvTxt(T,pr,v),o=OV[pr.key]!=null&&OV[pr.key]>0;el.classList.toggle("ov",o);
   var sk=pr.dn!==nextStage(pr.up)?skippedKeys(pr.up,pr.dn).filter(function(k){return mine(ST[k].r)&&!ST[k].p.every(function(f){return OPT[f];});}):[];
   if(sk.length){el.innerHTML='<span class="wait">Add your '+sk.map(function(k){return ST[k].many;}).join(" and ")+' to see this rate</span>';return;}
-  el.innerHTML='<b>'+t.big+'</b>'+(isPct(pr.key)?'become '+ST[pr.dn].many:ST[pr.dn].many+' per '+ST[pr.up].one)+(pr.dn!==nextStage(pr.up)?' <i>(skips '+skipped(pr.up,pr.dn)+')</i>':'')+(o?' &middot; your 2027 rate (now '+cvTxt(T,pr,pr.cur).big+')':'');
+  el.innerHTML='<span class="cnl"><em class="nx">Next step</em><b>'+t.big+'</b>'+(isPct(pr.key)?'of '+ST[pr.up].many+' become '+ST[pr.dn].many:ST[pr.dn].many+' per '+ST[pr.up].one)+(pr.dn!==nextStage(pr.up)?' <i>(skips '+skipped(pr.up,pr.dn)+')</i>':'')+(o?' &middot; your 2027 rate (now '+cvTxt(T,pr,pr.cur).big+')':'')+'</span>';
   var bm=bmRate(pr.key,T);if(bm)el.innerHTML+=pr.up==="pros"?'<span class="bmt">new-account visits run about 1 per 100 attempts; most visits come from existing accounts</span>':'<span class="bmt">'+pill(bmStat(pr.cur,bm))+'target '+fmtBm(pr.key,bm[1])+'</span>';});
  (function(){var stw=T.starts||0;["pros","visits","jobs","vints","jom","subs","cints"].forEach(function(k){var el=$("cn_"+k);if(!el||!ST[k]||!mine(ST[k].r))return;var v=sv(T,k);if(!(v>0)||!(stw>0))return;var r=v/stw,pc=stw/v*100;
-  el.insertAdjacentHTML("beforeend",'<span class="pst"><em>To a start</em>'+(r>=10?Math.round(r):r.toFixed(1))+' '+ST[k].many+' per start &middot; '+(pc>=10?Math.round(pc):pc.toFixed(1))+'% become a start</span>');});})();
+  el.insertAdjacentHTML("beforeend",'<span class="pst"><em>To a start</em><b>'+(r>=10?Math.round(r):r.toFixed(1))+'</b>'+ST[k].many+' for every 1 start <i>('+(pc>=10?Math.round(pc):pc.toFixed(1))+'% end in a start)</i></span>');});})();
  var e=eff(T),c=$("cn_startsgm");if(c)c.innerHTML=(e.gpsc||e.gpsp)?'<b>'+usd(e.gpsc||0)+'</b>GM per contract start &nbsp; <b>'+usd(e.gpsp||0)+'</b>GM per perm start':'';
  laneTitle();var n=0,lastBr=null;
  ["pros","visits","jobs","vints","jom","subs","cints","starts"].forEach(function(k){var el=$("bm_"+k);if(!el)return;var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k);
@@ -1073,8 +1098,8 @@ function buildPlan(T,B,GP,NEW,BK,G){
  var cum=0,cs=0;[[0,"Q1","Jan\u2013Mar"],[3,"Q2","Apr\u2013Jun"],[6,"Q3","Jul\u2013Sep"],[9,"Q4","Oct\u2013Dec"]].forEach(function(q){var a=new Date(YEAR,q[0],1),b=new Date(YEAR,q[0]+3,0),w=(Math.round((b-a)/864e5)+1)/7,g=bookIn(a,b)*(BK>0?BK/(bookGM()||1):0)+NEW*w/52,st=((B.N.stc||0)+(B.N.stp||0))*w/52;cum+=g;cs+=st;P.q.push({q:q[1],m:q[2],g:g,cum:cum,st:st});});
  var sc=cum>0?G/cum:1,c2=0;P.q.forEach(function(q){q.g*=sc;c2+=q.g;q.cum=c2;});
  /* role focus: consultants on billing (contract roles) / direct hire (full desk) */
- if(role!=="full"){var cp=cobPlan(T,G);if(cp)P.cob=cp;}
- else{var d=dhCalc(T);if(d&&d.fee>0){var permStA=GP.acts.filter(function(a){return a.k==="starts";})[0],strongVol=permStA&&(permStA.st==="on"||permStA.st==="top");d.strongVol=strongVol;d.permNeed=(B.N.stp||0)/12;d.permNow=T.stp*52/12;d.ptPer=d.sal>0?d.sal*0.01*d.sh:0;d.ptYr=d.ptPer*d.permNeed*12;P.dh=d;}}
+ if(role!=="full"||T.gmc>0){var cp=cobPlan(T,G);if(cp)P.cob=cp;}
+  if(role==="full"){var d=dhCalc(T);if(d&&d.fee>0){var permStA=GP.acts.filter(function(a){return a.k==="starts";})[0],strongVol=permStA&&(permStA.st==="on"||permStA.st==="top");d.strongVol=strongVol;d.permNeed=(B.N.stp||0)/12;d.permNow=T.stp*52/12;d.ptPer=d.sal>0?d.sal*0.01*d.sh:0;d.ptYr=d.ptPer*d.permNeed*12;P.dh=d;}}
  /* diagnosis: activity vs efficiency */
  var acts=GP.acts.filter(function(a){return a.k!=="starts";}),strongA=acts.filter(function(a){return a.st==="on"||a.st==="top";}),weakA=acts.filter(function(a){return a.st==="below"||a.st==="close";}),stA=GP.acts.filter(function(a){return a.k==="starts";})[0],startsShort=stA?(stA.st==="below"||stA.st==="close"):GP.gapB>1,leaks=GP.leaks.length>0;
  P.mode=leaks&&strongA.length&&strongA.length>=weakA.length?"eff":(!leaks?"act":"both");
@@ -1094,10 +1119,10 @@ function planHtml(P,G){
   stat=function(v,l,d){return '<div class="ms"><b>'+v+'</b><span>'+l+'</span>'+(d?'<em>'+d+'</em>':'')+'</div>';},
   tip=function(t){return t?'<div class="pc-tip">'+t+'</div>':'';};
  var h='<div class="pl2"><div class="pl2-h"><h4>Your '+YEAR+' plan</h4><span class="mode m-'+P.mode+'">'+({eff:"Efficiency plan",act:"Activity plan",both:"Activity + efficiency"}[P.mode])+'</span></div><p class="pl2-dx">'+dxTxt(P)+'</p>';
- var n=0,items=[];
+ var n=0,items=[],cobLast=null;
  /* focus */
- if(P.cob){var c=P.cob;items.push(function(k){return card(k,'Grow consultants on billing','From <b>'+Math.round(c.now)+'</b> today &rarr; <b>'+Math.round(c.end)+'</b> by December'+(c.g!=null?' &middot; growing '+(c.g>=0?'+':'&minus;')+one(Math.abs(c.g))+' a month so far':''),big('+'+one(c.a),'net a month'),
-  '<div class="msr">'+stat(one(c.starts),'contract starts a month','now '+one(c.startsNow))+stat(one(c.e),'end each month','')+stat(usd(c.q),'GM per consultant a week','')+'</div>'+tip('Track your billing count on the 1st of every month &mdash; it&#8217;s the clearest sign your desk is growing.'),'pfx');});}
+ if(P.cob){var c=P.cob;(role==="full"?function(f){cobLast=f;}:function(f){items.push(f);})(function(k){return card(k,(role==="full"?'Your contract business':'Grow consultants on billing'),'From <b>'+Math.round(c.now)+'</b> today &rarr; <b>'+Math.round(c.end)+'</b> by December'+(c.g!=null?' &middot; growing '+(c.g>=0?'+':'&minus;')+one(Math.abs(c.g))+' a month so far':''),big('+'+one(c.a),'net a month'),
+  '<div class="msr">'+stat(one(c.starts),'contract starts a month','now '+one(c.startsNow))+stat(one(c.e),'end each month','')+stat(usd(c.q),'GM per consultant a week','')+'</div>'+tip('Track your billing count on the 1st of every month &mdash; it&#8217;s the clearest sign your desk is growing.'),role==="full"?'':'pfx');});}
  if(P.dh){var d=P.dh,low=d.f>0&&d.f<22.5;items.push(function(k){return card(k,'Direct hire',(d.sh<1?'Your '+Math.round(d.sh*100)+'% credit = <b>'+usd(d.share)+'</b> &middot; ':'')+'<b>'+one(d.permNeed)+'</b> perm placements a month'+(d.f>0?' &middot; '+d.f+'% fee':''),big(usd(d.fee),'average fee per placement'),
   (d.f>0&&d.f<20&&d.strongVol?tip('Your volume is strong, so a lower fee can be part of your strategy. Protect your total fee per placement and nudge new searches toward 20%.'):low?tip('Grow your average fee by raising your fee % toward 22.5%+'+(d.ptPer>0?' &mdash; every +1 point is about <b>'+usd(d.ptPer)+'</b> more per placement, <b>'+usd(d.ptYr)+'</b> a year':'')+'. Quote 25% first.'):!(d.f>0)?tip('Grow your average fee &mdash; every <b>+$1,000</b> per placement is about <b>'+usd(1000*d.sh*d.permNeed*12)+'</b> more GM a year at this pace. Quote 25% and favor higher-salary searches.'):d.f>0&&d.f<25?tip('Solid fee &mdash; push new searches toward 25%.'):d.f>0?tip('Great fee discipline &mdash; hold it and grow volume.'):tip('Add your average DH fee % to see how it grades.')),'pfx');});}
  /* activity */
@@ -1110,11 +1135,11 @@ function planHtml(P,G){
  if(P.mode==="eff"){items=items.concat(focC);items.push(actC);}else{items.push(actC);items=items.concat(focC);}
  items.push(function(k){return card(k,'Quarterly milestones','Cumulative GM &mdash; Q4 lands on your goal','','<div class="qm">'+P.q.map(function(q){return '<div><span>'+q.q+' <i>'+q.m+'</i></span><b>'+k$(q.cum)+'</b><small>+'+k$(q.g)+' &middot; '+one(q.st)+' starts</small></div>';}).join('')+'</div>');});
  items.push(function(k){return card(k,'Every Friday, check','On pace? Keep going. Behind two weeks in a row? Revisit this plan.','','<div class="chk">'+P.check.map(function(c){return '<span>'+c+'</span>';}).join('')+'</div>');});
- h+=items.map(function(f){var x=f(n+1);if(x)n++;return x;}).join('')+'</div>';
+ if(cobLast)items.push(cobLast);h+=items.map(function(f){var x=f(n+1);if(x)n++;return x;}).join('')+'</div>';
  return h;}
 function planTxt(P){if(!P)return "";var cl=function(t){return String(t).replace(/<[^>]+>/g,"").replace(/&[a-z#0-9]+;/g,function(m){return {"&mdash;":"-","&ndash;":"-","&#8217;":"'","&ldquo;":"\"","&rdquo;":"\"","&rarr;":"->","&middot;":"·","&amp;":"&"}[m]||"";});},It=[];
  if(P.cob)It.push("Grow consultants on billing from "+Math.round(P.cob.now)+" to "+Math.round(P.cob.end)+" by December (net +"+one(P.cob.a)+" a month; about "+one(P.cob.starts)+" contract starts a month).");
- if(P.dh)It.push("Direct hire: average fee "+usd(P.dh.fee)+" per placement; "+one(P.dh.permNeed)+" perm placements a month"+(P.dh.f>0?" ("+P.dh.f+"% fee)":"")+(P.dh.sh<1?" (my "+Math.round(P.dh.sh*100)+"% = "+usd(P.dh.share)+")":"")+".");
+ var cobT=role==="full"&&P.cob?It.pop():null;if(P.dh)It.push("Direct hire: average fee "+usd(P.dh.fee)+" per placement; "+one(P.dh.permNeed)+" perm placements a month"+(P.dh.f>0?" ("+P.dh.f+"% fee)":"")+(P.dh.sh<1?" (my "+Math.round(P.dh.sh*100)+"% = "+usd(P.dh.share)+")":"")+".");if(cobT)It.push(cobT.replace("Grow consultants on billing","Contract business: grow consultants on billing"));
  var actT=P.act.length?(P.mode==="eff"?"Activity (with efficiency targets): ":"Every week: ")+P.act.map(function(a){return one(a.nd)+" "+a.l+" (now "+one(a.nw)+")";}).join(" and ")+", and "+one(P.cob?P.cob.starts:P.starts.c)+" contract + "+one(P.starts.p)+" perm starts a month.":"",
   focT=P.focus.map(function(f){return "Get more efficient: "+cl(f.lt)+" from "+f.now+" to "+f.tg+" ("+cl(f.worth)+")."+(f.tip?" Tip: "+cl(f.tip):"");});
  if(P.mode==="eff"){It=It.concat(focT);if(actT)It.push(actT);}else{if(actT)It.push(actT);It=It.concat(focT);}
@@ -1388,6 +1413,65 @@ document.addEventListener("focusin",function(e){var t=e.target;if(t.tagName==="I
 $("clearEx").addEventListener("click",function(){EXK.forEach(function(k){$(k).value="";});edited=true;$("exNote").hidden=true;render();$("gmc").focus();});
 $("reset").addEventListener("click",function(){showEx(false);FIELDS.forEach(function(k){$(k).value=EX[k];});BMODE="quick";TEN=3;role="full";mode="grow";OV={};OPT={};BOOK=[];inm="tot";per="ytd";edited=false;$("d1").value="";$("d2").value="";drawBook();try{localStorage.removeItem(KEY);}catch(e){}sync();render();window.scrollTo({top:0,behavior:"smooth"});});
 $("copy").addEventListener("click",function(){if(!PLAN){toast("Fill in steps 1–3 first");return;}var done=function(){toast("Plan copied");};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(PLAN).then(done,function(){fallback();});else fallback();function fallback(){var ta=document.createElement("textarea");ta.value=PLAN;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done();}catch(e){toast("Couldn’t copy");}ta.remove();}});
+// shared parser: pages = [[{s,x,y}]]  -> {producers:{name:[{t,client,hrs,gm,yours,cr}]}}
+function pdsrParse(pages){
+  var out={},order=[];
+  pages.forEach(function(items){
+    items=items.filter(function(i){return i.s&&i.s.trim();});
+    // group into lines by y
+    items.sort(function(a,b){return b.y-a.y||a.x-b.x;});
+    var lines=[];items.forEach(function(i){var L=lines.length?lines[lines.length-1]:null;if(L&&Math.abs(L.y-i.y)<2.5)L.it.push(i);else lines.push({y:i.y,it:[i]});});
+    lines.forEach(function(L){L.it.sort(function(a,b){return a.x-b.x;});L.txt=L.it.map(function(i){return i.s.trim();}).join(" ").replace(/\s+/g," ").trim();});
+    var cx=null,px=null,prod=null,last=null;
+    lines.forEach(function(L){
+      var t=L.txt,m;
+      if((m=t.match(/^Producer:\s*(.+?)(\s{2,}|\s+Regular Hours|$)/))){prod=m[1].replace(/\s+Regular Hours.*$/,"").trim();if(!out[prod]){out[prod]=[];order.push(prod);}last=null;return;}
+      L.it.forEach(function(i){var s=i.s.trim();if(s==="Consultant"&&cx==null)cx=i.x;if(s==="Placement"&&px==null)px=i.x;});
+      m=t.match(/^(.*?)\s*(a0T[A-Za-z0-9]{12,18})\s+\S+\s+\S+\s+(TS\d+)\s+([A-Z])\s+(.*?)\s+(\d{1,2}\/\d{1,2}\/\d{4})\s+(\d{1,2}\/\d{1,2}\/\d{4})\s+(\d+(?:\.\d+)?)%\s+(.*)$/);
+      if(m&&prod){
+        var nums=m[9].replace(/[$,]/g,"").split(/\s+/).map(function(v){return parseFloat(v.replace("%",""));});
+        // hours, rate, otHrs, otRate, other, totRev, pay, otPay, fringe, otherCost, totCost, yourGM, markup, gm%
+        var hrs=(nums[0]||0)+(nums[2]||0),rev=nums[5]||0,cost=nums[10]||0;
+        last={pid:m[2],client:m[1].trim(),type:m[4],t:m[5].trim(),cr:parseFloat(m[8]),hrs:hrs,gm:rev-cost,yours:nums[11]||0};
+        out[prod].push(last);return;
+      }
+      // continuation line (wrapped client or consultant name)
+      if(last&&/^[A-Za-z0-9 ,.'&()\/-]{1,60}$/.test(t)&&t.indexOf(":")<0&&t.length<60){
+        L.it.forEach(function(i){var s=i.s.trim();if(cx!=null&&i.x>=cx-15)last.t=(last.t+" "+s).replace(/\s+/g," ");else if(px==null||i.x<px-5)last.client=(last.client+" "+s).replace(/\s+/g," ");});
+        return;
+      }
+      last=null;
+    });
+  });
+  // aggregate per producer by placement id
+  var res=order.map(function(p){var by={},L=[];out[p].forEach(function(r){var k=r.pid+"|"+r.t;if(!by[k]){by[k]={t:r.t,client:r.client,type:r.type,cr:r.cr,hrs:0,gm:0,yours:0};L.push(by[k]);}var a=by[k];a.hrs+=r.hrs;a.gm+=r.gm;a.yours+=r.yours;});
+    L.forEach(function(a){a.gmhr=a.hrs>0?a.gm/a.hrs:0;a.t=pdsrName(a.t);});return {name:p,rows:L};});
+  return res;
+}
+function pdsrName(n){var m=n.match(/^([^,]+),\s*(.+)$/);var f=m?m[2]+" "+m[1]:n;return f.toLowerCase().replace(/(^|[\s'-])([a-z])/g,function(a,b,c){return b+c.toUpperCase();}).replace(/\bIii\b/,"III").replace(/\bIi\b/,"II");}
+
+var PDSR=null,PDJS="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/";
+function loadPdfJs(){return new Promise(function(ok,no){if(window.pdfjsLib)return ok(window.pdfjsLib);var sc=document.createElement("script");sc.src=PDJS+"pdf.min.js";sc.onload=function(){window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDJS+"pdf.worker.min.js";ok(window.pdfjsLib);};sc.onerror=function(){no(new Error("load"));};document.head.appendChild(sc);});}
+function readPdsr(file){var box=$("impBox");box.hidden=false;box.innerHTML='<div class="note">Reading '+esc(file.name)+'&hellip;</div>';
+ file.arrayBuffer().then(function(buf){return loadPdfJs().then(function(lib){return lib.getDocument({data:new Uint8Array(buf)}).promise;});}).then(function(doc){var ps=[];for(var i=1;i<=doc.numPages;i++)ps.push(doc.getPage(i).then(function(pg){return pg.getTextContent();}).then(function(tc){return tc.items.map(function(it){return {s:it.str,x:it.transform[4],y:it.transform[5]};});}));return Promise.all(ps);})
+ .then(function(pages){var r=pdsrParse(pages).filter(function(p){return p.rows.length;});if(!r.length){box.innerHTML='<div class="note">We couldn&#8217;t find any consultants in that file. Make sure it&#8217;s the PDSR (Producer Detail Summary Report) PDF.</div>';return;}PDSR=r;drawImp(pickProd(r));})
+ .catch(function(){box.innerHTML='<div class="note">We couldn&#8217;t read that PDF. Try downloading the PDSR again, or add your consultants by hand below.</div>';});}
+function pickProd(r){var w=($("who").value||"").toLowerCase().split(/\s+/).filter(Boolean);if(w.length>=2){for(var i=0;i<r.length;i++){var n=r[i].name.toLowerCase();if(w.every(function(x){return n.indexOf(x.replace(/[^a-z'-]/g,""))>=0;}))return i;}}return 0;}
+function haveName(n){n=n.toLowerCase().trim();return BOOK.some(function(c){return (c.t||"").toLowerCase().trim()===n;});}
+function drawImp(ix){var p=PDSR[ix],box=$("impBox");
+ box.innerHTML='<div class="ih"><b>Whose book is this?</b><select id="impP">'+PDSR.map(function(q,i){return '<option value="'+i+'"'+(i===ix?' selected':'')+'>'+esc(pdsrName(q.name))+' ('+q.rows.length+')</option>';}).join("")+'</select></div>'+
+ '<table><thead><tr><th><input type="checkbox" id="impAll" checked aria-label="Select all"></th><th>Consultant</th><th>Client</th><th style="text-align:right">GM per hour</th><th style="text-align:right">Your % on deal</th><th style="text-align:right">Hours this report</th></tr></thead><tbody>'+
+ p.rows.map(function(c,i){var d=haveName(c.t),ok=c.hrs>0&&!d;return '<tr'+(d?' class="dup"':'')+'><td><input type="checkbox" data-ii="'+i+'"'+(ok?' checked':'')+'></td><td>'+esc(c.t)+(d?' <i>(already in your book)</i>':'')+'</td><td>'+esc(c.client)+'</td><td class="n">$'+c.gmhr.toFixed(2)+'</td><td class="n">'+c.cr+'%</td><td class="n">'+one(c.hrs)+'</td></tr>';}).join("")+'</tbody></table>'+
+ '<p class="note">GM per hour is the whole deal (total revenue minus total cost, divided by hours billed); your % on the deal is applied on top. Consultants with no hours on this report start unchecked.</p>'+
+ '<div class="if"><span>End dates stay blank (all year) &mdash; set each one after you add them.</span><span><button type="button" class="btn o" id="impX">Cancel</button> <button type="button" class="btn" id="impGo">Add to my book</button></span></div>';}
+$("impBtn").addEventListener("click",function(){$("impIn").click();});
+$("impIn").addEventListener("change",function(){var f=this.files[0];if(f)readPdsr(f);this.value="";});
+(function(){var z=$("impZone");["dragenter","dragover"].forEach(function(ev){z.addEventListener(ev,function(e){e.preventDefault();z.classList.add("drag");});});["dragleave","drop"].forEach(function(ev){z.addEventListener(ev,function(e){e.preventDefault();z.classList.remove("drag");});});z.addEventListener("drop",function(e){var f=e.dataTransfer.files[0];if(f)readPdsr(f);});})();
+$("impBox").addEventListener("change",function(e){if(e.target.id==="impP")drawImp(+e.target.value);else if(e.target.id==="impAll")[].forEach.call($("impBox").querySelectorAll("[data-ii]"),function(b){b.checked=e.target.checked;});});
+$("impBox").addEventListener("click",function(e){if(e.target.id==="impX"){$("impBox").hidden=true;return;}if(e.target.id!=="impGo")return;var p=PDSR[+$("impP").value],n=0;
+ BOOK=BOOK.filter(function(c){return (c.t||"").trim()||num(c.g)>0;});
+ [].forEach.call($("impBox").querySelectorAll("[data-ii]:checked"),function(b){var c=p.rows[+b.dataset.ii];if(haveName(c.t))return;var cr=String(c.cr);BOOK.push({t:c.t,g:String(Math.round(c.gmhr*100)/100),s:cr,cs:!(cr==="25"||cr==="50"),e:"",cl:c.client});n++;});
+ BMODE="list";$("impBox").hidden=true;drawBook();render();toast(n?"Added "+n+" consultant"+(n===1?"":"s")+" — now add their end dates":"Nothing new to add");var r=$("book");if(r)r.scrollIntoView({behavior:"smooth",block:"start"});});
 $("addC").addEventListener("click",function(){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();render();var r=$("book").querySelectorAll(".bkr");r[r.length-1].querySelector("input").focus();});
 $("book").addEventListener("click",function(e){var sb=e.target.closest("[data-sh]");if(sb){var i=+sb.closest(".bkr").dataset.i,c=BOOK[i];if(sb.dataset.sh==="c"){c.cs=true;}else{c.cs=false;c.s=sb.dataset.sh;}drawBook();render();if(c.cs){var inp=$("book").querySelectorAll(".bkr")[i].querySelector(".shi input");inp.focus();}return;}var b=e.target.closest("[data-rm]");if(!b)return;BOOK.splice(+b.dataset.rm,1);drawBook();render();});
 function slug(){var n=$("who").value.trim().replace(/[^A-Za-z0-9]+/g,"-").replace(/^-|-$/g,"");return n?"-"+n:"";}
@@ -1415,9 +1499,9 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  if(P&&P.dh&&P.dh.fee>0){var tf=P.dh.f>0&&P.dh.f<22.5?P.dh.fee*22.5/P.dh.f:P.dh.fee;rows.push('<tr><td>Average DH fee <span>per placement</span></td><td>'+usd(P.dh.fee)+'</td><td class="tg">'+usd(tf)+'</td><td class="'+(tf>P.dh.fee+1?'ch':'ok')+'">'+(tf>P.dh.fee+1?'+'+usd(tf-P.dh.fee):'hold')+'</td></tr>');}
   if(P&&P.dh&&P.dh.f>0)rows.push('<tr><td>DH fee <span>% of salary</span></td><td>'+P.dh.f+'%</td><td class="tg">'+(P.dh.f<22.5?'22.5%+':P.dh.f+'%')+'</td><td class="'+(P.dh.f<22.5?'ch':'ok')+'">'+(P.dh.f<22.5?'+'+(Math.round((22.5-P.dh.f)*10)/10)+' pts':'hold')+'</td></tr>');
  var wt='<div class="sec"><h2>Weekly targets for '+YEAR+'</h2><table class="wt"><tr><th>Activity</th><th>Now</th><th>'+YEAR+' target</th><th>Change</th></tr>'+rows.join("")+'</table></div>';
- var foc='';if(P){var L=[];if(P.cob)L.push('Grow consultants on billing from <b>'+Math.round(P.cob.now)+'</b> to <b class="k">'+Math.round(P.cob.end)+'</b> by December (net +'+one(P.cob.a)+' a month).');
+ var foc='';if(P){var L=[],cobL=null;if(P.cob)(role==="full"?function(t){cobL=t;}:function(t){L.push(t);})((role==="full"?'Contract business: grow consultants on billing from':'Grow consultants on billing from')+' <b>'+Math.round(P.cob.now)+'</b> to <b class="k">'+Math.round(P.cob.end)+'</b> by December (net +'+one(P.cob.a)+' a month).');
   if(P.dh)L.push('Direct hire: average fee <b class="k">'+usd(P.dh.fee)+'</b> per placement, <b class="k">'+one(P.dh.permNeed)+' perm placements a month</b>'+(P.dh.f>0?' ('+P.dh.f+'% fee)':'')+'.');
-  P.focus.slice(0,2).forEach(function(f){L.push('Get more efficient: '+f.l+' from '+f.now+' to <b class="k">'+f.tg+'</b>.'+(f.tip?' <span style="color:#5b6b82">'+f.tip+'</span>':''));});
+  P.focus.slice(0,2).forEach(function(f){L.push('Get more efficient: '+f.l+' from '+f.now+' to <b class="k">'+f.tg+'</b>.'+(f.tip?' <span style="color:#5b6b82">'+f.tip+'</span>':''));});if(cobL)L.push(cobL);
   foc='<div class="sec"><h2>Focus for '+YEAR+'</h2><div class="fc">'+L.map(function(t){return '<div>'+t+'</div>';}).join("")+'</div></div>'+
    '<div class="sec"><h2>Quarterly milestones &mdash; cumulative GM</h2><div class="qm">'+P.q.map(function(q){return '<div><span>'+q.q+'</span><b>'+k$(q.cum)+'</b></div>';}).join("")+'</div></div>';}
  var h='<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+YEAR+' Goal Plan'+(who?' &ndash; '+esc(who):'')+'</title><style>'+css+'</style></head><body><div class="pg">'+
