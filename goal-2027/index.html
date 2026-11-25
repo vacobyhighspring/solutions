@@ -926,8 +926,9 @@ function drawMbar(){var b=$("mbar");if(!MB){b.hidden=true;return;}b.hidden=false
 function calcTen(){var v=$("sdate").value,el=$("tenTxt");if(!v){TEN=3;el.innerHTML="Leave blank if you&#8217;ve been in your seat over a year.";return;}
  var t=new Date(),d=Math.floor((new Date(t.getFullYear(),t.getMonth(),t.getDate())-new Date(v+"T00:00:00"))/864e5);
  if(d<0){TEN=0;el.innerHTML="Start date is in the future &mdash; using first-90-days benchmarks.";return;}
- TEN=d<=90?0:d<=180?1:d<=365?2:3;var pct=[50,75,90,100][TEN];
- el.innerHTML='<b>'+d.toLocaleString("en-US")+' days</b> in your seat &middot; '+(TEN<3?'activity benchmarks set at <b>'+pct+'%</b> while you ramp':'fully ramped benchmarks');}
+ TEN=d<=90?0:d<=180?1:d<365?2:3;var pct=[50,75,90,100][TEN];
+ var sd=new Date(v+"T00:00:00"),tt=new Date(),mo=(tt.getFullYear()-sd.getFullYear())*12+(tt.getMonth()-sd.getMonth())-(tt.getDate()<sd.getDate()?1:0),yy=Math.floor(mo/12),mm=mo%12,dur=mo<1?d+' day'+(d===1?'':'s'):(yy?yy+' year'+(yy===1?'':'s'):'')+(yy&&mm?', ':'')+(mm?mm+' month'+(mm===1?'':'s'):'');
+ el.innerHTML='<b>'+dur+'</b> in your seat &middot; '+(TEN<3?'activity benchmarks set at <b>'+pct+'%</b> while you ramp':'fully ramped benchmarks');}
 function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("gmtot").textContent=Math.round(_gt).toLocaleString("en-US");$("gmtotU").textContent=inm==="tot"?"total":"/week";
  (function(){var W=inm==="tot"?totW():1;["pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints","stc","stp","gmc","gmp","gmtot"].forEach(function(k){var el=$("ann_"+k);if(!el)return;var raw=k==="gmtot"?_gt:num($(k).value),money=k==="gmc"||k==="gmp"||k==="gmtot",st=k==="stc"||k==="stp";
   if(!(raw>0)){el.innerHTML="";return;}var wk=inm==="tot"?raw/W:(st?raw*12/52:raw),yr=wk*52,f=function(v){return money?usd(v):(v>=100?Math.round(v).toLocaleString("en-US"):one(v));};
