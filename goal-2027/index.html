@@ -751,7 +751,8 @@ h2{font-size:20px}
 .cvt th:first-child,.cvt td:first-child{text-align:left}
 .cvt td{padding:8px;border-bottom:1px solid #eef1f6;text-align:right;font-weight:700}
 .cvt td:first-child{font-weight:600}.cvt td small{color:var(--muted);font-weight:600}
-.cvt td.up{color:#b5490f}.cvt .pill{font-size:9.5px;margin-left:4px}
+.cvt td.up{color:#b5490f}
+.cvt tr.all td{background:#fff6ef;border-top:1.5px solid #f6c9a8}.cvt td i{font-style:normal;color:var(--muted);font-weight:600}.cvt .pill{font-size:9.5px;margin-left:4px}
 .nosave{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-size:12.5px;font-weight:600;color:#fff}
 .nosave b{color:#ffb27a}
 
@@ -1163,7 +1164,13 @@ function convRows(T){T=T||read();var out=[];pairs(T).forEach(function(pr){if(!(p
   var bm=bmRate(pr.key,T),o=OV[pr.key]!=null&&OV[pr.key]>0?OV[pr.key]:null,tg=o!=null?o:(bm&&pr.key!=="pros>visits"&&pr.cur<bm[1]*0.995?bm[1]:pr.cur),
   lab=isPct(pr.key)?u.l+' &rarr; '+dn.many:dn.many.charAt(0).toUpperCase()+dn.many.slice(1)+' per '+u.one,
   up=sv(T,pr.up),ts=T.starts>0&&up>0?up/T.starts:0;
-  out.push({key:pr.key,lab:lab,up:u.many,now:pr.cur,tg:tg,ch:tg>pr.cur*1.005,bm:bm&&pr.key!=="pros>visits"?bm[1]:null,st:bm&&pr.key!=="pros>visits"?bmStat(pr.cur,bm):"",ts:ts});});return out;}
+  out.push({key:pr.key,dn:pr.dn,upk:pr.up,lab:lab,up:u.many,now:pr.cur,tg:tg,ch:tg>pr.cur*1.005,bm:bm&&pr.key!=="pros>visits"?bm[1]:null,st:bm&&pr.key!=="pros>visits"?bmStat(pr.cur,bm):"",ts:ts});});
+  /* overall rates to a start: JO manager submittals (recruiter, full desk) and client visits (sales, full desk) */
+  [["jom","rec full"],["visits","sales full"]].forEach(function(x){var k=x[0];if(x[1].indexOf(role)<0)return;var up=sv(T,k);if(!(up>0)||!(T.starts>0)||!ST[k])return;
+   var cur=T.starts/up,f=1,at=k,guard=0;while(at!=="starts"&&guard++<8){var r=null;for(var i=0;i<out.length;i++){if(out[i].upk===at&&!out[i].all){r=out[i];break;}}if(!r)break;f*=r.now>0?r.tg/r.now:1;at=r.dn;}
+   if(at!=="starts")return;var bm=bmRate(k+">starts",T);
+   out.push({key:k+">starts",all:true,lab:ST[k].l+' &rarr; starts <i>(overall)</i>',up:ST[k].many,now:cur,tg:cur*f,ch:f>1.005,bm:bm?bm[1]:null,st:bm?bmStat(cur,bm):"",ts:up/T.starts});});
+  return out;}
 function fmtTs(v){return v>=10?String(Math.round(v)):v.toFixed(1);}
 function planHtml(P,G){
  var badge=function(n,ic){return '<div class="pc-n">'+(ic||n)+'</div>';},
@@ -1187,7 +1194,7 @@ function planHtml(P,G){
  if(!P.focus.length)focC=[function(k){return card(k,'Keep your conversion where it is','You&#8217;re at or above benchmark at every step &mdash; your lever is activity.','','');}];
  if(P.mode==="eff"){items=items.concat(focC);items.push(actC);}else{items.push(actC);items=items.concat(focC);}
  items.push(function(k){var R=convRows();if(!R.length)return '';
-  return card(k,'Your conversion rates','Every step of your cycle &mdash; where you are now, your '+YEAR+' target, and how many it takes to land 1 start.','','<table class="cvt"><thead><tr><th>Step</th><th>Now</th><th>'+YEAR+' target</th><th>To 1 start</th></tr></thead><tbody>'+R.map(function(r){return '<tr><td>'+r.lab+(r.st?' '+pill(r.st):'')+'</td><td>'+fmtBm(r.key,r.now)+'</td><td class="'+(r.ch?'up':'')+'">'+fmtBm(r.key,r.tg)+(r.ch?' <small>&uarr;</small>':'')+'</td><td>'+(r.ts>0?fmtTs(r.ts)+' <small>'+r.up+'</small>':'&ndash;')+'</td></tr>';}).join('')+'</tbody></table>');});
+  return card(k,'Your conversion rates','Every step of your cycle &mdash; where you are now, your '+YEAR+' target, and how many it takes to land 1 start.','','<table class="cvt"><thead><tr><th>Step</th><th>Now</th><th>'+YEAR+' target</th><th>To 1 start</th></tr></thead><tbody>'+R.map(function(r){return '<tr'+(r.all?' class="all"':'')+'><td>'+r.lab+(r.st?' '+pill(r.st):'')+'</td><td>'+fmtBm(r.key,r.now)+'</td><td class="'+(r.ch?'up':'')+'">'+fmtBm(r.key,r.tg)+(r.ch?' <small>&uarr;</small>':'')+'</td><td>'+(r.ts>0?fmtTs(r.ts)+' <small>'+r.up+'</small>':'&ndash;')+'</td></tr>';}).join('')+'</tbody></table>');});
  items.push(function(k){return card(k,'Quarterly milestones','Cumulative GM &mdash; Q4 lands on your goal','','<div class="qm">'+P.q.map(function(q){return '<div><span>'+q.q+' <i>'+q.m+'</i></span><b>'+k$(q.cum)+'</b><small>+'+k$(q.g)+' &middot; '+one(q.st)+' starts</small></div>';}).join('')+'</div>');});
  items.push(function(k){return card(k,'Every Friday, check','On pace? Keep going. Behind two weeks in a row? Revisit this plan.','','<div class="chk">'+P.check.map(function(c){return '<span>'+c+'</span>';}).join('')+'</div>');});
  if(cobLast)items.push(cobLast);h+=items.map(function(f){var x=f(n+1);if(x)n++;return x;}).join('')+'</div>';
@@ -1562,7 +1569,7 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  if(P&&P.cob)rows.push('<tr><td>Consultants on billing <span>by December</span></td><td>'+Math.round(P.cob.now)+'</td><td class="tg">'+Math.round(P.cob.end)+'</td><td class="'+(P.cob.end>P.cob.now+0.4?'ch':'ok')+'">'+(P.cob.end>P.cob.now+0.4?'+'+Math.round(P.cob.end-P.cob.now):'hold')+'</td></tr>');
  if(P&&P.dh&&P.dh.fee>0){var tf=P.dh.f>0&&P.dh.f<22.5?P.dh.fee*22.5/P.dh.f:P.dh.fee;rows.push('<tr><td>Average DH fee <span>per placement</span></td><td>'+usd(P.dh.fee)+'</td><td class="tg">'+usd(tf)+'</td><td class="'+(tf>P.dh.fee+1?'ch':'ok')+'">'+(tf>P.dh.fee+1?'+'+usd(tf-P.dh.fee):'hold')+'</td></tr>');}
   if(P&&P.dh&&P.dh.f>0)rows.push('<tr><td>DH fee <span>% of salary</span></td><td>'+P.dh.f+'%</td><td class="tg">'+(P.dh.f<22.5?'22.5%+':P.dh.f+'%')+'</td><td class="'+(P.dh.f<22.5?'ch':'ok')+'">'+(P.dh.f<22.5?'+'+(Math.round((22.5-P.dh.f)*10)/10)+' pts':'hold')+'</td></tr>');
- var CR=convRows(),cvt=CR.length?'<div class="sec"><h2>Conversion rates</h2><table class="wt"><tr><th>Step</th><th>Now</th><th>'+YEAR+' target</th><th>Benchmark</th><th>To 1 start</th></tr>'+CR.map(function(r){return '<tr><td>'+r.lab+'</td><td>'+fmtBm(r.key,r.now)+'</td><td class="tg">'+fmtBm(r.key,r.tg)+'</td><td>'+(r.bm!=null?fmtBm(r.key,r.bm):'&ndash;')+'</td><td>'+(r.ts>0?fmtTs(r.ts)+' <span>'+r.up+'</span>':'&ndash;')+'</td></tr>';}).join('')+'</table></div>':'';
+ var CR=convRows(),cvt=CR.length?'<div class="sec"><h2>Conversion rates</h2><table class="wt"><tr><th>Step</th><th>Now</th><th>'+YEAR+' target</th><th>Benchmark</th><th>To 1 start</th></tr>'+CR.map(function(r){return '<tr'+(r.all?' style="background:#fff6ef;font-weight:700"':'')+'><td>'+r.lab+'</td><td>'+fmtBm(r.key,r.now)+'</td><td class="tg">'+fmtBm(r.key,r.tg)+'</td><td>'+(r.bm!=null?fmtBm(r.key,r.bm):'&ndash;')+'</td><td>'+(r.ts>0?fmtTs(r.ts)+' <span>'+r.up+'</span>':'&ndash;')+'</td></tr>';}).join('')+'</table></div>':'';
 var wt='<div class="sec"><h2>Weekly targets for '+YEAR+'</h2><table class="wt"><tr><th>Activity</th><th>Now</th><th>'+YEAR+' target</th><th>Change</th></tr>'+rows.join("")+'</table></div>';
  var foc='';if(P){var L=[],cobL=null;if(P.cob)(role==="full"?function(t){cobL=t;}:function(t){L.push(t);})((role==="full"?'Contract business: grow consultants on billing from':'Grow consultants on billing from')+' <b>'+Math.round(P.cob.now)+'</b> to <b class="k">'+Math.round(P.cob.end)+'</b> by December (net +'+one(P.cob.a)+' a month).');
   if(P.dh)L.push('Direct hire: average fee <b class="k">'+usd(P.dh.fee)+'</b> per placement, <b class="k">'+sw(P.dh.permNeed)+' perm placements a week</b>'+(P.dh.f>0?' ('+P.dh.f+'% fee)':'')+'.');
