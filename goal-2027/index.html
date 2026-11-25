@@ -531,6 +531,12 @@ details.more2[open]>summary{margin-bottom:10px}
 .dx span{display:block;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);margin-bottom:2px}
 .dx-eff{border-left-color:var(--good)}.dx-eff span{color:var(--good)}
 .dx-act{border-left-color:var(--orange)}.dx-act span{color:#b5490f}
+.stg.xb .sn b{background:var(--orange)}
+.stg.xb .spl{font-family:var(--body);font-size:11px;font-weight:700;color:#b5490f;background:var(--orange-soft);border-radius:999px;padding:1px 8px}
+.xbl{font-size:12px;color:var(--muted);line-height:1.5}.xbl b{color:var(--ink)}
+.xbg{font-size:10.5px;color:var(--muted);margin-top:5px;border-top:1px dashed var(--line);padding-top:4px}
+.pcsg{max-width:240px}
+.pl li.fx1{background:#fffaf6;border:1px solid #f6d7c3;border-radius:10px;padding:8px 10px;list-style-position:inside;margin-left:-22px}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -644,6 +650,14 @@ footer a{color:var(--blue)}
 <div class="stg" data-stage="starts"><div class="sn"><b></b></div><div class="sb"><div class="st">Starts<span class="spl" id="pl_starts"></span></div><div class="bmx" id="bm_starts"></div><div class="fields"><div class="fld"><div class="lr"><label for="stc"><span data-a="Contract per month" data-t="Contract"></span></label></div><div class="box"><input id="stc" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/month" data-t="total"></span></div><div class="ann" id="ann_stc"></div></div><div class="fld"><div class="lr"><label for="stp"><span data-a="Perm per month" data-t="Perm"></span></label></div><div class="box"><input id="stp" data-d inputmode="decimal" value="" placeholder="0"><span class="suf" data-a="/month" data-t="total"></span></div><div class="ann" id="ann_stp"></div></div></div></div></div>
 <div class="cn" id="cn_startsgm"></div>
 <div class="stg" data-stage="gm"><div class="sn"><b></b></div><div class="sb"><div class="st">Gross margin <i>(after splits)</i><span class="spl" id="pl_gm"></span></div><div class="bmx" id="bm_gm"></div><div class="fields"><div class="fld"><div class="lr"><label for="gmc">Contract</label></div><div class="box"><span>$</span><input id="gmc" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div><div class="ann" id="ann_gmc"></div></div><div class="fld"><div class="lr"><label for="gmp">Perm</label></div><div class="box"><span>$</span><input id="gmp" data-n inputmode="numeric" value="" placeholder="0"><span class="suf" data-a="/week" data-t="total"></span></div><div class="ann" id="ann_gmp"></div></div><div class="fld"><div class="lr"><label>Total GM <i>(auto)</i></label></div><div class="box tot"><span>$</span><output id="gmtot">0</output><span class="suf2" id="gmtotU">total</span></div><div class="ann" id="ann_gmtot"></div></div></div></div></div>
+<div class="stg xb" data-stage="cob" data-for="sales rec"><div class="sn"><b>#</b></div><div class="sb"><div class="st">Consultants on billing <span class="spl">your #1 growth number</span></div><div class="bmx" id="cobInfo"></div><div class="fields">
+ <div class="fld"><div class="lr"><label for="cobs" id="cobsL">At the start of your period</label></div><div class="box"><input id="cobs" data-d inputmode="numeric" value="" placeholder="0"><span class="suf">consultants</span></div></div>
+ <div class="fld"><div class="lr"><label for="cobn">On billing today</label></div><div class="box"><input id="cobn" data-d inputmode="numeric" value="" placeholder="0"><span class="suf">consultants</span></div></div>
+</div></div></div>
+<div class="stg xb" data-stage="dh" data-for="full"><div class="sn"><b>%</b></div><div class="sb"><div class="st">Direct hire <span class="spl">your #1 growth lever</span></div><div class="bmx" id="dhInfo"></div><div class="fields">
+ <div class="fld"><div class="lr"><label for="dhf">Average DH fee</label></div><div class="box"><input id="dhf" data-d inputmode="decimal" value="" placeholder="0"><span class="suf">% of salary</span></div></div>
+ <div class="fld"><div class="lr"><label>Your credit on perm</label></div><div class="sh pcsg" id="pcsG"><button type="button" data-pcs="50">50%</button><button type="button" data-pcs="100">100%</button><button type="button" data-pcs="c">Custom</button></div><div class="box shi" id="pcsC" hidden><input id="pcsI" inputmode="decimal" placeholder="e.g. 75"><span class="suf">%</span></div><input type="hidden" id="pcs" value="100"></div>
+</div></div></div>
     </div>
     </div>
     <p class="hint opth">Every activity is <b>in your forecast</b>. Click <b>In forecast</b> next to any metric to leave it out &mdash; your plan skips that step.</p>
@@ -725,8 +739,8 @@ footer a{color:var(--blue)}
 (function(){
 var $=function(id){return document.getElementById(id);};
 var YEAR=2027,KEY="vbh-goal-2027";
-var FIELDS=["sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints","util"];
-var EX={sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",jom:"",subs:"",cints:"",util:"90"};
+var FIELDS=["cobs","cobn","dhf","pcs","sdate","bqwk","bqend","who","goal","grow","gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints","util"];
+var EX={cobs:"",cobn:"",dhf:"",pcs:"100",sdate:"",bqwk:"",bqend:"",who:"",goal:"",grow:"20",gmc:"",gmp:"",stc:"",stp:"",pros:"",von:"",vvi:"",jobsc:"",jobsp:"",vints:"",jom:"",subs:"",cints:"",util:"90"};
 var AVGK=["pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints"],MONK=["gmc","gmp"],STK=["stc","stp"];
 var EXK=["gmc","gmp","stc","stp","pros","von","vvi","jobsc","jobsp","vints","jom","subs","cints"];
 var PQ="";function qRange(n){var t=new Date(),qs=Math.floor(t.getMonth()/3)*3,end=new Date(t.getFullYear(),qs,0),st=new Date(t.getFullYear(),qs-3*n,1),f=function(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");};return [f(st),f(end)];}
@@ -845,9 +859,9 @@ function drawCn(T){[].forEach.call(document.querySelectorAll(".cn"),function(el)
   el.innerHTML='<div class="bbh"><span>'+(v>0?'You <b>'+one(v)+'</b>'+u:'Benchmark')+'</span><span>Target <b>'+one(b[1])+'</b>'+u+'</span></div>'+
    '<div class="bbar"><i class="z1" style="width:'+x(b[0])+'%"></i><i class="z2" style="left:'+x(b[0])+'%;width:'+(x(b[1])-x(b[0]))+'%"></i><i class="z3" style="left:'+x(b[1])+'%;width:'+(x(b[2])-x(b[1]))+'%"></i><i class="z4" style="left:'+x(b[2])+'%;right:0"></i><s style="left:'+x(b[1])+'%"></s>'+(v>0?'<em class="'+st+'" style="left:'+x(v)+'%"></em>':'')+'</div>'+
    '<div class="bbl"><span>Min '+one(b[0])+'</span><span>High '+one(b[2])+'</span></div>';});
- if($("bm_gm"))$("bm_gm").innerHTML='<div class="bbh"><span>Reference, <i>before</i> splits</span></div><div class="gref">Reference per producer, <i>before</i> splits: $200K &middot; <b>$300K</b> &middot; $400K a year</div>';[].forEach.call(document.querySelectorAll(".stg"),function(el){var k=el.dataset.stage,lane=el.closest(".lane");if(lane.hidden)return;var on=k==="starts"||k==="gm"||active(T,k);el.classList.toggle("off",!on);});
+ if($("bm_gm"))$("bm_gm").innerHTML='<div class="bbh"><span>Reference, <i>before</i> splits</span></div><div class="gref">Reference per producer, <i>before</i> splits: $200K &middot; <b>$300K</b> &middot; $400K a year</div>';[].forEach.call(document.querySelectorAll(".stg"),function(el){var k=el.dataset.stage,lane=el.closest(".lane");if(lane.hidden)return;var on=k==="starts"||k==="gm"||k==="cob"||k==="dh"||active(T,k);el.classList.toggle("off",!on);});
  var num={};(role==="rec"?["vints","jom","subs","cints","starts","gm"]:role==="sales"?["pros","visits","jobs","cints","starts","gm"]:["pros","visits","jobs","cints","starts","gm"]).forEach(function(k,i){num[k]=i+1;});if(role==="full"){num.vints=1;num.jom=2;num.subs=3;}
- [].forEach.call(document.querySelectorAll(".stg"),function(el){el.querySelector(".sn b").textContent=el.dataset.stage==="gm"?"$":(num[el.dataset.stage]||"");});}
+ [].forEach.call(document.querySelectorAll(".stg"),function(el){el.querySelector(".sn b").textContent=el.dataset.stage==="gm"?"$":el.dataset.stage==="cob"?"#":el.dataset.stage==="dh"?"%":(num[el.dataset.stage]||"");});}
 function laneTitle(){var h=document.querySelector(".lj .lh .lt2");if(h)h.textContent=role==="full"?"Both cycles meet here":"Results";}
 function nextStage(up){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),i=br.indexOf(up);return br[i-1];}
 function skippedKeys(up,dn){var br=(BR_A.indexOf(up)>-1?BR_A:BR_B),a=br.indexOf(dn),b=br.indexOf(up);return br.slice(a+1,b);}
@@ -889,6 +903,19 @@ function gamePlan(T,e,NEWC,NEWP,NEW,BK,G,B){
  /* activity vs benchmark rows */
  var acts=["pros","visits","jobs","vints","jom","subs","cints","starts"].filter(function(k){return k==="starts"||active(T,k);}).map(function(k){var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k),nd=isS?(NB.starts||0)/12:NB[k]/52;return b?{k:k,l:ST[k].l,u:isS?"a month":"a week",v:v,b:b,st:bmStat(v,b),need:nd}:null;}).filter(Boolean);
  return {NB:NB,leaks:leaks,strong:strong,OVb:OVb,gB:gB,gapB:gapB,moreB:moreB,top:top,topL:ST[top].many,tB:tB,tNow:tNow,ab:ab,acts:acts,gAct:gAct,gNow:B.g,gap:B.gap};}
+function pcsV(){var v=num($("pcs").value);return v>0?Math.min(v,100)/100:1;}
+function cobCalc(T){var S=num($("cobs").value),C=num($("cobn").value);if(!(C>0))return null;var W=inm==="tot"?totW():52,m=Math.max(W/4.345,1),stP=T.stc*W,net=C-S,ends=Math.max(stP-net,0),avgHC=S>0?(S+C)/2:C;
+ return {S:S,C:C,m:m,g:S>0?net/m:null,e:S>0?ends/m:null,q:avgHC>0?T.gmc/avgHC:0};}
+function cobPlan(T,G){var c=cobCalc(T);if(!c||!(c.q>0))return null;var GC=G*(T.gm>0?T.gmc/T.gm:1),A=GC/(c.q*52),a=Math.max((A-c.C)/6.5,0),Y=c.C+12*a,e=c.e!=null?c.e:Math.max(T.stc*52/12-(c.g||0),0);
+ return {now:c.C,g:c.g,e:e,avgNeed:A,a:a,end:Y,starts:a+e,startsNow:T.stc*52/12,q:c.q,GC:GC};}
+var DHG=[[20,"below","Needs to come up"],[22.5,"close","Room to grow"],[25,"on","Solid"],[25.0001,"top","Great"],[1e9,"top","A+"]];
+function dhGrade(f){if(!(f>0))return null;for(var i=0;i<DHG.length;i++){if(f<DHG[i][0])return {st:DHG[i][1],l:DHG[i][2]};}return {st:"top",l:"A+"};}
+function dhCalc(T){var f=num($("dhf").value),sh=pcsV(),gps=div(T.gmp,T.stp);if(!(gps>0)&&!(f>0))return null;var fee=gps>0?gps/sh:0;return {f:f,sh:sh,share:gps,fee:fee,sal:f>0&&fee>0?fee/(f/100):0,g:dhGrade(f)};}
+function drawXB(T){var c=cobCalc(T),el=$("cobInfo");$("cobsL").textContent=inm==="tot"?(per==="ytd"?"On billing Jan 1":"At the start of your period"):"On billing a year ago";
+ el.innerHTML=c?'<div class="bbh"><span>Growth so far</span><span>'+(c.g!=null?'<b>'+(c.g>=0?'+':'&minus;')+one(Math.abs(c.g))+'</b> a month':'&ndash;')+'</span></div><div class="xbl">'+(c.e!=null?'About <b>'+one(c.e)+'</b> end each month':'Add your start count to see growth')+(c.q>0?' &middot; <b>'+usd(c.q)+'</b> GM per consultant a week':'')+'</div>':'';
+ var d=dhCalc(T),dl=$("dhInfo"),sh=Math.round(pcsV()*100);
+ [].forEach.call(document.querySelectorAll("[data-pcs]"),function(b){var on=b.dataset.pcs==="c"?(sh!==50&&sh!==100):+b.dataset.pcs===sh;b.classList.toggle("on",on);});$("pcsC").hidden=!(sh!==50&&sh!==100)&&!$("pcsC").dataset.open;
+ dl.innerHTML=d?'<div class="bbh"><span>'+(d.g?pill(d.g.st).replace(STL[d.g.st],d.g.l):'')+'DH fee</span><span><b>'+(d.f>0?d.f+'%':'&ndash;')+'</b></span></div><div class="xbl">'+(d.fee>0?'Total fee per placement <b>'+usd(d.fee)+'</b>'+(d.sh<1?' &middot; your '+Math.round(d.sh*100)+'% = <b>'+usd(d.share)+'</b>':''):'Add perm GM and perm starts to see your fee per placement')+'</div><div class="xbg">Under 20% needs to come up &middot; 22.5% solid &middot; 25% great &middot; above 25% A+</div>':'';}
 function buildPlan(T,B,GP,NEW,BK,G){
  var P={act:[],focus:[],q:[],check:[]},topA=role==="rec"?["vints"]:role==="sales"?["visits"]:["visits","vints"];
  /* 1. weekly activity */
@@ -899,6 +926,9 @@ function buildPlan(T,B,GP,NEW,BK,G){
  /* 4. quarterly milestones */
  var cum=0,cs=0;[[0,"Q1","Jan\u2013Mar"],[3,"Q2","Apr\u2013Jun"],[6,"Q3","Jul\u2013Sep"],[9,"Q4","Oct\u2013Dec"]].forEach(function(q){var a=new Date(YEAR,q[0],1),b=new Date(YEAR,q[0]+3,0),w=(Math.round((b-a)/864e5)+1)/7,g=bookIn(a,b)*(BK>0?BK/(bookGM()||1):0)+NEW*w/52,st=((B.N.stc||0)+(B.N.stp||0))*w/52;cum+=g;cs+=st;P.q.push({q:q[1],m:q[2],g:g,cum:cum,st:st});});
  var sc=cum>0?G/cum:1,c2=0;P.q.forEach(function(q){q.g*=sc;c2+=q.g;q.cum=c2;});
+ /* role focus: consultants on billing (contract roles) / direct hire (full desk) */
+ if(role!=="full"){var cp=cobPlan(T,G);if(cp)P.cob=cp;}
+ else{var d=dhCalc(T);if(d&&d.fee>0){var permStA=GP.acts.filter(function(a){return a.k==="starts";})[0],strongVol=permStA&&(permStA.st==="on"||permStA.st==="top");d.strongVol=strongVol;d.permNeed=(B.N.stp||0)/12;d.permNow=T.stp*52/12;d.ptPer=d.sal>0?d.sal*0.01*d.sh:0;d.ptYr=d.ptPer*d.permNeed*12;P.dh=d;}}
  /* diagnosis: activity vs efficiency */
  var acts=GP.acts.filter(function(a){return a.k!=="starts";}),strongA=acts.filter(function(a){return a.st==="on"||a.st==="top";}),weakA=acts.filter(function(a){return a.st==="below"||a.st==="close";}),stA=GP.acts.filter(function(a){return a.k==="starts";})[0],startsShort=stA?(stA.st==="below"||stA.st==="close"):GP.gapB>1,leaks=GP.leaks.length>0;
  P.mode=leaks&&strongA.length&&strongA.length>=weakA.length?"eff":(!leaks?"act":"both");
@@ -906,27 +936,37 @@ function buildPlan(T,B,GP,NEW,BK,G){
  /* 5. weekly check-in */
  P.act.forEach(function(a){P.check.push(one(P.mode==="eff"&&a.eff!=null?Math.max(a.eff,a.eff<=a.nw?a.nw:a.eff):a.nd)+" "+a.l);});
  if(active(T,"cints")&&B.N.cints!=null)P.check.push(one(P.mode==="eff"?Math.max(sv(T,"cints"),(GP.NB&&GP.NB.cints||0)/52):B.N.cints/52)+" client interviews");
- P.check.push(one(P.starts.c+P.starts.p)+" starts this month");
+ P.check.push(one((P.cob?P.cob.starts:P.starts.c)+P.starts.p)+" starts this month");
  return P;}
 function dxTxt(P){var f=P.focus[0];if(P.mode==="eff")return "You&#8217;re putting in the work &mdash; your "+P.strongA.join(", ")+(P.strongA.length>1?" are":" is")+" at or above benchmark"+(P.startsShort?", but it isn&#8217;t turning into enough starts":"")+". Your plan is about <b>efficiency</b>: convert better"+(f?" at "+f.l.replace(/<[^>]+>/g,"").split(" (")[0].toLowerCase().replace("vaco","Vaco"):"")+" before adding more activity.";
  if(P.mode==="act")return "Your conversion is at or above benchmark at every step. Your lever is <b>activity</b>"+(P.weakA.length?" &mdash; especially "+P.weakA.slice(0,2).join(" and "):"")+".";
  return "Two levers: <b>a bit more activity</b>"+(P.weakA.length?" ("+P.weakA.slice(0,2).join(", ")+")":"")+" and <b>better conversion</b>"+(f?" at "+f.l.replace(/<[^>]+>/g,"").split(" (")[0].toLowerCase().replace("vaco","Vaco"):"")+".";}
 function planHtml(P,G){var n=0,h='<h4 class="sgt">Your '+YEAR+' plan</h4><div class="dx dx-'+P.mode+'"><span>'+({eff:"Efficiency plan",act:"Activity plan",both:"Activity + efficiency plan"}[P.mode])+'</span>'+dxTxt(P)+'</div><ol class="pl">';
  var actLi='',focLi='';
- if(P.act.length){n++;actLi+='<li><b>'+(P.mode==="eff"?'Then your activity':'Every week')+':</b> '+P.act.map(function(a){return '<b class="hl">'+one(a.nd)+' '+a.l+'</b> (you do '+one(a.nd>a.nw?a.nw:a.nw)+' now'+(a.nd>a.nw+0.05?', <em>+'+one(a.nd-a.nw)+'</em>':'')+')';}).join(" and ")+', and <b>'+one(P.starts.c)+' contract + '+one(P.starts.p)+' perm starts a month</b>.'+(P.act.some(function(a){return a.eff!=null&&a.eff<a.nd-0.05;})?' <span class="mu">Hit '+(P.mode==="eff"?'your efficiency targets above':'the two targets below')+' and it drops to '+P.act.map(function(a){return one(a.eff)+' '+a.l;}).join(" and ")+'.</span>':'')+'</li>';}
+ if(P.act.length){n++;actLi+='<li><b>'+(P.mode==="eff"?'Then your activity':'Every week')+':</b> '+P.act.map(function(a){return '<b class="hl">'+one(a.nd)+' '+a.l+'</b> (you do '+one(a.nd>a.nw?a.nw:a.nw)+' now'+(a.nd>a.nw+0.05?', <em>+'+one(a.nd-a.nw)+'</em>':'')+')';}).join(" and ")+', and <b>'+one(P.cob?P.cob.starts:P.starts.c)+' contract + '+one(P.starts.p)+' perm starts a month</b>.'+(P.act.some(function(a){return a.eff!=null&&a.eff<a.nd-0.05;})?' <span class="mu">Hit '+(P.mode==="eff"?'your efficiency targets above':'the two targets below')+' and it drops to '+P.act.map(function(a){return one(a.eff)+' '+a.l;}).join(" and ")+'.</span>':'')+'</li>';}
  P.focus.forEach(function(f,i){focLi+='<li><b>Get more efficient'+(P.focus.length>1?' #'+(i+1):'')+':</b> '+f.l+' from '+f.now+' to <b class="hl">'+f.tg+'</b> <span class="wv">'+f.worth.replace("\u2019","&#8217;")+'</span>'+(f.tip?'<div class="tp">&#128161; '+f.tip+'</div>':'')+'</li>';});
  if(!P.focus.length)focLi+='<li><b>Keep your conversion where it is</b> &mdash; you&#8217;re at or above benchmark at every step. Your lever is activity.</li>';
  if(P.mode==="eff"&&P.act.length){var allOk=P.act.every(function(a){return a.eff!=null&&a.eff<=a.nw+0.05;});
   actLi='<li><b>'+(allOk?'Keep your activity steady':'Then your activity')+':</b> '+P.act.map(function(a){var t=a.eff!=null?Math.max(a.eff,allOk?a.nw:a.eff):a.nd;return '<b class="hl">'+one(allOk?a.nw:t)+' '+a.l+'</b> a week'+(!allOk&&t>a.nw+0.05?' (now '+one(a.nw)+', <em>+'+one(t-a.nw)+'</em>)':'');}).join(" and ")+'.'+(allOk?' <span class="mu">With your efficiency targets you&#8217;d only need '+P.act.map(function(a){return one(a.eff)+' '+a.l;}).join(" and ")+' &mdash; no extra activity required.</span>':' <span class="mu">That&#8217;s with your efficiency targets; at today&#8217;s rates it would take '+P.act.map(function(a){return one(a.nd)+' '+a.l;}).join(" and ")+'.</span>')+'</li>';}
- h+=P.mode==="eff"?focLi+actLi:actLi+focLi;
+ var fx='';
+ if(P.cob){var c=P.cob;fx='<li class="fx1"><b>Grow your consultants on billing:</b> from <b class="hl">'+Math.round(c.now)+' today to '+Math.round(c.end)+' by December</b> &mdash; net <b>+'+one(c.a)+' a month</b>'+(c.g!=null?' (you&#8217;re at '+(c.g>=0?'+':'&minus;')+one(Math.abs(c.g))+' a month so far)':'')+'. With about '+one(c.e)+' ending each month, that&#8217;s <b>'+one(c.starts)+' contract starts a month</b> (now '+one(c.startsNow)+').'+(c.a<0.05?' <span class="mu">Your current bench already covers your contract goal &mdash; keep adding to stay ahead of ends.</span>':'')+'<div class="tp">&#128161; Track your billing count on the 1st of every month &mdash; it&#8217;s the clearest sign your desk is growing.</div></li>';}
+ if(P.dh){var d=P.dh,low=d.f>0&&d.f<22.5;fx='<li class="fx1"><b>Direct hire:</b> <b class="hl">'+one(d.permNeed)+' perm placements a month</b> (now '+one(d.permNow)+')'+(d.f>0?' at a <b>'+d.f+'% fee</b> '+pill(d.g.st).replace(STL[d.g.st],d.g.l):'')+'. Average total fee <b>'+usd(d.fee)+'</b>'+(d.sh<1?' (your '+Math.round(d.sh*100)+'% = '+usd(d.share)+')':'')+'.'+
+  (d.f>0&&d.f<20&&d.strongVol?'<div class="tp">&#128161; Your placement volume is strong, so a lower fee can be part of your strategy. Protect your total fee per placement ('+usd(d.fee)+'+) and nudge new searches toward 20%.</div>':
+   low?'<div class="tp">&#128161; Raise your DH fee toward 22.5%+'+(d.ptPer>0?': every +1 point is about <b>'+usd(d.ptPer)+'</b> more per placement &mdash; <b>'+usd(d.ptYr)+'</b> a year at your plan':'')+'. Quote 25% first and hold firm on retained or hard-to-fill roles.</div>':
+   d.f>0&&d.f<25?'<div class="tp">&#128161; Solid fee &mdash; push new searches toward 25% and keep growing volume.</div>':d.f>0?'<div class="tp">&#128161; Great fee discipline &mdash; hold it there and grow your placement volume.</div>':'<div class="tp">&#128161; Add your average DH fee % to see how it grades.</div>')+'</li>';}
+ h+=fx+(P.mode==="eff"?focLi+actLi:actLi+focLi);
  h+='<li><b>Hit your quarterly milestones:</b><div class="qm">'+P.q.map(function(q){return '<div><span>'+q.q+' <i>'+q.m+'</i></span><b>'+k$(q.cum)+'</b><small>'+k$(q.g)+' this quarter &middot; '+one(q.st)+' starts</small></div>';}).join("")+'</div></li>';
  h+='<li><b>Every Friday, check:</b> '+P.check.join(" &middot; ")+'. On pace? Keep going. Behind two weeks in a row? Revisit this plan.</li></ol>';
  return h;}
-function planTxt(P){if(!P)return "";var L=["My "+YEAR+" plan ("+({eff:"efficiency plan",act:"activity plan",both:"activity + efficiency plan"}[P.mode])+"):",dxTxt(P).replace(/<[^>]+>/g,"").replace(/&#8217;/g,"'").replace(/&mdash;/g,"-")],i=1;
- if(P.act.length)L.push((i++)+") "+(P.mode==="eff"?"Activity (with efficiency targets): ":"Every week: ")+P.act.map(function(a){return one(a.nd)+" "+a.l+" (now "+one(a.nw)+")";}).join(" and ")+", and "+one(P.starts.c)+" contract + "+one(P.starts.p)+" perm starts a month.");
- P.focus.forEach(function(f){L.push((i++)+") Get more efficient: "+f.lt+" from "+f.now+" to "+f.tg+" ("+f.worth+")."+(f.tip?" Tip: "+f.tip.replace(/&[a-z#0-9]+;/g,function(m){return {"&mdash;":"-","&ndash;":"-","&#8217;":"'","&ldquo;":"\"","&rdquo;":"\""}[m]||"";}):""));});
- L.push((i++)+") Quarterly milestones (cumulative GM): "+P.q.map(function(q){return q.q+" "+usd(q.cum);}).join(", ")+".");
- L.push((i++)+") Every Friday, check: "+P.check.join(", ")+".");return L.join("\n");}
+function planTxt(P){if(!P)return "";var cl=function(t){return String(t).replace(/<[^>]+>/g,"").replace(/&[a-z#0-9]+;/g,function(m){return {"&mdash;":"-","&ndash;":"-","&#8217;":"'","&ldquo;":"\"","&rdquo;":"\"","&rarr;":"->","&middot;":"·","&amp;":"&"}[m]||"";});},It=[];
+ if(P.cob)It.push("Grow consultants on billing from "+Math.round(P.cob.now)+" to "+Math.round(P.cob.end)+" by December (net +"+one(P.cob.a)+" a month; about "+one(P.cob.starts)+" contract starts a month).");
+ if(P.dh)It.push("Direct hire: "+one(P.dh.permNeed)+" perm placements a month"+(P.dh.f>0?" at a "+P.dh.f+"% fee ("+P.dh.g.l+")":"")+"; average total fee "+usd(P.dh.fee)+(P.dh.sh<1?" (my "+Math.round(P.dh.sh*100)+"% = "+usd(P.dh.share)+")":"")+".");
+ var actT=P.act.length?(P.mode==="eff"?"Activity (with efficiency targets): ":"Every week: ")+P.act.map(function(a){return one(a.nd)+" "+a.l+" (now "+one(a.nw)+")";}).join(" and ")+", and "+one(P.cob?P.cob.starts:P.starts.c)+" contract + "+one(P.starts.p)+" perm starts a month.":"",
+  focT=P.focus.map(function(f){return "Get more efficient: "+cl(f.lt)+" from "+f.now+" to "+f.tg+" ("+cl(f.worth)+")."+(f.tip?" Tip: "+cl(f.tip):"");});
+ if(P.mode==="eff"){It=It.concat(focT);if(actT)It.push(actT);}else{if(actT)It.push(actT);It=It.concat(focT);}
+ It.push("Quarterly milestones (cumulative GM): "+P.q.map(function(q){return q.q+" "+usd(q.cum);}).join(", ")+".");
+ It.push("Every Friday, check: "+P.check.join(", ")+".");
+ return ["My "+YEAR+" plan ("+({eff:"efficiency plan",act:"activity plan",both:"activity + efficiency plan"}[P.mode])+"):",cl(dxTxt(P))].concat(It.map(function(t,k){return (k+1)+") "+t;})).join("\n");}
 function simpleGP(T,e,N,NEW,BK,G,B,GP){
  var pace=T.gm*52,gap=G-(B.sY*B.e.gps+BK),gps=B.e.gps,
   stages=["pros","visits","jobs","vints","jom","subs","cints"].filter(function(k){return active(T,k)&&B.N[k]!=null&&!isNaN(B.N[k]);}),
@@ -992,19 +1032,19 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
  var P=pairs(T),r0=ratios(T),levs=P.map(function(pr){var need=pr.cur*B.k,pct=isPct(pr.key),poss=!pct||need<=1;return {key:pr.key,l:ST[pr.up].l+' &rarr; '+ST[pr.dn].l.toLowerCase().replace("vaco","Vaco"),cur:pr.cur,now:cvTxt(T,pr,pr.cur).big,need:poss?cvTxt(T,pr,need).big:"over 100%",poss:poss,pct:pct,pr:pr};});
  var hr=bookHr();
  if(r0.gpsc>0&&B.N.stc>0)levs.push(hr>0?{key:"gpsc",l:"Contract GM per hour (your share, from your consultants)",cur:r0.gpsc,hr:hr,now:"$"+hr.toFixed(2)+"/hr",need:"$"+(hr*B.k).toFixed(2)+"/hr",poss:true,pct:false,gm:true}:{key:"gpsc",l:"GM per contract start",cur:r0.gpsc,now:usd(r0.gpsc),need:usd(r0.gpsc*B.k),poss:true,pct:false,gm:true,nohr:true});
- if(r0.gpsp>0&&B.N.stp>0)levs.push({key:"gpsp",l:"GM per perm start",cur:r0.gpsp,now:usd(r0.gpsp),need:usd(r0.gpsp*B.k),poss:true,pct:false,gm:true});
+ var dfee=num($("dhf").value);if(r0.gpsp>0&&B.N.stp>0&&dfee>0)levs.push({key:"gpsp",l:"DH fee %",cur:r0.gpsp,fee:dfee,now:dfee+"%",need:(Math.round(dfee*B.k*10)/10)+"%",poss:true,pct:false,gm:true});else if(r0.gpsp>0&&B.N.stp>0)levs.push({key:"gpsp",l:"GM per perm start",cur:r0.gpsp,now:usd(r0.gpsp),need:usd(r0.gpsp*B.k),poss:true,pct:false,gm:true});
  var gAct=B.sY*B.e.gps,gainOf=function(l,nv){if(!(nv>0))return 0;if(l.key==="gpsc")return B.sY*B.e.cmix*(nv-l.cur);if(l.key==="gpsp")return B.sY*(1-B.e.cmix)*(nv-l.cur);return gAct*(nv/l.cur-1);};
  W.lev=levs;
- var presets=function(l){return l.hr?[0,1,2,5]:[0,.05,.1,.2];},target=function(l,v){return l.hr?l.cur*(l.hr+v)/l.hr:l.cur*(1+v);},
-  chip=function(l,v){var o=OV[l.key],on=v===0?!(o>0):(o>0&&Math.abs(o-target(l,v))<1e-6*l.cur);return '<button type="button" data-imp="'+l.key+'" data-t="'+target(l,v)+'" class="'+(on?"on":"")+'">'+(v?(l.hr?"+$"+v+"/hr":"+"+Math.round(v*100)+"%"):"Same")+'</button>';},
+ var presets=function(l){return l.hr?[0,1,2,5]:l.fee?[0,1,2.5]:[0,.05,.1,.2];},target=function(l,v){return l.hr?l.cur*(l.hr+v)/l.hr:l.fee?l.cur*(l.fee+v)/l.fee:l.cur*(1+v);},
+  chip=function(l,v){var o=OV[l.key],on=v===0?!(o>0):(o>0&&Math.abs(o-target(l,v))<1e-6*l.cur);return '<button type="button" data-imp="'+l.key+'" data-t="'+target(l,v)+'" class="'+(on?"on":"")+'">'+(v?(l.hr?"+$"+v+"/hr":l.fee?"+"+v+" pt":"+"+Math.round(v*100)+"%"):"Same")+'</button>';},
   isCust=function(l){var o=OV[l.key];return o>0&&!presets(l).some(function(v){return v&&Math.abs(o-target(l,v))<1e-6*l.cur;});},
-  custVal=function(l){var o=OV[l.key];if(!(isCust(l)))return "";return l.hr?(l.hr*o/l.cur).toFixed(2):l.gm?Math.round(o).toLocaleString("en-US"):l.pct?(Math.round(o*1000)/10)+"":(+o.toFixed(2))+"";},
-  custUnit=function(l){return l.hr?"$/hr":l.gm?"$":l.pct?"%":"#";};
+  custVal=function(l){var o=OV[l.key];if(!(isCust(l)))return "";return l.fee?(Math.round(l.fee*o/l.cur*10)/10)+"":l.hr?(l.hr*o/l.cur).toFixed(2):l.gm?Math.round(o).toLocaleString("en-US"):l.pct?(Math.round(o*1000)/10)+"":(+o.toFixed(2))+"";},
+  custUnit=function(l){return l.fee?"% fee":l.hr?"$/hr":l.gm?"$":l.pct?"%":"#";};
  h+='<div class="way b"><div class="wh"><i>2</i>Convert better at each step</div><p>Tighten any step &mdash; or several. Improvements stack, because every step multiplies the next.</p>'+
-  levs.map(function(l){var o=OV[l.key]>0?OV[l.key]:null,nowTxt=l.hr?(o?"$"+(l.hr*o/l.cur).toFixed(2)+"/hr":""):l.gm?usd(o||l.cur):(o?cvTxt(T,l.pr,o).big:l.now),g=gainOf(l,o),step=gainOf(l,target(l,presets(l)[1]));
+  levs.map(function(l){var o=OV[l.key]>0?OV[l.key]:null,nowTxt=l.fee?(o?(Math.round(l.fee*o/l.cur*10)/10)+"%":""):l.hr?(o?"$"+(l.hr*o/l.cur).toFixed(2)+"/hr":""):l.gm?usd(o||l.cur):(o?cvTxt(T,l.pr,o).big:l.now),g=gainOf(l,o),step=gainOf(l,target(l,presets(l)[1]));
    return '<div class="lev2"><div class="lt"><span class="ll">'+l.l+'</span><span class="lv">'+l.now+(o?' &rarr; <b>'+nowTxt+'</b>':'')+'<em>'+(l.poss?'Alone closes the gap at '+l.need:'Can&#8217;t close the gap alone')+(l.nohr?' &middot; add your consultants in step 4 (consultant by consultant) to plan in $/hr':'')+'</em></span></div>'+
     '<div class="lc"><div class="chips lch">'+presets(l).map(function(v){return chip(l,v);}).join("")+'<label class="cbox'+(isCust(l)?' on':'')+'"><input class="cust" data-cust="'+l.key+'" inputmode="decimal" placeholder="Custom" value="'+custVal(l)+'"><span>'+custUnit(l)+'</span></label></div>'+
-    '<div class="lg3">'+(o?'<b>'+(g>=0?'+':'&minus;')+k$(Math.abs(g))+'</b> GM a year at today&#8217;s activity':'Each '+(l.hr?'+$1/hr':'+5%')+' &asymp; <b>+'+k$(Math.max(step,0))+'</b> GM a year')+'</div></div></div>';}).join("");
+    '<div class="lg3">'+(o?'<b>'+(g>=0?'+':'&minus;')+k$(Math.abs(g))+'</b> GM a year at today&#8217;s activity':'Each '+(l.hr?'+$1/hr':l.fee?'+1 pt':'+5%')+' &asymp; <b>+'+k$(Math.max(step,0))+'</b> GM a year')+'</div></div></div>';}).join("");
  if(anyOv){var gain=(sY*e.gps+BK)-B.g,left=G-(sY*e.gps+BK),saved=B.N[top]/52-N[top]/52;
   h+='<div class="isum"><b>With your improvements:</b> today&#8217;s activity makes <b>'+k$(sY*e.gps+BK)+'</b> (+'+k$(Math.max(gain,0))+'). '+(left>1?'That leaves <b>'+k$(left)+'</b> &mdash; about <b>+'+Math.max(more,0).toFixed(0)+'% activity</b> ('+one(N[top]/52)+' '+ST[top].many+' a week).':'That <b>covers your goal</b> &mdash; you need <b>'+one(N[top]/52)+' '+ST[top].many+' a week</b>, '+one(Math.max(saved,0))+' fewer than without them.')+'</div>';}
  h+='<div class="wfoot"><span>Type any target in <b>Custom</b> &mdash; a rate, a number, or dollars.</span>'+(anyOv?'<button type="button" id="wReset">Clear improvements</button>':'')+'</div></div>';
@@ -1049,6 +1089,7 @@ function render(){calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("g
   '<div class="rrg">'+grp("Results",[row("Contract starts",one(T.stc*52/12),"/ mo",one(T.stc*52)),row("Perm starts",one(T.stp*52/12),"/ mo",one(T.stp*52))])+
   grp("Sales cycle",act(["pros","von","vvi","jobsc","jobsp"]))+grp("Recruiting cycle",act(["vints","jom","subs"]))+grp("Both cycles",act(["cints"]))+'</div>';
  $("calc").innerHTML="";}
+ drawXB(T);
  var CONV=drawConv(T);
  var MET=[["Contract GM",T.gmc,"$"],["Perm GM",T.gmp,"$"],["Total GM",T.gm,"$"],["Contract starts",T.stc,"m"],["Perm starts",T.stp,"m"]].map(function(x){return {l:x[0],wk:x[2]==="$"?usd(x[1]):one(x[1]*52/12),wkU:x[2]==="$"?"a week":"a month",yr:x[2]==="$"?usd(x[1]*52):one(x[1]*52),nf:false};}).concat(
   Object.keys(PART).filter(function(f){var st=Object.keys(ST).filter(function(k){return ST[k].p.indexOf(f)>-1;})[0];return mine(ST[st].r);}).map(function(f){return {l:PART[f],wk:one(T[f]),wkU:"a week",yr:Math.round(T[f]*52).toLocaleString("en-US"),nf:!!OPT[f]};}));
@@ -1149,7 +1190,7 @@ function drawFC(F){var h='<div class="fye"><span>'+F.y+' year-end forecast</span
  h+='<p class="fsum">'+(gap>1?'Stay at today&#8217;s run rate and you finish '+YEAR+' around <b>'+usd(F.rr27)+'</b>, <b>'+usd(gap)+' short</b>. Your weekly plan above closes that gap.':'Today&#8217;s run rate alone gets you to about <b>'+usd(F.rr27)+'</b> &mdash; ahead of your goal.')+' "Goal" spreads your new GM evenly across the year and adds what your consultants bill in each quarter.</p>';
  $("fc").innerHTML=h;}
 var EXMODE=false,SAVED=null;
-var EXSTATE={ver:5,role:"full",mode:"grow",inm:"tot",per:"ytd",d1:"",d2:"",edited:true,ov:{},opt:{},bmode:"list",book:[{t:"Jordan Smith",g:"42",s:"50",e:"2027-06-30"},{t:"Priya Patel",g:"35",s:"50",e:""},{t:"Marcus Lee",g:"28",s:"25",e:"2027-03-31"}],v:{who:"Example Producer",goal:"",grow:"20",gmc:"356,700",gmp:"138,400",stc:"10",stp:"6",pros:"2,100",von:"70",vvi:"117",jobsc:"47",jobsp:"33",vints:"280",jom:"196",subs:"168",cints:"85",util:"90",bqwk:"",bqend:""}};
+var EXSTATE={ver:5,role:"full",mode:"grow",inm:"tot",per:"ytd",d1:"",d2:"",edited:true,ov:{},opt:{},bmode:"list",book:[{t:"Jordan Smith",g:"42",s:"50",e:"2027-06-30"},{t:"Priya Patel",g:"35",s:"50",e:""},{t:"Marcus Lee",g:"28",s:"25",e:"2027-03-31"}],v:{who:"Example Producer",goal:"",grow:"20",gmc:"356,700",gmp:"138,400",cobs:"9",cobn:"12",dhf:"21",pcs:"100",stc:"10",stp:"6",pros:"2,100",von:"70",vvi:"117",jobsc:"47",jobsp:"33",vints:"280",jom:"196",subs:"168",cints:"85",util:"90",bqwk:"",bqend:""}};
 function save(){if(EXMODE)return;try{localStorage.setItem(KEY,JSON.stringify(state()));}catch(e){}}
 function state(){var s={ver:5,role:role,mode:mode,inm:inm,per:per,d1:$("d1").value,d2:$("d2").value,edited:edited,ov:OV,opt:OPT,book:BOOK,bmode:BMODE,ten:TEN,v:{}};FIELDS.forEach(function(k){s.v[k]=$(k).value;});return s;}
 function apply(s){if(!s||s.ver!==5)return false;OPT=s.opt||{};BMODE=s.bmode||"quick";TEN=s.ten!=null?s.ten:3;role=s.role||"full";mode=s.mode||"grow";inm=s.inm||"avg";per=s.per||"ytd";$("d1").value=s.d1||"";$("d2").value=s.d2||"";edited=!!s.edited;OV=s.ov||{};BOOK=Array.isArray(s.book)?s.book:[];FIELDS.forEach(function(k){$(k).value=(s.v&&s.v[k]!=null)?s.v[k]:EX[k];});return true;}
@@ -1195,6 +1236,8 @@ function report(){var d=PD,who=$("who").value.trim(),today=new Date().toLocaleDa
  '<div><span>New GM to win</span><b>'+usd(d.NEW)+'</b><small>'+usd(d.GC)+' contract &middot; '+usd(d.GP)+' perm goal</small></div></div>'+
  (d.WAYS&&d.WAYS.GP&&d.WAYS.GP.PL?(function(P){return '<h2>My '+YEAR+' plan &mdash; '+({eff:"efficiency plan",act:"activity plan",both:"activity + efficiency plan"}[P.mode])+'</h2><p style="font-size:13px;margin:0 0 6px">'+dxTxt(P)+'</p><ol style="margin:0 0 6px;padding-left:20px;font-size:13px;line-height:1.55">'+
   (P.act.length?'<li><b>Every week:</b> '+P.act.map(function(a){return '<b>'+one(a.nd)+' '+a.l+'</b> (now '+one(a.nw)+')';}).join(' and ')+', and <b>'+one(P.starts.c)+' contract + '+one(P.starts.p)+' perm starts a month</b>.</li>':'')+
+  (P.cob?'<li><b>Grow consultants on billing:</b> from '+Math.round(P.cob.now)+' to <b>'+Math.round(P.cob.end)+' by December</b> (net +'+one(P.cob.a)+' a month; about '+one(P.cob.starts)+' contract starts a month).</li>':'')+
+  (P.dh?'<li><b>Direct hire:</b> <b>'+one(P.dh.permNeed)+' perm placements a month</b>'+(P.dh.f>0?' at a '+P.dh.f+'% fee ('+P.dh.g.l+')':'')+'; average total fee '+usd(P.dh.fee)+(P.dh.sh<1?' (my '+Math.round(P.dh.sh*100)+'% = '+usd(P.dh.share)+')':'')+'.</li>':'')+
   P.focus.map(function(f){return '<li><b>Get more efficient:</b> '+f.l+' from '+f.now+' to <b>'+f.tg+'</b> ('+f.worth+').'+(f.tip?'<br><span style="color:#5b6b82">Tip: '+f.tip+(f.tip2?' '+f.tip2:'')+'</span>':'')+'</li>';}).join('')+
   '<li><b>Quarterly milestones (cumulative GM):</b> '+P.q.map(function(q){return q.q+' <b>'+usd(q.cum)+'</b> ('+one(q.st)+' starts)';}).join(' &middot; ')+'</li>'+
   '<li><b>Every Friday, check:</b> '+P.check.join(' &middot; ')+'.</li></ol>';})(d.WAYS.GP.PL):'')+
@@ -1240,8 +1283,10 @@ function aiPrompt(){var d=PD,g=d&&d.WAYS&&d.WAYS.GP;if(!g)return "";var rl={sale
  L.push("\nAt benchmark conversion my goal takes "+one(g.tB)+" "+g.topL+" a week (I do "+one(g.tNow)+" now).");
  L.push("\nPlease give me an encouraging, practical 90-day coaching plan built around three things: what I did this year, my 2027 target, and exactly what I need to increase to hit it. Use the benchmarks and top-producer numbers to judge which increases are realistic, and where my goal needs more activity than top producers do, tell me which conversion rates to improve instead. Start with what I'm doing well, then my top 3 areas of improvement in priority order, with specific weekly habits, talk tracks and tips for each, things to be aware of, leading indicators that show it's working, and a simple weekly schedule. Keep it specific to staffing and to my numbers.");
  return L.join("\n");}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-pcs]");if(!b)return;if(b.dataset.pcs==="c"){$("pcsC").dataset.open="1";$("pcsC").hidden=false;$("pcsI").focus();return;}delete $("pcsC").dataset.open;$("pcs").value=b.dataset.pcs;$("pcsI").value="";render();});
+$("pcsI").addEventListener("input",function(){var v=num(this.value);if(v>0)$("pcs").value=Math.min(v,100);});
 $("ways").addEventListener("change",function(e){var t=e.target;if(!t.classList.contains("cust"))return;var k=t.dataset.cust,v=num(t.value),T=read(),r0=ratios(T);if(!(v>0)){delete OV[k];render();return;}
- if(k==="gpsc"){var hr=bookHr();OV.gpsc=hr>0?r0.gpsc*v/hr:v;}else if(k==="gpsp"){OV.gpsp=v;}else{OV[k]=isPct(k)?v/100:v;}render();});
+ if(k==="gpsc"){var hr=bookHr();OV.gpsc=hr>0?r0.gpsc*v/hr:v;}else if(k==="gpsp"){var df=num($("dhf").value);OV.gpsp=df>0?r0.gpsp*v/df:v;}else{OV[k]=isPct(k)?v/100:v;}render();});
 $("ways").addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.classList.contains("cust"))e.target.blur();});
 $("ways").addEventListener("click",function(e){if(e.target.id==="aiCoach"){var t=aiPrompt();if(!t){toast("Fill in your numbers first");return;}try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(x){}window.open("https://claude.ai/new?q="+encodeURIComponent(t),"_blank","noopener");toast("Opening Claude — your plan is on your clipboard too");return;}if(e.target.id==="applyBm"&&PD&&PD.WAYS&&PD.WAYS.GP){OV=PD.WAYS.GP.OVb;render();toast("Benchmark rates applied");return;}var c=e.target.closest("[data-imp]");if(c){var k=c.dataset.imp,t=parseFloat(c.dataset.t),r0=ratios(read()),cur=k==="gpsc"||k==="gpsp"?r0[k]:null;if(cur!=null?Math.abs(t-cur)>1e-9:true){if(c.textContent==="Same")delete OV[k];else OV[k]=t;}else delete OV[k];render();return;}var t=e.target.closest("[data-try]");if(t){OV[t.dataset.try]=parseFloat(t.dataset.v);var d=document.querySelector("details.more");if(d)d.open=true;render();toast("Rate applied &mdash; see your plan update".replace("&mdash;","—"));return;}if(e.target.id==="wReset"){OV={};render();toast("Back to today’s rates");}});
 function showEx(on){EXMODE=on;$("exBan").hidden=!on;$("exBtn").hidden=on;}
