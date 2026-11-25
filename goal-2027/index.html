@@ -742,6 +742,9 @@ h2{font-size:20px}
 .impx td{padding:7px 8px;border-bottom:1px solid #eef1f6}.impx td.n{text-align:right;font-variant-numeric:tabular-nums}
 .impx tr.dup td{color:var(--muted)}
 .impx .if{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.ask{display:flex;flex-direction:column;gap:8px}.ask b{font-size:14px}.ask span{font-size:12.5px;color:var(--muted)}
+.askr{display:flex;gap:8px;flex-wrap:wrap}.askr input,.askr select{flex:1;min-width:220px;font:inherit;font-weight:600;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:#f9fafc}
+.askr input:focus,.askr select:focus{outline:none;border-color:#f26b21;box-shadow:0 0 0 4px rgba(242,107,33,.15);background:#fff}.askm{font-size:12.5px;color:#b5490f;font-weight:600}
 .impx .note{font-size:12px;color:var(--muted);margin:8px 0 0}
 .tt.req{color:#b5490f;font-weight:600}
 .gmbm{display:flex;gap:8px;align-items:flex-start;margin:10px 0 4px;padding:10px 12px;border-radius:12px;background:#f4f7fb;font-size:12.5px;line-height:1.45}
@@ -1549,9 +1552,16 @@ function loadPdfJs(){return new Promise(function(ok,no){if(window.pdfjsLib)retur
 function readPdsr(file){var box=$("impBox");box.hidden=false;box.innerHTML='<div class="note">Reading '+esc(file.name)+'&hellip;</div>';
  file.arrayBuffer().then(function(buf){return loadPdfJs().then(function(lib){return lib.getDocument({data:new Uint8Array(buf)}).promise;});}).then(function(doc){var ps=[];for(var i=1;i<=doc.numPages;i++)ps.push(doc.getPage(i).then(function(pg){return pg.getTextContent();}).then(function(tc){return tc.items.map(function(it){return {s:it.str,x:it.transform[4],y:it.transform[5]};});}));return Promise.all(ps);})
  .then(function(pages){var r=pdsrParse(pages).filter(function(p){return p.rows.length;});if(!r.length){box.innerHTML='<div class="note">We couldn&#8217;t find any consultants in that file. Make sure it&#8217;s the PDSR (Producer Detail Summary Report) PDF.</div>';return;}PDSR=r;var who=$("who").value.trim(),ix=matchProd(r,who);
-  if(ix<0){box.innerHTML='<div class="note"><b>'+(who?'We couldn&#8217;t find &ldquo;'+esc(who)+'&rdquo; on this PDSR.':'Enter your name first.')+'</b> We only pull the consultants credited to you, so your name in step 1 needs to match the name on the PDSR (for example, Matt Barbour for &ldquo;Barbour, Matt&rdquo;). <a href="#s1" id="impName">Go to step 1</a>, then upload again.</div>';return;}
+  if(ix<0){impAsk(who);return;}
   drawImp(ix);})
  .catch(function(){box.innerHTML='<div class="note">We couldn&#8217;t read that PDF. Try downloading the PDSR again, or add your consultants by hand below.</div>';});}
+function impAsk(who){var box=$("impBox");box.hidden=false;
+ box.innerHTML='<div class="ask"><b>'+(who?'We couldn&#8217;t find &ldquo;'+esc(who)+'&rdquo; on this PDSR.':'Who are you on this PDSR?')+'</b><span>We only pull the consultants credited to you. Type your name or pick it from the list.</span>'+
+  '<div class="askr"><input id="impWho" type="text" placeholder="Your name, e.g. Matt Barbour" value="'+esc(who||"")+'" autocomplete="name"><button type="button" class="btn" id="impFind">Find me</button></div>'+
+  '<div class="askr"><select id="impPick"><option value="">&hellip; or pick your name</option>'+PDSR.map(function(q,i){return '<option value="'+i+'">'+esc(pdsrName(q.name))+'</option>';}).join("")+'</select></div><div class="askm" id="impMsg"></div></div>';
+ setTimeout(function(){var x=$("impWho");if(x)x.focus();},50);}
+function impUse(ix){$("who").value=pdsrName(PDSR[ix].name);$("who").dispatchEvent(new Event("input",{bubbles:true}));drawImp(ix);}
+function impFind(){var v=($("impWho").value||"").trim(),ix=matchProd(PDSR,v);if(ix<0){$("impMsg").innerHTML='No match for &ldquo;'+esc(v)+'&rdquo; &mdash; check the spelling, or pick your name from the list.';return;}impUse(ix);}
 function nmTok(n){return n.toLowerCase().replace(/[^a-z,' -]/g," ").replace(/\b(jr|sr|ii|iii|iv)\b/g," ").split(/[\s,]+/).filter(function(x){return x.length>1;});}
 function matchProd(r,who){var w=nmTok(who);if(w.length<2)return -1;var first=w[0],last=w[w.length-1],best=-1,bs=0;
  r.forEach(function(p,i){var m=p.name.match(/^([^,]+),\s*(.+)$/);if(!m)return;var L=nmTok(m[1]),F=nmTok(m[2]);var sc=0;if(L.indexOf(last)>=0||L.join("")===last)sc+=2;if(F.length&&(F[0]===first||F[0].slice(0,3)===first.slice(0,3)))sc+=1;if(sc>bs){bs=sc;best=i;}});return bs>=3?best:-1;}
@@ -1566,8 +1576,9 @@ function drawImp(ix){var p=PDSR[ix],box=$("impBox");
 $("impBtn").addEventListener("click",function(){$("impIn").click();});
 $("impIn").addEventListener("change",function(){var f=this.files[0];if(f)readPdsr(f);this.value="";});
 (function(){var z=$("impZone");["dragenter","dragover"].forEach(function(ev){z.addEventListener(ev,function(e){e.preventDefault();z.classList.add("drag");});});["dragleave","drop"].forEach(function(ev){z.addEventListener(ev,function(e){e.preventDefault();z.classList.remove("drag");});});z.addEventListener("drop",function(e){var f=e.dataTransfer.files[0];if(f)readPdsr(f);});})();
-$("impBox").addEventListener("change",function(e){if(e.target.id==="impP")drawImp(+e.target.value);else if(e.target.id==="impAll")[].forEach.call($("impBox").querySelectorAll("[data-ii]"),function(b){b.checked=e.target.checked;});});
-$("impBox").addEventListener("click",function(e){if(e.target.id==="impName"){e.preventDefault();var a=document.querySelector('.steps a[href="#s1"]');if(a)a.click();setTimeout(function(){$("who").focus();},300);return;}if(e.target.id==="impX"){$("impBox").hidden=true;return;}if(e.target.id!=="impGo")return;var p=PDSR[+$("impP").value],n=0;
+$("impBox").addEventListener("change",function(e){if(e.target.id==="impPick"&&e.target.value!==""){impUse(+e.target.value);return;}if(e.target.id==="impP")drawImp(+e.target.value);else if(e.target.id==="impAll")[].forEach.call($("impBox").querySelectorAll("[data-ii]"),function(b){b.checked=e.target.checked;});});
+$("impBox").addEventListener("keydown",function(e){if(e.target.id==="impWho"&&e.key==="Enter"){e.preventDefault();impFind();}});
+$("impBox").addEventListener("click",function(e){if(e.target.id==="impFind"){impFind();return;}if(e.target.id==="impName"){e.preventDefault();var a=document.querySelector('.steps a[href="#s1"]');if(a)a.click();setTimeout(function(){$("who").focus();},300);return;}if(e.target.id==="impX"){$("impBox").hidden=true;return;}if(e.target.id!=="impGo")return;var p=PDSR[+$("impP").value],n=0;
  BOOK=BOOK.filter(function(c){return (c.t||"").trim()||num(c.g)>0;});
  [].forEach.call($("impBox").querySelectorAll("[data-ii]:checked"),function(b){var c=p.rows[+b.dataset.ii];if(haveName(c.t))return;var cr=String(c.cr);BOOK.push({t:c.t,g:String(Math.round(c.gmhr*100)/100),s:cr,cs:!(cr==="25"||cr==="50"),e:"",cl:c.client});n++;});
  BMODE="list";$("impBox").hidden=true;drawBook();render();toast(n?"Added "+n+" consultant"+(n===1?"":"s")+" — now add their end dates":"Nothing new to add");var r=$("book");if(r)r.scrollIntoView({behavior:"smooth",block:"start"});});
