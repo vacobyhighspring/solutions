@@ -1547,7 +1547,7 @@ function pdsrParse(pages){
 }
 function pdsrName(n){var m=n.match(/^([^,]+),\s*(.+)$/);var f=m?m[2]+" "+m[1]:n;return f.toLowerCase().replace(/(^|[\s'-])([a-z])/g,function(a,b,c){return b+c.toUpperCase();}).replace(/\bIii\b/,"III").replace(/\bIi\b/,"II");}
 
-var PDSR=null,PDJS="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/";
+var PDSR=null,PDJS="vendor/";
 function loadPdfJs(){return new Promise(function(ok,no){if(window.pdfjsLib)return ok(window.pdfjsLib);var sc=document.createElement("script");sc.src=PDJS+"pdf.min.js";sc.onload=function(){window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDJS+"pdf.worker.min.js";ok(window.pdfjsLib);};sc.onerror=function(){no(new Error("load"));};document.head.appendChild(sc);});}
 function readPdsr(file){var box=$("impBox");box.hidden=false;box.innerHTML='<div class="note">Reading '+esc(file.name)+'&hellip;</div>';
  file.arrayBuffer().then(function(buf){return loadPdfJs().then(function(lib){return lib.getDocument({data:new Uint8Array(buf)}).promise;});}).then(function(doc){var ps=[];for(var i=1;i<=doc.numPages;i++)ps.push(doc.getPage(i).then(function(pg){return pg.getTextContent();}).then(function(tc){return tc.items.map(function(it){return {s:it.str,x:it.transform[4],y:it.transform[5]};});}));return Promise.all(ps);})
