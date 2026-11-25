@@ -777,7 +777,7 @@ h2{font-size:20px}
       <button type="button" data-v="full" class="on"><b>Full desk</b><small>You write and fill</small></button>
     </div>
     <div class="fld who"><label for="who">Your name <i>(as it appears on your PDSR, so we only import your consultants)</i></label><div class="box"><input id="who" autocomplete="name" placeholder="e.g., Jordan Smith"></div></div>
-    <div class="ten"><div class="fld"><label for="sdate">Your start date <i>(in this seat)</i></label><div class="box"><input type="date" id="sdate"></div></div><span class="tt" id="tenTxt">Leave blank if you&#8217;ve been in your seat over a year.</span></div>
+    <div class="ten"><div class="fld"><label for="sdate">Your start date <i>(in this seat)</i></label><div class="box"><input type="date" id="sdate"></div></div><span class="tt" id="tenTxt">Add it — it sets your ramp, your conversion benchmarks and your 2027 GM benchmark.</span></div>
   </section>
 
   <section class="card" id="s2">
@@ -1007,9 +1007,10 @@ function div(a,b){return b>0?a/b:0;}
 function mine(s){return s.split(" ").indexOf(role)>-1;}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 
-function totW(){
- if(per==="dates"){var a=new Date($("d1").value+"T00:00:00"),b=new Date($("d2").value+"T00:00:00");if(!isNaN(a)&&!isNaN(b)&&b>=a)return Math.max((Math.round((b-a)/864e5)+1)/7,1);}
- var t=new Date(),y=t.getFullYear(),s0=new Date(y,0,1),t0=new Date(y,t.getMonth(),t.getDate());return Math.max(Math.min((Math.round((t0-s0)/864e5)+1)/7,52),1);}
+function perBounds(){var a,b,t=new Date();if(per==="dates"){a=new Date($("d1").value+"T00:00:00");b=new Date($("d2").value+"T00:00:00");if(isNaN(a)||isNaN(b)||b<a){a=null;}}
+ if(!a){a=new Date(t.getFullYear(),0,1);b=new Date(t.getFullYear(),t.getMonth(),t.getDate());}
+ var sd=$("sdate")&&$("sdate").value?new Date($("sdate").value+"T00:00:00"):null,late=!!(sd&&sd>a&&sd<=b);if(late)a=sd;return {a:a,b:b,late:late};}
+function totW(){var B=perBounds();return Math.max(Math.min((Math.round((B.b-B.a)/864e5)+1)/7,52.2),1);}
 function weeks(){return 1;}
 function fmtD(v){return (Math.round(v*10)/10)+"";}
 function convert(to){var W=totW(),m=to==="tot"?W:1/W,v;
@@ -1019,8 +1020,12 @@ function convert(to){var W=totW(),m=to==="tot"?W:1/W,v;
 
 function read(){var T={};FIELDS.forEach(function(k){T[k]=Math.max(num($(k).value),0);});if(inm==="tot"){var W=totW();MONK.concat(STK,AVGK).forEach(function(k){T[k]=T[k]/W;});}else{STK.forEach(function(k){T[k]=T[k]*12/52;});}T.gm=T.gmc+T.gmp;T.starts=T.stc+T.stp;T.visits=T.von+T.vvi;T.jobs=T.jobsc+T.jobsp;T.startsmo=T.starts*52/12;return T;}
 function ratios(T){return {gps:div(T.gm,T.starts),gpsc:div(T.gmc,T.stc),gpsp:div(T.gmp,T.stp)};}
+/* Run-rate GM per contract start already includes the GM your current consultants bring in. When you enter your book,
+   that GM is counted separately (carry-in), so each NEW contract start only counts the part of its assignment that lands in 2027
+   (starts spread through the year, average assignment CON_LEN weeks). Without a book, the run rate is a steady state and stays as is. */
+var CON_LEN=26;function kIn(){var L=CON_LEN,t=0;for(var s=0;s<52;s++)t+=Math.min(L,52-s);return t/52/L;}
 function eff(T){var r=ratios(T),o={gpsc:OV.gpsc>0?OV.gpsc:r.gpsc,gpsp:OV.gpsp>0?OV.gpsp:r.gpsp};
- if(!(o.gpsc>0)&&T.gmc>0)o.gpsc=r.gps;if(!(o.gpsp>0)&&T.gmp>0)o.gpsp=r.gps;o.cmix=T.starts>0?T.stc/T.starts:(T.gm>0?T.gmc/T.gm:1);o.gps=o.cmix*(o.gpsc||0)+(1-o.cmix)*(o.gpsp||0);return o;}
+ if(!(o.gpsc>0)&&T.gmc>0)o.gpsc=r.gps;if(!(o.gpsp>0)&&T.gmp>0)o.gpsp=r.gps;o.gpscLife=o.gpsc;o.kin=1;if(o.gpsc>0&&bookGM()>0){o.kin=kIn();o.gpsc*=o.kin;}o.cmix=T.starts>0?T.stc/T.starts:(T.gm>0?T.gmc/T.gm:1);o.gps=o.cmix*(o.gpsc||0)+(1-o.cmix)*(o.gpsp||0);return o;}
 function need(T,gc,gp,e){
  var sc=gc>0?(e.gpsc>0?ceil(gc/e.gpsc):NaN):0,sp=gp>0?(e.gpsp>0?ceil(gp/e.gpsp):NaN):0,N={stc:sc,stp:sp,starts:sc+sp};
  branches().forEach(function(br){var c=chainOf(T,br);for(var i=1;i<c.length;i++){var up=c[i],dn=c[i-1],cv=cvOf(T,{key:up+">"+dn,cur:div(sv(T,dn),sv(T,up))});if(N[up]==null)N[up]=cv>0&&!isNaN(N[dn])?ceil(N[dn]/cv):NaN;}});return N;}
@@ -1048,7 +1053,7 @@ function drawCn(T){[].forEach.call(document.querySelectorAll(".cn"),function(el)
   var bm=bmRate(pr.key,T);if(bm)el.innerHTML+=pr.up==="pros"?'<span class="bmt">new-account visits run about 1 per 100 attempts; most visits come from existing accounts</span>':'<span class="bmt">'+pill(bmStat(pr.cur,bm))+'target '+fmtBm(pr.key,bm[1])+'</span>';});
  (function(){var stw=T.starts||0;["pros","visits","jobs","vints","jom","subs","cints"].forEach(function(k){var el=$("cn_"+k);if(!el||!ST[k]||!mine(ST[k].r))return;var v=sv(T,k);if(!(v>0)||!(stw>0))return;var r=v/stw,pc=stw/v*100;
   el.insertAdjacentHTML("beforeend",'<span class="pst"><em>To a start</em><b>'+(r>=10?Math.round(r):r.toFixed(1))+'</b>'+ST[k].many+' for every 1 start <i>('+(pc>=10?Math.round(pc):pc.toFixed(1))+'% end in a start)</i></span>');});})();
- var e=eff(T),c=$("cn_startsgm");if(c)c.innerHTML=(e.gpsc||e.gpsp)?'<b>'+usd(e.gpsc||0)+'</b>GM per contract start &nbsp; <b>'+usd(e.gpsp||0)+'</b>GM per perm start':'';
+ var e=eff(T),c=$("cn_startsgm");if(c)c.innerHTML=(e.gpsc||e.gpsp)?'<b>'+usd(e.gpscLife||0)+'</b>GM per contract start &nbsp; <b>'+usd(e.gpsp||0)+'</b>GM per perm start':'';
  laneTitle();var n=0,lastBr=null;
  ["pros","visits","jobs","vints","jom","subs","cints","starts"].forEach(function(k){var el=$("bm_"+k);if(!el)return;var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k);
   if(!b){el.innerHTML="";return;}var mx=Math.max(b[2]*1.2,v*1.06),x=function(q){return Math.min(q/mx*100,100).toFixed(1);},u=isS?'/mo':'/wk',st=bmStat(v,b);
@@ -1281,15 +1286,15 @@ function drawOvr(T){var h="",r=ratios(T);
 var PLAN="",PD=null,MB=null;
 function drawMbar(){var b=$("mbar");if(!MB){b.hidden=true;return;}b.hidden=false;var ok=MB.gap<=1;
  b.innerHTML='<div><small>2027 goal</small><b>'+k$(MB.G)+'</b></div><div><small>'+(ok?"On track":"Gap to goal")+'</small><b class="'+(ok?"ok":"bh")+'">'+(ok?"+":"")+k$(Math.abs(MB.gap))+'</b></div><div><small>'+MB.topL+'</small><b>'+MB.top+'<span style="font-size:11px;opacity:.7"> /wk</span></b></div><span class="go">&#8250;</span>';}
-function calcTen(){var v=$("sdate").value,el=$("tenTxt");calcTF();if(!v){TEN=3;el.innerHTML="Leave blank if you&#8217;ve been in your seat over a year.";return;}
+function calcTen(){var v=$("sdate").value,el=$("tenTxt");calcTF();if(!v){TEN=3;el.innerHTML="Add it &mdash; it sets your ramp, your conversion benchmarks and your "+YEAR+" GM benchmark.";return;}
  var t=new Date(),d=Math.floor((new Date(t.getFullYear(),t.getMonth(),t.getDate())-new Date(v+"T00:00:00"))/864e5);
  TEN=d<=90?0:d<=180?1:d<365?2:3;
  var sd=new Date(v+"T00:00:00"),tt=new Date(),mo=(tt.getFullYear()-sd.getFullYear())*12+(tt.getMonth()-sd.getMonth())-(tt.getDate()<sd.getDate()?1:0),yy=Math.floor(mo/12),mm=mo%12,dur=mo<1?d+' day'+(d===1?'':'s'):(yy?yy+' year'+(yy===1?'':'s'):'')+(yy&&mm?', ':'')+(mm?mm+' month'+(mm===1?'':'s'):'');
  var parts=[];if(TF.act<.995)parts.push('activity <b>'+pctR(TF.act)+'</b>');if(TF.st<.995)parts.push('starts <b>'+pctR(TF.st)+'</b>');
  el.innerHTML='<b>'+dur+'</b> in your seat &middot; '+(parts.length?'your '+YEAR+' benchmarks: '+parts.join(', ')+' of fully ramped, conversion '+pctR(TF.cv)+(TF.gmB?' &middot; '+YEAR+' GM benchmark <b>'+k$(TF.gmB-RAMP.gmBand)+'&ndash;'+k$(TF.gmB+RAMP.gmBand)+'</b>':''):'fully ramped'+(TF.gmB?' &middot; '+YEAR+' GM benchmark <b>'+k$(TF.gmB-RAMP.gmBand)+'&ndash;'+k$(TF.gmB+RAMP.gmBand)+'</b>':'')+(TF.cv>1.004?' &middot; conversion benchmarks <b>+'+Math.round((TF.cv-1)*100)+'%</b> for your experience':''));}
 function perLabel(short){if(inm!=="tot")return short?"weekly averages":"your weekly averages";var f=function(v){var d=new Date(v+"T00:00:00");return d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});},w=Math.round(totW());
- if(per==="dates"&&$("d1").value&&$("d2").value){var nm=PQ==="q1"?"Last quarter":PQ==="q2"?"Last 2 quarters":PQ==="m12"?"Last 12 months":"";return (short?(nm||f($("d1").value)+" – "+f($("d2").value)):(nm?nm+", ":"")+f($("d1").value)+" – "+f($("d2").value))+(short?"":" ("+w+" weeks)");}
- return short?"Jan 1 – today":"Jan 1 – today ("+w+" weeks)";}
+ if(per==="dates"&&$("d1").value&&$("d2").value&&!perBounds().late){var nm=PQ==="q1"?"Last quarter":PQ==="q2"?"Last 2 quarters":PQ==="m12"?"Last 12 months":"";return (short?(nm||f($("d1").value)+" – "+f($("d2").value)):(nm?nm+", ":"")+f($("d1").value)+" – "+f($("d2").value))+(short?"":" ("+w+" weeks)");}
+ var B=perBounds();if(B.late)return short?"Since your start date":"since your start date, "+f(B.a.toISOString().slice(0,10))+" ("+w+" weeks)";return short?"Jan 1 – today":"Jan 1 – today ("+w+" weeks)";}
 function clampDates(){var t=new Date(),iso=new Date(t.getTime()-t.getTimezoneOffset()*6e4).toISOString().slice(0,10);["d1","d2","sdate"].forEach(function(id){var e=$(id);if(!e)return;e.max=iso;if(e.value&&e.value>iso)e.value=iso;});
  var a=$("d1"),b=$("d2");if(a&&b){b.min=a.value||"";if(a.value&&b.value&&b.value<a.value)b.value=a.value;}}
 function render(){clampDates();calcTen();var _gt=num($("gmc").value)+num($("gmp").value);$("gmtot").textContent=Math.round(_gt).toLocaleString("en-US");$("gmtotU").textContent=inm==="tot"?"total":"/week";
