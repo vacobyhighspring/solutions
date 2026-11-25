@@ -485,6 +485,33 @@ details.more .fields{margin-top:12px}
 .gref{font-size:13px;color:var(--muted);padding:2px 0 4px}.gref b{color:var(--ink)}
 .cn .wait{font-style:italic;color:var(--muted)}
 .ann{margin-top:3px}
+.sgp{border:2px solid var(--band);border-radius:16px;padding:16px 18px}
+.sgh{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center}
+.sgh>div{background:var(--tint);border-radius:12px;padding:10px 14px}
+.sgh>div.g{background:var(--orange-soft)}
+.sgh>div.gp{background:#fff0e5}.sgh>div.ok{background:#e9f7ef}
+.sgh span{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.sgh b{font-family:var(--display);font-size:26px;font-weight:800}
+.sgh i{font-style:normal;font-weight:800;color:var(--muted);font-size:18px}
+@media (max-width:700px){.sgh{grid-template-columns:1fr}.sgh i{display:none}}
+.sgt{font-family:var(--display);font-size:14.5px;margin:16px 0 6px}
+.sgtab{width:100%;border-collapse:collapse;font-size:13px}
+.sgtab th{text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
+.sgtab th.n,.sgtab td.n{text-align:right}
+.sgtab td{padding:7px 8px;border-bottom:1px solid var(--tint);font-variant-numeric:tabular-nums}
+.sgtab tr.hot td{background:#fffaf6;font-weight:700}
+.sgtab td em{font-style:normal;color:#b5490f;font-weight:700;font-size:11.5px}
+.sgtab td.g{color:var(--good);font-weight:800}
+.sgtab td span,.sgtab .mu{font-weight:500;color:var(--muted);font-size:11px}
+.sga{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:12px;margin-top:6px}
+.sgal b{display:block;font-size:13px}.sgal span{font-size:12px;color:var(--muted)}
+.sgav{text-align:right;font-family:var(--display);font-weight:800;font-size:17px;color:var(--good)}
+.sgav small{display:block;font-family:var(--body);font-size:10.5px;font-weight:600;color:var(--muted)}
+.sgtip{grid-column:1 / -1;font-size:12px;color:var(--ink);background:#f6f8fc;border-radius:8px;padding:6px 10px}
+.sgw{font-size:12.5px;color:var(--muted);margin:12px 0 0}.sgw b{color:var(--good)}
+details.more2{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+details.more2>summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--blue);padding:4px 0}
+details.more2[open]>summary{margin-bottom:10px}
 .toast{position:fixed;z-index:40;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:0 0 30px}
@@ -843,6 +870,22 @@ function gamePlan(T,e,NEWC,NEWP,NEW,BK,G,B){
  /* activity vs benchmark rows */
  var acts=["pros","visits","jobs","vints","jom","subs","cints","starts"].filter(function(k){return k==="starts"||active(T,k);}).map(function(k){var b=bmAct(k),isS=k==="starts",v=isS?T.starts*52/12:sv(T,k),nd=isS?(NB.starts||0)/12:NB[k]/52;return b?{k:k,l:ST[k].l,u:isS?"a month":"a week",v:v,b:b,st:bmStat(v,b),need:nd}:null;}).filter(Boolean);
  return {leaks:leaks,strong:strong,OVb:OVb,gB:gB,gapB:gapB,moreB:moreB,top:top,topL:ST[top].many,tB:tB,tNow:tNow,ab:ab,acts:acts,gAct:gAct,gNow:B.g,gap:B.gap};}
+function simpleGP(T,e,N,NEW,BK,G,B,GP){
+ var pace=T.gm*52,gap=G-(B.sY*B.e.gps+BK),gps=B.e.gps,
+  stages=["pros","visits","jobs","vints","jom","subs","cints"].filter(function(k){return active(T,k)&&B.N[k]!=null&&!isNaN(B.N[k]);}),
+  perUnit=function(k){var br=BR_A.indexOf(k)>-1&&chainOf(T,BR_A).indexOf(k)>-1?BR_A:BR_B,c=chainOf(T,br),i=c.indexOf(k),p=1;if(i<0)return 0;for(var j=i;j>0;j--)p*=div(sv(T,c[j-1]),sv(T,c[j]));return p*gps*52;};
+ var h='<div class="sgp"><div class="sgh"><div><span>Your pace today</span><b>'+k$(pace)+'</b></div><i>&rarr;</i><div class="g"><span>Your '+YEAR+' goal</span><b>'+k$(G)+'</b></div><i>=</i><div class="'+(gap>1?'gp':'ok')+'"><span>'+(gap>1?'Gap to close':'Ahead by')+'</span><b>'+k$(Math.abs(gap))+'</b></div></div>';
+ /* if you do more */
+ h+='<h4 class="sgt">If you do more, here&#8217;s where you land</h4><table class="sgtab"><tr><th>Each week</th><th class="n">You now</th><th class="n">Goal needs</th><th class="n">+1 more a week adds</th></tr>'+
+  stages.map(function(k){var nw=sv(T,k),nd=B.N[k]/52,u=perUnit(k),hot=k===topStage(T);return '<tr'+(hot?' class="hot"':'')+'><td>'+ST[k].l+'</td><td class="n">'+one(nw)+'</td><td class="n"><b>'+one(nd)+'</b>'+(nd>nw+0.05?' <em>+'+one(nd-nw)+'</em>':'')+'</td><td class="n g">+'+k$(u)+'<span> a year</span></td></tr>';}).join("")+
+  '<tr><td>Contract + perm starts <span class="mu">a month</span></td><td class="n">'+one(T.stc*52/12)+' + '+one(T.stp*52/12)+'</td><td class="n"><b>'+one((B.N.stc||0)/12)+' + '+one((B.N.stp||0)/12)+'</b></td><td class="n g">+'+k$(B.e.gpsc||gps)+' / +'+k$(B.e.gpsp||gps)+'<span> each</span></td></tr></table>';
+ /* top 2 areas */
+ var areas=GP.leaks.slice(0,2);
+ if(areas.length)h+='<h4 class="sgt">Top areas of improvement</h4>'+areas.map(function(l){var r=recsFor(l.key,l);return '<div class="sga"><div class="sgal"><b>'+l.l+'</b><span>'+l.now+' &rarr; benchmark '+l.tg+'</span></div><div class="sgav">'+(l.inFwd&&l.val>0?'+'+k$(l.val)+'<small>a year</small>':'&minus;'+Math.round((1-l.cur/l.bm[1])*100)+'%<small>less activity</small>')+'</div>'+(r?'<div class="sgtip">&#128161; '+r.t[0]+'</div>':'')+'</div>';}).join("");
+ var good=GP.strong.slice(0,3).map(function(x){return x.l;}).concat(GP.acts.filter(function(a){return a.st==="on"||a.st==="top";}).slice(0,2).map(function(a){return a.l;}));
+ if(good.length)h+='<p class="sgw"><b>Doing well:</b> '+good.join(" &middot; ")+'</p>';
+ h+='<div class="gbtns">'+(GP.leaks.length?'<button type="button" class="gbtn" id="applyBm">Apply benchmark rates to my plan</button>':'')+'<button type="button" class="gbtn ai" id="aiCoach">&#10022; Get AI coaching on my plan</button></div></div>';
+ return h;}
 function drawGP(GP){var who={sales:"producer (sales)",rec:"recruiter",full:"full desk"}[role];
  var h='<div class="gp2"><h3>Your game plan</h3><p class="gsub">Compared with the 2027 benchmarks for a '+who+(TEN<3?', ramping up ('+["0&ndash;90","91&ndash;180","181&ndash;365"][TEN]+' days in seat)':'')+'.</p>';
  var n=0,fixVal=Math.max(GP.gB-GP.gNow,0),goodAct=GP.acts.filter(function(a){return a.st==="on"||a.st==="top";});
@@ -861,7 +904,7 @@ function drawGP(GP){var who={sales:"producer (sales)",rec:"recruiter",full:"full
  h+='<div class="gstep"><b>'+n+'</b><div><h4>Your activity plan for '+YEAR+'</h4><p>'+(GP.gapB>1?'With these steps at benchmark, your goal takes <b>'+one(GP.tB)+' '+GP.topL+' a week</b> (you do '+one(GP.tNow)+' now).':'With these steps at benchmark, today&#8217;s pace covers your goal: <b>'+one(GP.tB)+' '+GP.topL+' a week</b> (you do '+one(GP.tNow)+').')+
   (ab?' Benchmark is '+one(ab[1])+' (range '+one(ab[0])+'&ndash;'+one(ab[2])+'). '+(beyond?'This is a stretch goal &mdash; above the high end of the range &mdash; so pair the extra activity with stronger conversion, higher GM per start, or a bigger book.':''):'')+'</p></div></div>';
  h+='<table class="acttab"><tr><th>Activity</th><th class="n">You now</th><th class="n">Benchmark</th><th class="n">Your '+YEAR+' plan</th><th></th></tr>'+GP.acts.map(function(a){return '<tr><td>'+a.l+' <span style="color:var(--muted);font-size:11px">'+a.u+'</span></td><td class="n">'+one(a.v)+'</td><td class="n">'+one(a.b[1])+' <span style="color:var(--muted);font-size:11px">('+one(a.b[0])+'&ndash;'+one(a.b[2])+')</span></td><td class="n"><b>'+(isNaN(a.need)?"&ndash;":one(a.need))+'</b></td><td>'+pill(a.st)+'</td></tr>';}).join("")+'</table>';
- h+='<div class="gbtns">'+(GP.leaks.length?'<button type="button" class="gbtn" id="applyBm">Apply benchmark rates to my plan</button>':'')+'<button type="button" class="gbtn ai" id="aiCoach">&#10022; Get AI coaching on my plan</button></div><p class="bmsrc">AI coaching opens Claude with your numbers, benchmarks and areas of improvement already written in &mdash; nothing is sent until you press send. Benchmarks: 2027 staffing targets by role; contract and perm rates are blended at your own mix of starts.</p></div>';
+ h+='<p class="bmsrc">AI coaching opens Claude with your numbers, benchmarks and areas of improvement already written in &mdash; nothing is sent until you press send. Benchmarks: 2027 staffing targets by role; contract and perm rates are blended at your own mix of starts.</p></div>';
  return h;}
 function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
  var top=topStage(T),W={gap:B.gap,more:B.more,top:ST[top].many,tw:sv(T,top),tn:B.N[top]/52,lev:[],f:[]};
@@ -869,7 +912,7 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
  var anyOv=Object.keys(OV).some(function(x){return OV[x]!=null&&OV[x]>0;});
  /* ---------- the formula ---------- */
  var GP=gamePlan(T,e,B.NEWC,B.NEWP,NEW,BK,G,B);W.GP=GP;
- var h=drawGP(GP)+'<h3>Your formula</h3><p class="sub2">Activity &times; your conversion at every step &times; GM per start = your GM. Better conversion anywhere in the chain means less activity for the same result.</p>';
+ var h=simpleGP(T,e,N,NEW,BK,G,B,GP)+'<details class="more2"><summary>See the full breakdown &mdash; every step, your formula and the improvement planner</summary>'+drawGP(GP)+'<h3>Your formula</h3><p class="sub2">Activity &times; your conversion at every step &times; GM per start = your GM. Better conversion anywhere in the chain means less activity for the same result.</p>';
  var FT=[];
  branches().forEach(function(br,bi){var c=chainOf(T,br);if(c.length<2)return;var tp=c[c.length-1],steps=[];for(var i=c.length-1;i>0;i--)steps.push({key:c[i]+">"+c[i-1],up:c[i],dn:c[i-1],cur:div(sv(T,c[i-1]),sv(T,c[i]))});
   var prod=steps.reduce(function(a,st){return a*cvOf(T,st);},1),a27=prod>0&&e.gps>0?NEW/52/e.gps/prod:0,aT=sv(T,tp),vT=aT,vP=a27,txT=one(aT)+" "+ST[tp].many+"/wk",txP=one(a27)+" "+ST[tp].many+"/wk";
@@ -910,6 +953,7 @@ function drawWays(T,e,N,NEW,BK,G,gap,more,sY,B){
  if(anyOv){var gain=(sY*e.gps+BK)-B.g,left=G-(sY*e.gps+BK),saved=B.N[top]/52-N[top]/52;
   h+='<div class="isum"><b>With your improvements:</b> today&#8217;s activity makes <b>'+k$(sY*e.gps+BK)+'</b> (+'+k$(Math.max(gain,0))+'). '+(left>1?'That leaves <b>'+k$(left)+'</b> &mdash; about <b>+'+Math.max(more,0).toFixed(0)+'% activity</b> ('+one(N[top]/52)+' '+ST[top].many+' a week).':'That <b>covers your goal</b> &mdash; you need <b>'+one(N[top]/52)+' '+ST[top].many+' a week</b>, '+one(Math.max(saved,0))+' fewer than without them.')+'</div>';}
  h+='<div class="wfoot"><span>Type any target in <b>Custom</b> &mdash; a rate, a number, or dollars.</span>'+(anyOv?'<button type="button" id="wReset">Clear improvements</button>':'')+'</div></div>';
+ h+='</details>';
  $("ways").innerHTML=h;W.imp=anyOv?{g:sY*e.gps+BK,top:N[top]/52}:null;return W;}
 function waysTxt(W){if(!W||!W.top)return "";var g=W.GP,gp=g?"My game plan (vs 2027 benchmarks):\n"+(g.leaks.length?(g.strong.length?"What I'm doing well: "+g.strong.map(function(x){return x.lt+" ("+x.now+")";}).join(", ")+"\n":"")+"1) Areas of improvement:\n"+g.leaks.slice(0,4).map(function(l){return "   - "+l.lt+": "+l.now+" -> benchmark "+l.tg+(l.inFwd&&l.val>0?" (+"+usd(l.val)+" a year)":"")+recTxt(l.key,l);}).join("\n")+"\n2) Activity plan: "+one(g.tB)+" "+g.topL+" a week (now "+one(g.tNow)+(g.ab?", benchmark "+one(g.ab[1]):"")+")":"1) Areas of improvement: conversion is at or above benchmark everywhere. 2) Activity plan: "+one(g.tB)+" "+g.topL+" a week")+"\n\n":"";var t=gp+"My formula:\n"+W.f.map(function(f){return (f.br?f.br+":\n":"")+"  Today: "+f.today+"\n  "+YEAR+" plan: "+f.plan;}).join("\n")+"\n\n"+(W.gap>1?"How I close my "+usd(W.gap)+" gap:\n1) Do more: +"+W.more.toFixed(0)+"% activity — "+one(W.tn)+" "+W.top+" a week instead of "+one(W.tw)+"\n2) Or convert better (same activity), any one of:\n"+W.lev.filter(function(l){return l.poss;}).map(function(l){return "   - "+l.l.replace("&rarr;","->").replace("&ndash;","-")+": "+l.now+" -> "+l.need;}).join("\n"):"On track: today's activity covers my goal ("+Math.abs(W.more).toFixed(0)+"% to spare).");return t;}
 function drawSteps(st){var L=[["s1","Role",st[0],"Role"],["s2","Numbers",st[1],"Numbers"],["s3","2027 goal",st[2],"Goal"],["s4","Book",st[3],"Book"],["s5","Game plan",st[4],"Plan"]],first=true;
