@@ -119,7 +119,7 @@ details.more .fields{margin-top:12px}
 .warn{background:var(--tint);color:var(--muted);border-radius:10px;padding:10px 12px;font-size:13px;font-weight:600}
 .how{font-size:12px;color:var(--muted);line-height:1.55}
 .how summary{cursor:pointer;font-weight:700;color:var(--blue)}
-.bkh,.bkr{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.85fr) minmax(0,1.35fr) minmax(0,1.15fr) minmax(0,.9fr) 28px;gap:8px;align-items:center}
+.bkh,.bkr{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr) minmax(0,.65fr) minmax(0,1.3fr) minmax(0,1.1fr) minmax(0,.9fr) 28px;gap:8px;align-items:center}
 .bkr>*,.bkh>*{min-width:0}
 .bkr .sh button{padding:7px 2px;font-size:12px}
 .bkr .bkc b{font-size:14px}
@@ -895,7 +895,7 @@ h2{font-size:20px}
       <div class="fld"><label for="bqend">Their average expected end date</label><div class="box"><input type="date" id="bqend"></div></div>
     </div>
     <div id="bList" hidden>
-    <div class="bkh"><span>Consultant name</span><span>GM per hour</span><span>Credit share <i>% on deal</i></span><span>Expected end date <i>blank = all year</i></span><span>2027 GM</span><span></span></div>
+    <div class="bkh"><span>Consultant name</span><span>GM per hour</span><span>Hours <i>a week</i></span><span>Credit share <i>% on deal</i></span><span>Expected end date <i>blank = all year</i></span><span>2027 GM</span><span></span></div>
     <div id="book"></div>
     <div class="bkf">
       <button type="button" class="add" id="addC">+ Add consultant</button>
@@ -949,7 +949,7 @@ var PQ="";function qRange(n){var t=new Date(),qs=Math.floor(t.getMonth()/3)*3,en
 var BMODE="quick",role="full",mode="grow",OV={},OPT={},BOOK=[],inm="tot",per="ytd",edited=false;
 var Y0=new Date(YEAR,0,1),Y1=new Date(YEAR,11,31);
 function util(){return Math.min(Math.max(num($("util").value),0),100)/100;}
-function cRow(c){var sp=(c.s===""||c.s==null?50:num(c.s))/100,wkGM=num(c.g)*40*util()*sp,end=c.e?new Date(c.e+"T00:00:00"):null,last=end&&end<Y1?end:Y1,wks=last<Y0?0:Math.min((Math.round((last-Y0)/864e5)+1)/7,52);return {wk:wkGM,wks:wks,ny:wkGM*wks};}
+function cRow(c){var sp=(c.s===""||c.s==null?50:num(c.s))/100,hw=num(c.h)>0?Math.min(num(c.h),60):40,wkGM=num(c.g)*hw*util()*sp,end=c.e?new Date(c.e+"T00:00:00"):null,last=end&&end<Y1?end:Y1,wks=last<Y0?0:Math.min((Math.round((last-Y0)/864e5)+1)/7,52);return {wk:wkGM,wks:wks,ny:wkGM*wks};}
 function bookIn(a,b){if(BMODE==="quick"){var wk=num($("bqwk").value),v=$("bqend").value,end=v?new Date(v+"T00:00:00"):Y1,last=end<b?end:b;return !(wk>0)||last<a?0:wk*Math.min((Math.round((last-a)/864e5)+1)/7,52);}
  return BOOK.reduce(function(t,c){var r=cRow(c),end=c.e?new Date(c.e+"T00:00:00"):Y1,last=end<b?end:b;return t+(last<a?0:r.wk*Math.min((Math.round((last-a)/864e5)+1)/7,52));},0);}
 function bookHr(){if(BMODE!=="list")return 0;var L=BOOK.filter(function(c){return num(c.g)>0;});if(!L.length)return 0;return L.reduce(function(a,c){return a+num(c.g)*((c.s===""||c.s==null?50:num(c.s))/100);},0)/L.length;}
@@ -961,12 +961,13 @@ function drawBook(){
   return '<div class="bkr" data-i="'+i+'">'+
   '<div class="nmc"><span class="ml">Consultant name</span><div class="box"><input data-bf="t" value="'+esc(c.t||"")+'" placeholder="e.g., Jordan Smith" aria-label="Consultant name"></div></div>'+
   '<div><span class="ml">GM per hour</span><div class="box"><span>$</span><input data-bf="g" inputmode="decimal" value="'+esc(c.g||"")+'" placeholder="0" aria-label="GM per hour"><span class="suf">/hr</span></div></div>'+
+  '<div><span class="ml">Hours a week</span><div class="box"><input data-bf="h" inputmode="decimal" value="'+esc(c.h==null?"40":c.h)+'" placeholder="40" aria-label="Hours a week"><span class="suf">hrs</span></div></div>'+
   '<div class="shc"><span class="ml">Credit share (% on deal)</span><div class="sh" role="group" aria-label="Credit share">'+["25","50"].map(function(v){return '<button type="button" data-sh="'+v+'" class="'+(!c.cs&&String(c.s==null?"50":c.s)===v?"on":"")+'">'+v+'%</button>';}).join("")+'<button type="button" data-sh="c" class="'+(c.cs?"on":"")+'">Custom</button></div>'+(c.cs?'<div class="box shi"><input data-bf="s" inputmode="decimal" value="'+esc(c.s==null?"":c.s)+'" aria-label="Custom credit share"><span class="suf">%</span></div>':'')+'</div>'+
   '<div><span class="ml">Expected end date</span><div class="box"><input type="date" data-bf="e" value="'+esc(c.e||"")+'" aria-label="Expected end date"></div></div>'+
   '<div class="bkc">'+cCell(c)+'</div>'+
   '<button type="button" class="rm" data-rm="'+i+'" aria-label="Remove consultant">&times;</button></div>';}).join(""):'<div class="empty">No consultants added. Click <b>+ Add consultant</b> for each person on billing.</div>';}
 function drawBookSum(){var n=BOOK.length,t=bookGM(),wk=bookWk(),u=Math.round(util()*100),h=Math.round(40*util()*10)/10;
- $("utilH").innerHTML="At "+u+"% a consultant bills about <b>"+h+" of 40 hours a week</b> on average (holidays, PTO and gaps aren&#8217;t billed). GM per week = GM per hour &times; 40 &times; utilization &times; your credit share.";
+ $("utilH").innerHTML="At "+u+"% a consultant bills about <b>"+h+" of 40 hours a week</b> on average (holidays, PTO and gaps aren&#8217;t billed). GM per week = GM per hour &times; hours a week (40 unless part-time) &times; utilization &times; your credit share.";
  $("bQuick").hidden=BMODE!=="quick";$("bList").hidden=BMODE!=="list";[].forEach.call($("bmode").children,function(b){b.classList.toggle("on",b.dataset.v===BMODE);});
  var qe=$("bqend").value,qw=qe?Math.min(Math.max((Math.round((new Date(qe+"T00:00:00")-Y0)/864e5)+1)/7,0),52):52;
  $("bookSum").innerHTML=BMODE==="quick"?(wk>0?'<div><span>Your GM per week today</span><b>'+usd(wk)+'</b></div><div><span>Billing into '+YEAR+'</span><b>'+one(qw)+' weeks</b></div><div><span>Carries into '+YEAR+'</span><b>'+usd(t)+'</b></div>':''):(n?'<div><span>Consultants</span><b>'+n+'</b></div><div><span>Your GM per week today</span><b>'+usd(wk)+'</b></div><div><span>Carries into '+YEAR+'</span><b>'+usd(t)+'</b></div>':"");}
@@ -1569,9 +1570,9 @@ function pickProd(r){var w=($("who").value||"").toLowerCase().split(/\s+/).filte
 function haveName(n){n=n.toLowerCase().trim();return BOOK.some(function(c){return (c.t||"").toLowerCase().trim()===n;});}
 function drawImp(ix){var p=PDSR[ix],box=$("impBox");
  box.innerHTML='<div class="ih"><b>'+p.rows.length+' consultant'+(p.rows.length===1?'':'s')+' credited to '+esc(pdsrName(p.name))+'</b><input type="hidden" id="impP" value="'+ix+'"><span class="note" style="margin:0">Only your deals are pulled &mdash; matched to your name in step 1.</span></div>'+
- '<table><thead><tr><th><input type="checkbox" id="impAll" checked aria-label="Select all"></th><th>Consultant</th><th>Client</th><th style="text-align:right">GM per hour</th><th style="text-align:right">Your % on deal</th><th style="text-align:right">Regular hours this report</th></tr></thead><tbody>'+
- p.rows.map(function(c,i){var d=haveName(c.t),ok=c.hrs>0&&!d;return '<tr'+(d?' class="dup"':'')+'><td><input type="checkbox" data-ii="'+i+'"'+(ok?' checked':'')+'></td><td>'+esc(c.t)+(d?' <i>(already in your book)</i>':'')+'</td><td>'+esc(c.client)+'</td><td class="n">$'+c.gmhr.toFixed(2)+'</td><td class="n">'+c.cr+'%</td><td class="n">'+one(c.hrs)+(c.ot>0?' <i>(+'+one(c.ot)+' OT)</i>':'')+'</td></tr>';}).join("")+'</tbody></table>'+
- '<p class="note">GM per hour is the whole deal at regular hours (bill rate minus pay rate and costs) &mdash; overtime is left out of projections. Your % on the deal is applied on top. Consultants with no hours on this report start unchecked.</p>'+
+ '<table><thead><tr><th><input type="checkbox" id="impAll" checked aria-label="Select all"></th><th>Consultant</th><th>Client</th><th style="text-align:right">GM per hour</th><th style="text-align:right">Your % on deal</th><th style="text-align:right">Regular hours this report</th><th style="text-align:right">Hours a week we&#8217;ll use</th></tr></thead><tbody>'+
+ p.rows.map(function(c,i){var d=haveName(c.t),ok=c.hrs>0&&!d;return '<tr'+(d?' class="dup"':'')+'><td><input type="checkbox" data-ii="'+i+'"'+(ok?' checked':'')+'></td><td>'+esc(c.t)+(d?' <i>(already in your book)</i>':'')+'</td><td>'+esc(c.client)+'</td><td class="n">$'+c.gmhr.toFixed(2)+'</td><td class="n">'+c.cr+'%</td><td class="n">'+one(c.hrs)+(c.ot>0?' <i>(+'+one(c.ot)+' OT)</i>':'')+'</td><td class="n"><b>'+(c.hrs>0&&c.hrs<35?one(c.hrs)+' <i>(part-time)</i>':'40')+'</b></td></tr>';}).join("")+'</tbody></table>'+
+ '<p class="note">GM per hour is the whole deal at regular hours (bill rate minus pay rate and costs) &mdash; overtime is left out of projections. Anyone under 35 regular hours is kept at their actual hours (part-time); everyone else is set to 40. Your % on the deal is applied on top. Consultants with no hours on this report start unchecked.</p>'+
  '<div class="if"><span>End dates stay blank (all year) &mdash; set each one after you add them.</span><span><button type="button" class="btn o" id="impX">Cancel</button> <button type="button" class="btn" id="impGo">Add to my book</button></span></div>';}
 $("impBtn").addEventListener("click",function(){$("impIn").click();});
 $("impIn").addEventListener("change",function(){var f=this.files[0];if(f)readPdsr(f);this.value="";});
@@ -1580,7 +1581,7 @@ $("impBox").addEventListener("change",function(e){if(e.target.id==="impPick"&&e.
 $("impBox").addEventListener("keydown",function(e){if(e.target.id==="impWho"&&e.key==="Enter"){e.preventDefault();impFind();}});
 $("impBox").addEventListener("click",function(e){if(e.target.id==="impFind"){impFind();return;}if(e.target.id==="impName"){e.preventDefault();var a=document.querySelector('.steps a[href="#s1"]');if(a)a.click();setTimeout(function(){$("who").focus();},300);return;}if(e.target.id==="impX"){$("impBox").hidden=true;return;}if(e.target.id!=="impGo")return;var p=PDSR[+$("impP").value],n=0;
  BOOK=BOOK.filter(function(c){return (c.t||"").trim()||num(c.g)>0;});
- [].forEach.call($("impBox").querySelectorAll("[data-ii]:checked"),function(b){var c=p.rows[+b.dataset.ii];if(haveName(c.t))return;var cr=String(c.cr);BOOK.push({t:c.t,g:String(Math.round(c.gmhr*100)/100),s:cr,cs:!(cr==="25"||cr==="50"),e:"",cl:c.client});n++;});
+ [].forEach.call($("impBox").querySelectorAll("[data-ii]:checked"),function(b){var c=p.rows[+b.dataset.ii];if(haveName(c.t))return;var cr=String(c.cr);var hw=c.hrs>0&&c.hrs<35?String(Math.round(c.hrs*10)/10):"40";BOOK.push({t:c.t,g:String(Math.round(c.gmhr*100)/100),h:hw,s:cr,cs:!(cr==="25"||cr==="50"),e:"",cl:c.client});n++;});
  BMODE="list";$("impBox").hidden=true;drawBook();render();toast(n?"Added "+n+" consultant"+(n===1?"":"s")+" — now add their end dates":"Nothing new to add");var r=$("book");if(r)r.scrollIntoView({behavior:"smooth",block:"start"});});
 $("addC").addEventListener("click",function(){BOOK.push({t:"",g:"",s:"50",e:""});drawBook();render();var r=$("book").querySelectorAll(".bkr");r[r.length-1].querySelector("input").focus();});
 $("book").addEventListener("click",function(e){var sb=e.target.closest("[data-sh]");if(sb){var i=+sb.closest(".bkr").dataset.i,c=BOOK[i];if(sb.dataset.sh==="c"){c.cs=true;}else{c.cs=false;c.s=sb.dataset.sh;}drawBook();render();if(c.cs){var inp=$("book").querySelectorAll(".bkr")[i].querySelector(".shi input");inp.focus();}return;}var b=e.target.closest("[data-rm]");if(!b)return;BOOK.splice(+b.dataset.rm,1);drawBook();render();});
