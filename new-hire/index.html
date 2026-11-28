@@ -122,6 +122,17 @@ details>*:not(summary){margin-left:20px;margin-right:20px}details>.bd{margin:0;b
 .role button.on{background:linear-gradient(90deg,var(--orange),var(--orange2));color:#fff;box-shadow:0 10px 22px rgba(249,92,21,.35)}
 .role+.eyebrow{margin-top:26px}.stats i{font-style:normal}
 body[data-role=sales] [data-role=recruit],body[data-role=recruit] [data-role=sales]{display:none!important}
+.cycle{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0;counter-reset:c}
+.cycle a{position:relative;display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:14px 14px 12px;background:#fff;transition:transform .2s,box-shadow .2s,border-color .2s}
+.cycle a:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(7,41,66,.08);border-color:var(--orange)}
+.cycle i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-weight:900;font-size:14px;margin-bottom:8px}
+.cycle b{display:block;font-size:15px;font-weight:800;line-height:1.25}.cycle span{font-size:12.5px;color:var(--mut)}
+.rl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:10px;margin:12px 0 18px}
+.rl a,.rl div{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;text-decoration:none;color:var(--ink)}
+.rl a:hover{border-color:var(--blue);box-shadow:0 10px 24px rgba(7,41,66,.07)}
+.rl b{display:block;font-size:14.5px}.rl small{display:block;color:var(--mut);font-size:12.5px;line-height:1.35}
+.rl em{flex:none;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 9px;background:#e8f7f0;color:#0f7a52}
+.rl div em{background:#f1f3f6;color:#7a8696}
 footer{text-align:center;color:#7a8a9a;font-size:13px;padding:0 20px 50px}
 @media(max-width:900px){html{scroll-padding-top:70px}.layout{grid-template-columns:minmax(0,1fr);padding:18px 14px 40px}
  nav.toc{position:sticky;top:0;z-index:5;display:flex;overflow-x:auto;gap:4px;padding:8px;border-radius:0 0 18px 18px;margin:0 -14px;scrollbar-width:none}nav.toc::-webkit-scrollbar{display:none}
@@ -136,7 +147,7 @@ footer{text-align:center;color:#7a8a9a;font-size:13px;padding:0 20px 50px}
  <div class="eyebrow">The Northeast playbook</div>
  <h1>Welcome to the team.<br><span>Start here.</span></h1>
  <p class="lede"><span data-role="sales">The plan our top producers follow: who to go after, what to say, how to get in the room and how to grow the account. Seven steps, in order.</span><span data-role="recruit">How we find, screen and close great technology talent, and how it all connects to sales. Read it in order.</span></p>
- <div class="cta"><a class="btn o" href="#w">Start reading &rarr;</a><a class="btn gh" href="#kit">Jump to the toolkit</a></div>
+ <div class="cta"><a class="btn o" href="#w">Start reading &rarr;</a><a class="btn gh" href="#kit">Resources and links</a></div>
  <div class="stats" data-role="sales"><div><b>7</b><span>Steps</span></div><div><b>20</b><span>Accounts to start</span></div><div><b>7&ndash;12</b><span>Touches to a reply</span></div><div><b>12</b><span>Ready-to-send emails</span></div></div><div class="stats" data-role="recruit"><div><b>6</b><span>Steps</span></div><div><b>7</b><span>Closing checks</span></div><div><b>12</b><span>Screens a week</span></div><div><b>1</b><span>Start a week</span></div></div>
  <div class="prog"><div class="pbar"><i id="pb"></i></div><span id="pt"></span></div>
 </div></header>
@@ -158,6 +169,27 @@ footer{text-align:center;color:#7a8a9a;font-size:13px;padding:0 20px 50px}
  </div>
  <div class="big3" data-role="sales"><b>Get comfortable being uncomfortable.</b><span>It will feel awkward early. That&rsquo;s the part most people quit. We don&rsquo;t.</span></div>
  <div class="big3" data-role="recruit"><b>Sales wins the job. You find the person.</b><span>Great recruiting is the right people, fully closed, in front of the client fast.</span></div>
+<h3 data-role="sales">The sales cycle, start to finish</h3>
+ <div class="cycle" data-role="sales">
+  <a href="#s2"><i>1</i><b>Pick your 20</b><span>Step 2</span></a>
+  <a href="#s7"><i>2</i><b>Find a trigger</b><span>Step 7</span></a>
+  <a href="#s3"><i>3</i><b>Reach out on rhythm</b><span>Step 3</span></a>
+  <a href="#s4"><i>4</i><b>Ask for the meeting</b><span>Step 4</span></a>
+  <a href="#s5"><i>5</i><b>Run discovery</b><span>Step 5</span></a>
+  <a href="#job"><i>6</i><b>Win the job</b><span>Job to start</span></a>
+  <a href="#s6"><i>7</i><b>Grow the account</b><span>Step 6</span></a>
+ </div>
+ <p class="fine" data-role="sales">Then repeat: every account you grow brings referrals, new buyers and new triggers back into step 1.</p>
+ <h3 data-role="recruit">The recruiting cycle, start to finish</h3>
+ <div class="cycle" data-role="recruit">
+  <a href="#r5"><i>1</i><b>Intake</b><span>With sales</span></a>
+  <a href="#r5"><i>2</i><b>Search</b><span>Network first</span></a>
+  <a href="#r5"><i>3</i><b>Screen</b><span>Fit and interest</span></a>
+  <a href="#r6"><i>4</i><b>Close</b><span>Before you submit</span></a>
+  <a href="#r5"><i>5</i><b>Submit</b><span>Only the best</span></a>
+  <a href="#job"><i>6</i><b>Interview to start</b><span>With Lisa</span></a>
+  <a href="#r5"><i>7</i><b>Stay close</b><span>Redeploy and referrals</span></a>
+ </div>
 </section>
 <section class="mod" id="who" data-t="Who we are">
  <div class="kick">Our business</div><h2>Who we are and what we sell</h2>
@@ -622,20 +654,16 @@ footer{text-align:center;color:#7a8a9a;font-size:13px;padding:0 20px 50px}
  </div>
  <p class="fine">Each GM range pays its own rate. Some offers include a guarantee for your first months; your offer letter and plan documents have the exact terms.</p></details>
 </section>
-<section class="mod" id="kit" data-t="Your toolkit">
- <div class="kick">Keep this handy</div><h2>Your toolkit</h2>
- <p class="sum">Everything you&rsquo;ll reach for once you&rsquo;re up and running. Open what you need.</p>
- <div class="links">
-  <a href="../tools/"><b>Tools Hub</b><small>Every tool and guide in one place</small></a>
-  <a href="../salary-guide/"><b>2027 Salary Guides</b><small>Pay data to share with clients</small></a>
-  <a href="../stories/"><b>Case Studies</b><small>Proof to send clients</small></a>
-  <a href="../technology/"><b>Technology Solutions</b><small>Our story, for clients</small></a>
-  <a href="../goal-2027/"><b>2027 Goal Setting</b><small>Set your target with your manager</small></a>
-  <a href="../commission/"><b>Commission Calculator</b><small>See what you&rsquo;ll earn</small></a>
- </div>
- <details class="tpl"><summary><b>Training and systems</b><small>Where to learn more</small></summary><div class="bd">
-  <p><b>Systems:</b> Salesforce (accounts, jobs, candidates), Outlook, Teams, SharePoint (training and templates), LinkedIn. Ask Tulsi for help.</p>
-  <p><b>Corporate training:</b> Highspring Training &amp; Development, Springboard (next cohort January 12, 2027), Talent Solutions and Salesforce training, LinkedIn Learning, and the <a href="https://vacoss.sharepoint.com/:u:/r/sites/HumanResources/SitePages/Managed-Services-Learning-Hub.aspx?csf=1&amp;web=1&amp;share=IQDbXfaDVz1iQK4z6Hpx8nP-AVC3o8r4GD5FvqQxRvxfQ8I&amp;e=nzEAAW" target="_blank" rel="noopener">Managed Services Learning Hub</a>. Questions: <a href="mailto:training@highspring.com">training@highspring.com</a>.</p></div></details>
+<section class="mod" id="kit" data-t="Resources and links">
+ <div class="kick">Keep this handy</div><h2>Resources and links</h2>
+ <p class="sum">Our Northeast tools, every corporate training resource, and the quick references you&rsquo;ll use every week.</p>
+<h3>Northeast team tools</h3>
+ <div class="rl"><a href="../tools/"><span><b>Tools Hub</b><small>Every Northeast tool and guide in one place</small></span><em>Open</em></a><a href="https://claude.ai/artifact/AAgCjYcPAcX4J61uFC4tA9" target="_blank" rel="noopener"><span><b>Northeast Tech Top Accounts</b><small>Ranked accounts, new triggers, buyers and sponsors (team access)</small></span><em>Open</em></a><a href="../territory-2027/internal/"><span><b>Internal territory map</b><small>Prospects and triggers by market (team passcode)</small></span><em>Open</em></a><a href="../salary-guide/"><span><b>2027 Salary Guides</b><small>Pay data to share with clients every month</small></span><em>Open</em></a><a href="../stories/"><span><b>Case Studies &amp; Client Stories</b><small>Proof and short stories to send buyers</small></span><em>Open</em></a><a href="../technology/"><span><b>Technology Solutions</b><small>Our technology story, for clients</small></span><em>Open</em></a><a href="../accounting-finance/"><span><b>Accounting &amp; Finance</b><small>Cross-sell to finance leaders</small></span><em>Open</em></a><a href="../hr-operations/"><span><b>HR &amp; Operations</b><small>Cross-sell to HR and ops leaders</small></span><em>Open</em></a><a href="../philippines/"><span><b>Philippines Delivery Guide</b><small>Offshore and nearshore teams</small></span><em>Open</em></a><a href="../gross-margin/"><span><b>Gross Margin Calculator</b><small>Price a contract deal</small></span><em>Open</em></a><a href="../commission/"><span><b>Commission Calculator</b><small>See what you&rsquo;ll earn on each plan</small></span><em>Open</em></a><a href="../goal-2027/"><span><b>2027 Goal Setting</b><small>Set your target and the activity it takes</small></span><em>Open</em></a><a href="../careers/"><span><b>Northeast Technology Careers</b><small>Refer someone to the team</small></span><em>Open</em></a></div>
+ <h3>Corporate resources</h3>
+ <p class="fine">Sign in with your company account. Items marked &ldquo;On SharePoint&rdquo; are in the Highspring Training &amp; Development site.</p>
+ <div class="rl"><div><span><b>Highspring Training &amp; Development</b><small>The central starting point for company learning</small></span><em>On SharePoint</em></div><div><span><b>New Hire Training</b><small>Corporate onboarding resources</small></span><em>On SharePoint</em></div><div><span><b>Springboard</b><small>New-hire development program. Next cohort January 12, 2027</small></span><em>On SharePoint</em></div><div><span><b>Talent Solutions Training</b><small>Staffing, recruiting and client development</small></span><em>On SharePoint</em></div><div><span><b>Salesforce Workflow Training</b><small>Opportunities, jobs, submittals, offers and placements (July 2026)</small></span><em>On SharePoint</em></div><div><span><b>Enterprise Systems &amp; Processes</b><small>Company systems and how they work</small></span><em>On SharePoint</em></div><div><span><b>Consulting Training</b><small>Highspring&rsquo;s consulting capabilities</small></span><em>On SharePoint</em></div><a href="https://vacoss.sharepoint.com/:u:/r/sites/HumanResources/SitePages/Managed-Services-Learning-Hub.aspx?csf=1&amp;web=1&amp;share=IQDbXfaDVz1iQK4z6Hpx8nP-AVC3o8r4GD5FvqQxRvxfQ8I&amp;e=nzEAAW" target="_blank" rel="noopener"><span><b>Managed Services Learning Hub</b><small>Managed services offerings and delivery</small></span><em>Open</em></a><div><span><b>Operations Resources &amp; Process Guides</b><small>Contracts, start sheets, onboarding</small></span><em>On SharePoint</em></div><div><span><b>Legal &amp; Contracts Resources</b><small>Agreements and contract questions</small></span><em>On SharePoint</em></div><div><span><b>LinkedIn Learning</b><small>Sales, recruiting, AI, Microsoft 365 and more</small></span><em>On SharePoint</em></div><div><span><b>Training Request Form</b><small>Questions about training access</small></span><em>On SharePoint</em></div><a href="mailto:training@highspring.com" target="_blank" rel="noopener"><span><b>Email the training team</b><small>training@highspring.com</small></span><em>Open</em></a></div>
+ <h3>More reading</h3>
+ <ul class="b"><li><b>Highspring New Hire Sales Guide (PDF):</b> sales fundamentals, account development and discovery.</li><li><b>New Hire Training | Recruiters:</b> Northeast recruiting training and workflows.</li><li><b>Talent Solutions Workflow Trainings, Recaps &amp; Resources:</b> the July 2026 Salesforce sessions.</li></ul>
  <details class="tpl"><summary><b>Words you&rsquo;ll hear</b><small>Quick glossary</small></summary><div class="bd"><dl class="gl">
   <dt>GM</dt><dd>Gross margin: what we keep on a deal. It drives your pay.</dd>
   <dt>Job order</dt><dd>A role a client asked us to fill.</dd>
